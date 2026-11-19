@@ -378,6 +378,36 @@
     }
     .video-frame { width: 100%; height: 280px; border: none; border-radius: 12px; background: #000; }
     .cms-img { width: 100%; max-height: 340px; object-fit: contain; border-radius: 12px; display: block; }
+    .field-group { display: flex; flex-direction: column; gap: 5px; }
+    .field-label { font-size: 12.5px; font-weight: 700; color: var(--slate-700); display: block; }
+    .preview-shell {
+      background: var(--royal-50);
+      border: 1.5px dashed #93c5fd;
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .storage-pill {
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+    .storage-pill.gh { background: var(--emerald-50); color: var(--emerald-600); border: 1px solid #a7f3d0; }
+    .storage-pill.fs { background: var(--amber-100); color: #92400e; border: 1px solid #fde68a; }
+    .guide-details summary { cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--royal-600); }
+    .guide-steps {
+      margin-top: 8px;
+      background: var(--royal-50);
+      border: 1px solid var(--royal-100);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 12px;
+      color: var(--slate-700);
+      line-height: 1.55;
+    }
 
     @media print {
       .no-print { display: none !important; }
@@ -585,10 +615,182 @@
       pendingAction: null,
       adminUsers: [],
       editingPracticeId: null,
+      editingPracticePath: "",
       editingPracticeCreatedAt: null,
       editingBlockId: null,
+      cmsDraft: {
+        type: "TEXT_ARTICLE",
+        badgeText: "",
+        title: "",
+        body: "",
+        driveUrl: ""
+      },
+      ghStatusMsg: "",
       player: null // active exam session
     };
+
+    // --- GitHub Direct Storage Helpers (Token stored in browser localStorage ONLY) ---
+    const GH_STORAGE_KEY = "crack_cgpsc_github_cfg_v1";
+
+    function ghGetConfig() {
+      try {
+        const raw = localStorage.getItem(GH_STORAGE_KEY);
+        if (!raw) return { owner: "", repo: "", branch: "main", token: "" };
+        const parsed = JSON.parse(raw);
+        return {
+          owner: String(parsed.owner || "").trim(),
+          repo: String(parsed.repo || "").trim(),
+          branch: String(parsed.branch || "main").trim() || "main",
+          token: String(parsed.token || "").trim()
+        };
+      } catch (_) {
+        return { owner: "", repo: "", branch: "main", token: "" };
+      }
+    }
+
+    function ghSaveConfig(cfg) {
+      localStorage.setItem(GH_STORAGE_KEY, JSON.stringify({
+        owner: String(cfg.owner || "").trim(),
+        repo: String(cfg.repo || "").trim(),
+        branch: String(cfg.branch || "main").trim() || "main",
+        token: String(cfg.token || "").trim()
+      }));
+    }
+
+    function ghClearConfig() {
+      localStorage.removeItem(GH_STORAGE_KEY);
+    }
+
+    function ghIsConfigured(cfg) {
+      return Boolean(cfg && cfg.owner && cfg.repo && cfg.branch && cfg.token);
+    }
+
+    function utf8ToBase64(str) {
+      const bytes = new TextEncoder().encode(String(str));
+      let bin = "";
+      const chunk = 0x8000;
+      for (let i = 0; i < bytes.length; i += chunk) {
+        bin += String.fromCharCode(...bytes.subarray(i, i + chunk));
+      }
+      return btoa(bin);
+    }
+
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        if (!file) return reject(new Error("No file selected."));
+        if (file.size > 5 * 1024 * 1024) {
+          return reject(new Error("Image size must be 5 MB or smaller."));
+        }
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = String(reader.result || "");
+          const idx = result.indexOf(",");
+          resolve(idx >= 0 ? result.slice(idx + 1) : result);
+        };
+        reader.onerror = () => reject(new Error("Failed to read file."));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function ghParseError(resp) {
+      let msg = "";
+      try {
+        const j = await resp.json();
+        msg = j.message || "";
+      } catch (_) {}
+      if (resp.status === 401) return "GitHub Token invalid or expired (401). Please check your Fine-Grained Token.";
+      if (resp.status === 403) return `GitHub permission denied (403): ${msg || "Ensure Contents: Read & Write is enabled."}`;
+      if (resp.status === 404) return `GitHub repo, branch, or file not found (404): ${msg}`;
+      return `GitHub API error (${resp.status}): ${msg || resp.statusText}`;
+    }
+
+    async function ghVerifyRepo(cfg) {
+      if (!ghIsConfigured(cfg)) throw new Error("Enter Owner, Repository, Branch, and Fine-Grained Token first.");
+      const resp = await fetch(`https://api.github.com/repos/${encodeURIComponent(cfg.owner)}/${encodeURIComponent(cfg.repo)}`, {
+        headers: {
+          "Authorization": `Bearer ${cfg.token}`,
+          "Accept": "application/vnd.github+json",
+          "X-GitHub-Api-Version": "2022-11-28"
+        }
+      });
+      if (!resp.ok) throw new Error(await ghParseError(resp));
+      const data = await resp.json();
+      if (data.permissions && !data.permissions.push) {
+        throw new Error(`Token can read ${data.full_name}, but lacks Contents: Read & Write permission.`);
+      }
+      return `Connected to ${data.full_name} (${cfg.branch})`;
+    }
+
+    async function ghFetchSha(cfg, path) {
+      const cleanPath = path.replace(/^\/+/, "");
+      const url = `https://api.github.com/repos/${encodeURIComponent(cfg.owner)}/${encodeURIComponent(cfg.repo)}/contents/${cleanPath}?ref=${encodeURIComponent(cfg.branch)}`;
+      const resp = await fetch(url, {
+        headers: {
+          "Authorization": `Bearer ${cfg.token}`,
+          "Accept": "application/vnd.github+json",
+          "X-GitHub-Api-Version": "2022-11-28"
+        }
+      });
+      if (resp.status === 404) return null;
+      if (!resp.ok) throw new Error(await ghParseError(resp));
+      const data = await resp.json();
+      return data.sha || null;
+    }
+
+    async function ghUploadContent(cfg, path, base64Content, commitMessage) {
+      if (!ghIsConfigured(cfg)) throw new Error("GitHub Direct Storage is not configured.");
+      const cleanPath = path.replace(/^\/+/, "");
+      const sha = await ghFetchSha(cfg, cleanPath);
+      const body = {
+        message: commitMessage,
+        content: base64Content,
+        branch: cfg.branch
+      };
+      if (sha) body.sha = sha;
+      const url = `https://api.github.com/repos/${encodeURIComponent(cfg.owner)}/${encodeURIComponent(cfg.repo)}/contents/${cleanPath}`;
+      const resp = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Authorization": `Bearer ${cfg.token}`,
+          "Accept": "application/vnd.github+json",
+          "X-GitHub-Api-Version": "2022-11-28",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
+      if (!resp.ok) throw new Error(await ghParseError(resp));
+      const rawUrl = `https://raw.githubusercontent.com/${cfg.owner}/${cfg.repo}/${cfg.branch}/${cleanPath}`;
+      return { githubPath: cleanPath, rawUrl };
+    }
+
+    async function ghDeleteFile(cfg, path, commitMessage) {
+      if (!ghIsConfigured(cfg) || !path) return;
+      const cleanPath = path.replace(/^\/+/, "");
+      const sha = await ghFetchSha(cfg, cleanPath);
+      if (!sha) return;
+      const url = `https://api.github.com/repos/${encodeURIComponent(cfg.owner)}/${encodeURIComponent(cfg.repo)}/contents/${cleanPath}`;
+      const resp = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${cfg.token}`,
+          "Accept": "application/vnd.github+json",
+          "X-GitHub-Api-Version": "2022-11-28",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: commitMessage, sha, branch: cfg.branch })
+      });
+      if (!resp.ok && resp.status !== 404) throw new Error(await ghParseError(resp));
+    }
+
+    function ghExtractPath(rawUrl, cfg) {
+      if (!ghIsConfigured(cfg) || !rawUrl) return null;
+      const prefix = `https://raw.githubusercontent.com/${cfg.owner}/${cfg.repo}/${cfg.branch}/`;
+      const clean = String(rawUrl).split("?")[0].trim();
+      if (clean.toLowerCase().startsWith(prefix.toLowerCase())) {
+        return clean.slice(prefix.length).replace(/^\/+/, "");
+      }
+      return null;
+    }
 
     // --- Helpers ---
     function esc(str) {
@@ -827,7 +1029,7 @@
             openRegistrationModal(false);
           }
         });
-        unsubAttempts = onSnapshot(query(collection(db, "users", user.uid, "attempts"), orderBy("submittedAt", "desc")), (qs) => {
+        unsubAttempts = onSnapshot(query(collection(db, "users", user.uid, "attempts"), orderBy("submittedAt", "desc"), limit(15)), (qs) => {
           state.attempts = qs.docs.map(d => d.data());
           renderPortalTabs();
         });
@@ -1023,7 +1225,7 @@
               updatedAt: serverTimestamp()
             });
           } catch (e) {
-            if (e.code === "not-found") {
+            if (e.code === "not-found" || e.code === "permission-denied") {
               await setDoc(doc(db, "portalData", "userRegistry"), {
                 users: { [uid]: regEntry },
                 updatedAt: serverTimestamp()
@@ -1072,15 +1274,34 @@
     async function executeAction(action) {
       try {
         if (action.type === "PRACTICE") {
-          const snap = await getDoc(doc(db, "practiceTests", action.testId));
-          if (!snap.exists()) return showBanner("Practice test not found.");
-          const d = snap.data();
-          startExamPlayer({
-            testId: action.testId, isScheduled: false, mode: action.mode,
-            title: d.title, durationMinutes: d.durationMinutes,
-            marksCorrect: d.marksCorrect, marksNegative: d.marksNegative,
-            questions: d.questions || []
-          });
+          const summary = state.catalog.practice.find(x => x.testId === action.testId);
+          if (summary && summary.jsonUrl) {
+            const sep = summary.jsonUrl.includes("?") ? "&" : "?";
+            const resp = await fetch(`${summary.jsonUrl}${sep}t=${Date.now()}`);
+            if (!resp.ok) throw new Error(`Failed to fetch practice test JSON from GitHub (HTTP ${resp.status}).`);
+            const rawText = await resp.text();
+            const parsed = normalizeTestJson(rawText);
+            startExamPlayer({
+              testId: action.testId,
+              isScheduled: false,
+              mode: action.mode,
+              title: summary.title || parsed.title,
+              durationMinutes: summary.durationMinutes || parsed.durationMinutes,
+              marksCorrect: summary.marksCorrect ?? parsed.marksCorrect,
+              marksNegative: summary.marksNegative ?? parsed.marksNegative,
+              questions: parsed.questions || []
+            });
+          } else {
+            const snap = await getDoc(doc(db, "practiceTests", action.testId));
+            if (!snap.exists()) return showBanner("Practice test not found.");
+            const d = snap.data();
+            startExamPlayer({
+              testId: action.testId, isScheduled: false, mode: action.mode,
+              title: d.title, durationMinutes: d.durationMinutes,
+              marksCorrect: d.marksCorrect, marksNegative: d.marksNegative,
+              questions: d.questions || []
+            });
+          }
         } else if (action.type === "SCHEDULED") {
           const s = action.summary;
           const now = Date.now();
@@ -1740,8 +1961,59 @@
     }
 
     // --- Admin-Only Studio (Hidden for non-admins, enforced in Firestore Rules) ---
+    function buildDraftCmsBlock() {
+      const d = state.cmsDraft;
+      const cleanUrl = (d.driveUrl || "").trim();
+      const resolved = d.type === "DRIVE_VIDEO" ? toVideoPreview(cleanUrl) : (d.type === "TEXT_ARTICLE" ? "" : toDriveImage(cleanUrl));
+      const fallbackTitles = {
+        HERO_BANNER: "Preview Hero Headline",
+        TEXT_ARTICLE: "Preview Article Headline",
+        DRIVE_IMAGE: "Preview Image Title",
+        DRIVE_VIDEO: "Preview Video Title"
+      };
+      return {
+        id: state.editingBlockId || "draft_preview",
+        type: d.type,
+        badgeText: (d.badgeText || "").trim(),
+        title: (d.title || "").trim() || fallbackTitles[d.type] || "Preview Title",
+        body: (d.body || "").trim() || "Live student preview updates as you type or upload media before publishing.",
+        driveUrl: cleanUrl,
+        resolvedMediaUrl: resolved,
+        visible: true,
+        orderIndex: state.config.blocks.length
+      };
+    }
+
+    function openFullHomePreviewModal() {
+      const logo = state.config.resolvedLogoUrl || toDriveImage(state.config.logoDriveUrl);
+      const visibleBlocksHtml = state.config.blocks.filter(b => b.visible !== false).map(renderCmsBlockHtml).join("");
+      const d = state.cmsDraft;
+      const hasDraft = Boolean((d.title || "").trim() || (d.body || "").trim() || (d.driveUrl || "").trim());
+      const draftHtml = hasDraft ? `
+        <div style="font-size:12px;font-weight:800;color:var(--royal-600);margin-top:4px;">UNPUBLISHED DRAFT BLOCK PREVIEW:</div>
+        ${renderCmsBlockHtml(buildDraftCmsBlock())}
+      ` : "";
+      openModal(`
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <strong style="font-size:15px;">Full Student Home Preview (Before Publish)</strong>
+          <button class="btn btn-outline" id="closeFullHomePrevBtn">Close</button>
+        </div>
+        <div style="background:var(--navy-900);color:#fff;padding:10px 14px;border-radius:12px;display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          ${logo ? `<img src="${esc(logo)}" style="height:34px;object-fit:contain;" />` : ""}
+          <div>
+            <div style="font-weight:800;font-size:14px;">${esc(state.config.portalTitle)}</div>
+            <div style="font-size:11px;color:var(--amber-300);font-weight:600;">STUDENT HOME PREVIEW</div>
+          </div>
+        </div>
+        <div class="stack">${visibleBlocksHtml}${draftHtml}${renderFooterHtml()}</div>
+      `, true);
+      document.getElementById("closeFullHomePrevBtn").onclick = closeModal;
+    }
+
     function renderAdminTab() {
       const el = document.getElementById("tabADMIN");
+      const ghCfg = ghGetConfig();
+      const ghReady = ghIsConfigured(ghCfg);
       const subBtns = [
         ["BRANDING", "Brand & Footer"],
         ["CMS", "Dashboard CMS"],
@@ -1759,25 +2031,94 @@
         `).join("");
         bodyHtml = `
           <div class="card stack">
-            <h3>Portal Branding &amp; Borderless Google Drive Logo</h3>
-            <label>Portal Header Title<input id="admTitle" value="${esc(state.config.portalTitle)}" /></label>
-            <label>Institute Name (Rank PDF &amp; Admit Cards)<input id="admInst" value="${esc(state.config.instituteName)}" /></label>
-            <label>Brand Logo Google Drive Link (Rendered without background box)<input id="admLogo" value="${esc(state.config.logoDriveUrl)}" placeholder="https://drive.google.com/file/d/.../view" /></label>
-            <h3>Footer Social Media Handles</h3>
-            ${socialsHtml}
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+              <h3 style="margin:0;">GitHub Direct Storage (0 Firebase Reads)</h3>
+              <span class="badge ${ghReady ? "badge-green" : "badge-amber"}">${ghReady ? "Connected Locally" : "Not Configured"}</span>
+            </div>
+            <p style="margin:0;font-size:12.5px;color:var(--slate-500);">
+              ${esc(state.ghStatusMsg || "Upload Practice Tests (.json) & Images directly to your GitHub repository. Your Fine-Grained Token stays strictly inside this browser's localStorage and is never sent to Firebase.")}
+            </p>
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label" for="ghOwner">GitHub Username / Owner</label>
+                <input id="ghOwner" placeholder="e.g. crackcgpsc" value="${esc(ghCfg.owner)}" />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="ghRepo">Repository Name</label>
+                <input id="ghRepo" placeholder="e.g. T" value="${esc(ghCfg.repo)}" />
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label" for="ghBranch">Branch Name</label>
+                <input id="ghBranch" placeholder="main" value="${esc(ghCfg.branch)}" />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="ghToken">Fine-Grained GitHub Token (Local Browser Only)</label>
+                <div style="display:flex;gap:6px;">
+                  <input id="ghToken" type="password" placeholder="github_pat_..." value="${esc(ghCfg.token)}" style="flex:1;" />
+                  <button class="btn btn-outline" type="button" id="toggleGhTokenBtn" style="white-space:nowrap;">Show</button>
+                </div>
+              </div>
+            </div>
             <div style="display:flex;gap:8px;flex-wrap:wrap;">
-              <input id="newSocApp" placeholder="App Name (e.g. Telegram)" style="flex:1;" />
-              <input id="newSocUrl" placeholder="https://t.me/..." style="flex:1.5;" />
-              <button class="btn btn-outline" id="addSocBtn">+ Add Handle</button>
+              <button class="btn btn-navy" style="flex:1;" id="saveGhBtn">Verify &amp; Save Locally</button>
+              ${ghReady ? `<button class="btn btn-outline" style="color:var(--rose-600);" id="clearGhBtn">Clear Token</button>` : ""}
+            </div>
+            <details class="guide-details">
+              <summary>How to create a safe 1-Repo Fine-Grained Token (3 Steps)</summary>
+              <div class="guide-steps">
+                1. Go to <strong>GitHub.com &rarr; Settings &rarr; Developer settings &rarr; Personal access tokens &rarr; Fine-grained tokens &rarr; Generate new token</strong>.<br/>
+                2. Under <strong>Repository access</strong> select <em>Only select repositories</em> and choose your website repo.<br/>
+                3. Under <strong>Repository permissions</strong> set <em>Contents: Read and write</em>, generate token, paste above &amp; click <strong>Verify &amp; Save Locally</strong>.
+              </div>
+            </details>
+          </div>
+
+          <div class="card stack">
+            <h3 style="margin:0;">Portal Branding &amp; Header Logo</h3>
+            <div class="field-group">
+              <label class="field-label" for="admTitle">Portal Header Title</label>
+              <input id="admTitle" placeholder="Crack CGPSC Free Test Series" value="${esc(state.config.portalTitle)}" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="admInst">Institute Name (Admit Cards &amp; Rank List PDFs)</label>
+              <input id="admInst" placeholder="Crack CGPSC Academy" value="${esc(state.config.instituteName)}" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="admLogo">Brand Logo URL (GitHub Raw or Google Drive Share Link)</label>
+              <input id="admLogo" value="${esc(state.config.logoDriveUrl)}" placeholder="https://raw.githubusercontent.com/... or Google Drive link" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="logoFilePick">Or Upload Logo Image Directly to GitHub (PNG / JPG / WebP)</label>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                <input type="file" id="logoFilePick" accept="image/*" style="flex:1;" />
+                <button class="btn btn-outline" type="button" id="uploadLogoGhBtn">Upload Logo to GitHub</button>
+              </div>
+            </div>
+            <h3 style="margin:6px 0 0;">Footer Social Media Handles</h3>
+            ${socialsHtml}
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;">
+              <div class="field-group" style="flex:1;min-width:150px;">
+                <label class="field-label" for="newSocApp">Social Platform Name</label>
+                <input id="newSocApp" placeholder="e.g. YouTube, Telegram" />
+              </div>
+              <div class="field-group" style="flex:1.5;min-width:200px;">
+                <label class="field-label" for="newSocUrl">Channel / Profile URL</label>
+                <input id="newSocUrl" placeholder="https://t.me/..." />
+              </div>
+              <button class="btn btn-outline" id="addSocBtn" style="height:42px;">+ Add Handle</button>
             </div>
             <button class="btn btn-emerald" id="saveBrandBtn">Publish Branding &amp; Footer Live</button>
           </div>
         `;
       } else if (state.adminSubTab === "CMS") {
+        const d = state.cmsDraft;
         const listHtml = state.config.blocks.map((b, i) => `
-          <div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+          <div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
             <div><span class="badge badge-blue">${esc(b.type)}</span> <strong>${esc(b.title || "(Untitled)")}</strong> ${b.visible === false ? "(Hidden)" : ""}</div>
-            <div style="display:flex;gap:6px;">
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+              <button class="btn btn-outline" data-blk-edit="${i}">Edit</button>
               <button class="btn btn-outline" data-blk-up="${i}">&uarr;</button>
               <button class="btn btn-outline" data-blk-dn="${i}">&darr;</button>
               <button class="btn btn-outline" data-blk-vis="${i}">${b.visible === false ? "Show" : "Hide"}</button>
@@ -1787,25 +2128,67 @@
         `).join("");
         bodyHtml = `
           <div class="card stack">
-            <h3>Add Dashboard Article / Drive Image / Drive Video</h3>
-            <select id="blkType">
-              <option value="TEXT_ARTICLE">Text Article / Notice</option>
-              <option value="HERO_BANNER">Hero Announcement Banner</option>
-              <option value="DRIVE_IMAGE">Google Drive Image Card</option>
-              <option value="DRIVE_VIDEO">Google Drive Video Card</option>
-            </select>
-            <input id="blkBadge" placeholder="Badge (e.g. NOTICE / NEW)" />
-            <input id="blkTitle" placeholder="Headline / Title" />
-            <textarea id="blkBody" rows="3" placeholder="Article text or caption..."></textarea>
-            <input id="blkUrl" placeholder="Google Drive Image/Video Link (optional for articles)" />
-            <button class="btn btn-navy" id="addBlkBtn">+ Add &amp; Publish Block Live</button>
+            <h3 style="margin:0;">${state.editingBlockId ? "Edit Dashboard Content Block" : "Add Dashboard Article / Image / Video Block"}</h3>
+            <div class="field-group">
+              <label class="field-label" for="blkType">Content Block Type</label>
+              <select id="blkType">
+                <option value="TEXT_ARTICLE" ${d.type === "TEXT_ARTICLE" ? "selected" : ""}>Text Article / Notice</option>
+                <option value="HERO_BANNER" ${d.type === "HERO_BANNER" ? "selected" : ""}>Hero Announcement Banner</option>
+                <option value="DRIVE_IMAGE" ${d.type === "DRIVE_IMAGE" ? "selected" : ""}>Image Card (GitHub or Google Drive)</option>
+                <option value="DRIVE_VIDEO" ${d.type === "DRIVE_VIDEO" ? "selected" : ""}>Video Card (Google Drive or YouTube)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="blkBadge">Badge Label (Optional — e.g. NOTICE, NEW, UPDATE)</label>
+              <input id="blkBadge" placeholder="NOTICE / NEW" value="${esc(d.badgeText)}" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="blkTitle">Headline / Block Title</label>
+              <input id="blkTitle" placeholder="Enter headline..." value="${esc(d.title)}" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="blkBody">Article Body Text / Caption</label>
+              <textarea id="blkBody" rows="3" placeholder="Enter article details or media caption...">${esc(d.body)}</textarea>
+            </div>
+            <div id="blkMediaSection" class="stack ${d.type === "TEXT_ARTICLE" ? "hidden" : ""}" style="gap:10px;">
+              <div class="field-group">
+                <label class="field-label" for="blkUrl" id="blkUrlLabel">${d.type === "DRIVE_VIDEO" ? "Video Share Link (Google Drive / YouTube)" : "Image URL (Uploaded GitHub Raw URL or Google Drive Link)"}</label>
+                <input id="blkUrl" placeholder="https://raw.githubusercontent.com/... or Google Drive link" value="${esc(d.driveUrl)}" />
+              </div>
+              <div id="blkUploadWrap" class="field-group ${d.type === "DRIVE_VIDEO" ? "hidden" : ""}">
+                <label class="field-label" for="blkImgPick">Upload Image Directly to GitHub Repo (0 Firebase Reads)</label>
+                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                  <input type="file" id="blkImgPick" accept="image/*" style="flex:1;" />
+                  <button class="btn btn-outline" type="button" id="uploadBlkImgBtn">Upload Image to GitHub</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="preview-shell">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-size:11.5px;font-weight:800;color:var(--royal-600);">LIVE STUDENT PREVIEW (BEFORE PUBLISH)</span>
+                <span style="font-size:11px;color:var(--slate-500);">Exact student view</span>
+              </div>
+              <div id="cmsLivePreviewBox">${renderCmsBlockHtml(buildDraftCmsBlock())}</div>
+            </div>
+
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              ${state.editingBlockId
+                ? `<button class="btn btn-outline" type="button" id="cancelBlkEditBtn">Cancel Edit</button>`
+                : `<button class="btn btn-outline" type="button" id="previewFullHomeBtn">Preview Full Student Home</button>`}
+              <button class="btn btn-navy" style="flex:1;" id="addBlkBtn">${state.editingBlockId ? "Update & Publish Block Live" : "+ Add & Publish Block Live"}</button>
+            </div>
           </div>
+          <h3 style="margin:4px 0;">Published Dashboard Blocks (${state.config.blocks.length})</h3>
           <div class="stack">${listHtml}</div>
         `;
       } else if (state.adminSubTab === "LIBRARY") {
         const pracList = state.catalog.practice.map(p => `
-          <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
-            <div><strong>${esc(p.title)}</strong> <div style="font-size:12px;color:var(--slate-500);">${esc(p.subjectTag)} • ${p.questionCount} Qs • ${p.durationMinutes}m</div></div>
+          <div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+            <div>
+              <strong>${esc(p.title)}</strong>
+              <div style="font-size:12px;color:var(--slate-500);">${esc(p.subjectTag)} • ${p.questionCount} Qs • ${p.durationMinutes}m • <strong style="color:${p.jsonUrl ? "var(--emerald-600)" : "var(--amber-600)"};">${p.jsonUrl ? "GitHub (0-Read)" : "Firestore"}</strong></div>
+            </div>
             <div style="display:flex;gap:6px;">
               <button class="btn btn-outline" data-edit-prac="${esc(p.testId)}">Edit</button>
               <button class="btn btn-rose" data-del-prac="${esc(p.testId)}">Delete</button>
@@ -1813,22 +2196,52 @@
           </div>
         `).join("");
         bodyHtml = `
+          <div class="storage-pill ${ghReady ? "gh" : "fs"}">
+            ${ghReady
+              ? "Storage Mode: GitHub Repo Direct Upload (0 Firebase Reads per student test attempt)"
+              : "Storage Mode: Firebase Firestore Fallback (Set GitHub Token in Brand & Footer tab for 0-Read hosting)"}
+          </div>
           <div class="card stack">
-            <h3>${state.editingPracticeId ? "Edit Practice Test" : "Upload Practice / Quiz Test"}</h3>
-            <input id="pracTitle" placeholder="Test Title" />
-            <input id="pracSubj" value="CGPSC General Studies" placeholder="Subject Tag" />
-            <div style="display:flex;gap:8px;">
-              <input id="pracDur" value="30" placeholder="Minutes" />
-              <input id="pracPos" value="2.0" placeholder="+Marks" />
-              <input id="pracNeg" value="0.66" placeholder="-Marks" />
+            <h3 style="margin:0;">${state.editingPracticeId ? "Edit Practice Test" : "Upload Practice / Quiz Test (Up to 500 Questions)"}</h3>
+            <div class="field-group">
+              <label class="field-label" for="pracTitle">Practice Test Title</label>
+              <input id="pracTitle" placeholder="e.g. Chhattisgarh Economy Full Mock 01" />
             </div>
-            <input type="file" id="pracFilePick" accept=".json,.txt" />
-            <textarea id="pracJson" rows="5" placeholder="Paste test JSON..."></textarea>
+            <div class="field-group">
+              <label class="field-label" for="pracSubj">Subject / Category Tag</label>
+              <input id="pracSubj" value="CGPSC General Studies" placeholder="CGPSC General Studies" />
+            </div>
+            <div class="grid-3">
+              <div class="field-group">
+                <label class="field-label" for="pracDur">Duration (Minutes)</label>
+                <input id="pracDur" type="number" min="1" value="30" placeholder="30" />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="pracPos">Marks Per Correct (+)</label>
+                <input id="pracPos" type="number" step="0.01" value="2.0" placeholder="2.0" />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="pracNeg">Negative Marking (-)</label>
+                <input id="pracNeg" type="number" step="0.01" value="0.66" placeholder="0.66" />
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="pracFilePick">Upload Questions JSON File (.json / .txt)</label>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                <input type="file" id="pracFilePick" accept=".json,.txt" style="flex:1;" />
+                <button class="btn btn-outline" type="button" id="loadPracDemoBtn">Load Demo JSON</button>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="pracJson">Test Questions JSON Content (1 to 500 Questions)</label>
+              <textarea id="pracJson" rows="6" placeholder="Paste test JSON array or { title, questions: [...] }..."></textarea>
+            </div>
             <div style="display:flex;gap:8px;">
               ${state.editingPracticeId ? `<button class="btn btn-outline" id="cancelPracEditBtn">Cancel Edit</button>` : ""}
-              <button class="btn btn-primary" style="flex:1;" id="savePracBtn">${state.editingPracticeId ? "Update Practice Test" : "Publish to Practice Library"}</button>
+              <button class="btn btn-primary" style="flex:1;" id="savePracBtn">${state.editingPracticeId ? "Update Practice Test" : (ghReady ? "Publish to GitHub & Catalog (0-Read)" : "Publish to Firestore Library")}</button>
             </div>
           </div>
+          <h3 style="margin:4px 0;">Published Practice Tests (${state.catalog.practice.length})</h3>
           <div class="stack">${pracList}</div>
         `;
       } else {
@@ -1847,22 +2260,49 @@
         `).join("");
         bodyHtml = `
           <div class="card stack">
-            <h3>Schedule Fixed-Window Exam</h3>
-            <input id="scTitle" placeholder="Exam Title" />
-            <div style="display:flex;gap:8px;">
-              <input id="scDur" value="60" placeholder="Minutes" />
-              <input id="scPos" value="2.0" placeholder="+Marks" />
-              <input id="scNeg" value="0.66" placeholder="-Marks" />
+            <h3 style="margin:0;">Schedule Fixed-Window Exam (Firebase Secured • Up to 500 Questions)</h3>
+            <div class="field-group">
+              <label class="field-label" for="scTitle">Scheduled Exam Title</label>
+              <input id="scTitle" placeholder="e.g. CGPSC State Service Prelims Mega Test 01" />
             </div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;">
-              <label style="flex:1;font-size:12px;">Window Start<input type="datetime-local" id="scStart" value="${nowIso(Date.now())}" /></label>
-              <label style="flex:1;font-size:12px;">Window End<input type="datetime-local" id="scEnd" value="${nowIso(Date.now() + 3 * 3600000)}" /></label>
+            <div class="grid-3">
+              <div class="field-group">
+                <label class="field-label" for="scDur">Duration (Minutes)</label>
+                <input id="scDur" type="number" min="1" value="60" placeholder="60" />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="scPos">Marks Per Correct (+)</label>
+                <input id="scPos" type="number" step="0.01" value="2.0" placeholder="2.0" />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="scNeg">Negative Marking (-)</label>
+                <input id="scNeg" type="number" step="0.01" value="0.66" placeholder="0.66" />
+              </div>
             </div>
-            <input type="file" id="scFilePick" accept=".json,.txt" />
-            <textarea id="scJson" rows="4" placeholder="Paste scheduled exam JSON..."></textarea>
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label" for="scStart">Exam Window Start Date &amp; Time</label>
+                <input type="datetime-local" id="scStart" value="${nowIso(Date.now())}" />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="scEnd">Exam Window End Date &amp; Time</label>
+                <input type="datetime-local" id="scEnd" value="${nowIso(Date.now() + 3 * 3600000)}" />
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="scFilePick">Upload Exam Questions JSON File (.json / .txt)</label>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                <input type="file" id="scFilePick" accept=".json,.txt" style="flex:1;" />
+                <button class="btn btn-outline" type="button" id="loadScDemoBtn">Load Demo JSON</button>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="scJson">Scheduled Exam Questions JSON (1 to 500 Questions)</label>
+              <textarea id="scJson" rows="5" placeholder="Paste scheduled exam JSON..."></textarea>
+            </div>
             <button class="btn btn-navy" id="pubSchedBtn">Publish Scheduled Exam &amp; Merit Sheet</button>
           </div>
-          <h3>Scheduled Exams</h3>
+          <h3 style="margin:4px 0;">Scheduled Exams (${state.catalog.scheduled.length})</h3>
           <div class="stack">${schedRows}</div>
           <div class="card stack">
             <div style="display:flex;justify-content:space-between;align-items:center;">
@@ -1879,6 +2319,73 @@
 
       // Wire Admin events per active subTab
       if (state.adminSubTab === "BRANDING") {
+        const tokInput = document.getElementById("ghToken");
+        document.getElementById("toggleGhTokenBtn").onclick = () => {
+          const isPw = tokInput.type === "password";
+          tokInput.type = isPw ? "text" : "password";
+          document.getElementById("toggleGhTokenBtn").textContent = isPw ? "Hide" : "Show";
+        };
+        document.getElementById("saveGhBtn").onclick = async () => {
+          const btn = document.getElementById("saveGhBtn");
+          const cfg = {
+            owner: document.getElementById("ghOwner").value.trim(),
+            repo: document.getElementById("ghRepo").value.trim(),
+            branch: document.getElementById("ghBranch").value.trim() || "main",
+            token: document.getElementById("ghToken").value.trim()
+          };
+          btn.disabled = true;
+          btn.textContent = "Verifying...";
+          try {
+            const msg = await ghVerifyRepo(cfg);
+            ghSaveConfig(cfg);
+            state.ghStatusMsg = `${msg} • Token saved in this browser only.`;
+            showBanner(state.ghStatusMsg);
+            renderAdminTab();
+          } catch (err) {
+            alert(err.message);
+          } finally {
+            btn.disabled = false;
+            btn.textContent = "Verify & Save Locally";
+          }
+        };
+        const clearGhBtn = document.getElementById("clearGhBtn");
+        if (clearGhBtn) {
+          clearGhBtn.onclick = () => {
+            ghClearConfig();
+            state.ghStatusMsg = "Local GitHub token cleared from this browser.";
+            renderAdminTab();
+          };
+        }
+
+        const handleLogoUpload = async (file) => {
+          const cfg = ghGetConfig();
+          if (!ghIsConfigured(cfg)) return alert("First save & verify your GitHub repo + Fine-Grained Token above.");
+          const btn = document.getElementById("uploadLogoGhBtn");
+          btn.disabled = true;
+          btn.textContent = "Uploading...";
+          try {
+            const b64 = await fileToBase64(file);
+            const ext = (file.name.split(".").pop() || "png").toLowerCase().replace(/[^a-z0-9]/g, "") || "png";
+            const res = await ghUploadContent(cfg, `assets/images/logo_${Date.now()}.${ext}`, b64, "Upload brand logo via Admin Studio");
+            document.getElementById("admLogo").value = res.rawUrl;
+            showBanner("Logo uploaded to GitHub! Click 'Publish Branding & Footer Live' to apply.");
+          } catch (err) {
+            alert("Logo upload failed: " + err.message);
+          } finally {
+            btn.disabled = false;
+            btn.textContent = "Upload Logo to GitHub";
+          }
+        };
+        document.getElementById("uploadLogoGhBtn").onclick = () => {
+          const f = document.getElementById("logoFilePick").files[0];
+          if (!f) document.getElementById("logoFilePick").click();
+          else handleLogoUpload(f);
+        };
+        document.getElementById("logoFilePick").onchange = (e) => {
+          const f = e.target.files[0];
+          if (f) handleLogoUpload(f);
+        };
+
         el.querySelectorAll("[data-del-soc]").forEach(b => b.onclick = () => {
           state.config.socialLinks.splice(Number(b.getAttribute("data-del-soc")), 1);
           renderAdminTab();
@@ -1892,28 +2399,127 @@
           }
         };
         document.getElementById("saveBrandBtn").onclick = async () => {
-          state.config.portalTitle = document.getElementById("admTitle").value.trim() || "Crack CGPSC Free Test Series";
-          state.config.instituteName = document.getElementById("admInst").value.trim() || "Crack CGPSC Academy";
-          state.config.logoDriveUrl = document.getElementById("admLogo").value.trim();
-          state.config.resolvedLogoUrl = toDriveImage(state.config.logoDriveUrl);
-          await saveConfigToFirestore();
+          try {
+            state.config.portalTitle = document.getElementById("admTitle").value.trim() || "Crack CGPSC Free Test Series";
+            state.config.instituteName = document.getElementById("admInst").value.trim() || "Crack CGPSC Academy";
+            state.config.logoDriveUrl = document.getElementById("admLogo").value.trim();
+            state.config.resolvedLogoUrl = toDriveImage(state.config.logoDriveUrl);
+            await saveConfigToFirestore();
+          } catch (err) {
+            alert("Save Branding failed [Step: portalData/dashboardConfig]: " + err.message);
+          }
         };
       } else if (state.adminSubTab === "CMS") {
-        document.getElementById("addBlkBtn").onclick = async () => {
-          const type = document.getElementById("blkType").value;
-          const driveUrl = document.getElementById("blkUrl").value.trim();
-          state.config.blocks.push({
-            id: `blk_${Date.now()}`, type,
-            badgeText: document.getElementById("blkBadge").value.trim(),
-            title: document.getElementById("blkTitle").value.trim(),
-            body: document.getElementById("blkBody").value.trim(),
-            driveUrl,
-            resolvedMediaUrl: type === "DRIVE_VIDEO" ? toVideoPreview(driveUrl) : toDriveImage(driveUrl),
-            visible: true, orderIndex: state.config.blocks.length
-          });
-          await saveConfigToFirestore();
+        const refreshDraftPreview = () => {
+          state.cmsDraft.type = document.getElementById("blkType").value;
+          state.cmsDraft.badgeText = document.getElementById("blkBadge").value;
+          state.cmsDraft.title = document.getElementById("blkTitle").value;
+          state.cmsDraft.body = document.getElementById("blkBody").value;
+          state.cmsDraft.driveUrl = document.getElementById("blkUrl").value;
+
+          const mediaSec = document.getElementById("blkMediaSection");
+          const uploadWrap = document.getElementById("blkUploadWrap");
+          const urlLbl = document.getElementById("blkUrlLabel");
+          mediaSec.classList.toggle("hidden", state.cmsDraft.type === "TEXT_ARTICLE");
+          uploadWrap.classList.toggle("hidden", state.cmsDraft.type === "DRIVE_VIDEO");
+          urlLbl.textContent = state.cmsDraft.type === "DRIVE_VIDEO"
+            ? "Video Share Link (Google Drive / YouTube)"
+            : "Image URL (Uploaded GitHub Raw URL or Google Drive Link)";
+
+          document.getElementById("cmsLivePreviewBox").innerHTML = renderCmsBlockHtml(buildDraftCmsBlock());
+        };
+
+        ["blkType", "blkBadge", "blkTitle", "blkBody", "blkUrl"].forEach(id => {
+          const inp = document.getElementById(id);
+          inp.addEventListener("input", refreshDraftPreview);
+          inp.addEventListener("change", refreshDraftPreview);
+        });
+
+        const handleCmsImgUpload = async (file) => {
+          const cfg = ghGetConfig();
+          if (!ghIsConfigured(cfg)) return alert("First configure & verify GitHub Direct Storage in Brand & Footer tab.");
+          const btn = document.getElementById("uploadBlkImgBtn");
+          btn.disabled = true;
+          btn.textContent = "Uploading...";
+          try {
+            const b64 = await fileToBase64(file);
+            const ext = (file.name.split(".").pop() || "png").toLowerCase().replace(/[^a-z0-9]/g, "") || "png";
+            const res = await ghUploadContent(cfg, `assets/images/cms_${Date.now()}.${ext}`, b64, "Upload dashboard CMS image via Admin Studio");
+            document.getElementById("blkUrl").value = res.rawUrl;
+            refreshDraftPreview();
+            showBanner("Image uploaded to GitHub! Preview updated — click Add & Publish when ready.");
+          } catch (err) {
+            alert("Image upload failed: " + err.message);
+          } finally {
+            btn.disabled = false;
+            btn.textContent = "Upload Image to GitHub";
+          }
+        };
+        document.getElementById("uploadBlkImgBtn").onclick = () => {
+          const f = document.getElementById("blkImgPick").files[0];
+          if (!f) document.getElementById("blkImgPick").click();
+          else handleCmsImgUpload(f);
+        };
+        document.getElementById("blkImgPick").onchange = (e) => {
+          const f = e.target.files[0];
+          if (f) handleCmsImgUpload(f);
+        };
+
+        const prevFullBtn = document.getElementById("previewFullHomeBtn");
+        if (prevFullBtn) prevFullBtn.onclick = openFullHomePreviewModal;
+        const cancelBlkBtn = document.getElementById("cancelBlkEditBtn");
+        if (cancelBlkBtn) cancelBlkBtn.onclick = () => {
+          state.editingBlockId = null;
+          state.cmsDraft = { type: "TEXT_ARTICLE", badgeText: "", title: "", body: "", driveUrl: "" };
           renderAdminTab();
         };
+
+        document.getElementById("addBlkBtn").onclick = async () => {
+          try {
+            const type = document.getElementById("blkType").value;
+            const driveUrl = document.getElementById("blkUrl").value.trim();
+            const blkObj = {
+              id: state.editingBlockId || `blk_${Date.now()}`,
+              type,
+              badgeText: document.getElementById("blkBadge").value.trim(),
+              title: document.getElementById("blkTitle").value.trim(),
+              body: document.getElementById("blkBody").value.trim(),
+              driveUrl,
+              resolvedMediaUrl: type === "DRIVE_VIDEO" ? toVideoPreview(driveUrl) : (type === "TEXT_ARTICLE" ? "" : toDriveImage(driveUrl)),
+              visible: true,
+              orderIndex: state.config.blocks.length
+            };
+            if (!blkObj.title && !blkObj.body && !blkObj.driveUrl) {
+              return alert("Enter a Title, Body, or Media URL before publishing.");
+            }
+            if (state.editingBlockId) {
+              state.config.blocks = state.config.blocks.map(b => b.id === state.editingBlockId ? { ...blkObj, orderIndex: b.orderIndex, visible: b.visible } : b);
+            } else {
+              state.config.blocks.push(blkObj);
+            }
+            state.editingBlockId = null;
+            state.cmsDraft = { type: "TEXT_ARTICLE", badgeText: "", title: "", body: "", driveUrl: "" };
+            await saveConfigToFirestore();
+            renderAdminTab();
+          } catch (err) {
+            alert("Publish CMS block failed [Step: portalData/dashboardConfig]: " + err.message);
+          }
+        };
+
+        el.querySelectorAll("[data-blk-edit]").forEach(b => b.onclick = () => {
+          const blk = state.config.blocks[Number(b.getAttribute("data-blk-edit"))];
+          if (!blk) return;
+          state.editingBlockId = blk.id;
+          state.cmsDraft = {
+            type: blk.type || "TEXT_ARTICLE",
+            badgeText: blk.badgeText || "",
+            title: blk.title || "",
+            body: blk.body || "",
+            driveUrl: blk.driveUrl || ""
+          };
+          renderAdminTab();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
         el.querySelectorAll("[data-blk-up]").forEach(b => b.onclick = async () => {
           const i = Number(b.getAttribute("data-blk-up"));
           if (i > 0) { [state.config.blocks[i - 1], state.config.blocks[i]] = [state.config.blocks[i], state.config.blocks[i - 1]]; await saveConfigToFirestore(); renderAdminTab(); }
@@ -1928,49 +2534,131 @@
           await saveConfigToFirestore(); renderAdminTab();
         });
         el.querySelectorAll("[data-blk-del]").forEach(b => b.onclick = async () => {
-          state.config.blocks.splice(Number(b.getAttribute("data-blk-del")), 1);
-          await saveConfigToFirestore(); renderAdminTab();
+          const idx = Number(b.getAttribute("data-blk-del"));
+          const blk = state.config.blocks[idx];
+          if (!blk) return;
+          const cfg = ghGetConfig();
+          const ghPath = ghExtractPath(blk.driveUrl, cfg) || ghExtractPath(blk.resolvedMediaUrl, cfg);
+          let alsoDelGh = false;
+          if (ghPath) {
+            alsoDelGh = confirm(`This block uses "${ghPath}" on GitHub. Delete the image file from GitHub too?\n\nOK = Delete Block + GitHub Image\nCancel = Delete Dashboard Block Only`);
+          }
+          state.config.blocks.splice(idx, 1);
+          if (alsoDelGh && ghPath) {
+            try { await ghDeleteFile(cfg, ghPath, `Remove dashboard media ${ghPath} via Admin Studio`); } catch (e) { console.warn(e); }
+          }
+          await saveConfigToFirestore();
+          renderAdminTab();
         });
       } else if (state.adminSubTab === "LIBRARY") {
         document.getElementById("pracFilePick").onchange = (e) => {
           const f = e.target.files[0]; if (!f) return;
           const r = new FileReader(); r.onload = () => { document.getElementById("pracJson").value = r.result; }; r.readAsText(f);
         };
+        document.getElementById("loadPracDemoBtn").onclick = () => {
+          document.getElementById("pracJson").value = JSON.stringify(DEFAULT_SAMPLE_JSON, null, 2);
+        };
         const cancelBtn = document.getElementById("cancelPracEditBtn");
         if (cancelBtn) cancelBtn.onclick = () => {
           state.editingPracticeId = null;
+          state.editingPracticePath = "";
           state.editingPracticeCreatedAt = null;
           renderAdminTab();
         };
         document.getElementById("savePracBtn").onclick = async () => {
+          const btn = document.getElementById("savePracBtn");
+          btn.disabled = true;
           try {
-            const parsed = normalizeTestJson(document.getElementById("pracJson").value);
+            let parsed;
+            try {
+              parsed = normalizeTestJson(document.getElementById("pracJson").value);
+            } catch (e) {
+              throw new Error(`[Step: Parse JSON] ${e.message}`);
+            }
+            const limitedQuestions = parsed.questions.slice(0, 500);
             const isEdit = Boolean(state.editingPracticeId);
             const testId = state.editingPracticeId || `prac_${Date.now()}`;
-            const title = document.getElementById("pracTitle").value.trim() || parsed.title;
-            const subjectTag = document.getElementById("pracSubj").value.trim() || "General Studies";
-            const durationMinutes = parseInt(document.getElementById("pracDur").value, 10) || parsed.durationMinutes;
-            const marksCorrect = parseFloat(document.getElementById("pracPos").value) || parsed.marksCorrect;
-            const marksNegative = parseFloat(document.getElementById("pracNeg").value) || 0;
-            const createdAtVal = (isEdit && state.editingPracticeCreatedAt) ? state.editingPracticeCreatedAt : serverTimestamp();
-            await setDoc(doc(db, "practiceTests", testId), {
-              adminUid: state.user.uid, title, subjectTag, durationMinutes, marksCorrect, marksNegative,
-              questionCount: parsed.questions.length, questions: parsed.questions,
-              createdAt: createdAtVal, updatedAt: serverTimestamp()
-            });
-            await upsertCatalog("practice", testId, {
-              testId, title, subjectTag, durationMinutes, marksCorrect, marksNegative,
-              questionCount: parsed.questions.length, updatedAt: serverTimestamp()
-            });
-            state.editingPracticeId = null;
-            state.editingPracticeCreatedAt = null;
-            showBanner(`${isEdit ? "Updated" : "Published"} practice test "${title}"!`);
-          } catch (err) { alert("Error: " + err.message); }
+            const title = (document.getElementById("pracTitle").value.trim() || parsed.title).slice(0, 160);
+            const subjectTag = (document.getElementById("pracSubj").value.trim() || "General Studies").slice(0, 80);
+            const durInput = parseInt(document.getElementById("pracDur").value, 10);
+            const durationMinutes = Math.min(600, Math.max(1, Number.isFinite(durInput) ? durInput : parsed.durationMinutes));
+            const posInput = parseFloat(document.getElementById("pracPos").value);
+            const marksCorrect = Number.isFinite(posInput) ? Math.max(0.1, posInput) : parsed.marksCorrect;
+            const negInput = parseFloat(document.getElementById("pracNeg").value);
+            const marksNegative = Number.isFinite(negInput) ? Math.max(0, negInput) : 0;
+
+            const cfg = ghGetConfig();
+            if (ghIsConfigured(cfg)) {
+              const targetPath = (isEdit && state.editingPracticePath) ? state.editingPracticePath : `tests/practice/${testId}.json`;
+              const payloadJson = JSON.stringify({
+                title,
+                subjectTag,
+                durationMinutes,
+                positiveMarks: marksCorrect,
+                negativeMarks: marksNegative,
+                questions: limitedQuestions
+              }, null, 2);
+              let ghRes;
+              try {
+                ghRes = await ghUploadContent(cfg, targetPath, utf8ToBase64(payloadJson), `${isEdit ? "Update" : "Add"} practice test ${title}`);
+              } catch (e) {
+                throw new Error(`[Step: GitHub Upload] ${e.message}`);
+              }
+              try {
+                await upsertCatalog("practice", testId, {
+                  testId, title, subjectTag, durationMinutes, marksCorrect, marksNegative,
+                  questionCount: limitedQuestions.length,
+                  storageProvider: "GITHUB",
+                  githubPath: ghRes.githubPath,
+                  jsonUrl: ghRes.rawUrl,
+                  updatedAt: serverTimestamp()
+                });
+              } catch (e) {
+                throw new Error(`[Step: Save portalData/testCatalog] ${e.message}`);
+              }
+              state.editingPracticeId = null;
+              state.editingPracticePath = "";
+              state.editingPracticeCreatedAt = null;
+              showBanner(`${isEdit ? "Updated" : "Published"} "${title}" on GitHub (0 Firebase Reads)!`);
+              renderAdminTab();
+            } else {
+              const createdAtVal = (isEdit && state.editingPracticeCreatedAt) ? state.editingPracticeCreatedAt : serverTimestamp();
+              try {
+                await setDoc(doc(db, "practiceTests", testId), {
+                  adminUid: state.user.uid, title, subjectTag, durationMinutes, marksCorrect, marksNegative,
+                  questionCount: limitedQuestions.length, questions: limitedQuestions,
+                  createdAt: createdAtVal, updatedAt: serverTimestamp()
+                });
+              } catch (e) {
+                throw new Error(`[Step: Save practiceTests/${testId}] ${e.message}`);
+              }
+              try {
+                await upsertCatalog("practice", testId, {
+                  testId, title, subjectTag, durationMinutes, marksCorrect, marksNegative,
+                  questionCount: limitedQuestions.length,
+                  storageProvider: "FIRESTORE",
+                  updatedAt: serverTimestamp()
+                });
+              } catch (e) {
+                throw new Error(`[Step: Save portalData/testCatalog] ${e.message}`);
+              }
+              state.editingPracticeId = null;
+              state.editingPracticePath = "";
+              state.editingPracticeCreatedAt = null;
+              showBanner(`${isEdit ? "Updated" : "Published"} practice test "${title}"!`);
+              renderAdminTab();
+            }
+          } catch (err) {
+            alert("Publish Failed: " + err.message);
+          } finally {
+            btn.disabled = false;
+          }
         };
         el.querySelectorAll("[data-edit-prac]").forEach(b => b.onclick = async () => {
           const p = state.catalog.practice.find(x => x.testId === b.getAttribute("data-edit-prac"));
           if (!p) return;
           state.editingPracticeId = p.testId;
+          state.editingPracticePath = p.githubPath || "";
           state.editingPracticeCreatedAt = null;
           renderAdminTab();
           document.getElementById("pracTitle").value = p.title;
@@ -1979,17 +2667,24 @@
           document.getElementById("pracPos").value = p.marksCorrect;
           document.getElementById("pracNeg").value = p.marksNegative;
           try {
-            const snap = await getDoc(doc(db, "practiceTests", p.testId));
-            if (snap.exists()) {
-              const d = snap.data();
-              state.editingPracticeCreatedAt = d.createdAt || null;
-              document.getElementById("pracJson").value = JSON.stringify({
-                title: d.title,
-                durationMinutes: d.durationMinutes,
-                positiveMarks: d.marksCorrect,
-                negativeMarks: d.marksNegative,
-                questions: d.questions || []
-              }, null, 2);
+            if (p.jsonUrl) {
+              const sep = p.jsonUrl.includes("?") ? "&" : "?";
+              const resp = await fetch(`${p.jsonUrl}${sep}t=${Date.now()}`);
+              if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+              document.getElementById("pracJson").value = await resp.text();
+            } else {
+              const snap = await getDoc(doc(db, "practiceTests", p.testId));
+              if (snap.exists()) {
+                const d = snap.data();
+                state.editingPracticeCreatedAt = d.createdAt || null;
+                document.getElementById("pracJson").value = JSON.stringify({
+                  title: d.title,
+                  durationMinutes: d.durationMinutes,
+                  positiveMarks: d.marksCorrect,
+                  negativeMarks: d.marksNegative,
+                  questions: d.questions || []
+                }, null, 2);
+              }
             }
           } catch (err) {
             alert("Loaded metadata; paste updated JSON if needed: " + err.message);
@@ -1997,43 +2692,83 @@
         });
         el.querySelectorAll("[data-del-prac]").forEach(b => b.onclick = async () => {
           const id = b.getAttribute("data-del-prac");
+          const item = state.catalog.practice.find(x => x.testId === id);
           if (!confirm("Delete this practice test?")) return;
-          await deleteDoc(doc(db, "practiceTests", id));
-          await updateDoc(doc(db, "portalData", "testCatalog"), { [`practice.${id}`]: deleteField(), updatedAt: serverTimestamp() });
+          try {
+            const cfg = ghGetConfig();
+            if (item && item.githubPath && ghIsConfigured(cfg)) {
+              await ghDeleteFile(cfg, item.githubPath, `Delete practice test ${item.title}`);
+            }
+            await deleteDoc(doc(db, "practiceTests", id)).catch(() => {});
+            await updateDoc(doc(db, "portalData", "testCatalog"), { [`practice.${id}`]: deleteField(), updatedAt: serverTimestamp() });
+            showBanner("Practice test deleted.");
+          } catch (err) {
+            alert("Delete Failed: " + err.message);
+          }
         });
       } else {
         document.getElementById("scFilePick").onchange = (e) => {
           const f = e.target.files[0]; if (!f) return;
           const r = new FileReader(); r.onload = () => { document.getElementById("scJson").value = r.result; }; r.readAsText(f);
         };
+        document.getElementById("loadScDemoBtn").onclick = () => {
+          document.getElementById("scJson").value = JSON.stringify(DEFAULT_SAMPLE_JSON, null, 2);
+        };
         document.getElementById("pubSchedBtn").onclick = async () => {
+          const btn = document.getElementById("pubSchedBtn");
+          btn.disabled = true;
           try {
-            const parsed = normalizeTestJson(document.getElementById("scJson").value);
+            let parsed;
+            try {
+              parsed = normalizeTestJson(document.getElementById("scJson").value);
+            } catch (e) {
+              throw new Error(`[Step: Parse JSON] ${e.message}`);
+            }
+            const limitedQuestions = parsed.questions.slice(0, 500);
             const testId = `sched_${Date.now()}`;
             const testCode = "CG" + Math.random().toString(36).substring(2, 6).toUpperCase();
-            const title = document.getElementById("scTitle").value.trim() || parsed.title;
-            const durationMinutes = parseInt(document.getElementById("scDur").value, 10) || parsed.durationMinutes;
-            const marksCorrect = parseFloat(document.getElementById("scPos").value) || parsed.marksCorrect;
-            const marksNegative = parseFloat(document.getElementById("scNeg").value) || 0;
+            const title = (document.getElementById("scTitle").value.trim() || parsed.title).slice(0, 160);
+            const durInput = parseInt(document.getElementById("scDur").value, 10);
+            const durationMinutes = Math.min(600, Math.max(1, Number.isFinite(durInput) ? durInput : parsed.durationMinutes));
+            const posInput = parseFloat(document.getElementById("scPos").value);
+            const marksCorrect = Number.isFinite(posInput) ? Math.max(0.1, posInput) : parsed.marksCorrect;
+            const negInput = parseFloat(document.getElementById("scNeg").value);
+            const marksNegative = Number.isFinite(negInput) ? Math.max(0, negInput) : 0;
             const startTs = Timestamp.fromDate(new Date(document.getElementById("scStart").value));
             const endTs = Timestamp.fromDate(new Date(document.getElementById("scEnd").value));
-            if (endTs.toMillis() <= startTs.toMillis()) return alert("End date/time must be after start.");
-            await setDoc(doc(db, "scheduledTests", testId), {
-              adminUid: state.user.uid, testCode, title, instituteName: state.config.instituteName,
-              durationMinutes, marksCorrect, marksNegative, questionCount: parsed.questions.length,
-              windowStartAt: startTs, windowEndAt: endTs, questions: parsed.questions,
-              createdAt: serverTimestamp(), updatedAt: serverTimestamp()
-            });
-            await setDoc(doc(db, "testMeritSheets", testId), {
-              testId, windowStartAt: startTs, windowEndAt: endTs, entries: {}, updatedAt: serverTimestamp()
-            });
-            await upsertCatalog("scheduled", testId, {
-              testId, testCode, title, instituteName: state.config.instituteName,
-              durationMinutes, marksCorrect, marksNegative, questionCount: parsed.questions.length,
-              windowStartAt: startTs, windowEndAt: endTs
-            });
+            if (endTs.toMillis() <= startTs.toMillis()) throw new Error("[Step: Validate Schedule] End date/time must be after start.");
+            try {
+              await setDoc(doc(db, "scheduledTests", testId), {
+                adminUid: state.user.uid, testCode, title, instituteName: state.config.instituteName,
+                durationMinutes, marksCorrect, marksNegative, questionCount: limitedQuestions.length,
+                windowStartAt: startTs, windowEndAt: endTs, questions: limitedQuestions,
+                createdAt: serverTimestamp(), updatedAt: serverTimestamp()
+              });
+            } catch (e) {
+              throw new Error(`[Step: Save scheduledTests/${testId}] ${e.message}`);
+            }
+            try {
+              await setDoc(doc(db, "testMeritSheets", testId), {
+                testId, windowStartAt: startTs, windowEndAt: endTs, entries: {}, updatedAt: serverTimestamp()
+              });
+            } catch (e) {
+              throw new Error(`[Step: Save testMeritSheets/${testId}] ${e.message}`);
+            }
+            try {
+              await upsertCatalog("scheduled", testId, {
+                testId, testCode, title, instituteName: state.config.instituteName,
+                durationMinutes, marksCorrect, marksNegative, questionCount: limitedQuestions.length,
+                windowStartAt: startTs, windowEndAt: endTs
+              });
+            } catch (e) {
+              throw new Error(`[Step: Save portalData/testCatalog] ${e.message}`);
+            }
             showBanner(`Scheduled "${title}" • Code: ${testCode}`);
-          } catch (err) { alert("Error: " + err.message); }
+          } catch (err) {
+            alert("Publish Failed: " + err.message);
+          } finally {
+            btn.disabled = false;
+          }
         };
         el.querySelectorAll("[data-adm-rank]").forEach(b => b.onclick = () => {
           const s = state.catalog.scheduled.find(x => x.testId === b.getAttribute("data-adm-rank"));
@@ -2042,8 +2777,8 @@
         el.querySelectorAll("[data-adm-del-sched]").forEach(b => b.onclick = async () => {
           const id = b.getAttribute("data-adm-del-sched");
           if (!confirm("Delete scheduled exam?")) return;
-          await deleteDoc(doc(db, "scheduledTests", id));
-          await deleteDoc(doc(db, "testMeritSheets", id));
+          await deleteDoc(doc(db, "scheduledTests", id)).catch(() => {});
+          await deleteDoc(doc(db, "testMeritSheets", id)).catch(() => {});
           await updateDoc(doc(db, "portalData", "testCatalog"), { [`scheduled.${id}`]: deleteField(), updatedAt: serverTimestamp() });
         });
         document.getElementById("syncUsersBtn").onclick = async () => {
@@ -2070,19 +2805,19 @@
     }
 
     async function upsertCatalog(bucket, testId, obj) {
-      try {
-        await updateDoc(doc(db, "portalData", "testCatalog"), {
+      const catRef = doc(db, "portalData", "testCatalog");
+      const snap = await getDoc(catRef);
+      if (!snap.exists()) {
+        await setDoc(catRef, {
+          scheduled: bucket === "scheduled" ? { [testId]: obj } : {},
+          practice: bucket === "practice" ? { [testId]: obj } : {},
+          updatedAt: serverTimestamp()
+        });
+      } else {
+        await updateDoc(catRef, {
           [`${bucket}.${testId}`]: obj,
           updatedAt: serverTimestamp()
         });
-      } catch (e) {
-        if (e.code === "not-found") {
-          await setDoc(doc(db, "portalData", "testCatalog"), {
-            scheduled: bucket === "scheduled" ? { [testId]: obj } : {},
-            practice: bucket === "practice" ? { [testId]: obj } : {},
-            updatedAt: serverTimestamp()
-          });
-        } else throw e;
       }
     }
 
