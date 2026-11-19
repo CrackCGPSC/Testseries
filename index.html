@@ -719,15 +719,15 @@
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 9;
-      min-height: 230px;
+      max-height: 68vh;
       border-radius: 12px 12px 0 0;
       overflow: hidden;
       background: #020617;
     }
     .video-box.vertical {
       aspect-ratio: 9 / 16;
-      min-height: 360px;
-      max-width: 300px;
+      max-width: min(290px, 100%);
+      max-height: 70vh;
       margin: 0 auto;
     }
     .video-ctrl-bar {
@@ -755,9 +755,19 @@
       gap: 5px;
     }
     .video-ctrl-btn:hover { background: rgba(255, 255, 255, .2); }
-    .video-frame { width: 100%; height: 100%; border: none; display: block; background: #000; }
+    .video-frame {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      background: #000;
+      object-fit: contain;
+    }
     .video-poster {
-      position: relative;
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       cursor: pointer;
@@ -782,6 +792,154 @@
       box-shadow: 0 8px 24px rgba(0, 0, 0, .45);
     }
     .cms-img { width: 100%; max-height: 340px; object-fit: contain; border-radius: 12px; display: block; margin: 0 auto; }
+
+    /* Android Mobile File Manager Practice Library */
+    .fm-shell {
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-radius: 18px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, .04);
+    }
+    .fm-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .fm-back-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--slate-200);
+      background: var(--slate-100);
+      color: var(--navy-900);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .fm-back-btn:hover { background: var(--royal-100); }
+    .fm-crumbs {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      overflow-x: auto;
+      flex: 1;
+      min-width: 140px;
+      scrollbar-width: none;
+      padding: 2px 0;
+    }
+    .fm-crumbs::-webkit-scrollbar { display: none; }
+    .fm-crumb {
+      border: 1px solid var(--slate-200);
+      background: var(--slate-50);
+      color: var(--slate-700);
+      border-radius: 999px;
+      padding: 5px 11px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .fm-crumb.active {
+      background: var(--navy-900);
+      color: #fff;
+      border-color: var(--navy-900);
+    }
+    .fm-crumb-sep { color: var(--slate-500); font-size: 12px; font-weight: 800; }
+    .fm-search-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .fm-search-ico {
+      position: absolute;
+      left: 12px;
+      color: var(--slate-500);
+      pointer-events: none;
+      display: inline-flex;
+    }
+    .fm-search {
+      padding-left: 36px;
+      border-radius: 12px;
+      background: var(--slate-50);
+      font-size: 13px;
+    }
+    .fm-folder-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    @media (min-width: 720px) {
+      .fm-folder-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    .fm-folder-card {
+      position: relative;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      border: 1.5px solid var(--slate-200);
+      border-radius: 16px;
+      padding: 12px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+    }
+    .fm-folder-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--royal-600);
+      box-shadow: 0 8px 18px rgba(37, 99, 235, .1);
+    }
+    .fm-folder-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .fm-folder-name {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .fm-count-pill {
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--slate-100);
+      color: var(--slate-700);
+      white-space: nowrap;
+    }
+    .fm-ended-banner {
+      background: linear-gradient(135deg, #fffbeb, #fef3c7);
+      border: 1.5px solid #fcd34d;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #78350f;
+    }
+    .fm-ended-ico {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: #f59e0b;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
     .field-group { display: flex; flex-direction: column; gap: 5px; }
     .field-label { font-size: 12.5px; font-weight: 700; color: var(--slate-700); display: block; }
     .preview-shell {
@@ -1031,8 +1189,13 @@
         ],
         meritListLinks: []
       },
-      catalog: { scheduled: [], practice: [] },
+      catalog: { scheduled: [], practice: [], practiceFolders: [] },
       schedCatFilter: "ALL",
+      studentHomeFolderId: "",
+      studentTestsFolderId: "",
+      studentFolderSearch: "",
+      adminFolderId: "",
+      editingFolderId: null,
       user: null,
       profile: null,
       attempts: [],
@@ -1447,20 +1610,28 @@
       const questions = rawQs.map((q, idx) => {
         const rawOpts = q.options || q.choices || q.answers || ["Option A", "Option B", "Option C", "Option D"];
         let normOpts = { en: [], hi: [] };
+        let extractedOptImgs = [];
         if (Array.isArray(rawOpts)) {
           if (rawOpts.length && typeof rawOpts[0] === "object" && rawOpts[0] !== null) {
-            normOpts.en = rawOpts.map(o => String(o.en || o.english || ""));
-            normOpts.hi = rawOpts.map(o => String(o.hi || o.hindi || ""));
+            normOpts.en = rawOpts.map(o => String(o.en ?? o.english ?? o.text ?? ""));
+            normOpts.hi = rawOpts.map(o => String(o.hi ?? o.hindi ?? o.text ?? ""));
+            extractedOptImgs = rawOpts.map(o => {
+              const u = o.image || o.img || o.imageUrl;
+              return u ? String(u).trim() : null;
+            });
           } else {
-            normOpts.en = rawOpts.map(String);
-            normOpts.hi = rawOpts.map(String);
+            normOpts.en = rawOpts.map(x => String(x ?? ""));
+            normOpts.hi = rawOpts.map(x => String(x ?? ""));
           }
         } else if (typeof rawOpts === "object") {
           normOpts.en = Array.isArray(rawOpts.en) ? rawOpts.en.map(x => String(x ?? "")) : [];
           normOpts.hi = Array.isArray(rawOpts.hi) ? rawOpts.hi.map(x => String(x ?? "")) : [];
         }
 
-        const optImgs = Array.isArray(q.optionImages) ? q.optionImages.map(x => (x ? String(x).trim() : null)) : [];
+        const rawOptImgs = Array.isArray(q.optionImages) ? q.optionImages : (Array.isArray(q.optImages) ? q.optImages : []);
+        const explicitOptImgs = rawOptImgs.map(x => (x ? String(x).trim() : null));
+        const optImgCount = Math.max(explicitOptImgs.length, extractedOptImgs.length);
+        const optImgs = Array.from({ length: optImgCount }).map((_, i) => explicitOptImgs[i] || extractedOptImgs[i] || null);
         const maxOpts = Math.max(normOpts.en.length, normOpts.hi.length, optImgs.length, 1);
 
         let ans = q.correctAnswer ?? q.correct ?? q.ans ?? q.correctIndex ?? 0;
@@ -1471,24 +1642,30 @@
         }
         const safeAns = Math.min(Math.max(0, Number(ans) || 0), maxOpts - 1);
 
-        const stRaw = q.statementData && typeof q.statementData === "object" ? q.statementData : null;
+        const rawStmt = q.statementData || q.statement || q.statements;
+        const stRaw = rawStmt && typeof rawStmt === "object" && !Array.isArray(rawStmt) ? rawStmt : null;
         const statementData = stRaw ? {
           intro: normLoc(stRaw.intro),
           list: normLoc(stRaw.list),
           conclusion: normLoc(stRaw.conclusion)
-        } : null;
+        } : (Array.isArray(rawStmt) ? { intro: null, list: { en: rawStmt.join("\n"), hi: rawStmt.join("\n") }, conclusion: null } : null);
 
-        const tbRaw = q.tableData && typeof q.tableData === "object" ? q.tableData : null;
+        const tbRaw = (q.tableData || q.table) && typeof (q.tableData || q.table) === "object" ? (q.tableData || q.table) : null;
         const tbDirect = tbRaw && (Array.isArray(tbRaw.headers) || Array.isArray(tbRaw.rows)) ? tbRaw : null;
         const tbEn = tbRaw ? normTblGrid(tbRaw.en || (tbRaw.tableObj && tbRaw.tableObj.en) || tbDirect) : null;
         const tbHi = tbRaw ? normTblGrid(tbRaw.hi || (tbRaw.tableObj && tbRaw.tableObj.hi)) : null;
-        const tableData = tbRaw ? {
+        const tblObjOut = {};
+        if (tbEn) tblObjOut.en = tbEn;
+        if (tbHi) tblObjOut.hi = tbHi;
+        const tableData = (tbRaw && (tbEn || tbHi)) ? {
           intro: normLoc(tbRaw.intro),
           en: tbEn,
-          hi: tbHi
+          hi: tbHi,
+          tableObj: tblObjOut
         } : null;
 
-        const passageImg = (q.passage && typeof q.passage === "object" ? q.passage.image : null) || q.passageImage || null;
+        const passageImg = (q.passage && typeof q.passage === "object" ? (q.passage.image || q.passage.img) : null)
+          || q.passageImage || q.passageImg || null;
 
         return {
           id: q.id || (idx + 1),
@@ -1607,9 +1784,17 @@
           windowStartMs: toMillis(v.windowStartAt), windowEndMs: toMillis(v.windowEndAt)
         })).sort((a, b) => b.windowStartMs - a.windowStartMs);
         const prac = Object.entries(d.practice || {}).map(([id, v]) => ({
-          ...v, testId: v.testId || id, updatedMs: toMillis(v.updatedAt)
+          ...v, testId: v.testId || id, folderId: String(v.folderId || ""), updatedMs: toMillis(v.updatedAt)
         })).sort((a, b) => b.updatedMs - a.updatedMs);
-        state.catalog = { scheduled: sched, practice: prac };
+        const folders = Object.entries(d.practiceFolders || {}).map(([id, v]) => ({
+          id: v.id || id,
+          name: String(v.name || "Untitled Folder"),
+          parentId: String(v.parentId || ""),
+          colorKey: String(v.colorKey || "blue"),
+          orderIndex: Number(v.orderIndex ?? 0),
+          updatedMs: toMillis(v.updatedAt)
+        })).sort((a, b) => (a.orderIndex - b.orderIndex) || a.name.localeCompare(b.name));
+        state.catalog = { scheduled: sched, practice: prac, practiceFolders: folders };
         if (isAdmin()) cleanupEndedScheduledTests(false);
       }
       renderPortalTabs();
@@ -2134,13 +2319,202 @@
       `;
     }
 
+    const FOLDER_COLORS = {
+      blue: { tab: "#2563eb", body: "#3b82f6", soft: "#eff6ff", text: "#1e3a8a" },
+      amber: { tab: "#d97706", body: "#f59e0b", soft: "#fffbeb", text: "#92400e" },
+      emerald: { tab: "#059669", body: "#10b981", soft: "#ecfdf5", text: "#065f46" },
+      purple: { tab: "#7c3aed", body: "#8b5cf6", soft: "#f5f3ff", text: "#5b21b6" },
+      rose: { tab: "#e11d48", body: "#f43f5e", soft: "#fff1f2", text: "#9f1239" },
+      teal: { tab: "#0d9488", body: "#14b8a6", soft: "#f0fdfa", text: "#115e59" }
+    };
+
+    function sanitizeFolderSlug(name) {
+      return String(name || "folder")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 40) || "folder";
+    }
+
+    function getPracticeFolderCrumbs(folderId) {
+      const byId = new Map((state.catalog.practiceFolders || []).map(f => [f.id, f]));
+      const chain = [];
+      const seen = new Set();
+      let cur = folderId ? byId.get(folderId) : null;
+      while (cur && !seen.has(cur.id)) {
+        seen.add(cur.id);
+        chain.unshift(cur);
+        cur = cur.parentId ? byId.get(cur.parentId) : null;
+      }
+      return chain;
+    }
+
+    function getPracticeFolderSlugPath(folderId) {
+      return getPracticeFolderCrumbs(folderId).map(f => sanitizeFolderSlug(f.name)).filter(Boolean).join("/");
+    }
+
+    function getPracticeFolderDisplayPath(folderId) {
+      const crumbs = getPracticeFolderCrumbs(folderId);
+      return crumbs.length ? crumbs.map(f => f.name).join(" / ") : "Root Library";
+    }
+
+    function getFolderTreeStats(folderId) {
+      const folders = state.catalog.practiceFolders || [];
+      const tests = state.catalog.practice || [];
+      const directFolders = folders.filter(f => (f.parentId || "") === folderId).length;
+      const visited = new Set([folderId]);
+      const queue = [folderId];
+      while (queue.length) {
+        const cur = queue.shift();
+        for (const child of folders) {
+          if ((child.parentId || "") === cur && !visited.has(child.id)) {
+            visited.add(child.id);
+            queue.push(child.id);
+          }
+        }
+      }
+      const totalTests = tests.filter(t => visited.has(t.folderId || "")).length;
+      return { directFolders, totalTests };
+    }
+
+    function androidFolderSvgHtml(colorKey = "blue") {
+      const pal = FOLDER_COLORS[colorKey] || FOLDER_COLORS.blue;
+      return `
+        <svg width="46" height="38" viewBox="0 0 48 40" aria-hidden="true">
+          <path d="M4 9C4 6.2 6.2 4 9 4H18.5C20 4 21.4 4.7 22.3 5.9L24.4 8.5H39C41.8 8.5 44 10.7 44 13.5V15H4V9Z" fill="${pal.tab}" />
+          <rect x="3" y="10" width="42" height="26" rx="6.5" fill="${pal.body}" />
+          <path d="M5 12H43" stroke="rgba(255,255,255,0.45)" stroke-width="1.4" stroke-linecap="round"/>
+          <rect x="8" y="16" width="14" height="3" rx="1.5" fill="rgba(255,255,255,0.35)"/>
+        </svg>
+      `;
+    }
+
+    function renderFileManagerLibraryHtml(stateKey, searchValue = "") {
+      const folders = state.catalog.practiceFolders || [];
+      const tests = state.catalog.practice || [];
+      const currentFolderId = state[stateKey] || "";
+      const validIds = new Set(folders.map(f => f.id));
+      const activeId = validIds.has(currentFolderId) ? currentFolderId : "";
+      if (activeId !== currentFolderId) state[stateKey] = "";
+
+      const crumbs = getPracticeFolderCrumbs(activeId);
+      const parentId = crumbs.length > 1 ? crumbs[crumbs.length - 2].id : "";
+      const qSearch = String(searchValue || "").trim().toLowerCase();
+
+      const childFolders = qSearch
+        ? folders.filter(f => f.name.toLowerCase().includes(qSearch))
+        : folders.filter(f => (f.parentId || "") === activeId);
+
+      const folderTests = qSearch
+        ? tests.filter(t => (t.title || "").toLowerCase().includes(qSearch) || (t.subjectTag || "").toLowerCase().includes(qSearch))
+        : tests.filter(t => (validIds.has(t.folderId) ? t.folderId : "") === activeId);
+
+      const crumbsHtml = `
+        <button type="button" class="fm-crumb ${activeId === "" ? "active" : ""}" data-fm-nav="">All Folders</button>
+        ${crumbs.map((c, idx) => `
+          <span class="fm-crumb-sep">&rsaquo;</span>
+          <button type="button" class="fm-crumb ${idx === crumbs.length - 1 ? "active" : ""}" data-fm-nav="${esc(c.id)}">${esc(c.name)}</button>
+        `).join("")}
+      `;
+
+      const foldersGridHtml = childFolders.length ? `
+        <div class="fm-folder-grid">
+          ${childFolders.map(f => {
+            const stats = getFolderTreeStats(f.id);
+            const pal = FOLDER_COLORS[f.colorKey] || FOLDER_COLORS.blue;
+            return `
+              <button type="button" class="fm-folder-card" data-fm-nav="${esc(f.id)}">
+                <div class="fm-folder-top">
+                  ${androidFolderSvgHtml(f.colorKey)}
+                  <span class="fm-count-pill" style="background:${pal.soft};color:${pal.text};">
+                    ${stats.totalTests} Test${stats.totalTests === 1 ? "" : "s"}${stats.directFolders ? ` • ${stats.directFolders} Dir` : ""}
+                  </span>
+                </div>
+                <div class="fm-folder-name">${esc(f.name)}</div>
+              </button>
+            `;
+          }).join("")}
+        </div>
+      ` : "";
+
+      const testsGridHtml = folderTests.length
+        ? `<div class="grid-2">${folderTests.map(renderPracticeCardHtml).join("")}</div>`
+        : (!childFolders.length
+            ? `<div style="padding:18px;text-align:center;color:var(--slate-500);font-size:13px;background:var(--slate-50);border-radius:12px;">
+                ${qSearch ? `No folders or tests matched "${esc(searchValue)}".` : "This folder is empty right now."}
+               </div>`
+            : "");
+
+      return `
+        <div class="fm-shell">
+          <div class="fm-toolbar">
+            ${activeId ? `
+              <button type="button" class="fm-back-btn" data-fm-nav="${esc(parentId)}" aria-label="Up one folder" title="Back">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+              </button>
+            ` : ""}
+            <div class="fm-crumbs">${crumbsHtml}</div>
+          </div>
+          <div class="fm-search-wrap">
+            <span class="fm-search-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></span>
+            <input type="search" class="fm-search" data-fm-search="${esc(stateKey)}" placeholder="Search folders or tests..." value="${esc(searchValue)}" />
+          </div>
+          ${foldersGridHtml}
+          ${testsGridHtml}
+        </div>
+      `;
+    }
+
+    function wireFileManagerEvents(rootEl, stateKey) {
+      rootEl.querySelectorAll("[data-fm-nav]").forEach(btn => {
+        btn.onclick = () => {
+          state[stateKey] = btn.getAttribute("data-fm-nav") || "";
+          state.studentFolderSearch = "";
+          renderPortalTabs();
+        };
+      });
+      rootEl.querySelectorAll(`[data-fm-search="${stateKey}"]`).forEach(inp => {
+        inp.oninput = () => {
+          const val = inp.value;
+          const pos = inp.selectionStart || val.length;
+          state.studentFolderSearch = val;
+          renderPortalTabs();
+          const newInp = document.querySelector(`[data-fm-search="${stateKey}"]`);
+          if (newInp) {
+            newInp.focus();
+            try { newInp.setSelectionRange(pos, pos); } catch (_) {}
+          }
+        };
+      });
+    }
+
+    function renderEndedScheduleNoticeHtml() {
+      return `
+        <div class="fm-ended-banner">
+          <div class="fm-ended-ico">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+          </div>
+          <div>
+            <div style="font-size:14.5px;font-weight:800;">Today's Test Ended, Wait for Next Day</div>
+            <div style="font-size:12px;margin-top:2px;">Official Merit List PDF will be posted on Dashboard.</div>
+          </div>
+        </div>
+      `;
+    }
+
     function renderScheduledSectionHtml(list, emptyMsg = "") {
+      const now = Date.now();
+      const activeList = list.filter(s => now <= s.windowEndMs);
+      if (activeList.length === 0) {
+        if (list.length > 0) return renderEndedScheduleNoticeHtml();
+        return `<div class="card">${emptyMsg || "No scheduled exams published yet."}</div>`;
+      }
       const cat = state.schedCatFilter || "ALL";
       const counts = {
-        ALL: list.length,
-        DAILY: list.filter(x => (x.scheduleCategory || "DAILY") === "DAILY").length,
-        WEEKLY: list.filter(x => x.scheduleCategory === "WEEKLY").length,
-        MONTHLY: list.filter(x => x.scheduleCategory === "MONTHLY").length
+        ALL: activeList.length,
+        DAILY: activeList.filter(x => (x.scheduleCategory || "DAILY") === "DAILY").length,
+        WEEKLY: activeList.filter(x => x.scheduleCategory === "WEEKLY").length,
+        MONTHLY: activeList.filter(x => x.scheduleCategory === "MONTHLY").length
       };
       const tabsHtml = [
         ["ALL", `All (${counts.ALL})`],
@@ -2149,12 +2523,12 @@
         ["MONTHLY", `Monthly (${counts.MONTHLY})`]
       ].map(([k, lbl]) => `<button type="button" class="sched-tab-pill ${cat === k ? "active" : ""}" data-sched-cat="${k}">${lbl}</button>`).join("");
 
-      const filtered = cat === "ALL" ? list : list.filter(x => (x.scheduleCategory || "DAILY") === cat);
+      const filtered = cat === "ALL" ? activeList : activeList.filter(x => (x.scheduleCategory || "DAILY") === cat);
       const cardsHtml = filtered.map(s => renderScheduledCardHtml(s, true)).join("");
       return `
         <div class="stack" style="gap:10px;">
           <div class="sched-tabs">${tabsHtml}</div>
-          ${cardsHtml ? `<div class="sched-slider">${cardsHtml}</div>` : (emptyMsg ? `<div class="card">${emptyMsg}</div>` : `<div class="card">No ${cat.toLowerCase()} scheduled tests right now.</div>`)}
+          ${cardsHtml ? `<div class="sched-slider">${cardsHtml}</div>` : `<div class="card">No ${cat.toLowerCase()} scheduled tests right now.</div>`}
         </div>
       `;
     }
@@ -2314,7 +2688,8 @@
       const el = document.getElementById("tabHOME");
       const blocksHtml = state.config.blocks.filter(b => b.visible !== false).map(renderCmsBlockHtml).join("");
       const schedList = state.catalog.scheduled;
-      const pracHtml = state.catalog.practice.slice(0, 4).map(renderPracticeCardHtml).join("");
+      const hasPracOrFolders = (state.catalog.practice.length > 0 || (state.catalog.practiceFolders || []).length > 0);
+      const pracFmHtml = hasPracOrFolders ? renderFileManagerLibraryHtml("studentHomeFolderId", state.studentFolderSearch) : "";
       const meritTableHtml = renderMeritLinksTableHtml(false);
 
       el.innerHTML = `
@@ -2331,7 +2706,7 @@
         </div>
         ${schedList.length ? `<div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;"><h2 style="margin:0;font-size:17px;">Scheduled Live Exams</h2><button class="btn" style="background:transparent;color:var(--royal-600);padding:4px 8px;" data-jump-tab="TESTS">View All</button></div>${renderScheduledSectionHtml(schedList)}` : ""}
         ${meritTableHtml}
-        ${pracHtml ? `<div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;"><h2 style="margin:0;font-size:17px;">Practice &amp; Quiz Library</h2><button class="btn" style="background:transparent;color:var(--royal-600);padding:4px 8px;" data-jump-tab="TESTS">All Tests</button></div><div class="grid-2">${pracHtml}</div>` : ""}
+        ${hasPracOrFolders ? `<div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;"><h2 style="margin:0;font-size:17px;">Practice &amp; Quiz Library</h2><button class="btn" style="background:transparent;color:var(--royal-600);padding:4px 8px;" data-jump-tab="TESTS">All Folders</button></div>${pracFmHtml}` : ""}
         ${renderFooterHtml()}
       `;
       document.getElementById("homeCodeJoinBtn").onclick = () => {
@@ -2343,13 +2718,14 @@
         renderHeader(); renderPortalTabs();
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
+      wireFileManagerEvents(el, "studentHomeFolderId");
       wireTestCardButtons(el);
       bindVideoFacades(el);
     }
 
     function renderTestsTab() {
       const el = document.getElementById("tabTESTS");
-      const pracHtml = state.catalog.practice.map(renderPracticeCardHtml).join("") || `<div class="card">No practice library tests uploaded yet.</div>`;
+      const pracFmHtml = renderFileManagerLibraryHtml("studentTestsFolderId", state.studentFolderSearch);
       el.innerHTML = `
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
           <h2 style="margin:0;">All Scheduled &amp; Practice Tests</h2>
@@ -2358,9 +2734,10 @@
         <h3 style="margin:4px 0 0;">Scheduled Fixed-Window Exams</h3>
         ${renderScheduledSectionHtml(state.catalog.scheduled, "No scheduled exams published yet.")}
         <h3>Practice &amp; Quiz Library</h3>
-        <div class="grid-2">${pracHtml}</div>
+        ${pracFmHtml}
         ${renderFooterHtml()}
       `;
+      wireFileManagerEvents(el, "studentTestsFolderId");
       wireTestCardButtons(el);
       document.getElementById("openLocalJsonBtn").onclick = openLocalJsonModal;
     }
@@ -3144,11 +3521,48 @@
           <div class="stack">${listHtml}</div>
         `;
       } else if (state.adminSubTab === "LIBRARY") {
-        const pracList = state.catalog.practice.map(p => `
+        const allFolders = state.catalog.practiceFolders || [];
+        const validIds = new Set(allFolders.map(f => f.id));
+        const curAdminFolderId = validIds.has(state.adminFolderId) ? state.adminFolderId : "";
+        if (curAdminFolderId !== state.adminFolderId) state.adminFolderId = "";
+        const adminCrumbs = getPracticeFolderCrumbs(curAdminFolderId);
+        const adminParentId = adminCrumbs.length > 1 ? adminCrumbs[adminCrumbs.length - 2].id : "";
+        const subFoldersHere = allFolders.filter(f => (f.parentId || "") === curAdminFolderId);
+        const testsHere = state.catalog.practice.filter(p => (validIds.has(p.folderId) ? p.folderId : "") === curAdminFolderId);
+        const editingFolderObj = state.editingFolderId ? allFolders.find(f => f.id === state.editingFolderId) : null;
+
+        const folderOptionsHtml = [
+          `<option value="">Root Library (Top Level)</option>`,
+          ...allFolders.map(f => {
+            const pathLbl = getPracticeFolderDisplayPath(f.id);
+            return `<option value="${esc(f.id)}">${esc(pathLbl)}</option>`;
+          })
+        ].join("");
+
+        const subFoldersHtml = subFoldersHere.map(f => {
+          const stats = getFolderTreeStats(f.id);
+          return `
+            <div class="card" style="padding:11px 13px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+              <button type="button" data-adm-open-folder="${esc(f.id)}" style="background:transparent;border:none;padding:0;display:flex;align-items:center;gap:10px;text-align:left;flex:1;min-width:160px;">
+                ${androidFolderSvgHtml(f.colorKey)}
+                <div>
+                  <strong style="font-size:14px;color:var(--slate-900);display:block;">${esc(f.name)}</strong>
+                  <span style="font-size:11.5px;color:var(--slate-500);">${stats.directFolders} Subfolder(s) • ${stats.totalTests} Test(s) • Tap to open</span>
+                </div>
+              </button>
+              <div style="display:flex;gap:6px;">
+                <button type="button" class="btn btn-outline" data-adm-edit-folder="${esc(f.id)}" style="padding:6px 10px;">Rename</button>
+                <button type="button" class="btn btn-rose" data-adm-del-folder="${esc(f.id)}" style="padding:6px 10px;">Delete</button>
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        const pracList = testsHere.map(p => `
           <div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
             <div>
               <strong>${esc(p.title)}</strong>
-              <div style="font-size:12px;color:var(--slate-500);">${esc(p.subjectTag)} • ${p.questionCount} Qs • ${p.durationMinutes}m • <strong style="color:${p.jsonUrl ? "var(--emerald-600)" : "var(--amber-600)"};">${p.jsonUrl ? "GitHub (0-Read)" : "Firestore"}</strong></div>
+              <div style="font-size:12px;color:var(--slate-500);">${esc(p.subjectTag)} • ${p.questionCount} Qs • ${p.durationMinutes}m • <strong style="color:${p.jsonUrl ? "var(--emerald-600)" : "var(--amber-600)"};">${p.jsonUrl ? `GitHub (${esc(p.githubPath || "0-Read")})` : "Firestore"}</strong></div>
             </div>
             <div style="display:flex;gap:6px;">
               <button class="btn btn-outline" data-edit-prac="${esc(p.testId)}">Edit</button>
@@ -3156,14 +3570,63 @@
             </div>
           </div>
         `).join("");
+
         bodyHtml = `
           <div class="storage-pill ${ghReady ? "gh" : "fs"}">
             ${ghReady
-              ? "Storage Mode: GitHub Repo Direct Upload (0 Firebase Reads per student test attempt)"
+              ? "Storage Mode: GitHub Repo Direct Upload (0 Firebase Reads • Files auto-saved inside folder paths on GitHub)"
               : "Storage Mode: Firebase Firestore Fallback (Set GitHub Token in Brand & Footer tab for 0-Read hosting)"}
           </div>
+
+          <div class="fm-shell">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+              <h3 style="margin:0;font-size:15.5px;">&#128193; Library Folders &amp; Subfolders</h3>
+              <button type="button" class="btn btn-outline" id="setupPresetFoldersBtn" style="padding:7px 11px;font-size:12px;">+ Quick Add Topic Wise &amp; PYQ</button>
+            </div>
+            <div class="fm-toolbar">
+              ${curAdminFolderId ? `
+                <button type="button" class="fm-back-btn" data-adm-open-folder="${esc(adminParentId)}" aria-label="Up one folder">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                </button>
+              ` : ""}
+              <div class="fm-crumbs">
+                <button type="button" class="fm-crumb ${curAdminFolderId === "" ? "active" : ""}" data-adm-open-folder="">Root Library</button>
+                ${adminCrumbs.map((c, idx) => `
+                  <span class="fm-crumb-sep">&rsaquo;</span>
+                  <button type="button" class="fm-crumb ${idx === adminCrumbs.length - 1 ? "active" : ""}" data-adm-open-folder="${esc(c.id)}">${esc(c.name)}</button>
+                `).join("")}
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;">
+              <div class="field-group" style="flex:1.5;min-width:170px;">
+                <label class="field-label" for="admFolderName">${editingFolderObj ? "Rename Folder" : (curAdminFolderId ? `New Subfolder inside "${esc(adminCrumbs[adminCrumbs.length - 1]?.name)}"` : "New Top-Level Folder")}</label>
+                <input id="admFolderName" placeholder="e.g. Topic Wise Tests, Polity, 2024 PYQ" value="${esc(editingFolderObj?.name || "")}" />
+              </div>
+              <div class="field-group" style="flex:0.8;min-width:120px;">
+                <label class="field-label" for="admFolderColor">Folder Color</label>
+                <select id="admFolderColor">
+                  <option value="blue" ${(editingFolderObj?.colorKey || "blue") === "blue" ? "selected" : ""}>Royal Blue</option>
+                  <option value="amber" ${editingFolderObj?.colorKey === "amber" ? "selected" : ""}>Amber Gold</option>
+                  <option value="emerald" ${editingFolderObj?.colorKey === "emerald" ? "selected" : ""}>Emerald Green</option>
+                  <option value="purple" ${editingFolderObj?.colorKey === "purple" ? "selected" : ""}>Violet Purple</option>
+                  <option value="rose" ${editingFolderObj?.colorKey === "rose" ? "selected" : ""}>Rose Red</option>
+                  <option value="teal" ${editingFolderObj?.colorKey === "teal" ? "selected" : ""}>Teal Cyan</option>
+                </select>
+              </div>
+              <div style="display:flex;gap:6px;">
+                ${editingFolderObj ? `<button type="button" class="btn btn-outline" id="cancelFolderEditBtn" style="height:42px;">Cancel</button>` : ""}
+                <button type="button" class="btn btn-navy" id="saveFolderBtn" style="height:42px;white-space:nowrap;">${editingFolderObj ? "Update Folder" : "+ Create Folder"}</button>
+              </div>
+            </div>
+            ${subFoldersHere.length ? `<div class="stack" style="gap:8px;">${subFoldersHtml}</div>` : `<div style="font-size:12px;color:var(--slate-500);">No subfolders inside ${esc(getPracticeFolderDisplayPath(curAdminFolderId))}. Create one above.</div>`}
+          </div>
+
           <div class="card stack">
             <h3 style="margin:0;">${state.editingPracticeId ? "Edit Practice Test" : "Upload Practice / Quiz Test (Up to 500 Questions)"}</h3>
+            <div class="field-group">
+              <label class="field-label" for="pracFolder">Target Library Folder</label>
+              <select id="pracFolder">${folderOptionsHtml}</select>
+            </div>
             <div class="field-group">
               <label class="field-label" for="pracTitle">Practice Test Title</label>
               <input id="pracTitle" placeholder="e.g. Chhattisgarh Economy Full Mock 01" />
@@ -3199,11 +3662,11 @@
             </div>
             <div style="display:flex;gap:8px;">
               ${state.editingPracticeId ? `<button class="btn btn-outline" id="cancelPracEditBtn">Cancel Edit</button>` : ""}
-              <button class="btn btn-primary" style="flex:1;" id="savePracBtn">${state.editingPracticeId ? "Update Practice Test" : (ghReady ? "Publish to GitHub & Catalog (0-Read)" : "Publish to Firestore Library")}</button>
+              <button class="btn btn-primary" style="flex:1;" id="savePracBtn">${state.editingPracticeId ? "Update Practice Test" : (ghReady ? "Publish to GitHub Folder & Catalog (0-Read)" : "Publish to Firestore Library")}</button>
             </div>
           </div>
-          <h3 style="margin:4px 0;">Published Practice Tests (${state.catalog.practice.length})</h3>
-          <div class="stack">${pracList}</div>
+          <h3 style="margin:4px 0;">Tests in "${esc(getPracticeFolderDisplayPath(curAdminFolderId))}" (${testsHere.length} / Total ${state.catalog.practice.length})</h3>
+          <div class="stack">${pracList || `<div class="card" style="font-size:13px;color:var(--slate-500);">No tests directly inside this folder yet.</div>`}</div>
         `;
       } else {
         const nowIso = (ms) => new Date(ms - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16);
@@ -3601,6 +4064,93 @@
           renderAdminTab();
         });
       } else if (state.adminSubTab === "LIBRARY") {
+        const folderSel = document.getElementById("pracFolder");
+        if (folderSel && !state.editingPracticeId) {
+          folderSel.value = state.adminFolderId || "";
+        }
+
+        el.querySelectorAll("[data-adm-open-folder]").forEach(btn => {
+          btn.onclick = () => {
+            state.adminFolderId = btn.getAttribute("data-adm-open-folder") || "";
+            state.editingFolderId = null;
+            renderAdminTab();
+          };
+        });
+        el.querySelectorAll("[data-adm-edit-folder]").forEach(btn => {
+          btn.onclick = () => {
+            state.editingFolderId = btn.getAttribute("data-adm-edit-folder") || null;
+            renderAdminTab();
+          };
+        });
+        const cancelFolderBtn = document.getElementById("cancelFolderEditBtn");
+        if (cancelFolderBtn) {
+          cancelFolderBtn.onclick = () => { state.editingFolderId = null; renderAdminTab(); };
+        }
+        document.getElementById("saveFolderBtn").onclick = async () => {
+          const name = document.getElementById("admFolderName").value.trim().slice(0, 60);
+          const colorKey = document.getElementById("admFolderColor").value || "blue";
+          if (!name) return alert("Enter a folder name.");
+          try {
+            const existing = state.editingFolderId ? (state.catalog.practiceFolders || []).find(f => f.id === state.editingFolderId) : null;
+            const folderId = existing ? existing.id : `fld_${Date.now()}`;
+            const parentId = existing ? (existing.parentId || "") : (state.adminFolderId || "");
+            const orderIndex = existing ? Number(existing.orderIndex ?? 0) : (state.catalog.practiceFolders || []).length;
+            await upsertCatalog("practiceFolders", folderId, {
+              id: folderId,
+              name,
+              parentId,
+              colorKey,
+              orderIndex,
+              updatedAt: serverTimestamp()
+            });
+            state.editingFolderId = null;
+            showBanner(existing ? `Renamed folder to "${name}"!` : `Created folder "${name}"!`);
+          } catch (err) {
+            alert("Folder save failed: " + err.message);
+          }
+        };
+        document.getElementById("setupPresetFoldersBtn").onclick = async () => {
+          const existingNames = new Set((state.catalog.practiceFolders || []).filter(f => !(f.parentId || "")).map(f => f.name.toLowerCase()));
+          const presets = [
+            { id: "fld_topic_wise", name: "Topic Wise Tests", colorKey: "blue", orderIndex: 0 },
+            { id: "fld_pyq_papers", name: "Previous Year Papers", colorKey: "amber", orderIndex: 1 }
+          ].filter(p => !existingNames.has(p.name.toLowerCase()));
+          if (!presets.length) return showBanner("Topic Wise Tests & Previous Year Papers folders already exist.");
+          try {
+            for (const p of presets) {
+              await upsertCatalog("practiceFolders", p.id, {
+                id: p.id, name: p.name, parentId: "", colorKey: p.colorKey, orderIndex: p.orderIndex, updatedAt: serverTimestamp()
+              });
+            }
+            showBanner("Added Topic Wise Tests & Previous Year Papers folders!");
+          } catch (err) {
+            alert("Preset folders failed: " + err.message);
+          }
+        };
+        el.querySelectorAll("[data-adm-del-folder]").forEach(btn => {
+          btn.onclick = async () => {
+            const fid = btn.getAttribute("data-adm-del-folder");
+            const folderObj = (state.catalog.practiceFolders || []).find(f => f.id === fid);
+            if (!folderObj) return;
+            if (!confirm(`Delete folder "${folderObj.name}"?\nAny subfolders or tests inside will safely move up to its parent folder.`)) return;
+            try {
+              const targetParent = folderObj.parentId || "";
+              const updates = { [`practiceFolders.${fid}`]: deleteField(), updatedAt: serverTimestamp() };
+              (state.catalog.practiceFolders || []).filter(f => (f.parentId || "") === fid).forEach(cf => {
+                updates[`practiceFolders.${cf.id}.parentId`] = targetParent;
+              });
+              state.catalog.practice.filter(t => (t.folderId || "") === fid).forEach(pt => {
+                updates[`practice.${pt.testId}.folderId`] = targetParent;
+              });
+              await updateDoc(doc(db, "portalData", "testCatalog"), updates);
+              if (state.adminFolderId === fid) state.adminFolderId = targetParent;
+              showBanner(`Folder "${folderObj.name}" removed.`);
+            } catch (err) {
+              alert("Delete folder failed: " + err.message);
+            }
+          };
+        });
+
         document.getElementById("pracFilePick").onchange = (e) => {
           const f = e.target.files[0]; if (!f) return;
           const r = new FileReader(); r.onload = () => { document.getElementById("pracJson").value = r.result; }; r.readAsText(f);
@@ -3628,6 +4178,7 @@
             const limitedQuestions = parsed.questions.slice(0, 500);
             const isEdit = Boolean(state.editingPracticeId);
             const testId = state.editingPracticeId || `prac_${Date.now()}`;
+            const folderId = (document.getElementById("pracFolder")?.value || "").trim();
             const title = (document.getElementById("pracTitle").value.trim() || parsed.title).slice(0, 160);
             const subjectTag = (document.getElementById("pracSubj").value.trim() || "General Studies").slice(0, 80);
             const durInput = parseInt(document.getElementById("pracDur").value, 10);
@@ -3639,7 +4190,9 @@
 
             const cfg = ghGetConfig();
             if (ghIsConfigured(cfg)) {
-              const targetPath = (isEdit && state.editingPracticePath) ? state.editingPracticePath : `tests/practice/${testId}.json`;
+              const slugPath = getPracticeFolderSlugPath(folderId);
+              const defaultGhPath = slugPath ? `tests/practice/${slugPath}/${testId}.json` : `tests/practice/${testId}.json`;
+              const targetPath = (isEdit && state.editingPracticePath) ? state.editingPracticePath : defaultGhPath;
               const payloadJson = JSON.stringify({
                 title,
                 subjectTag,
@@ -3656,7 +4209,7 @@
               }
               try {
                 await upsertCatalog("practice", testId, {
-                  testId, title, subjectTag, durationMinutes, marksCorrect, marksNegative,
+                  testId, title, subjectTag, folderId, durationMinutes, marksCorrect, marksNegative,
                   questionCount: limitedQuestions.length,
                   storageProvider: "GITHUB",
                   githubPath: ghRes.githubPath,
@@ -3669,7 +4222,7 @@
               state.editingPracticeId = null;
               state.editingPracticePath = "";
               state.editingPracticeCreatedAt = null;
-              showBanner(`${isEdit ? "Updated" : "Published"} "${title}" on GitHub (0 Firebase Reads)!`);
+              showBanner(`${isEdit ? "Updated" : "Published"} "${title}" to GitHub (${targetPath})!`);
               renderAdminTab();
             } else {
               const createdAtVal = (isEdit && state.editingPracticeCreatedAt) ? state.editingPracticeCreatedAt : serverTimestamp();
@@ -3684,7 +4237,7 @@
               }
               try {
                 await upsertCatalog("practice", testId, {
-                  testId, title, subjectTag, durationMinutes, marksCorrect, marksNegative,
+                  testId, title, subjectTag, folderId, durationMinutes, marksCorrect, marksNegative,
                   questionCount: limitedQuestions.length,
                   storageProvider: "FIRESTORE",
                   updatedAt: serverTimestamp()
@@ -3711,6 +4264,8 @@
           state.editingPracticePath = p.githubPath || "";
           state.editingPracticeCreatedAt = null;
           renderAdminTab();
+          const folderSelEl = document.getElementById("pracFolder");
+          if (folderSelEl) folderSelEl.value = p.folderId || "";
           document.getElementById("pracTitle").value = p.title;
           document.getElementById("pracSubj").value = p.subjectTag;
           document.getElementById("pracDur").value = p.durationMinutes;
@@ -3883,18 +4438,19 @@
       showBanner("Portal Branding & CMS saved live!");
     }
 
-    async function upsertCatalog(bucket, testId, obj) {
+    async function upsertCatalog(bucket, keyId, obj) {
       const catRef = doc(db, "portalData", "testCatalog");
       const snap = await getDoc(catRef);
       if (!snap.exists()) {
         await setDoc(catRef, {
-          scheduled: bucket === "scheduled" ? { [testId]: obj } : {},
-          practice: bucket === "practice" ? { [testId]: obj } : {},
+          scheduled: bucket === "scheduled" ? { [keyId]: obj } : {},
+          practice: bucket === "practice" ? { [keyId]: obj } : {},
+          practiceFolders: bucket === "practiceFolders" ? { [keyId]: obj } : {},
           updatedAt: serverTimestamp()
         });
       } else {
         await updateDoc(catRef, {
-          [`${bucket}.${testId}`]: obj,
+          [`${bucket}.${keyId}`]: obj,
           updatedAt: serverTimestamp()
         });
       }
