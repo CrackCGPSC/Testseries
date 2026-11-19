@@ -8,16 +8,26 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script>
-window.MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']] }, svg: { fontCache: 'global' } };
+window.MathJax = {
+  tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+  chtml: { scale: 1.02 },
+  startup: { typeset: false }
+};
 </script>
-<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 <style>
 :root {
-  --navy-950: #07152E;
-  --navy-900: #0B2452;
-  --navy-800: #153878;
-  --navy-700: #1E4B9E;
-  --royal-600: #2563EB;
+  --navy-950: #090D24;
+  --navy-900: #151C48;
+  --navy-800: #232C6B;
+  --navy-700: #3730A3;
+  --neon-cyan: #06B6D4;
+  --neon-cyan-light: #22D3EE;
+  --neon-cyan-50: #ECFEFF;
+  --neon-violet: #7C3AED;
+  --neon-violet-light: #8B5CF6;
+  --neon-fuchsia: #D946EF;
+  --royal-600: #3B82F6;
   --royal-100: #DBEAFE;
   --royal-50: #EFF6FF;
   --gold-600: #D97706;
@@ -27,9 +37,11 @@ window.MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']] }, svg: { fontC
   --gold-50: #FFFBEB;
   --emerald-600: #059669;
   --emerald-500: #10B981;
+  --emerald-400: #34D399;
   --emerald-100: #D1FAE5;
   --emerald-50: #ECFDF5;
   --rose-600: #E11D48;
+  --rose-500: #F43F5E;
   --rose-100: #FFE4E6;
   --rose-50: #FFF1F2;
   --purple-600: #7C3AED;
@@ -37,21 +49,32 @@ window.MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']] }, svg: { fontC
   --purple-50: #F5F3FF;
   --teal-600: #0D9488;
   --teal-50: #F0FDFA;
-  --canvas: #F4F7FB;
+  --canvas: #EEF2FF;
   --card: #FFFFFF;
-  --subtle: #F1F5F9;
-  --border: #E2E8F0;
+  --subtle: #E8EEFF;
+  --border: #C7D2FE;
   --text: #0F172A;
   --text-sec: #334155;
-  --muted: #64748B;
+  --muted: #5B6482;
+  --grad-header: linear-gradient(135deg, #0B102E 0%, #1E1B5E 52%, #0E3A6E 100%);
+  --grad-hero: linear-gradient(135deg, #0B102E 0%, #2E1065 38%, #1D4ED8 74%, #0891B2 100%);
+  --grad-primary: linear-gradient(135deg, #4F46E5 0%, #2563EB 55%, #06B6D4 100%);
+  --grad-quiz: linear-gradient(135deg, #7C3AED 0%, #C026D3 100%);
+  --grad-emerald: linear-gradient(135deg, #059669 0%, #10B981 55%, #06B6D4 100%);
+  --grad-gold: linear-gradient(135deg, #F59E0B 0%, #F97316 100%);
+  --grad-neon-line: linear-gradient(90deg, #6366F1 0%, #22D3EE 50%, #D946EF 100%);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--canvas);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(124,58,237,0.12), transparent 36%),
+    radial-gradient(circle at 88% 14%, rgba(6,182,212,0.12), transparent 34%),
+    var(--canvas);
+  background-attachment: fixed;
   color: var(--text);
   line-height: 1.5;
-  padding-bottom: 84px;
+  padding-bottom: 86px;
 }
 .mono { font-family: 'JetBrains Mono', monospace; }
 .hidden { display: none !important; }
@@ -61,42 +84,57 @@ input, textarea, select { font-family: inherit; }
 /* Top Header */
 .topbar {
   position: sticky; top: 0; z-index: 40;
-  background: var(--navy-950); color: #fff;
-  box-shadow: 0 4px 16px rgba(7,21,46,0.22);
+  background: var(--grad-header); color: #fff;
+  box-shadow: 0 6px 24px rgba(11,16,46,0.34);
+}
+.topbar::after {
+  content: ""; display: block; height: 2.5px; width: 100%;
+  background: var(--grad-neon-line);
 }
 .topbar-inner {
   max-width: 960px; margin: 0 auto; padding: 12px 16px;
   display: flex; align-items: center; gap: 10px;
 }
 .brand-logo {
-  width: 40px; height: 40px; border-radius: 999px;
-  background: var(--gold-500); color: var(--navy-950);
+  width: 42px; height: 42px; border-radius: 999px;
+  background: var(--grad-primary); color: #fff;
+  border: 1.5px solid var(--neon-cyan-light);
   display: flex; align-items: center; justify-content: center;
   font-weight: 800; font-size: 16px; overflow: hidden; flex-shrink: 0;
+  box-shadow: 0 0 14px rgba(34,211,238,0.35);
 }
 .brand-logo img { width: 100%; height: 100%; object-fit: cover; }
 .brand-meta { flex: 1; min-width: 0; }
-.brand-title { font-weight: 800; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.brand-sub { font-size: 11px; color: var(--gold-300); font-family: 'JetBrains Mono', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.brand-title { font-weight: 800; font-size: 15.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.brand-sub { font-size: 11px; color: var(--neon-cyan-light); font-family: 'JetBrains Mono', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .account-btn {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 8px 14px; border-radius: 999px; min-height: 40px;
-  font-weight: 700; font-size: 12px;
-  background: var(--gold-500); color: var(--navy-950);
+  font-weight: 800; font-size: 12px;
+  background: var(--grad-gold); color: var(--navy-950);
+  box-shadow: 0 4px 14px rgba(245,158,11,0.35);
 }
-.account-btn.signed { background: var(--navy-800); color: #fff; border: 1px solid rgba(252,211,77,0.45); }
+.account-btn.signed {
+  background: rgba(255,255,255,0.14); color: #fff;
+  border: 1.2px solid rgba(34,211,238,0.65); box-shadow: none;
+}
 
 /* Main Container */
 .container { max-width: 920px; margin: 0 auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 14px; }
 
 /* Cards */
 .card {
-  background: var(--card); border: 1px solid var(--border);
+  background: var(--card); border: 1.2px solid var(--border);
   border-radius: 18px; padding: 16px;
-  box-shadow: 0 2px 8px rgba(15,23,42,0.03);
+  box-shadow: 0 4px 18px rgba(79,70,229,0.06);
+}
+.card-neon {
+  position: relative;
+  border: 1.5px solid rgba(99,102,241,0.45);
+  box-shadow: 0 6px 24px rgba(79,70,229,0.10);
 }
 .section-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
-.section-title { font-size: 17px; font-weight: 800; color: var(--text); }
+.section-title { font-size: 17px; font-weight: 800; color: var(--navy-950); }
 .section-sub { font-size: 12px; color: var(--muted); }
 
 /* Pills & Chips */
@@ -105,71 +143,75 @@ input, textarea, select { font-family: inherit; }
   display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
   padding: 5px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 700;
 }
-.pill-gold { background: var(--gold-50); color: var(--gold-600); }
-.pill-emerald { background: var(--emerald-50); color: var(--emerald-600); }
-.pill-royal { background: var(--royal-50); color: var(--royal-600); }
-.pill-rose { background: var(--rose-50); color: var(--rose-600); }
-.pill-navy { background: var(--navy-900); color: #fff; }
+.pill-gold { background: var(--gold-50); color: var(--gold-600); border: 1px solid rgba(245,158,11,0.28); }
+.pill-emerald { background: var(--emerald-50); color: var(--emerald-600); border: 1px solid rgba(16,185,129,0.28); }
+.pill-royal { background: var(--neon-cyan-50); color: #0E7490; border: 1px solid rgba(6,182,212,0.3); }
+.pill-violet { background: var(--purple-50); color: var(--neon-violet); border: 1px solid rgba(124,58,237,0.28); }
+.pill-rose { background: var(--rose-50); color: var(--rose-600); border: 1px solid rgba(225,29,72,0.25); }
+.pill-navy { background: var(--grad-primary); color: #fff; }
 .chip {
   padding: 7px 14px; border-radius: 10px; font-size: 12.5px; font-weight: 700;
   background: var(--subtle); color: var(--text-sec); border: 1px solid var(--border); white-space: nowrap;
 }
-.chip.active { background: var(--navy-900); color: #fff; border-color: var(--navy-900); }
+.chip.active { background: var(--grad-quiz); color: #fff; border-color: transparent; box-shadow: 0 4px 12px rgba(124,58,237,0.3); }
 
 /* Buttons */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 6px;
   min-height: 44px; padding: 10px 16px; border-radius: 12px;
-  font-weight: 700; font-size: 13.5px; transition: opacity 0.15s, transform 0.1s;
+  font-weight: 700; font-size: 13.5px; transition: opacity 0.15s, transform 0.1s, box-shadow 0.15s;
 }
 .btn:active { transform: scale(0.98); }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-.btn-navy { background: var(--navy-900); color: #fff; }
-.btn-emerald { background: var(--emerald-600); color: #fff; }
-.btn-gold { background: var(--gold-500); color: var(--navy-950); }
-.btn-rose { background: var(--rose-600); color: #fff; }
-.btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--text); }
-.btn-outline-emerald { background: transparent; border: 1.5px solid var(--emerald-600); color: var(--emerald-600); }
-.btn-sm { min-height: 36px; padding: 6px 12px; font-size: 12px; border-radius: 9px; }
+.btn-navy { background: var(--grad-primary); color: #fff; box-shadow: 0 4px 14px rgba(37,99,235,0.26); }
+.btn-quiz { background: var(--grad-quiz); color: #fff; box-shadow: 0 4px 14px rgba(124,58,237,0.28); }
+.btn-emerald { background: var(--grad-emerald); color: #fff; box-shadow: 0 4px 14px rgba(16,185,129,0.28); }
+.btn-gold { background: var(--grad-gold); color: var(--navy-950); font-weight: 800; box-shadow: 0 4px 14px rgba(245,158,11,0.3); }
+.btn-rose { background: linear-gradient(135deg, #E11D48, #F43F5E); color: #fff; }
+.btn-violet-soft { background: var(--purple-100); color: var(--neon-violet); }
+.btn-outline { background: #fff; border: 1.5px solid var(--border); color: var(--navy-950); }
+.btn-outline-emerald { background: var(--grad-quiz); color: #fff; }
+.btn-sm { min-height: 36px; padding: 6px 12px; font-size: 12px; border-radius: 10px; }
 .btn-full { width: 100%; }
 
 /* Live Battleground Hero */
 .hero-arena {
-  background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-900) 55%, #163A7D 100%);
-  color: #fff; border-radius: 20px; padding: 18px;
-  box-shadow: 0 10px 28px rgba(7,21,46,0.22);
+  background: var(--grad-hero);
+  color: #fff; border-radius: 22px; padding: 20px;
+  border: 1.5px solid rgba(34,211,238,0.45);
+  box-shadow: 0 12px 32px rgba(46,16,101,0.34);
 }
 .live-badge {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 4px 11px; border-radius: 999px; font-size: 11px; font-weight: 800;
 }
-.live-badge.live { background: var(--emerald-600); color: #fff; }
-.live-badge.upcoming { background: var(--gold-500); color: var(--navy-950); }
+.live-badge.live { background: var(--grad-emerald); color: #fff; }
+.live-badge.upcoming { background: var(--grad-gold); color: var(--navy-950); }
 .pulse-dot {
   width: 8px; height: 8px; border-radius: 50%; background: #fff;
   animation: pulse 1.2s infinite ease-in-out;
 }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
 .countdown-box {
-  margin-top: 12px; padding: 12px 14px; border-radius: 12px;
-  background: rgba(0,0,0,0.32); border: 1px solid rgba(255,255,255,0.14);
+  margin-top: 12px; padding: 12px 14px; border-radius: 14px;
+  background: rgba(9,13,36,0.42); border: 1px solid rgba(34,211,238,0.3);
   display: flex; align-items: center; justify-content: space-between; gap: 10px;
 }
-.countdown-digits { font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 700; color: var(--gold-300); }
+.countdown-digits { font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 700; color: var(--neon-cyan-light); }
 .code-join-row { display: flex; gap: 8px; margin-top: 12px; }
 .code-input {
   flex: 1; min-height: 46px; padding: 10px 14px; border-radius: 12px;
-  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.28);
+  background: rgba(255,255,255,0.10); border: 1px solid rgba(34,211,238,0.38);
   color: #fff; font-size: 13.5px; text-transform: uppercase;
 }
-.code-input::placeholder { color: #94A3B8; text-transform: none; }
+.code-input::placeholder { color: #CBD5E1; text-transform: none; }
 
 /* Scheduled Exam Row Card */
 .sched-item {
-  border: 1px solid var(--border); background: #F8FAFC;
+  border: 1.2px solid var(--border); background: #F8FAFF;
   border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 6px;
 }
-.sched-item.is-live { background: rgba(236,253,245,0.55); border-color: var(--emerald-500); }
+.sched-item.is-live { background: rgba(236,253,245,0.7); border-color: var(--emerald-500); }
 
 /* Folder Explorer */
 .breadcrumbs {
@@ -180,50 +222,48 @@ input, textarea, select { font-family: inherit; }
 .folder-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; margin-bottom: 12px; }
 @media (min-width: 640px) { .folder-grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
 .folder-card {
-  border-radius: 14px; padding: 12px; text-align: left;
-  border: 1px solid var(--royal-100); background: var(--royal-50);
-  display: flex; flex-direction: column; justify-content: space-between; min-height: 92px;
+  border-radius: 15px; padding: 13px; text-align: left;
+  border: 1.3px solid var(--royal-100); background: linear-gradient(145deg, #EFF6FF, #E0E7FF);
+  display: flex; flex-direction: column; justify-content: space-between; min-height: 94px;
+  transition: transform 0.14s, box-shadow 0.14s;
 }
-.folder-card.amber { background: var(--gold-50); border-color: var(--gold-300); }
-.folder-card.emerald { background: var(--emerald-50); border-color: var(--emerald-100); }
-.folder-card.purple { background: var(--purple-50); border-color: var(--purple-100); }
-.folder-card.rose { background: var(--rose-50); border-color: var(--rose-100); }
-.folder-card.teal { background: var(--teal-50); border-color: #99F6E4; }
+.folder-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(79,70,229,0.12); }
+.folder-card.amber { background: linear-gradient(145deg, #FFFBEB, #FEF3C7); border-color: var(--gold-300); }
+.folder-card.emerald { background: linear-gradient(145deg, #ECFDF5, #D1FAE5); border-color: var(--emerald-400); }
+.folder-card.purple { background: linear-gradient(145deg, #F5F3FF, #EDE9FE); border-color: #C4B5FD; }
+.folder-card.rose { background: linear-gradient(145deg, #FFF1F2, #FFE4E6); border-color: #FDA4AF; }
+.folder-card.teal { background: linear-gradient(145deg, #F0FDFA, #CCFBF1); border-color: #5EEAD4; }
 .practice-card {
-  border: 1px solid var(--border); background: #F8FAFC;
-  border-radius: 14px; padding: 14px; margin-bottom: 10px;
+  border: 1.2px solid var(--border); background: #F8FAFF;
+  border-radius: 15px; padding: 14px; margin-bottom: 10px;
 }
 .practice-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
 
-/* FIXED Responsive Video Player (16:9 Wide & Centered 9:16 Portrait Shorts with Matched Control Bar) */
+/* FIXED Responsive Video Player */
 .video-shell {
-  width: 100%; border-radius: 14px; overflow: hidden; background: var(--navy-950);
+  width: 100%; border-radius: 16px; overflow: hidden; background: var(--navy-950);
+  border: 1.2px solid rgba(99,102,241,0.35);
 }
 .video-shell.vertical { max-width: 310px; margin: 0 auto; }
-.video-stage {
-  position: relative; width: 100%; background: #020617;
-  aspect-ratio: 16 / 9; overflow: hidden;
-}
+.video-stage { position: relative; width: 100%; background: #020617; aspect-ratio: 16 / 9; overflow: hidden; }
 .video-shell.vertical .video-stage { aspect-ratio: 9 / 16; }
-.video-stage iframe, .video-stage video {
-  position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block;
-}
+.video-stage iframe, .video-stage video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
 .video-facade {
   position: absolute; inset: 0; cursor: pointer;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, var(--navy-950), var(--navy-800));
+  background: var(--grad-hero);
 }
 .video-facade img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.72; }
 .play-circle {
-  position: relative; z-index: 2; width: 62px; height: 62px; border-radius: 50%;
-  background: var(--gold-500); color: var(--navy-950);
+  position: relative; z-index: 2; width: 64px; height: 64px; border-radius: 50%;
+  background: var(--grad-gold); color: var(--navy-950);
   display: flex; align-items: center; justify-content: center;
   font-size: 26px; font-weight: 900; box-shadow: 0 8px 24px rgba(0,0,0,0.45);
 }
 .video-tap-pill {
   position: relative; z-index: 2; margin-top: 8px;
-  padding: 4px 12px; border-radius: 999px; background: rgba(0,0,0,0.75);
-  color: #fff; font-size: 11.5px; font-weight: 700;
+  padding: 4px 12px; border-radius: 999px; background: rgba(9,13,36,0.82);
+  color: #fff; font-size: 11.5px; font-weight: 700; border: 1px solid rgba(34,211,238,0.4);
 }
 .video-controls {
   display: flex; align-items: center; justify-content: space-between; gap: 8px;
@@ -237,66 +277,193 @@ input, textarea, select { font-family: inherit; }
   width: 100%; padding: 10px 12px; border-radius: 10px;
   border: 1.5px solid var(--border); background: #fff; color: var(--text); font-size: 13.5px;
 }
-.input:focus { outline: none; border-color: var(--royal-600); }
+.input:focus { outline: none; border-color: var(--neon-violet); box-shadow: 0 0 0 3px rgba(124,58,237,0.12); }
 .dropzone {
-  border: 2px dashed var(--royal-600); border-radius: 14px; padding: 16px;
-  text-align: center; background: var(--royal-50); cursor: pointer;
+  border: 2px dashed var(--neon-violet); border-radius: 14px; padding: 16px;
+  text-align: center; background: var(--purple-50); cursor: pointer;
 }
 .dropzone.dragover { background: var(--emerald-50); border-color: var(--emerald-600); }
 
 /* Footer */
 .portal-footer {
-  background: var(--navy-950); color: #fff; border-radius: 20px; padding: 18px;
+  background: var(--grad-header); color: #fff; border-radius: 22px; padding: 20px;
+  border: 1.4px solid rgba(99,102,241,0.5);
 }
 
 /* Bottom Navigation */
 .bottom-nav {
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 45;
-  background: #fff; border-top: 1px solid var(--border);
+  background: rgba(255,255,255,0.96); backdrop-filter: blur(12px);
+  border-top: 1.2px solid var(--border);
   display: flex; justify-content: space-around; padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
 }
 .nav-item {
   flex: 1; max-width: 160px; display: flex; flex-direction: column; align-items: center; gap: 2px;
   padding: 6px 8px; border-radius: 12px; font-size: 11.5px; font-weight: 700; color: var(--muted);
 }
-.nav-item.active { background: var(--gold-100); color: var(--navy-950); }
+.nav-item.active { background: var(--purple-100); color: var(--neon-violet); }
 
-/* Modals & Fullscreen CBT */
+/* Modals */
 .modal-backdrop {
-  position: fixed; inset: 0; z-index: 60; background: rgba(7,21,46,0.72);
+  position: fixed; inset: 0; z-index: 70; background: rgba(9,13,36,0.74);
+  backdrop-filter: blur(4px);
   display: flex; align-items: center; justify-content: center; padding: 16px;
 }
 .modal-box {
-  background: #fff; border-radius: 18px; width: 100%; max-width: 520px;
-  max-height: 90vh; overflow-y: auto; padding: 18px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  background: #fff; border-radius: 22px; width: 100%; max-width: 520px;
+  max-height: 90vh; overflow-y: auto; padding: 20px;
+  border: 1.5px solid var(--border);
+  box-shadow: 0 24px 60px rgba(9,13,36,0.45);
 }
+
+/* FULL-FEATURED CBT & QUIZ PLAYER (100% Parity with Android & Original Player) */
 .cbt-overlay {
-  position: fixed; inset: 0; z-index: 55; background: var(--canvas);
+  position: fixed; inset: 0; z-index: 55;
+  background:
+    radial-gradient(circle at 12% 10%, rgba(124,58,237,0.10), transparent 36%),
+    radial-gradient(circle at 90% 18%, rgba(6,182,212,0.10), transparent 34%),
+    var(--canvas);
   display: flex; flex-direction: column;
 }
-.cbt-body { flex: 1; overflow-y: auto; padding: 16px; max-width: 860px; width: 100%; margin: 0 auto; }
-.opt-btn {
-  width: 100%; text-align: left; padding: 13px 14px; border-radius: 13px;
-  border: 1.5px solid var(--border); background: #fff; margin-bottom: 10px;
-  display: flex; align-items: flex-start; gap: 12px; font-size: 14.5px;
+.cbt-topbar {
+  background: var(--grad-header); color: #fff;
+  box-shadow: 0 4px 18px rgba(9,13,36,0.28);
 }
-.opt-btn.selected { background: var(--royal-50); border-color: var(--royal-600); }
-.opt-btn.correct { background: var(--emerald-50); border-color: var(--emerald-600); }
-.opt-btn.wrong { background: var(--rose-50); border-color: var(--rose-600); }
+.cbt-topbar::after {
+  content: ""; display: block; height: 2.5px; width: 100%; background: var(--grad-neon-line);
+}
+.cbt-topbar-row {
+  max-width: 1240px; margin: 0 auto; padding: 10px 14px;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.cbt-back-circle {
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(255,255,255,0.14); border: 1px solid rgba(34,211,238,0.5);
+  color: #fff; font-size: 18px; font-weight: 800;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.cbt-lang-toggle {
+  display: inline-flex; gap: 3px; padding: 3px; border-radius: 999px;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22);
+}
+.cbt-lang-btn {
+  padding: 4px 11px; border-radius: 999px; font-size: 11.5px; font-weight: 800; color: #fff;
+}
+.cbt-lang-btn.active { background: var(--grad-gold); color: var(--navy-950); }
+.cbt-timer-pill {
+  padding: 5px 11px; border-radius: 10px; font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; font-weight: 800; color: #fff;
+  background: rgba(0,0,0,0.34); border: 1px solid rgba(34,211,238,0.55);
+}
+.cbt-timer-pill.danger { background: var(--rose-600); border-color: #FDA4AF; }
+.cbt-workspace {
+  flex: 1; overflow-y: auto;
+  max-width: 1240px; width: 100%; margin: 0 auto;
+  padding: 16px; display: grid; grid-template-columns: 1fr; gap: 16px; align-items: start;
+}
+@media (min-width: 860px) {
+  .cbt-workspace { grid-template-columns: minmax(0, 1fr) 315px; }
+}
+.cbt-q-area { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.cbt-palette-sidebar {
+  background: #fff; border: 1.4px solid var(--border); border-radius: 18px;
+  padding: 14px; box-shadow: 0 6px 22px rgba(79,70,229,0.08);
+}
+@media (min-width: 860px) {
+  .cbt-palette-sidebar { position: sticky; top: 14px; }
+  .mobile-palette-toggle { display: none !important; }
+  .palette-collapsible { display: block !important; }
+}
+.mobile-palette-toggle {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 14px; border-radius: 12px; background: var(--subtle);
+  color: var(--navy-950); font-weight: 800; font-size: 13.5px;
+}
+.palette-legend {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 10px 0 12px; font-size: 11.5px; color: var(--text-sec); font-weight: 600;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+.palette-grid {
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 7px; margin-bottom: 14px;
+}
+.pal-pill {
+  height: 40px; border-radius: 10px; font-weight: 800; font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(199,210,254,0.7); background: var(--subtle); color: var(--navy-950);
+  transition: transform 0.1s;
+}
+.pal-pill:active { transform: scale(0.95); }
+.pal-pill.answered, .pal-pill.correct { background: var(--emerald-600); color: #fff; border-color: var(--emerald-600); }
+.pal-pill.not-answered { background: var(--rose-100); color: var(--rose-600); border-color: #FDA4AF; }
+.pal-pill.wrong { background: var(--rose-600); color: #fff; border-color: var(--rose-600); }
+.pal-pill.marked { background: var(--neon-violet); color: #fff; border-color: var(--neon-violet); }
+.pal-pill.current { outline: 2.5px solid var(--neon-cyan-light); outline-offset: 1px; box-shadow: 0 0 12px rgba(34,211,238,0.45); }
+
+/* Question Type Blocks */
+.q-img-frame {
+  background: #fff; border: 1.2px solid var(--border); border-radius: 12px;
+  padding: 8px; margin-top: 10px; text-align: center;
+}
+.q-img-frame img { max-width: 100%; max-height: 280px; object-fit: contain; display: block; margin: 0 auto; border-radius: 8px; }
+.opt-img-frame {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 6px; margin-top: 6px; display: inline-block; max-width: 100%;
+}
+.opt-img-frame img { max-width: 100%; max-height: 160px; object-fit: contain; display: block; border-radius: 6px; }
+.passage-box {
+  background: var(--gold-50); border: 1.3px solid rgba(245,158,11,0.65);
+  border-radius: 16px; padding: 14px;
+}
+.statement-box {
+  background: #fff; border: 1.4px solid rgba(6,182,212,0.55);
+  border-radius: 16px; padding: 15px; display: flex; flex-direction: column; gap: 8px;
+}
+.statement-list {
+  background: var(--canvas); border-radius: 10px; padding: 11px 13px;
+  white-space: pre-line; font-size: 14.5px; line-height: 1.65;
+}
+.ar-box {
+  background: #fff; border: 1.4px solid rgba(124,58,237,0.55);
+  border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 9px;
+}
+.ar-row-a { background: var(--royal-50); border: 1px solid var(--royal-100); border-radius: 11px; padding: 11px 13px; }
+.ar-row-r { background: var(--neon-cyan-50); border: 1px solid #A5F3FC; border-radius: 11px; padding: 11px 13px; }
+.match-table-wrap { overflow-x: auto; border-radius: 12px; border: 1.2px solid var(--border); }
+.match-table { width: 100%; border-collapse: collapse; font-size: 13.5px; background: #fff; }
+.match-table thead tr { background: var(--grad-header); color: #fff; }
+.match-table th { padding: 9px 11px; text-align: left; font-weight: 800; }
+.match-table td { padding: 8px 11px; border-top: 1px solid var(--border); vertical-align: top; }
+.match-table tbody tr:nth-child(even) { background: rgba(238,242,255,0.6); }
+
+.opt-btn {
+  width: 100%; text-align: left; padding: 13px 14px; border-radius: 14px;
+  border: 1.3px solid var(--border); background: #fff; margin-bottom: 10px;
+  display: flex; align-items: center; gap: 12px; font-size: 14.5px; color: var(--text);
+  transition: border-color 0.14s, background 0.14s, transform 0.1s;
+}
+.opt-btn:hover { border-color: var(--neon-violet-light); }
+.opt-btn.selected { background: var(--royal-50); border: 1.8px solid var(--neon-violet); box-shadow: 0 4px 14px rgba(124,58,237,0.12); }
+.opt-btn.correct { background: var(--emerald-50); border: 1.8px solid var(--emerald-600); }
+.opt-btn.wrong { background: var(--rose-50); border: 1.8px solid var(--rose-600); }
 .opt-badge {
-  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
-  background: var(--subtle); color: var(--navy-950); font-weight: 800; font-size: 12.5px;
+  width: 31px; height: 31px; border-radius: 50%; flex-shrink: 0;
+  background: var(--subtle); color: var(--navy-950); font-weight: 800; font-size: 13px;
   display: flex; align-items: center; justify-content: center;
 }
-.opt-btn.selected .opt-badge { background: var(--navy-900); color: #fff; }
-.opt-btn.correct .opt-badge { background: var(--emerald-600); color: #fff; }
-.opt-btn.wrong .opt-badge { background: var(--rose-600); color: #fff; }
+.opt-btn.selected .opt-badge { background: var(--grad-primary); color: #fff; }
+.opt-btn.correct .opt-badge { background: var(--grad-emerald); color: #fff; }
+.opt-btn.wrong .opt-badge { background: linear-gradient(135deg, #E11D48, #F43F5E); color: #fff; }
+.cbt-actions-bar {
+  display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; align-items: center;
+  background: #fff; border: 1.2px solid var(--border); border-radius: 16px; padding: 11px 13px;
+}
 
 .toast {
-  position: fixed; bottom: 82px; left: 50%; transform: translateX(-50%); z-index: 80;
-  background: var(--navy-950); color: #fff; padding: 10px 16px; border-radius: 12px;
-  font-size: 13px; font-weight: 600; max-width: 92vw; box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  position: fixed; bottom: 84px; left: 50%; transform: translateX(-50%); z-index: 80;
+  background: var(--grad-header); color: #fff; padding: 10px 18px; border-radius: 12px;
+  border: 1px solid var(--neon-cyan-light);
+  font-size: 13px; font-weight: 700; max-width: 92vw; box-shadow: 0 8px 28px rgba(9,13,36,0.4);
 }
 </style>
 </head>
@@ -354,31 +521,63 @@ function computeMeritShardIndex(uid) {
 
 /* ================= BUILT-IN DEFAULTS & STATE ================= */
 const SAMPLE_JSON = JSON.stringify({
-  title: "CGPSC Prelims Demo Bilingual Mock",
-  durationMinutes: 15,
+  title: "CGPSC Prelims All-Format Bilingual Demo",
+  durationMinutes: 20,
   positiveMarks: 2,
   negativeMarks: 0.66,
   questions: [
     {
-      id: 1, subjectTag: "Chhattisgarh GK", pyqTag: "CGPSC Prelims",
+      id: 1, type: "standard", subjectTag: "Chhattisgarh GK", pyqTag: "CGPSC Prelims",
       question: { en: "Which waterfall in Bastar is popularly known as the 'Niagara of India'?", hi: "बस्तर के किस जलप्रपात को लोकप्रिय रूप से 'भारत का नियाग्रा' कहा जाता है?" },
       options: { en: ["Tirathgarh", "Chitrakote", "Mandhara", "Amritdhara"], hi: ["तीरथगढ़", "चित्रकोट", "मंधारा", "अमृतधारा"] },
       correctAnswer: 1,
       explanation: { en: "Chitrakote Waterfall on the Indravati River is India's widest horseshoe-shaped waterfall.", hi: "इंद्रावती नदी पर स्थित चित्रकोट जलप्रपात भारत का सबसे चौड़ा घोड़े की नाल के आकार का जलप्रपात है।" }
     },
     {
-      id: 2, subjectTag: "Indian Polity", pyqTag: "CGPSC PYQ",
-      question: { en: "Which Article of the Indian Constitution abolishes Untouchability?", hi: "भारतीय संविधान के किस अनुच्छेद के अंतर्गत अस्पृश्यता का अंत किया गया है?" },
-      options: { en: ["Article 14", "Article 15", "Article 17", "Article 21"], hi: ["अनुच्छेद 14", "अनुच्छेद 15", "अनुच्छेद 17", "अनुच्छेद 21"] },
-      correctAnswer: 2,
-      explanation: { en: "Article 17 abolishes untouchability and forbids its practice in any form.", hi: "अनुच्छेद 17 अस्पृश्यता के उन्मूलन से संबंधित है।" }
+      id: 2, type: "standard", subjectTag: "Mathematics", pyqTag: "CSAT Math",
+      question: { en: "Simplify the expression: \\(\\dfrac{\\sqrt{144} + 3^2}{\\sqrt{9}} \\times 2\\)", hi: "व्यंजक का मान ज्ञात कीजिए: \\(\\dfrac{\\sqrt{144} + 3^2}{\\sqrt{9}} \\times 2\\)" },
+      options: { en: ["10", "14", "16", "18"], hi: ["10", "14", "16", "18"] },
+      correctAnswer: 1,
+      explanation: { en: "\\(\\sqrt{144}=12\\), \\(3^2=9\\), so \\(\\frac{12+9}{3} \\times 2 = 7 \\times 2 = 14\\).", hi: "\\(\\sqrt{144}=12\\) और \\(3^2=9\\), अतः \\(\\frac{12+9}{3} \\times 2 = 14\\)।" }
     },
     {
-      id: 3, subjectTag: "General Science", pyqTag: "Vyapam Science",
-      question: { en: "What is the SI unit of Electric Potential Difference?", hi: "विद्युत विभवांतर का SI मात्रक क्या है?" },
-      options: { en: ["Ohm", "Ampere", "Volt", "Watt"], hi: ["ओम", "एम्पीयर", "वोल्ट", "वाट"] },
-      correctAnswer: 2,
-      explanation: { en: "Electric potential difference is measured in Volts (Joule per Coulomb).", hi: "विद्युत विभवांतर को वोल्ट (जूल प्रति कूलॉम) में मापा जाता है।" }
+      id: 3, type: "statement", subjectTag: "Indian Polity", pyqTag: "CGPSC Statement",
+      statementData: {
+        intro: { en: "Consider the following statements regarding Fundamental Rights:", hi: "मौलिक अधिकारों के संबंध में निम्नलिखित कथनों पर विचार कीजिए:" },
+        list: { en: "1. Article 17 abolishes Untouchability.\n2. Article 21 guarantees Protection of Life and Personal Liberty.\n3. Right to Property is still a Fundamental Right under Article 31.", hi: "1. अनुच्छेद 17 अस्पृश्यता का अंत करता है।\n2. अनुच्छेद 21 प्राण और दैहिक स्वतंत्रता का संरक्षण देता है।\n3. संपत्ति का अधिकार अभी भी अनुच्छेद 31 के तहत मौलिक अधिकार है।" },
+        conclusion: { en: "Which of the statements given above are correct?", hi: "उपर्युक्त में से कौन-से कथन सही हैं?" }
+      },
+      question: { en: "", hi: "" },
+      options: { en: ["1 and 2 only", "2 and 3 only", "1 and 3 only", "1, 2 and 3"], hi: ["केवल 1 और 2", "केवल 2 और 3", "केवल 1 और 3", "1, 2 और 3"] },
+      correctAnswer: 0,
+      explanation: { en: "Right to Property was removed from Fundamental Rights by the 44th Constitutional Amendment (1978) and placed under Article 300A.", hi: "44वें संविधान संशोधन (1978) द्वारा संपत्ति के अधिकार को मौलिक अधिकारों से हटाकर अनुच्छेद 300A में रखा गया।" }
+    },
+    {
+      id: 4, type: "assertion", subjectTag: "Geography", pyqTag: "Assertion-Reason",
+      direction: { en: "Examine the Assertion (A) and Reason (R) carefully and choose the correct code:", hi: "कथन (A) और कारण (R) का ध्यानपूर्वक परीक्षण कीजिए और सही कूट चुनिए:" },
+      assertion: { en: "Mahanadi is known as the lifeline of Chhattisgarh.", hi: "महानदी को छत्तीसगढ़ की जीवनरेखा कहा जाता है।" },
+      reason: { en: "Its basin covers more than 55% of Chhattisgarh's total drainage area.", hi: "इसका अपवाह तंत्र छत्तीसगढ़ के कुल अपवाह क्षेत्र के 55% से अधिक भाग को आच्छादित करता है।" },
+      question: { en: "", hi: "" },
+      options: {
+        en: ["Both A and R are true and R is the correct explanation of A", "Both A and R are true but R is NOT the correct explanation of A", "A is true but R is false", "A is false but R is true"],
+        hi: ["A और R दोनों सत्य हैं तथा R, A की सही व्याख्या है", "A और R दोनों सत्य हैं परंतु R, A की सही व्याख्या नहीं है", "A सत्य है परंतु R असत्य है", "A असत्य है परंतु R सत्य है"]
+      },
+      correctAnswer: 0,
+      explanation: { en: "Mahanadi originates from Sihawa mountain (Dhamtari) and drains ~56% of Chhattisgarh.", hi: "महानदी का उद्गम सिहावा पर्वत (धमतरी) से होता है और यह छत्तीसगढ़ के लगभग 56% क्षेत्र को सिंचित करती है।" }
+    },
+    {
+      id: 5, type: "table", subjectTag: "Chhattisgarh Geography", pyqTag: "Match List",
+      tableData: {
+        intro: { en: "Match List-I (National Park / Sanctuary) with List-II (District):", hi: "सूची-I (राष्ट्रीय उद्यान / अभयारण्य) को सूची-II (जिला) से सुमेलित कीजिए:" },
+        tableObj: {
+          en: { headers: ["List-I (Park)", "List-II (District)"], rows: [["A. Indravati National Park", "1. Bijapur"], ["B. Kanger Valley National Park", "2. Bastar"], ["C. Guru Ghasidas National Park", "3. Koriya / MCB"], ["D. Barnawapara Sanctuary", "4. Balodabazar"]] },
+          hi: { headers: ["सूची-I (उद्यान)", "सूची-II (जिला)"], rows: [["A. इंद्रावती राष्ट्रीय उद्यान", "1. बीजापुर"], ["B. कांगेर घाटी राष्ट्रीय उद्यान", "2. बस्तर"], ["C. गुरु घासीदास राष्ट्रीय उद्यान", "3. कोरिया / MCB"], ["D. बारनवापारा अभयारण्य", "4. बलौदाबाजार"]] }
+        }
+      },
+      question: { en: "", hi: "" },
+      options: { en: ["A-1, B-2, C-3, D-4", "A-2, B-1, C-3, D-4", "A-1, B-3, C-2, D-4", "A-4, B-2, C-3, D-1"], hi: ["A-1, B-2, C-3, D-4", "A-2, B-1, C-3, D-4", "A-1, B-3, C-2, D-4", "A-4, B-2, C-3, D-1"] },
+      correctAnswer: 0,
+      explanation: { en: "All four pairs are directly matched: Indravati-Bijapur, Kanger Valley-Bastar, Guru Ghasidas-Koriya/MCB, Barnawapara-Balodabazar.", hi: "सभी चारों जोड़े सीधे सुमेलित हैं: इंद्रावती-बीजापुर, कांगेर घाटी-बस्तर, गुरु घासीदास-कोरिया/MCB, बारनवापारा-बलौदाबाजार।" }
     }
   ]
 }, null, 2);
@@ -409,7 +608,7 @@ const DEFAULT_CATALOG = {
     { id: "fld_cg_gk", name: "Chhattisgarh GK Special", parentId: "", colorKey: "emerald", orderIndex: 2 }
   ],
   practice: [
-    { testId: "demo_cgpsc_starter", title: "CGPSC Prelims Demo Bilingual Mock", subjectTag: "Chhattisgarh GK & GS", folderId: "fld_cg_gk", durationMinutes: 15, marksCorrect: 2, marksNegative: 0.66, questionCount: 3, storageProvider: "BUILTIN", jsonUrl: "" }
+    { testId: "demo_cgpsc_starter", title: "CGPSC Prelims All-Format Bilingual Demo", subjectTag: "All Question Types", folderId: "fld_cg_gk", durationMinutes: 20, marksCorrect: 2, marksNegative: 0.66, questionCount: 5, storageProvider: "BUILTIN", jsonUrl: "" }
   ]
 };
 
@@ -576,28 +775,65 @@ function parseTestInput(rawText) {
           } else { optsEn.push(String(o ?? "")); optsHi.push(String(o ?? "")); }
         });
       } else if (ro && typeof ro === "object") {
-        optsEn = (ro.en || ro.english || []).map(String);
-        optsHi = (ro.hi || ro.hindi || []).map(String);
+        optsEn = (ro.en || ro.english || []).map(x => (x == null ? "" : String(x)));
+        optsHi = (ro.hi || ro.hindi || []).map(x => (x == null ? "" : String(x)));
       }
       if (!optsEn.length && !optsHi.length) {
         [["option_a","optionA","a","A"],["option_b","optionB","b","B"],["option_c","optionC","c","C"],["option_d","optionD","d","D"]].forEach(vs => {
           const hit = vs.find(k => q[k]); if (hit) { optsEn.push(String(q[hit])); optsHi.push(String(q[hit])); }
         });
       }
-      if (Array.isArray(q.optionImages)) optImgs = q.optionImages;
-      if (!optsEn.length && !optsHi.length) { optsEn = ["Option A","Option B","Option C","Option D"]; optsHi = ["विकल्प A","विकल्प B","विकल्प C","विकल्प D"]; }
+      if (Array.isArray(q.optionImages)) optImgs = q.optionImages.map(x => (x == null ? "" : String(x)));
+      const hasAnyOptText = optsEn.some(x => x.trim()) || optsHi.some(x => x.trim());
+      const hasAnyOptImg = optImgs.some(x => x.trim());
+      if (!hasAnyOptText && !hasAnyOptImg) { optsEn = ["Option A","Option B","Option C","Option D"]; optsHi = ["विकल्प A","विकल्प B","विकल्प C","विकल्प D"]; }
+
+      const parseGrid = (g) => {
+        if (!g || typeof g !== "object") return null;
+        const headers = Array.isArray(g.headers) ? g.headers.map(x => String(x ?? "")) : [];
+        const rows = Array.isArray(g.rows) ? g.rows.map(r => Array.isArray(r) ? r.map(c => String(c ?? "")) : []) : [];
+        return (headers.length || rows.length) ? { headers, rows } : null;
+      };
+      let tableData = null;
+      if (q.tableData && typeof q.tableData === "object") {
+        const tObj = q.tableData.tableObj || q.tableData;
+        const enGrid = parseGrid(tObj.en || tObj.english || (Array.isArray(tObj.headers) || Array.isArray(tObj.rows) ? tObj : null));
+        const hiGrid = parseGrid(tObj.hi || tObj.hindi);
+        const intro = parseLocalized(q.tableData, "intro");
+        if (enGrid || hiGrid || intro) tableData = { intro, en: enGrid, hi: hiGrid };
+      }
+
+      const stData = q.statementData ? {
+        intro: parseLocalized(q.statementData, "intro"),
+        list: parseLocalized(q.statementData, "list"),
+        conclusion: parseLocalized(q.statementData, "conclusion")
+      } : null;
+      const assertionLoc = parseLocalized(q, "assertion");
+      const reasonLoc = parseLocalized(q, "reason");
+      const directionLoc = parseLocalized(q, "direction");
+      const passageLoc = parseLocalized(q, "passage");
+      const hasRichHeader = Boolean(stData || tableData || assertionLoc || reasonLoc || passageLoc || (q.image || q.img));
+
+      const rawQ = parseLocalized(q, "question", "question_en", "question_hi") || parseLocalized(q, "text");
+      const resolvedQuestion = rawQ || (hasRichHeader ? { en: "", hi: "" } : { en: `Question ${idx+1}`, hi: `प्रश्न ${idx+1}` });
+
       const rawAns = q.correctAnswer ?? q.correct ?? q.ans ?? q.correctIndex ?? q.answer ?? 0;
+      const slotCount = Math.max(optsEn.length, optsHi.length, optImgs.length, 4);
       return {
         id: q.id || (idx + 1), type: q.type || "standard",
         subjectTag: q.subjectTag || q.subject || "General", pyqTag: q.pyqTag || "CGPSC",
-        imageUrl: q.image || q.img || "", optionImages: optImgs,
-        passage: parseLocalized(q, "passage"), passageImage: q.passageImage || q.passage?.image || "",
-        statementData: q.statementData ? { intro: parseLocalized(q.statementData,"intro"), list: parseLocalized(q.statementData,"list"), conclusion: parseLocalized(q.statementData,"conclusion") } : null,
-        assertion: parseLocalized(q, "assertion"), reason: parseLocalized(q, "reason"), direction: parseLocalized(q, "direction"),
-        question: parseLocalized(q, "question", "question_en", "question_hi") || parseLocalized(q, "text") || { en: `Question ${idx+1}`, hi: `प्रश्न ${idx+1}` },
+        imageUrl: (q.image || q.img || "") ? String(q.image || q.img) : "",
+        optionImages: optImgs,
+        passage: passageLoc,
+        passageImage: (q.passageImage || q.passage?.image || "") ? String(q.passageImage || q.passage?.image) : "",
+        statementData: stData,
+        tableData,
+        assertion: assertionLoc, reason: reasonLoc, direction: directionLoc,
+        question: resolvedQuestion,
         optionsEn: optsEn, optionsHi: optsHi,
-        correctIndex: parseAnsIdx(rawAns, Math.max(optsEn.length, optsHi.length, 1)),
-        explanation: parseLocalized(q, "explanation", "explanation_en", "explanation_hi") || { en: "No explanation provided.", hi: "स्पष्टीकरण उपलब्ध नहीं है।" }
+        correctIndex: parseAnsIdx(rawAns, slotCount),
+        explanation: parseLocalized(q, "explanation", "explanation_en", "explanation_hi") || { en: "", hi: "" },
+        explanationImage: (q.explanationImage || "") ? String(q.explanationImage) : ""
       };
     });
     return {
@@ -819,8 +1055,8 @@ function renderVideoBlock(blk) {
 function renderCmsBlock(blk) {
   if (blk.type === "DRIVE_VIDEO") return renderVideoBlock(blk);
   if (blk.type === "HERO_BANNER") {
-    return `<div style="background:linear-gradient(135deg,var(--navy-900),var(--navy-700));color:#fff;border-radius:18px;padding:18px;">
-      ${blk.badgeText ? `<span class="pill" style="background:var(--gold-500);color:var(--navy-950);margin-bottom:8px;">${esc(blk.badgeText)}</span>` : ""}
+    return `<div style="background:var(--grad-hero);color:#fff;border-radius:20px;padding:18px;border:1.4px solid rgba(34,211,238,0.45);box-shadow:0 8px 24px rgba(46,16,101,0.24);">
+      ${blk.badgeText ? `<span class="pill" style="background:var(--grad-gold);color:var(--navy-950);margin-bottom:8px;">${esc(blk.badgeText)}</span>` : ""}
       <h2 style="font-size:19px;font-weight:800;">${esc(blk.title)}</h2>
       <p style="font-size:13.5px;color:#E2E8F0;margin-top:6px;">${esc(blk.body)}</p>
       ${blk.actionUrl ? `<a class="btn btn-gold btn-sm" style="margin-top:12px;text-decoration:none;" href="${esc(normalizeUrl(blk.actionUrl))}" target="_blank">Explore Now ↗</a>` : ""}
@@ -917,7 +1153,7 @@ function renderFolderExplorer(scopeKey, folderId) {
         <div style="font-size:12px;color:var(--muted);margin-top:2px;">+${t.marksCorrect} / -${t.marksNegative} • Bilingual CBT</div>
         <div class="practice-actions">
           <button class="btn btn-navy btn-sm" data-play-practice="${esc(t.testId)}" data-mode="TEST">⏱ Test Mode</button>
-          <button class="btn btn-outline-emerald btn-sm" data-play-practice="${esc(t.testId)}" data-mode="QUIZ">⚡ Quiz Mode</button>
+          <button class="btn btn-quiz btn-sm" data-play-practice="${esc(t.testId)}" data-mode="QUIZ">⚡ Quiz Mode</button>
         </div>
       </div>`).join("")}
     ${(!visFolders.length && !visTests.length) ? `<div style="padding:18px;text-align:center;color:var(--muted);font-size:13px;background:var(--subtle);border-radius:12px;">No folders or tests here yet.</div>` : ""}
@@ -936,7 +1172,7 @@ function renderHome() {
   const bottomBlocks = visBlocks.filter(b => b.type !== "HERO_BANNER" && b.type !== "DRIVE_VIDEO");
 
   return `
-    <div class="card">
+    <div class="card card-neon">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;">
         <div>
           <div style="font-weight:800;font-size:15.5px;">${state.profile ? `Namaste, ${esc(state.profile.studentName.split(" ")[0])}` : "Welcome, CGPSC Aspirant"}</div>
@@ -1009,9 +1245,9 @@ function renderHome() {
 
 function renderTests() {
   return `
-    <div class="card" style="background:var(--royal-50);border-color:var(--royal-100);display:flex;align-items:center;justify-content:space-between;gap:10px;">
-      <div><div style="font-weight:800;font-size:14.5px;">Have a Local JSON / CSV Test File?</div><div style="font-size:12px;color:var(--text-sec);">Run any custom question set offline in CBT or Quiz Mode.</div></div>
-      <button class="btn btn-navy btn-sm" id="openLocalJsonBtn">Load File</button>
+    <div class="card card-neon" style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+      <div><div style="font-weight:800;font-size:14.5px;color:var(--navy-950);">Have a Local JSON / CSV Test File?</div><div style="font-size:12px;color:var(--text-sec);">Supports Images, Base64 Diagrams, Math, Statement, Assertion, Table &amp; Passage.</div></div>
+      <button class="btn btn-quiz btn-sm" id="openLocalJsonBtn">Load File</button>
     </div>
     ${renderFolderExplorer("tests", state.testsFolderId)}
     ${renderScheduledHub()}`;
@@ -1477,21 +1713,92 @@ async function launchScheduled(summary) {
   startCbt(summary.testId, true, "TEST", parsed.paper);
 }
 
+/* ================= CBT & QUIZ PLAYER ENGINE (ALL QUESTION TYPES + PALETTE + MATHJAX + SCORECARD) ================= */
+function resolveLoc(loc, lang) {
+  if (!loc) return "";
+  if (typeof loc === "string") return loc.trim();
+  const e = String(loc.en || "").trim(), h = String(loc.hi || "").trim();
+  return lang === "HI" ? (h || e) : (e || h);
+}
+function resolveLocTable(td, lang) {
+  if (!td) return null;
+  const e = td.en && (td.en.headers?.length || td.en.rows?.length) ? td.en : null;
+  const h = td.hi && (td.hi.headers?.length || td.hi.rows?.length) ? td.hi : null;
+  if (lang === "HI") {
+    const hiMatchesEn = !e || (h && (h.rows?.length || 0) >= (e.rows?.length || 0));
+    return (h && hiMatchesEn) ? h : (e || h);
+  }
+  return e || h;
+}
+function resolveOpts(q, lang) {
+  const en = q.optionsEn || [], hi = q.optionsHi || [], imgs = q.optionImages || [];
+  const hasEn = en.some(x => String(x || "").trim());
+  const hasHi = hi.some(x => String(x || "").trim());
+  const hasImg = imgs.some(x => String(x || "").trim());
+  const n = Math.max(hasEn ? en.length : 0, hasHi ? hi.length : 0, hasImg ? imgs.length : 0, 4);
+  return Array.from({ length: n }, (_, i) => {
+    const e = String(en[i] || ""), h = String(hi[i] || "");
+    return lang === "HI" ? (hasHi ? (h.trim() ? h : e) : e) : (hasEn ? (e.trim() ? e : h) : h);
+  });
+}
+function formatExamRichText(raw) {
+  let s = esc(raw || "");
+  s = s.replace(/\n/g, "<br>");
+  // Offline readable TeX fallback if MathJax CDN has not finished loading
+  if (!window.MathJax?.typesetPromise) {
+    s = s.replace(/\\d?frac\{([^{}]+)\}\{([^{}]+)\}/g, "$1/$2")
+         .replace(/\\sqrt\{([^{}]+)\}/g, "√($1)")
+         .replace(/\\times/g, "×").replace(/\\div/g, "÷").replace(/\\pm/g, "±")
+         .replace(/\\\(|\\\)/g, "");
+  }
+  return s;
+}
+function safeImgSrc(src) {
+  const s = String(src || "").trim();
+  if (!s) return "";
+  if (/^data:image\//i.test(s)) return s;
+  return toDirectImageUrl(s);
+}
+
+// Tab-Switch Proctoring Listener
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden && state.activeExam && !state.activeExam.submitted) {
+    state.activeExam.warnings = (state.activeExam.warnings || 0) + 1;
+    const wEl = document.getElementById("cbtWarnBadge");
+    if (wEl) {
+      wEl.textContent = `⚠ ${state.activeExam.warnings} Tab Switch`;
+      wEl.classList.remove("hidden");
+    }
+    toast(`Proctor Warning #${state.activeExam.warnings}: Do not switch tabs during an active test!`);
+  }
+});
+
 function startCbt(testId, isScheduled, mode, paper) {
   state.activeExam = {
     testId, isScheduled, mode, paper, idx: 0, lang: "EN",
     remSec: (paper.durationMinutes || 30) * 60,
-    responses: paper.questions.map(() => ({ sel: null, marked: false })),
-    submitted: false, result: null
+    responses: paper.questions.map((_, i) => ({ sel: null, marked: false, visited: i === 0 })),
+    submitted: false, result: null, warnings: 0, paletteOpenMobile: false
   };
   clearInterval(state.examTimer);
   state.examTimer = setInterval(() => {
     if (!state.activeExam || state.activeExam.submitted) return clearInterval(state.examTimer);
     state.activeExam.remSec--;
     const tEl = document.getElementById("cbtTimerEl");
-    if (tEl) tEl.textContent = fmtHms(state.activeExam.remSec * 1000).slice(-5);
+    if (tEl) {
+      tEl.textContent = fmtHms(state.activeExam.remSec * 1000);
+      tEl.classList.toggle("danger", state.activeExam.remSec <= 120);
+    }
     if (state.activeExam.remSec <= 0) submitCbt();
   }, 1000);
+  renderCbt();
+}
+
+function jumpCbt(newIdx) {
+  const ex = state.activeExam;
+  if (!ex || newIdx < 0 || newIdx >= ex.paper.questions.length) return;
+  ex.idx = newIdx;
+  ex.responses[newIdx].visited = true;
   renderCbt();
 }
 
@@ -1500,63 +1807,277 @@ function renderCbt() {
   const ex = state.activeExam;
   if (!ex) { ov.classList.add("hidden"); return; }
   ov.classList.remove("hidden");
+
   const q = ex.paper.questions[ex.idx];
   const resp = ex.responses[ex.idx];
-  const opts = ex.lang === "HI" ? (q.optionsHi?.length ? q.optionsHi : q.optionsEn) : (q.optionsEn?.length ? q.optionsEn : q.optionsHi);
+  resp.visited = true;
+  const opts = resolveOpts(q, ex.lang);
   const showExp = ex.submitted || (ex.mode === "QUIZ" && resp.sel !== null);
-  const qText = ex.lang === "HI" ? (q.question.hi || q.question.en) : (q.question.en || q.question.hi);
-  const expText = ex.lang === "HI" ? (q.explanation.hi || q.explanation.en) : (q.explanation.en || q.explanation.hi);
+  const answeredCount = ex.responses.filter(r => r.sel !== null).length;
+  const isLast = ex.idx >= ex.paper.questions.length - 1;
+
+  const qText = resolveLoc(q.question, ex.lang);
+  const passageText = resolveLoc(q.passage, ex.lang);
+  const dirText = resolveLoc(q.direction, ex.lang);
+  const assertText = resolveLoc(q.assertion, ex.lang);
+  const reasonText = resolveLoc(q.reason, ex.lang);
+  const stIntro = resolveLoc(q.statementData?.intro, ex.lang);
+  const stList = resolveLoc(q.statementData?.list, ex.lang);
+  const stConc = resolveLoc(q.statementData?.conclusion, ex.lang);
+  const resolvedTbl = resolveLocTable(q.tableData, ex.lang);
+  const tblIntro = resolveLoc(q.tableData?.intro, ex.lang);
+  const expText = resolveLoc(q.explanation, ex.lang);
+  const isReviewMode = ex.submitted || ex.mode === "QUIZ";
+
+  const palettePillsHtml = ex.paper.questions.map((pq, i) => {
+    const r = ex.responses[i];
+    const revealThis = ex.submitted || (ex.mode === "QUIZ" && r.sel !== null);
+    let cls = "pal-pill";
+    if (revealThis && r.sel !== null && r.sel === pq.correctIndex) cls += " correct";
+    else if (revealThis && r.sel !== null && r.sel !== pq.correctIndex) cls += " wrong";
+    else if (r.marked) cls += " marked";
+    else if (r.sel !== null) cls += " answered";
+    else if (r.visited) cls += " not-answered";
+    if (i === ex.idx) cls += " current";
+    return `<button class="${cls}" data-pal-jump="${i}">${i + 1}</button>`;
+  }).join("");
 
   ov.innerHTML = `
-    <div style="background:var(--navy-950);color:#fff;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
-      <button class="btn btn-sm" style="color:#fff;" id="cbtExitBtn">← Exit</button>
-      <div style="flex:1;min-width:0;"><div style="font-weight:800;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(ex.paper.title)}</div><div class="mono" style="font-size:11px;color:var(--gold-300);">Q ${ex.idx+1}/${ex.paper.questions.length} • ${ex.mode}</div></div>
-      <span class="mono" id="cbtTimerEl" style="background:var(--navy-800);padding:6px 10px;border-radius:8px;font-weight:700;">${ex.submitted?"DONE":fmtHms(ex.remSec*1000).slice(-5)}</span>
-    </div>
-    <div style="background:var(--navy-900);padding:6px 16px;display:flex;justify-content:space-between;align-items:center;">
-      <div style="display:flex;gap:6px;">
-        <button class="pill ${ex.lang==="EN"?"pill-gold":""}" style="${ex.lang==="EN"?"":"background:rgba(255,255,255,0.14);color:#fff;"}" id="langEnBtn">English</button>
-        <button class="pill ${ex.lang==="HI"?"pill-gold":""}" style="${ex.lang==="HI"?"":"background:rgba(255,255,255,0.14);color:#fff;"}" id="langHiBtn">हिंदी</button>
+    <div class="cbt-topbar">
+      <div class="cbt-topbar-row">
+        <button class="cbt-back-circle" id="cbtExitBtn" title="Back to Portal">←</button>
+        <div style="flex:1;min-width:140px;">
+          <div style="font-weight:800;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(ex.paper.title)}</div>
+          <div class="mono" style="font-size:11px;color:var(--neon-cyan-light);">Q.${ex.idx+1}/${ex.paper.questions.length} • ${ex.mode === "QUIZ" ? "QUIZ MODE" : "CBT TEST"} • +${ex.paper.marksCorrect}/-${ex.paper.marksNegative}</div>
+        </div>
+        <span id="cbtWarnBadge" class="pill pill-rose ${ex.warnings > 0 ? "" : "hidden"}" style="background:var(--rose-600);color:#fff;border:none;">⚠ ${ex.warnings} Tab Switch</span>
+        <div class="cbt-lang-toggle">
+          <button class="cbt-lang-btn ${ex.lang === "EN" ? "active" : ""}" id="langEnBtn">EN</button>
+          <button class="cbt-lang-btn ${ex.lang === "HI" ? "active" : ""}" id="langHiBtn">हिंदी</button>
+        </div>
+        <span class="cbt-timer-pill ${ex.remSec <= 120 && !ex.submitted ? "danger" : ""}" id="cbtTimerEl">${ex.submitted ? "SUBMITTED" : fmtHms(ex.remSec * 1000)}</span>
       </div>
-      ${ex.submitted ? `<button class="btn btn-gold btn-sm" onclick="window.print()">🖨 Print PDF</button>` : `<button class="btn btn-emerald btn-sm" id="cbtSubmitBtn">Submit Test</button>`}
     </div>
-    <div class="cbt-body">
-      ${ex.submitted && ex.result ? `<div class="card" style="background:var(--emerald-50);border-color:var(--emerald-500);margin-bottom:12px;">
-        <div style="font-weight:800;color:var(--emerald-600);font-size:18px;">Score: ${ex.result.totalScore.toFixed(2)} / ${ex.result.maxScore} • Accuracy: ${ex.result.accuracyPercent}%</div>
-        <div style="font-size:12.5px;color:var(--text-sec);">✓ ${ex.result.correctCount} Correct • ✕ ${ex.result.wrongCount} Wrong • ○ ${ex.result.unattemptedCount} Unattempted</div>
-      </div>` : ""}
-      <div class="card" style="margin-bottom:12px;">
-        <div style="margin-bottom:8px;"><span class="pill pill-royal">${esc(q.subjectTag)}</span> <span class="pill pill-gold">${esc(q.pyqTag)}</span></div>
-        <div style="font-weight:700;font-size:15.5px;">Q${ex.idx+1}. ${esc(qText)}</div>
-        ${q.imageUrl ? `<img src="${esc(toDirectImageUrl(q.imageUrl))}" style="max-width:100%;max-height:240px;margin-top:10px;border-radius:10px;">` : ""}
+
+    <div class="cbt-workspace">
+      <div class="cbt-q-area">
+        ${ex.submitted && ex.result ? `
+          <div class="card" style="background:var(--emerald-50);border-color:var(--emerald-500);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+            <div>
+              <div style="font-size:11.5px;font-weight:800;color:var(--emerald-600);">REVIEW MODE • OFFICIAL RESULT</div>
+              <div style="font-weight:800;color:var(--navy-950);font-size:17px;">Score: ${ex.result.totalScore.toFixed(2)} / ${ex.result.maxScore} (${ex.result.accuracyPercent}%)</div>
+              <div style="font-size:12px;color:var(--text-sec);">✓ ${ex.result.correctCount} Correct • ✕ ${ex.result.wrongCount} Wrong • ○ ${ex.result.unattemptedCount} Skipped</div>
+            </div>
+            <button class="btn btn-gold btn-sm" id="cbtOpenScoreBtn">🏆 Score Card & PDF</button>
+          </div>` : ""}
+
+        <!-- Question Meta Strip -->
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="pill pill-navy">Q.${ex.idx + 1} / ${ex.paper.questions.length}</span>
+          <span class="pill pill-royal">${esc(q.subjectTag)}</span>
+          <span class="pill pill-violet">${esc(q.pyqTag)}</span>
+        </div>
+
+        <!-- 1. PASSAGE BLOCK -->
+        ${(passageText || q.passageImage) ? `
+          <div class="passage-box">
+            <div style="font-size:11.5px;font-weight:800;color:var(--gold-600);margin-bottom:6px;">📖 ${ex.lang === "HI" ? "गद्यांश / संदर्भ (PASSAGE)" : "PASSAGE / COMPREHENSION"}</div>
+            ${passageText ? `<div style="font-size:14.5px;color:var(--navy-950);line-height:1.65;">${formatExamRichText(passageText)}</div>` : ""}
+            ${q.passageImage ? `<div class="q-img-frame"><img src="${esc(safeImgSrc(q.passageImage))}" alt="Passage Visual"></div>` : ""}
+          </div>` : ""}
+
+        <!-- 2. STATEMENT BLOCK -->
+        ${(stIntro || stList || stConc) ? `
+          <div class="statement-box">
+            ${stIntro ? `<div style="font-weight:800;font-size:15px;color:var(--navy-950);">${formatExamRichText(stIntro)}</div>` : ""}
+            ${stList ? `<div class="statement-list">${formatExamRichText(stList)}</div>` : ""}
+            ${stConc ? `<div style="font-weight:800;font-size:14.5px;color:var(--neon-violet);">${formatExamRichText(stConc)}</div>` : ""}
+          </div>` : ""}
+
+        <!-- 3. DIRECTION + ASSERTION-REASON BLOCK -->
+        ${(dirText || assertText || reasonText) ? `
+          <div class="ar-box">
+            ${dirText ? `<div style="background:var(--purple-50);color:var(--neon-violet);font-weight:700;font-size:12.5px;padding:9px 11px;border-radius:10px;">${formatExamRichText(dirText)}</div>` : ""}
+            ${assertText ? `<div class="ar-row-a"><div style="font-size:11.5px;font-weight:800;color:var(--royal-600);margin-bottom:3px;">${ex.lang === "HI" ? "कथन (A) / Assertion (A)" : "Assertion (A)"}</div><div style="font-size:14.5px;font-weight:600;color:var(--navy-950);">${formatExamRichText(assertText)}</div></div>` : ""}
+            ${reasonText ? `<div class="ar-row-r"><div style="font-size:11.5px;font-weight:800;color:var(--teal-600);margin-bottom:3px;">${ex.lang === "HI" ? "कारण (R) / Reason (R)" : "Reason (R)"}</div><div style="font-size:14.5px;color:var(--navy-950);">${formatExamRichText(reasonText)}</div></div>` : ""}
+          </div>` : ""}
+
+        <!-- 4. TABLE-MATCH BLOCK -->
+        ${resolvedTbl ? `
+          <div class="card">
+            ${tblIntro ? `<div style="font-weight:800;font-size:15px;color:var(--navy-950);margin-bottom:10px;">${formatExamRichText(tblIntro)}</div>` : ""}
+            <div class="match-table-wrap">
+              <table class="match-table">
+                ${resolvedTbl.headers?.length ? `<thead><tr>${resolvedTbl.headers.map(h => `<th>${formatExamRichText(h)}</th>`).join("")}</tr></thead>` : ""}
+                <tbody>
+                  ${(resolvedTbl.rows || []).map(row => `<tr>${row.map(cell => `<td>${formatExamRichText(cell)}</td>`).join("")}</tr>`).join("")}
+                </tbody>
+              </table>
+            </div>
+          </div>` : ""}
+
+        <!-- 5. MAIN QUESTION PROMPT & DIAGRAM -->
+        ${(qText || q.imageUrl) ? `
+          <div class="card">
+            ${qText ? `<div style="font-weight:700;font-size:16px;color:var(--navy-950);line-height:1.6;">${formatExamRichText(qText)}</div>` : ""}
+            ${q.imageUrl ? `<div class="q-img-frame"><img src="${esc(safeImgSrc(q.imageUrl))}" alt="Question Diagram"></div>` : ""}
+          </div>` : ""}
+
+        <!-- 6. OPTIONS (Text, Base64/Drive Image-Only, or Combined) -->
+        <div>
+          ${opts.map((o, i) => {
+            let cls = "opt-btn";
+            if (showExp && i === q.correctIndex) cls += " correct";
+            else if (showExp && resp.sel === i && i !== q.correctIndex) cls += " wrong";
+            else if (resp.sel === i) cls += " selected";
+            const optImg = safeImgSrc((q.optionImages || [])[i]);
+            return `<button class="${cls}" data-opt="${i}">
+              <span class="opt-badge">${String.fromCharCode(65 + i)}</span>
+              <div style="flex:1;min-width:0;">
+                ${String(o || "").trim() ? `<div>${formatExamRichText(o)}</div>` : ""}
+                ${optImg ? `<div class="opt-img-frame"><img src="${esc(optImg)}" alt="Option ${String.fromCharCode(65 + i)}"></div>` : ""}
+              </div>
+              ${showExp && i === q.correctIndex ? `<span style="color:var(--emerald-600);font-weight:900;">✓</span>` : ""}
+              ${showExp && resp.sel === i && i !== q.correctIndex ? `<span style="color:var(--rose-600);font-weight:900;">✕</span>` : ""}
+            </button>`;
+          }).join("")}
+        </div>
+
+        <!-- 7. EXPLANATION BOX -->
+        ${showExp ? `
+          <div class="card" style="background:var(--emerald-50);border-color:var(--emerald-500);">
+            <div style="font-weight:800;font-size:12px;color:var(--emerald-600);margin-bottom:5px;">💡 EXPLANATION • Correct Answer: Option ${String.fromCharCode(65 + q.correctIndex)}</div>
+            <div style="font-size:14px;color:var(--navy-950);line-height:1.6;">${expText ? formatExamRichText(expText) : `Correct answer is Option ${String.fromCharCode(65 + q.correctIndex)}.`}</div>
+            ${q.explanationImage ? `<div class="q-img-frame"><img src="${esc(safeImgSrc(q.explanationImage))}" alt="Explanation Diagram"></div>` : ""}
+          </div>` : ""}
+
+        <!-- 8. ACTION BAR -->
+        <div class="cbt-actions-bar">
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            ${!ex.submitted ? `<button class="btn btn-outline btn-sm" id="cbtClear">Clear</button>` : ""}
+            ${!ex.submitted ? `<button class="btn btn-violet-soft btn-sm" id="cbtMarkNext">⚑ Mark & Next</button>` : ""}
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-outline btn-sm" id="cbtPrev" ${ex.idx === 0 ? "disabled" : ""}>← Prev</button>
+            <button class="btn ${isLast && !ex.submitted ? "btn-emerald" : "btn-navy"} btn-sm" id="cbtNext">${!isLast ? "Save & Next →" : (!ex.submitted ? "Submit Test ✓" : "Score Card 🏆")}</button>
+          </div>
+        </div>
       </div>
-      ${opts.map((o, i) => {
-        let cls = "opt-btn";
-        if (showExp && i === q.correctIndex) cls += " correct";
-        else if (showExp && resp.sel === i && i !== q.correctIndex) cls += " wrong";
-        else if (resp.sel === i) cls += " selected";
-        return `<button class="${cls}" data-opt="${i}"><span class="opt-badge">${String.fromCharCode(65+i)}</span><span>${esc(o)}</span></button>`;
-      }).join("")}
-      ${showExp ? `<div class="card" style="background:var(--emerald-50);border-color:var(--emerald-500);margin-top:10px;">
-        <div style="font-weight:800;font-size:12px;color:var(--emerald-600);">EXPLANATION • Correct: Option ${String.fromCharCode(65+q.correctIndex)}</div>
-        <p style="font-size:13.5px;margin-top:6px;">${esc(expText)}</p>
-      </div>` : ""}
-    </div>
-    <div style="background:#fff;border-top:1px solid var(--border);padding:10px 14px;display:flex;gap:8px;justify-content:space-between;max-width:860px;width:100%;margin:0 auto;">
-      <button class="btn btn-outline btn-sm" id="cbtPrev" ${ex.idx===0?"disabled":""}>← Prev</button>
-      ${!ex.submitted ? `<button class="btn btn-outline btn-sm" id="cbtClear">Clear</button>` : ""}
-      <button class="btn btn-navy btn-sm" id="cbtNext">${ex.idx < ex.paper.questions.length-1 ? "Next →" : ex.submitted ? "Done" : "Finish"}</button>
+
+      <!-- RIGHT SIDEBAR (Desktop) / COLLAPSIBLE INLINE PANEL (Mobile): QUESTION PALETTE -->
+      <aside class="cbt-palette-sidebar">
+        <button class="mobile-palette-toggle" id="mobilePalToggle">
+          <span>📋 Question Palette (${answeredCount}/${ex.paper.questions.length} Answered)</span>
+          <span>${ex.paletteOpenMobile ? "▲" : "▼"}</span>
+        </button>
+        <div class="palette-collapsible ${ex.paletteOpenMobile ? "" : "hidden"}" id="paletteCollapsibleBody">
+          <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--canvas);border:1px solid var(--border);border-radius:12px;margin-top:8px;">
+            <div style="width:34px;height:34px;border-radius:50%;background:var(--grad-primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;">👤</div>
+            <div style="min-width:0;">
+              <div style="font-weight:800;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(state.profile?.studentName || "CGPSC Aspirant")}</div>
+              <div class="mono" style="font-size:11px;color:var(--neon-violet);">Roll: ${esc(state.profile?.rollNumber || "PRACTICE")}</div>
+            </div>
+          </div>
+
+          <div class="palette-legend">
+            <div class="legend-item"><span class="legend-dot" style="background:var(--emerald-600);"></span>${isReviewMode ? "Correct" : "Answered"}</div>
+            <div class="legend-item"><span class="legend-dot" style="background:var(--rose-600);"></span>${isReviewMode ? "Wrong" : "Not Answered"}</div>
+            <div class="legend-item"><span class="legend-dot" style="background:var(--neon-violet);"></span>Marked Review</div>
+            <div class="legend-item"><span class="legend-dot" style="background:var(--border);"></span>${isReviewMode ? "Skipped" : "Not Visited"}</div>
+          </div>
+
+          <div class="palette-grid">${palettePillsHtml}</div>
+
+          ${!ex.submitted
+            ? `<button class="btn btn-emerald btn-full" id="palSubmitBtn">Submit Test & View Result</button>`
+            : `<button class="btn btn-gold btn-full" id="palScoreCardBtn">🏆 View Score Card & PDF</button>`}
+        </div>
+      </aside>
     </div>`;
 
-  if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise([ov]).catch(()=>{});
-  document.getElementById("cbtExitBtn").onclick = () => { clearInterval(state.examTimer); state.activeExam = null; renderCbt(); };
+  if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise([ov]).catch(() => {});
+
+  document.getElementById("cbtExitBtn").onclick = () => {
+    if (!ex.submitted && !confirm("Leave active exam? Unsubmitted answers will be discarded.")) return;
+    clearInterval(state.examTimer); state.activeExam = null; renderCbt();
+  };
   document.getElementById("langEnBtn").onclick = () => { ex.lang = "EN"; renderCbt(); };
   document.getElementById("langHiBtn").onclick = () => { ex.lang = "HI"; renderCbt(); };
-  document.getElementById("cbtSubmitBtn")?.addEventListener("click", submitCbt);
-  document.getElementById("cbtPrev").onclick = () => { if (ex.idx > 0) { ex.idx--; renderCbt(); } };
-  document.getElementById("cbtClear")?.addEventListener("click", () => { ex.responses[ex.idx].sel = null; renderCbt(); });
-  document.getElementById("cbtNext").onclick = () => { if (ex.idx < ex.paper.questions.length-1) { ex.idx++; renderCbt(); } else if (!ex.submitted) submitCbt(); };
-  ov.querySelectorAll("[data-opt]").forEach(b => b.onclick = () => { if (!ex.submitted) { ex.responses[ex.idx].sel = parseInt(b.dataset.opt, 10); renderCbt(); } });
+  document.getElementById("cbtPrev").onclick = () => jumpCbt(ex.idx - 1);
+  document.getElementById("cbtClear")?.addEventListener("click", () => { ex.responses[ex.idx].sel = null; ex.responses[ex.idx].marked = false; renderCbt(); });
+  document.getElementById("cbtMarkNext")?.addEventListener("click", () => {
+    ex.responses[ex.idx].marked = true;
+    if (!isLast) jumpCbt(ex.idx + 1); else renderCbt();
+  });
+  document.getElementById("cbtNext").onclick = () => {
+    if (!isLast) jumpCbt(ex.idx + 1);
+    else if (!ex.submitted) confirmSubmitCbt();
+    else openScoreCardModal();
+  };
+  document.getElementById("palSubmitBtn")?.addEventListener("click", confirmSubmitCbt);
+  document.getElementById("palScoreCardBtn")?.addEventListener("click", openScoreCardModal);
+  document.getElementById("cbtOpenScoreBtn")?.addEventListener("click", openScoreCardModal);
+  document.getElementById("mobilePalToggle")?.addEventListener("click", () => {
+    ex.paletteOpenMobile = !ex.paletteOpenMobile;
+    renderCbt();
+  });
+  ov.querySelectorAll("[data-pal-jump]").forEach(b => b.onclick = () => {
+    ex.paletteOpenMobile = false;
+    jumpCbt(parseInt(b.dataset.palJump, 10));
+  });
+  ov.querySelectorAll("[data-opt]").forEach(b => b.onclick = () => {
+    if (!ex.submitted) {
+      ex.responses[ex.idx].sel = parseInt(b.dataset.opt, 10);
+      ex.responses[ex.idx].marked = false;
+      renderCbt();
+    }
+  });
+}
+
+function confirmSubmitCbt() {
+  const ex = state.activeExam; if (!ex || ex.submitted) return;
+  const ans = ex.responses.filter(r => r.sel !== null).length;
+  openModal(`
+    <h3 style="margin-bottom:8px;">Submit Exam & View Result?</h3>
+    <p style="font-size:13.5px;color:var(--text-sec);margin-bottom:14px;">
+      Answered: <b>${ans} / ${ex.paper.questions.length}</b>.<br>
+      ${ex.isScheduled ? "This is a Single-Attempt Scheduled Exam. Your score will sync to the 10-Way Sharded Merit Sheet." : "Your Official Score Card and full bilingual solutions will unlock immediately."}
+    </p>
+    <div style="display:flex;gap:8px;justify-content:flex-end;">
+      <button class="btn btn-outline btn-sm" id="subKeepBtn">Keep Solving</button>
+      <button class="btn btn-emerald btn-sm" id="subNowBtn">Submit Now</button>
+    </div>`);
+  document.getElementById("subKeepBtn").onclick = closeModal;
+  document.getElementById("subNowBtn").onclick = () => { closeModal(); submitCbt(); };
+}
+
+function openScoreCardModal() {
+  const ex = state.activeExam; if (!ex || !ex.result) return;
+  const a = ex.result;
+  openModal(`
+    <div style="background:var(--grad-hero);color:#fff;padding:18px;border-radius:16px;text-align:center;margin-bottom:14px;">
+      <div style="font-size:28px;">🏆</div>
+      <div class="mono" style="font-size:11px;color:var(--neon-cyan-light);font-weight:800;">OFFICIAL SCORE CARD</div>
+      <div style="font-size:17px;font-weight:800;margin-top:4px;">${esc(ex.paper.title)}</div>
+      <div style="font-size:12px;color:#E0E7FF;margin-top:3px;">${esc(a.studentName)} • Roll: ${esc(a.rollNumber)}</div>
+    </div>
+    <div style="background:var(--canvas);border:1.2px solid var(--border);border-radius:14px;padding:14px;text-align:center;margin-bottom:12px;">
+      <div class="mono" style="font-size:11px;color:var(--muted);">TOTAL SCORE OBTAINED</div>
+      <div style="font-size:28px;font-weight:900;color:var(--neon-violet);">${Number(a.totalScore).toFixed(2)} / ${a.maxScore}</div>
+      <div style="font-size:12.5px;font-weight:700;color:var(--emerald-600);">Accuracy: ${a.accuracyPercent}% • Time: ${Math.floor(a.timeTakenSeconds/60)}m ${a.timeTakenSeconds%60}s</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;text-align:center;">
+      <div style="background:var(--emerald-50);border-radius:12px;padding:10px;"><div style="font-size:20px;font-weight:900;color:var(--emerald-600);">${a.correctCount}</div><div style="font-size:11px;">Correct</div></div>
+      <div style="background:var(--rose-50);border-radius:12px;padding:10px;"><div style="font-size:20px;font-weight:900;color:var(--rose-600);">${a.wrongCount}</div><div style="font-size:11px;">Wrong</div></div>
+      <div style="background:var(--subtle);border-radius:12px;padding:10px;"><div style="font-size:20px;font-weight:900;color:var(--text-sec);">${a.unattemptedCount}</div><div style="font-size:11px;">Skipped</div></div>
+    </div>
+    <button class="btn btn-navy btn-full" style="margin-bottom:8px;" onclick="window.print()">🖨 Print / Save Score PDF</button>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <button class="btn btn-outline btn-sm" id="scReviewBtn">Review Answers</button>
+      <button class="btn btn-violet-soft btn-sm" id="scExitBtn">Back to Portal</button>
+    </div>`);
+  document.getElementById("scReviewBtn").onclick = closeModal;
+  document.getElementById("scExitBtn").onclick = () => { closeModal(); clearInterval(state.examTimer); state.activeExam = null; renderCbt(); };
 }
 
 async function submitCbt() {
@@ -1572,11 +2093,12 @@ async function submitCbt() {
   const accuracyPercent = (correct + wrong) > 0 ? Math.round((correct * 100) / (correct + wrong)) : 0;
   const selectedOptions = ex.responses.map(r => (r.sel === null ? -1 : r.sel));
   const timeTakenSeconds = Math.max(0, ((ex.paper.durationMinutes || 30) * 60) - (ex.remSec || 0));
+  const appSwitchWarnings = ex.warnings || 0;
   const attempt = {
     userId: state.user?.uid || "local", testId: ex.testId, testTitle: ex.paper.title, mode: ex.mode,
     rollNumber: state.profile?.rollNumber || "LOCAL", studentName: state.profile?.studentName || "Aspirant",
     correctCount: correct, wrongCount: wrong, unattemptedCount: unatt, totalScore, maxScore, accuracyPercent,
-    timeTakenSeconds, appSwitchWarnings: 0, selectedOptions,
+    timeTakenSeconds, appSwitchWarnings, selectedOptions,
     submittedMs: Date.now(), syncedToCloud: false
   };
   ex.submitted = true; ex.result = attempt;
@@ -1592,7 +2114,7 @@ async function submitCbt() {
         [`entries.${state.user.uid}`]: {
           uid: state.user.uid, studentName: attempt.studentName, rollNumber: attempt.rollNumber,
           totalScore, maxScore, correctCount: correct, wrongCount: wrong, unattemptedCount: unatt,
-          accuracyPercent, timeTakenSeconds, appSwitchWarnings: 0, submittedAt: serverTimestamp()
+          accuracyPercent, timeTakenSeconds, appSwitchWarnings, submittedAt: serverTimestamp()
         },
         updatedAt: serverTimestamp()
       });
@@ -1600,7 +2122,7 @@ async function submitCbt() {
         userId: state.user.uid, testId: ex.testId, testTitle: ex.paper.title, mode: ex.mode,
         rollNumber: attempt.rollNumber, studentName: attempt.studentName,
         correctCount: correct, wrongCount: wrong, unattemptedCount: unatt,
-        totalScore, maxScore, accuracyPercent, timeTakenSeconds, appSwitchWarnings: 0,
+        totalScore, maxScore, accuracyPercent, timeTakenSeconds, appSwitchWarnings,
         selectedOptions, submittedAt: serverTimestamp()
       });
       attempt.syncedToCloud = true;
@@ -1609,7 +2131,7 @@ async function submitCbt() {
   } else {
     toast("Score Card Ready! (Saved locally — 0 Firebase writes)");
   }
-  renderCbt(); render();
+  renderCbt(); render(); openScoreCardModal();
 }
 
 /* ================= MODALS ================= */
