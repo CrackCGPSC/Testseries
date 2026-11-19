@@ -238,10 +238,15 @@
     .stack { display: flex; flex-direction: column; gap: 14px; }
     .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; }
     .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
-    .cms-grid { display: grid; grid-template-columns: 1fr; gap: 14px; align-items: start; }
-    @media (min-width: 680px) {
+    .cms-grid { display: grid; grid-template-columns: 1fr; gap: 12px; align-items: start; }
+    @media (min-width: 320px) {
       .cms-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .cms-full { grid-column: 1 / -1; }
+    }
+    @media (max-width: 520px) {
+      .cms-grid > :not(.cms-full) { padding: 11px; border-radius: 13px; }
+      .cms-grid > :not(.cms-full) h3 { font-size: 13.5px !important; }
+      .cms-grid > :not(.cms-full) p { font-size: 12px !important; }
     }
 
     .card {
@@ -363,13 +368,28 @@
       padding: 14px 16px;
     }
 
-    /* Mobile-First CBT Player */
+    /* Mobile-First & Desktop-Docked CBT Player */
     .player-shell {
-      max-width: 860px;
+      max-width: 1120px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
       gap: 12px;
+    }
+    .player-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+    @media (min-width: 900px) {
+      .player-layout {
+        grid-template-columns: minmax(0, 1fr) 320px;
+      }
+      .desktop-hide { display: none !important; }
+    }
+    @media (max-width: 899px) {
+      .palette-drawer.is-collapsed { display: none !important; }
     }
     .player-topbar {
       background: linear-gradient(135deg, var(--navy-950), var(--navy-900));
@@ -625,19 +645,116 @@
       background: var(--amber-100); color: #78350f; padding: 10px 14px;
       border-radius: 10px; font-size: 13px; font-weight: 600; margin-bottom: 12px;
     }
+    .q-meta-strip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+    .q-meta-subj {
+      color: var(--royal-600);
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+    .q-meta-pyq { color: var(--slate-500); font-weight: 700; }
+
+    /* Scheduled Horizontal Slider Tabs & Cards + Merit Table */
+    .sched-tabs {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .sched-tabs::-webkit-scrollbar { display: none; }
+    .sched-tab-pill {
+      border: 1px solid var(--slate-200);
+      background: #fff;
+      color: var(--slate-700);
+      border-radius: 999px;
+      padding: 6px 13px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .sched-tab-pill.active {
+      background: var(--navy-900);
+      color: #fff;
+      border-color: var(--navy-900);
+    }
+    .sched-slider {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 6px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .sched-slide-card {
+      flex: 0 0 min(86%, 340px);
+      scroll-snap-align: start;
+    }
+    .merit-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--slate-200);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    @media (min-width: 900px) {
+      .palette-drawer {
+        position: sticky;
+        top: 80px;
+      }
+      .palette-drawer .palette-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
     .video-box {
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 9;
-      border-radius: 12px;
+      min-height: 230px;
+      border-radius: 12px 12px 0 0;
       overflow: hidden;
       background: #020617;
     }
     .video-box.vertical {
       aspect-ratio: 9 / 16;
-      max-width: 340px;
+      min-height: 360px;
+      max-width: 300px;
       margin: 0 auto;
     }
+    .video-ctrl-bar {
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 0 0 12px 12px;
+      padding: 7px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+    .video-ctrl-btn {
+      background: rgba(255, 255, 255, .12);
+      color: #fff;
+      border: 1px solid rgba(148, 163, 184, .3);
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .video-ctrl-btn:hover { background: rgba(255, 255, 255, .2); }
     .video-frame { width: 100%; height: 100%; border: none; display: block; background: #000; }
     .video-poster {
       position: relative;
@@ -911,9 +1028,11 @@
           { id: "soc_yt", appName: "YouTube", url: "https://youtube.com", orderIndex: 0 },
           { id: "soc_tg", appName: "Telegram", url: "https://t.me", orderIndex: 1 },
           { id: "soc_ig", appName: "Instagram", url: "https://instagram.com", orderIndex: 2 }
-        ]
+        ],
+        meritListLinks: []
       },
       catalog: { scheduled: [], practice: [] },
+      schedCatFilter: "ALL",
       user: null,
       profile: null,
       attempts: [],
@@ -1209,7 +1328,7 @@
       const id = extractDriveId(s);
       if (id) return `https://drive.google.com/file/d/${id}/preview`;
       const ytId = extractYouTubeId(s);
-      if (ytId) return `https://www.youtube-nocookie.com/embed/${ytId}?playsinline=1&rel=0&modestbranding=1`;
+      if (ytId) return `https://www.youtube-nocookie.com/embed/${ytId}?controls=1&fs=1&playsinline=1&rel=0&modestbranding=1`;
       const ig = s.match(/instagram\.com\/(?:reel|reels|p)\/([a-zA-Z0-9_-]+)/i);
       if (ig) return `https://www.instagram.com/p/${ig[1]}/embed/`;
       return s;
@@ -1360,7 +1479,8 @@
         } : null;
 
         const tbRaw = q.tableData && typeof q.tableData === "object" ? q.tableData : null;
-        const tbEn = tbRaw ? normTblGrid(tbRaw.en || (tbRaw.tableObj && tbRaw.tableObj.en)) : null;
+        const tbDirect = tbRaw && (Array.isArray(tbRaw.headers) || Array.isArray(tbRaw.rows)) ? tbRaw : null;
+        const tbEn = tbRaw ? normTblGrid(tbRaw.en || (tbRaw.tableObj && tbRaw.tableObj.en) || tbDirect) : null;
         const tbHi = tbRaw ? normTblGrid(tbRaw.hi || (tbRaw.tableObj && tbRaw.tableObj.hi)) : null;
         const tableData = tbRaw ? {
           intro: normLoc(tbRaw.intro),
@@ -1441,24 +1561,56 @@
           apkDownloadUrl: d.apkDownloadUrl || "",
           playStoreUrl: d.playStoreUrl || "",
           blocks: (d.blocks || []).sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0)),
-          socialLinks: (d.socialLinks || []).sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0))
+          socialLinks: (d.socialLinks || []).sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0)),
+          meritListLinks: (d.meritListLinks || []).sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0))
         };
       }
       renderHeader();
       renderPortalTabs();
     }, (err) => console.warn("Config listener:", err));
 
+    const cleanedSchedSession = new Set();
+    async function cleanupEndedScheduledTests(manual = false) {
+      if (!isAdmin()) return 0;
+      const now = Date.now();
+      const targets = state.catalog.scheduled.filter(s =>
+        now > s.windowEndMs && !s.questionsCleaned && (manual || !cleanedSchedSession.has(s.testId))
+      );
+      if (!targets.length) return 0;
+      let removedCount = 0;
+      for (const s of targets) {
+        cleanedSchedSession.add(s.testId);
+        try {
+          await deleteDoc(doc(db, "scheduledTests", s.testId));
+          await updateDoc(doc(db, "portalData", "testCatalog"), {
+            [`scheduled.${s.testId}.questionsCleaned`]: true,
+            updatedAt: serverTimestamp()
+          });
+          removedCount++;
+        } catch (err) {
+          console.warn("Cleanup scheduled payload:", s.testId, err);
+        }
+      }
+      if (removedCount > 0) {
+        showBanner(`Auto-cleaned ${removedCount} ended scheduled test file(s) from Firebase (Merit records preserved for Admin).`);
+      }
+      return removedCount;
+    }
+
     onSnapshot(doc(db, "portalData", "testCatalog"), (snap) => {
       if (snap.exists()) {
         const d = snap.data();
         const sched = Object.entries(d.scheduled || {}).map(([id, v]) => ({
           ...v, testId: v.testId || id,
+          scheduleCategory: String(v.scheduleCategory || "DAILY").toUpperCase(),
+          questionsCleaned: Boolean(v.questionsCleaned),
           windowStartMs: toMillis(v.windowStartAt), windowEndMs: toMillis(v.windowEndAt)
         })).sort((a, b) => b.windowStartMs - a.windowStartMs);
         const prac = Object.entries(d.practice || {}).map(([id, v]) => ({
           ...v, testId: v.testId || id, updatedMs: toMillis(v.updatedAt)
         })).sort((a, b) => b.updatedMs - a.updatedMs);
         state.catalog = { scheduled: sched, practice: prac };
+        if (isAdmin()) cleanupEndedScheduledTests(false);
       }
       renderPortalTabs();
     }, (err) => console.warn("Catalog listener:", err));
@@ -1470,6 +1622,7 @@
       if (unsubAttempts) { unsubAttempts(); unsubAttempts = null; }
 
       if (user) {
+        if (isAdmin() && state.catalog.scheduled.length) cleanupEndedScheduledTests(false);
         unsubProfile = onSnapshot(doc(db, "users", user.uid), (snap) => {
           state.profile = snap.exists() ? snap.data() : null;
           renderHeader();
@@ -1761,13 +1914,16 @@
           const s = action.summary;
           const now = Date.now();
           if (now < s.windowStartMs) return alert(`Exam opens on ${fmtDate(s.windowStartMs)}.`);
-          if (now > s.windowEndMs) return openRankModal(s);
+          if (now > s.windowEndMs) {
+            if (isAdmin()) return openRankModal(s);
+            return alert("Test Ended. Official Merit List PDF will be posted in the Dashboard Merit Lists section.");
+          }
           const attemptSnap = await getDoc(doc(db, "users", state.user.uid, "attempts", s.testId));
           if (attemptSnap.exists()) {
-            return alert(`Single Attempt Completed! Score: ${attemptSnap.data().totalScore}. Rank List unlocks at ${fmtDate(s.windowEndMs)}.`);
+            return alert(`Single Attempt Completed! Score: ${attemptSnap.data().totalScore}. Official Merit List PDF will be shared after exam ends.`);
           }
           const testSnap = await getDoc(doc(db, "scheduledTests", s.testId));
-          if (!testSnap.exists()) return showBanner("Scheduled test payload missing.");
+          if (!testSnap.exists()) return showBanner("Scheduled test ended and its question file has been cleaned.");
           const d = testSnap.data();
           const parsed = normalizeTestJson({ title: d.title, durationMinutes: d.durationMinutes, positiveMarks: d.marksCorrect, negativeMarks: d.marksNegative, questions: d.questions || [] });
           startExamPlayer({
@@ -1867,6 +2023,15 @@
         } else if (vid) {
           playerMarkup = `<iframe class="video-frame" src="${esc(vid)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
         }
+        const safeExtUrl = /^https?:\/\//i.test(rawUrl) ? rawUrl : (vid || "");
+        const ctrlBar = playerMarkup ? `
+          <div class="video-ctrl-bar">
+            <button type="button" class="video-ctrl-btn" data-video-theater="${esc(rawUrl)}" data-video-title="${esc(b.title || "Video Lecture")}" data-video-vert="${isVert ? "1" : "0"}">
+              &#x26F6; Theater / Fullscreen
+            </button>
+            ${safeExtUrl ? `<a class="video-ctrl-btn" href="${esc(safeExtUrl)}" target="_blank" rel="noopener noreferrer">Open Video &#8599;</a>` : ""}
+          </div>
+        ` : "";
         return `
           <div class="card ${colCls}">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px;">
@@ -1876,7 +2041,7 @@
                 ${b.badgeText ? `<span class="badge badge-blue">${esc(b.badgeText)}</span>` : ""}
               </div>
             </div>
-            ${playerMarkup ? `<div class="video-box ${isVert ? "vertical" : ""}">${playerMarkup}</div>` : ""}
+            ${playerMarkup ? `<div class="video-box ${isVert ? "vertical" : ""}">${playerMarkup}</div>${ctrlBar}` : ""}
             ${b.body ? `<p style="margin:8px 0 0;color:var(--slate-500);font-size:13px;white-space:pre-line;">${esc(b.body)}</p>` : ""}
           </div>
         `;
@@ -1893,6 +2058,26 @@
       `;
     }
 
+    function openVideoTheaterModal(rawUrl, title, isVert) {
+      const clean = String(rawUrl || "").trim();
+      const vid = toVideoPreview(clean);
+      const isMp4 = isDirectVideoFile(clean);
+      const frame = isMp4
+        ? `<video class="video-frame" controls autoplay playsinline src="${esc(clean)}"></video>`
+        : `<iframe class="video-frame" src="${esc(vid + (vid.includes("youtube") ? "&autoplay=1" : ""))}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+      openModal(`
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;">
+          <strong style="font-size:15px;">&#9654; ${esc(title || "Video Player")}</strong>
+          <div style="display:flex;gap:8px;align-items:center;">
+            ${/^https?:\/\//i.test(clean) ? `<a class="btn btn-outline" href="${esc(clean)}" target="_blank" rel="noopener noreferrer" style="padding:6px 10px;font-size:12px;">Open External &#8599;</a>` : ""}
+            <button class="btn btn-navy" id="closeTheaterBtn" style="padding:6px 12px;font-size:12px;">Close</button>
+          </div>
+        </div>
+        <div class="video-box ${isVert ? "vertical" : ""}" style="border-radius:12px;">${frame}</div>
+      `, true);
+      document.getElementById("closeTheaterBtn").onclick = closeModal;
+    }
+
     function bindVideoFacades(rootEl) {
       if (!rootEl) return;
       rootEl.querySelectorAll("[data-video-embed]").forEach(btn => {
@@ -1902,32 +2087,107 @@
           btn.parentElement.innerHTML = `<iframe class="video-frame" src="${esc(src)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
         };
       });
+      rootEl.querySelectorAll("[data-video-theater]").forEach(btn => {
+        btn.onclick = () => {
+          openVideoTheaterModal(
+            btn.getAttribute("data-video-theater"),
+            btn.getAttribute("data-video-title"),
+            btn.getAttribute("data-video-vert") === "1"
+          );
+        };
+      });
     }
 
-    function renderScheduledCardHtml(s) {
+    function renderScheduledCardHtml(s, isSliderCard = false) {
       const now = Date.now();
       const attempted = state.attempts.some(a => a.testId === s.testId);
+      const cat = String(s.scheduleCategory || "DAILY").toUpperCase();
       let badge = `<span class="badge badge-amber">UPCOMING</span>`;
       let actionHtml = `<div class="alert-bar" style="margin:0;display:flex;justify-content:space-between;"><span>Starts in</span><strong class="mono" data-countdown-target="${s.windowStartMs}">${fmtCountdown(s.windowStartMs - now)}</strong></div>`;
       if (now >= s.windowStartMs && now <= s.windowEndMs) {
         badge = `<span class="badge badge-green">LIVE NOW</span>`;
         actionHtml = `
           <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
-            <span style="font-size:12px;color:var(--slate-500);">${attempted ? "Attempt submitted • Rank after window" : `Closes in <strong class="mono" data-countdown-target="${s.windowEndMs}">${fmtCountdown(s.windowEndMs - now)}</strong>`}</span>
+            <span style="font-size:12px;color:var(--slate-500);">${attempted ? "Attempt submitted • Result via Admin PDF" : `Closes in <strong class="mono" data-countdown-target="${s.windowEndMs}">${fmtCountdown(s.windowEndMs - now)}</strong>`}</span>
             <button class="btn btn-emerald" ${attempted ? "disabled" : ""} data-join-sched="${esc(s.testId)}">${attempted ? "Submitted" : "Join Live Exam"}</button>
           </div>
         `;
       } else if (now > s.windowEndMs) {
-        badge = `<span class="badge badge-blue">RANK READY</span>`;
-        actionHtml = `<button class="btn btn-navy" style="width:100%;" data-rank-sched="${esc(s.testId)}">View Official Rank List &amp; PDF</button>`;
+        badge = `<span class="badge badge-rose">TEST ENDED</span>`;
+        actionHtml = `
+          <div style="background:var(--slate-100);color:var(--slate-700);padding:9px 11px;border-radius:10px;font-size:12px;font-weight:700;">
+            Test Ended &bull; Official Merit List PDF will be posted on Dashboard.
+          </div>
+        `;
       }
       return `
-        <div class="card stack" style="gap:10px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;">${badge}<span class="mono" style="font-size:12px;font-weight:700;color:var(--royal-600);">CODE: ${esc(s.testCode)}</span></div>
-          <h3 style="margin:0;">${esc(s.title)}</h3>
-          <div style="font-size:12px;color:var(--slate-500);">${s.questionCount} Qs • ${s.durationMinutes} Mins • +${s.marksCorrect} / -${s.marksNegative}</div>
+        <div class="card stack ${isSliderCard ? "sched-slide-card" : ""}" style="gap:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap;">
+            <div style="display:flex;gap:6px;align-items:center;">${badge}<span class="badge badge-blue">${esc(cat)}</span></div>
+            <span class="mono" style="font-size:11.5px;font-weight:700;color:var(--royal-600);">CODE: ${esc(s.testCode)}</span>
+          </div>
+          <h3 style="margin:0;font-size:15.5px;">${esc(s.title)}</h3>
+          <div style="font-size:12px;color:var(--slate-500);">${s.questionCount} Qs &bull; ${s.durationMinutes} Mins &bull; +${s.marksCorrect} / -${s.marksNegative}</div>
           <div style="font-size:12px;color:var(--slate-500);">${fmtDate(s.windowStartMs)} &rarr; ${fmtDate(s.windowEndMs)}</div>
           ${actionHtml}
+        </div>
+      `;
+    }
+
+    function renderScheduledSectionHtml(list, emptyMsg = "") {
+      const cat = state.schedCatFilter || "ALL";
+      const counts = {
+        ALL: list.length,
+        DAILY: list.filter(x => (x.scheduleCategory || "DAILY") === "DAILY").length,
+        WEEKLY: list.filter(x => x.scheduleCategory === "WEEKLY").length,
+        MONTHLY: list.filter(x => x.scheduleCategory === "MONTHLY").length
+      };
+      const tabsHtml = [
+        ["ALL", `All (${counts.ALL})`],
+        ["DAILY", `Daily (${counts.DAILY})`],
+        ["WEEKLY", `Weekly (${counts.WEEKLY})`],
+        ["MONTHLY", `Monthly (${counts.MONTHLY})`]
+      ].map(([k, lbl]) => `<button type="button" class="sched-tab-pill ${cat === k ? "active" : ""}" data-sched-cat="${k}">${lbl}</button>`).join("");
+
+      const filtered = cat === "ALL" ? list : list.filter(x => (x.scheduleCategory || "DAILY") === cat);
+      const cardsHtml = filtered.map(s => renderScheduledCardHtml(s, true)).join("");
+      return `
+        <div class="stack" style="gap:10px;">
+          <div class="sched-tabs">${tabsHtml}</div>
+          ${cardsHtml ? `<div class="sched-slider">${cardsHtml}</div>` : (emptyMsg ? `<div class="card">${emptyMsg}</div>` : `<div class="card">No ${cat.toLowerCase()} scheduled tests right now.</div>`)}
+        </div>
+      `;
+    }
+
+    function renderMeritLinksTableHtml(showWhenEmpty = false) {
+      const links = state.config.meritListLinks || [];
+      if (!links.length && !showWhenEmpty) return "";
+      const normUrl = (u) => /^https?:\/\//i.test(u) ? u : `https://${u}`;
+      const rows = links.map((m, idx) => `
+        <tr>
+          <td class="mono" style="color:var(--slate-500);">${idx + 1}</td>
+          <td><strong>${esc(m.testTitle)}</strong></td>
+          <td><span class="badge badge-blue">${esc(m.category || "DAILY")}</span></td>
+          <td style="font-size:12px;color:var(--slate-500);">${esc(m.examDate || "-")}</td>
+          <td>
+            <a class="btn btn-primary" style="padding:6px 10px;font-size:11.5px;text-decoration:none;white-space:nowrap;" href="${esc(normUrl(m.telegramUrl))}" target="_blank" rel="noopener noreferrer">
+              Merit PDF (Telegram) &#8599;
+            </a>
+          </td>
+        </tr>
+      `).join("");
+      return `
+        <div class="card stack" style="gap:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+            <div>
+              <h3 style="margin:0;font-size:16px;">&#127942; Official Scheduled Test Merit Lists (PDF)</h3>
+              <div style="font-size:12px;color:var(--slate-500);">Download complete rank list PDFs directly from our official Telegram channel</div>
+            </div>
+            <span class="badge badge-amber">${links.length} Published</span>
+          </div>
+          ${links.length
+            ? `<div class="merit-table-wrap"><table><thead><tr><th>#</th><th>Exam Name</th><th>Type</th><th>Date</th><th>Merit PDF</th></tr></thead><tbody>${rows}</tbody></table></div>`
+            : `<div style="font-size:13px;color:var(--slate-500);">No Merit List PDFs posted yet. Official PDFs appear here after Admin reviews results.</div>`}
         </div>
       `;
     }
@@ -2031,16 +2291,16 @@
     }
 
     function wireTestCardButtons(rootEl) {
+      rootEl.querySelectorAll("[data-sched-cat]").forEach(btn => {
+        btn.onclick = () => {
+          state.schedCatFilter = btn.getAttribute("data-sched-cat") || "ALL";
+          renderPortalTabs();
+        };
+      });
       rootEl.querySelectorAll("[data-join-sched]").forEach(btn => {
         btn.onclick = () => {
           const s = state.catalog.scheduled.find(x => x.testId === btn.getAttribute("data-join-sched"));
           if (s) gateAction({ type: "SCHEDULED", summary: s });
-        };
-      });
-      rootEl.querySelectorAll("[data-rank-sched]").forEach(btn => {
-        btn.onclick = () => {
-          const s = state.catalog.scheduled.find(x => x.testId === btn.getAttribute("data-rank-sched"));
-          if (s) openRankModal(s);
         };
       });
       rootEl.querySelectorAll("[data-play-prac]").forEach(btn => {
@@ -2053,8 +2313,9 @@
     function renderHomeTab() {
       const el = document.getElementById("tabHOME");
       const blocksHtml = state.config.blocks.filter(b => b.visible !== false).map(renderCmsBlockHtml).join("");
-      const schedHtml = state.catalog.scheduled.slice(0, 4).map(renderScheduledCardHtml).join("");
+      const schedList = state.catalog.scheduled;
       const pracHtml = state.catalog.practice.slice(0, 4).map(renderPracticeCardHtml).join("");
+      const meritTableHtml = renderMeritLinksTableHtml(false);
 
       el.innerHTML = `
         <div class="cms-grid">${blocksHtml}</div>
@@ -2068,7 +2329,8 @@
             <button class="btn btn-primary" id="homeCodeJoinBtn" style="white-space:nowrap;flex-shrink:0;">Join &rarr;</button>
           </div>
         </div>
-        ${schedHtml ? `<div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;"><h2 style="margin:0;font-size:17px;">Scheduled Live Exams</h2><button class="btn" style="background:transparent;color:var(--royal-600);padding:4px 8px;" data-jump-tab="TESTS">View All</button></div><div class="grid-2">${schedHtml}</div>` : ""}
+        ${schedList.length ? `<div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;"><h2 style="margin:0;font-size:17px;">Scheduled Live Exams</h2><button class="btn" style="background:transparent;color:var(--royal-600);padding:4px 8px;" data-jump-tab="TESTS">View All</button></div>${renderScheduledSectionHtml(schedList)}` : ""}
+        ${meritTableHtml}
         ${pracHtml ? `<div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;"><h2 style="margin:0;font-size:17px;">Practice &amp; Quiz Library</h2><button class="btn" style="background:transparent;color:var(--royal-600);padding:4px 8px;" data-jump-tab="TESTS">All Tests</button></div><div class="grid-2">${pracHtml}</div>` : ""}
         ${renderFooterHtml()}
       `;
@@ -2087,15 +2349,14 @@
 
     function renderTestsTab() {
       const el = document.getElementById("tabTESTS");
-      const schedHtml = state.catalog.scheduled.map(renderScheduledCardHtml).join("") || `<div class="card">No scheduled exams published yet.</div>`;
       const pracHtml = state.catalog.practice.map(renderPracticeCardHtml).join("") || `<div class="card">No practice library tests uploaded yet.</div>`;
       el.innerHTML = `
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
           <h2 style="margin:0;">All Scheduled &amp; Practice Tests</h2>
           <button class="btn btn-outline" id="openLocalJsonBtn">Play Local JSON File</button>
         </div>
-        <h3>Scheduled Fixed-Window Exams</h3>
-        <div class="grid-2">${schedHtml}</div>
+        <h3 style="margin:4px 0 0;">Scheduled Fixed-Window Exams</h3>
+        ${renderScheduledSectionHtml(state.catalog.scheduled, "No scheduled exams published yet.")}
         <h3>Practice &amp; Quiz Library</h3>
         <div class="grid-2">${pracHtml}</div>
         ${renderFooterHtml()}
@@ -2142,20 +2403,12 @@
 
     function renderResultsTab() {
       const el = document.getElementById("tabRESULTS");
+      const meritTable = renderMeritLinksTableHtml(true);
       if (!state.user) {
-        el.innerHTML = `<div class="card"><h3>Sign In Required</h3><p>Sign in with Google to view your personal Score Cards and official Merit Rank Lists.</p><button class="btn btn-navy" id="resSignInBtn">Sign In with Google</button></div>`;
+        el.innerHTML = `${meritTable}<div class="card"><h3>Sign In for Personal Score Cards</h3><p>Sign in with Google to track all your personal exam attempts and scores.</p><button class="btn btn-navy" id="resSignInBtn">Sign In with Google</button></div>${renderFooterHtml()}`;
         document.getElementById("resSignInBtn").onclick = openSignInModal;
         return;
       }
-      const ranksHtml = state.catalog.scheduled.map(s => {
-        const ended = Date.now() > s.windowEndMs;
-        return `
-          <div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
-            <div><strong>${esc(s.title)}</strong><div style="font-size:12px;color:var(--slate-500);">Ends: ${fmtDate(s.windowEndMs)}</div></div>
-            <button class="btn btn-primary" ${ended ? "" : "disabled"} data-rank-id="${esc(s.testId)}">${ended ? "Rank List" : "Locked"}</button>
-          </div>
-        `;
-      }).join("") || `<div class="card">No scheduled exams available.</div>`;
 
       const attemptsHtml = state.attempts.map(a => `
         <div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
@@ -2167,18 +2420,14 @@
         </div>
       `).join("") || `<div class="card">No exam attempts recorded yet.</div>`;
 
-      el.innerHTML = `<h2>Official Rank Lists</h2><div class="stack">${ranksHtml}</div><h2 style="margin-top:16px;">My Attempt History</h2><div class="stack">${attemptsHtml}</div>`;
-      el.querySelectorAll("[data-rank-id]").forEach(b => {
-        b.onclick = () => {
-          const s = state.catalog.scheduled.find(x => x.testId === b.getAttribute("data-rank-id"));
-          if (s) openRankModal(s);
-        };
-      });
+      el.innerHTML = `${meritTable}<h2 style="margin-top:8px;">My Attempt History</h2><div class="stack">${attemptsHtml}</div>${renderFooterHtml()}`;
     }
 
-    // --- Rank List & Printable PDF ---
+    // --- Admin-Only Merit Rank List & Printable PDF ---
     async function openRankModal(summary) {
-      if (!state.user) return openSignInModal();
+      if (!isAdmin()) {
+        return showBanner("Official Merit Rank List PDFs are posted by Admin in the Dashboard Merit Lists section.");
+      }
       openModal(`<p>Loading Official Merit Sheet...</p>`, true);
       try {
         const snap = await getDoc(doc(db, "testMeritSheets", summary.testId));
@@ -2307,9 +2556,15 @@
       const tbIntro = q.tableData ? resolveLocText(q.tableData.intro, p.lang) : { text: "", isFallback: false };
       const tbGrid = q.tableData ? resolveLocTable(q.tableData, p.lang) : { headers: [], rows: [], isFallback: false };
 
-      const isFb = rq.isFallback || ro.isFallback || rpass.isFallback || rdir.isFallback || rass.isFallback || rrea.isFallback || stIntro.isFallback || stList.isFallback || tbGrid.isFallback;
       const showFb = (p.mode === "QUIZ" && resp.selected !== null) || p.submitted;
       const ansCount = p.responses.filter(r => r.status === "ANSWERED").length;
+      const notAnsCount = p.responses.filter(r => r.status === "NOT_ANSWERED").length;
+      const markedCount = p.responses.filter(r => r.status === "MARKED").length;
+      const notVisCount = p.responses.filter(r => r.status === "NOT_VISITED").length;
+      const corrCount = p.submitted ? p.questions.filter((qq, i) => p.responses[i].selected === qq.correctIndex).length : 0;
+      const wrongCount = p.submitted ? p.questions.filter((qq, i) => p.responses[i].selected !== null && p.responses[i].selected !== qq.correctIndex).length : 0;
+      const skipCount = p.submitted ? p.questions.filter((_, i) => p.responses[i].selected === null).length : 0;
+      const isLastQ = p.idx === p.questions.length - 1;
 
       const paletteHtml = p.questions.map((qq, i) => {
         const st = p.responses[i].status;
@@ -2363,11 +2618,7 @@
             </button>
             <div class="player-title-wrap">
               <div class="player-title-txt">${esc(p.title)}</div>
-              <div class="player-sub-row">
-                <span class="badge ${p.mode === "TEST" ? "badge-blue" : "badge-purple"}" style="font-size:9.5px;padding:2px 7px;">&#128274; ${p.mode}</span>
-                ${p.isScheduled && p.warnings > 0 ? `<span class="badge badge-rose" style="font-size:9.5px;padding:2px 7px;">Switches: ${p.warnings}</span>` : ""}
-                ${isFb ? `<span class="badge badge-amber" style="font-size:9.5px;padding:2px 7px;">EN/HI Fallback</span>` : ""}
-              </div>
+              ${p.isScheduled && p.warnings > 0 ? `<div class="player-sub-row"><span class="badge badge-rose" style="font-size:9.5px;padding:2px 7px;">Switches: ${p.warnings}</span></div>` : ""}
             </div>
             <div class="player-timer-chip">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
@@ -2379,93 +2630,97 @@
             </div>
           </header>
 
-          <div class="card stack" style="gap:12px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
-              <strong class="mono" style="font-size:13.5px;color:var(--navy-900);">Q.${p.idx + 1} / ${p.questions.length}</strong>
-              <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                <span class="badge badge-blue">${esc(q.subjectTag || "General")}</span>
-                ${q.pyqTag ? `<span class="badge badge-amber">${esc(q.pyqTag)}</span>` : ""}
+          <div class="player-layout">
+            <div class="card stack" style="gap:12px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+                <strong class="mono" style="font-size:13.5px;color:var(--navy-900);">Q.${p.idx + 1} / ${p.questions.length}</strong>
+                <div class="q-meta-strip">
+                  <span class="q-meta-subj">${esc(q.subjectTag || "General")}</span>
+                  ${q.pyqTag ? `<span style="color:var(--slate-400);">&bull;</span><span class="q-meta-pyq">${esc(q.pyqTag)}</span>` : ""}
+                </div>
               </div>
+
+              ${(rpass.text || q.passageImage) ? `
+                <div class="q-passage-box">
+                  <div style="font-size:11px;font-weight:800;color:var(--royal-600);margin-bottom:4px;">PASSAGE / COMPREHENSION</div>
+                  ${rpass.text ? `<div>${formatRichHtml(rpass.text)}</div>` : ""}
+                  ${q.passageImage ? `<img src="${esc(toDriveImage(q.passageImage))}" onerror="this.src='${esc(toDriveImageFallback(q.passageImage))}';this.onerror=null;" style="max-height:220px;max-width:100%;object-fit:contain;border-radius:10px;margin-top:8px;" />` : ""}
+                </div>
+              ` : ""}
+
+              ${hasStatement ? `
+                <div class="q-statement-box">
+                  ${stIntro.text ? `<div style="font-weight:700;color:var(--navy-900);">${formatRichHtml(stIntro.text)}</div>` : ""}
+                  ${stList.text ? `<div style="line-height:1.65;">${formatRichHtml(stList.text)}</div>` : ""}
+                  ${stConc.text ? `<div style="font-weight:700;color:var(--navy-900);">${formatRichHtml(stConc.text)}</div>` : ""}
+                </div>
+              ` : ""}
+
+              ${rdir.text ? `<div class="q-dir-box">${formatRichHtml(rdir.text)}</div>` : ""}
+
+              ${hasAssertion ? `
+                <div class="q-ar-box">
+                  ${rass.text ? `<div class="q-ar-row"><strong>Assertion (A):</strong> ${formatRichHtml(rass.text)}</div>` : ""}
+                  ${rrea.text ? `<div class="q-ar-row"><strong>Reason (R):</strong> ${formatRichHtml(rrea.text)}</div>` : ""}
+                </div>
+              ` : ""}
+
+              ${tblHtml}
+
+              ${rq.text ? `<div style="font-size:15.5px;font-weight:600;line-height:1.6;">${formatRichHtml(rq.text)}</div>` : ""}
+
+              ${q.image ? `<img src="${esc(toDriveImage(q.image))}" onerror="this.src='${esc(toDriveImageFallback(q.image))}';this.onerror=null;" style="max-height:250px;max-width:100%;object-fit:contain;border-radius:10px;margin:0 auto;display:block;" alt="Question visual" />` : ""}
+
+              <div class="stack" style="gap:9px;">${optsHtml}</div>
+
+              ${showFb ? `
+                <div class="q-exp-box">
+                  <strong>Explanation &amp; Solution:</strong>
+                  <div style="margin-top:4px;">${formatRichHtml(rexp.text || (p.lang === "hi" ? "स्पष्टीकरण उपलब्ध नहीं है।" : "No explanation provided."))}</div>
+                  ${q.explanationImage ? `<img src="${esc(toDriveImage(q.explanationImage))}" onerror="this.src='${esc(toDriveImageFallback(q.explanationImage))}';this.onerror=null;" style="max-height:220px;max-width:100%;object-fit:contain;border-radius:10px;margin-top:8px;" />` : ""}
+                </div>
+              ` : ""}
+
+              <div class="player-actions-bar">
+                <button class="btn btn-outline" ${p.submitted ? "disabled" : ""} id="clearOptBtn">Clear</button>
+                <button class="btn btn-purple" ${p.submitted ? "disabled" : ""} id="markNextBtn">Mark &amp; Next</button>
+                <button class="btn btn-outline" ${p.idx === 0 ? "disabled" : ""} id="prevQBtn">&larr; Prev</button>
+                ${isLastQ && !p.submitted
+                  ? `<button class="btn btn-emerald btn-next-main" id="saveNextBtn">Submit Test &#10003;</button>`
+                  : `<button class="btn btn-primary btn-next-main" ${isLastQ && p.submitted ? "disabled" : ""} id="saveNextBtn">Save &amp; Next &rarr;</button>`}
+              </div>
+
+              <button type="button" class="palette-toggle-btn desktop-hide" id="togglePaletteBtn">
+                <span>Question Palette (${ansCount}/${p.questions.length} Answered)</span>
+                <span>${p.paletteOpen ? "Hide &#9652;" : "Open &#9662;"}</span>
+              </button>
             </div>
 
-            ${(rpass.text || q.passageImage) ? `
-              <div class="q-passage-box">
-                <div style="font-size:11px;font-weight:800;color:var(--royal-600);margin-bottom:4px;">PASSAGE / COMPREHENSION</div>
-                ${rpass.text ? `<div>${formatRichHtml(rpass.text)}</div>` : ""}
-                ${q.passageImage ? `<img src="${esc(toDriveImage(q.passageImage))}" onerror="this.src='${esc(toDriveImageFallback(q.passageImage))}';this.onerror=null;" style="max-height:220px;max-width:100%;object-fit:contain;border-radius:10px;margin-top:8px;" />` : ""}
-              </div>
-            ` : ""}
-
-            ${hasStatement ? `
-              <div class="q-statement-box">
-                ${stIntro.text ? `<div style="font-weight:700;color:var(--navy-900);">${formatRichHtml(stIntro.text)}</div>` : ""}
-                ${stList.text ? `<div style="line-height:1.65;">${formatRichHtml(stList.text)}</div>` : ""}
-                ${stConc.text ? `<div style="font-weight:700;color:var(--navy-900);">${formatRichHtml(stConc.text)}</div>` : ""}
-              </div>
-            ` : ""}
-
-            ${rdir.text ? `<div class="q-dir-box">${formatRichHtml(rdir.text)}</div>` : ""}
-
-            ${hasAssertion ? `
-              <div class="q-ar-box">
-                ${rass.text ? `<div class="q-ar-row"><strong>Assertion (A):</strong> ${formatRichHtml(rass.text)}</div>` : ""}
-                ${rrea.text ? `<div class="q-ar-row"><strong>Reason (R):</strong> ${formatRichHtml(rrea.text)}</div>` : ""}
-              </div>
-            ` : ""}
-
-            ${tblHtml}
-
-            ${rq.text ? `<div style="font-size:15.5px;font-weight:600;line-height:1.6;">${formatRichHtml(rq.text)}</div>` : ""}
-
-            ${q.image ? `<img src="${esc(toDriveImage(q.image))}" onerror="this.src='${esc(toDriveImageFallback(q.image))}';this.onerror=null;" style="max-height:250px;max-width:100%;object-fit:contain;border-radius:10px;margin:0 auto;display:block;" alt="Question visual" />` : ""}
-
-            <div class="stack" style="gap:9px;">${optsHtml}</div>
-
-            ${showFb ? `
-              <div class="q-exp-box">
-                <strong>Explanation &amp; Solution:</strong>
-                <div style="margin-top:4px;">${formatRichHtml(rexp.text || (p.lang === "hi" ? "स्पष्टीकरण उपलब्ध नहीं है।" : "No explanation provided."))}</div>
-                ${q.explanationImage ? `<img src="${esc(toDriveImage(q.explanationImage))}" onerror="this.src='${esc(toDriveImageFallback(q.explanationImage))}';this.onerror=null;" style="max-height:220px;max-width:100%;object-fit:contain;border-radius:10px;margin-top:8px;" />` : ""}
-              </div>
-            ` : ""}
-
-            <div class="player-actions-bar">
-              <button class="btn btn-outline" ${p.submitted ? "disabled" : ""} id="clearOptBtn">Clear</button>
-              <button class="btn btn-purple" ${p.submitted ? "disabled" : ""} id="markNextBtn">Mark &amp; Next</button>
-              <button class="btn btn-outline" ${p.idx === 0 ? "disabled" : ""} id="prevQBtn">&larr; Prev</button>
-              <button class="btn btn-primary btn-next-main" id="saveNextBtn">Save &amp; Next &rarr;</button>
-            </div>
-
-            <button type="button" class="palette-toggle-btn" id="togglePaletteBtn">
-              <span>Question Palette (${ansCount}/${p.questions.length} Answered)</span>
-              <span>${p.paletteOpen ? "Hide &#9652;" : "Open &#9662;"}</span>
-            </button>
-          </div>
-
-          ${p.paletteOpen ? `
-            <div class="palette-drawer">
+            <div class="palette-drawer ${p.paletteOpen ? "" : "is-collapsed"}">
               <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
                 <div style="font-size:12px;color:var(--slate-500);">Candidate: <strong>${esc(state.profile?.studentName || "Guest")}</strong> &bull; Roll No: <span class="mono">${esc(state.profile?.rollNumber || "LOCAL")}</span></div>
                 <span class="mono" style="font-size:12px;font-weight:700;color:var(--navy-900);">${p.questions.length} Questions</span>
               </div>
               <div class="palette-legend">
-                <span><i class="leg-dot" style="background:var(--emerald-500);"></i>${p.submitted ? "Correct" : "Answered"}</span>
-                <span><i class="leg-dot" style="background:#f43f5e;"></i>${p.submitted ? "Wrong" : "Not Answered"}</span>
-                ${!p.submitted ? `<span><i class="leg-dot" style="background:var(--purple-600);"></i>Marked</span>` : ""}
-                <span><i class="leg-dot" style="background:var(--slate-100);border:1px solid var(--slate-200);"></i>${p.submitted ? "Skipped" : "Not Visited"}</span>
+                <span><i class="leg-dot" style="background:var(--emerald-500);"></i>${p.submitted ? `Correct (${corrCount})` : `Answered (${ansCount})`}</span>
+                <span><i class="leg-dot" style="background:#f43f5e;"></i>${p.submitted ? `Wrong (${wrongCount})` : `Not Answered (${notAnsCount})`}</span>
+                ${!p.submitted ? `<span><i class="leg-dot" style="background:var(--purple-600);"></i>Marked (${markedCount})</span>` : ""}
+                <span><i class="leg-dot" style="background:var(--slate-100);border:1px solid var(--slate-200);"></i>${p.submitted ? `Skipped (${skipCount})` : `Not Visited (${notVisCount})`}</span>
               </div>
               <div class="palette-grid">${paletteHtml}</div>
               ${!p.submitted
                 ? `<button class="btn btn-emerald" id="submitExamBtn">Submit Test &amp; View Result</button>`
                 : `<button class="btn btn-navy" id="viewScoreBtn">View Score Card &amp; PDF</button>`}
             </div>
-          ` : `
-            <div style="display:flex;justify-content:flex-end;">
+          </div>
+
+          ${!p.paletteOpen ? `
+            <div class="desktop-hide" style="display:flex;justify-content:flex-end;">
               ${!p.submitted
-                ? `<button class="btn btn-emerald" id="submitExamBtn" style="width:100%;">Submit Test &amp; View Result</button>`
-                : `<button class="btn btn-navy" id="viewScoreBtn" style="width:100%;">View Score Card &amp; PDF</button>`}
+                ? `<button class="btn btn-emerald" id="submitExamMobileBtn" style="width:100%;">Submit Test &amp; View Result</button>`
+                : `<button class="btn btn-navy" id="viewScoreMobileBtn" style="width:100%;">View Score Card &amp; PDF</button>`}
             </div>
-          `}
+          ` : ""}
         </div>
       `;
 
@@ -2503,15 +2758,18 @@
           p.idx++;
           if (p.responses[p.idx].status === "NOT_VISITED") p.responses[p.idx].status = "NOT_ANSWERED";
           renderPlayer();
-        } else {
-          p.paletteOpen = true;
-          renderPlayer();
+        } else if (!p.submitted) {
+          if (confirm("Submit test now?")) submitActiveExam();
         }
       };
-      const subBtn = document.getElementById("submitExamBtn");
-      if (subBtn) subBtn.onclick = () => { if (confirm("Submit test now?")) submitActiveExam(); };
-      const resBtn = document.getElementById("viewScoreBtn");
-      if (resBtn) resBtn.onclick = showPlayerScoreModal;
+      ["submitExamBtn", "submitExamMobileBtn"].forEach(id => {
+        const subBtn = document.getElementById(id);
+        if (subBtn) subBtn.onclick = () => { if (confirm("Submit test now?")) submitActiveExam(); };
+      });
+      ["viewScoreBtn", "viewScoreMobileBtn"].forEach(id => {
+        const resBtn = document.getElementById(id);
+        if (resBtn) resBtn.onclick = showPlayerScoreModal;
+      });
       typesetMath(el);
     }
 
@@ -2949,13 +3207,30 @@
         `;
       } else {
         const nowIso = (ms) => new Date(ms - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+        const uncleanedCount = state.catalog.scheduled.filter(s => Date.now() > s.windowEndMs && !s.questionsCleaned).length;
         const schedRows = state.catalog.scheduled.map(s => `
           <div class="card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-            <div><strong>${esc(s.title)}</strong> <span class="mono" style="color:var(--royal-600);">(${esc(s.testCode)})</span><div style="font-size:12px;color:var(--slate-500);">${fmtDate(s.windowStartMs)} &rarr; ${fmtDate(s.windowEndMs)}</div></div>
+            <div>
+              <span class="badge badge-blue">${esc(s.scheduleCategory || "DAILY")}</span>
+              <strong>${esc(s.title)}</strong> <span class="mono" style="color:var(--royal-600);">(${esc(s.testCode)})</span>
+              ${s.questionsCleaned ? `<span class="badge badge-amber">Questions Cleaned</span>` : ""}
+              <div style="font-size:12px;color:var(--slate-500);">${fmtDate(s.windowStartMs)} &rarr; ${fmtDate(s.windowEndMs)}</div>
+            </div>
             <div style="display:flex;gap:6px;">
               <button class="btn btn-primary" data-adm-rank="${esc(s.testId)}">Rank List &amp; PDF</button>
               <button class="btn btn-rose" data-adm-del-sched="${esc(s.testId)}">Delete</button>
             </div>
+          </div>
+        `).join("");
+        const meritMgrRows = (state.config.meritListLinks || []).map((m, idx) => `
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--slate-200);flex-wrap:wrap;">
+            <div>
+              <span class="badge badge-blue">${esc(m.category || "DAILY")}</span>
+              <strong>${esc(m.testTitle)}</strong>
+              <span style="font-size:12px;color:var(--slate-500);">${esc(m.examDate || "")}</span>
+              <div style="font-size:11.5px;color:var(--royal-600);word-break:break-all;">${esc(m.telegramUrl)}</div>
+            </div>
+            <button class="btn btn-rose" style="padding:6px 10px;" data-del-merit-link="${idx}">Remove</button>
           </div>
         `).join("");
         const usersRows = state.adminUsers.map(u => `
@@ -2964,9 +3239,19 @@
         bodyHtml = `
           <div class="card stack">
             <h3 style="margin:0;">Schedule Fixed-Window Exam (Firebase Secured • Up to 500 Questions)</h3>
-            <div class="field-group">
-              <label class="field-label" for="scTitle">Scheduled Exam Title</label>
-              <input id="scTitle" placeholder="e.g. CGPSC State Service Prelims Mega Test 01" />
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label" for="scTitle">Scheduled Exam Title</label>
+                <input id="scTitle" placeholder="e.g. CGPSC State Service Prelims Mega Test 01" />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="scCat">Schedule Subsection Category</label>
+                <select id="scCat">
+                  <option value="DAILY">Daily Test</option>
+                  <option value="WEEKLY">Weekly Test</option>
+                  <option value="MONTHLY">Monthly Test</option>
+                </select>
+              </div>
             </div>
             <div class="grid-3">
               <div class="field-group">
@@ -3005,8 +3290,41 @@
             </div>
             <button class="btn btn-navy" id="pubSchedBtn">Publish Scheduled Exam &amp; Merit Sheet</button>
           </div>
-          <h3 style="margin:4px 0;">Scheduled Exams (${state.catalog.scheduled.length})</h3>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin:4px 0;">
+            <h3 style="margin:0;">Scheduled Exams (${state.catalog.scheduled.length})</h3>
+            <button class="btn btn-outline" id="cleanupEndedBtn">Clean Ended Test Files (${uncleanedCount})</button>
+          </div>
           <div class="stack">${schedRows}</div>
+          <div class="card stack">
+            <h3 style="margin:0;">&#127942; Dashboard Merit List PDFs (Telegram Table)</h3>
+            <p style="margin:0;font-size:12.5px;color:var(--slate-500);">Download the Rank List PDF above, upload it to Telegram, and publish the Telegram PDF link below so all students see it cleanly on Dashboard &amp; Results.</p>
+            <div class="grid-3">
+              <div class="field-group">
+                <label class="field-label" for="meritTitleInp">Exam Name</label>
+                <input id="meritTitleInp" placeholder="e.g. Sunday GS Mock 04" />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="meritCatInp">Type</label>
+                <select id="meritCatInp">
+                  <option value="DAILY">Daily</option>
+                  <option value="WEEKLY">Weekly</option>
+                  <option value="MONTHLY">Monthly</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="meritDateInp">Exam Date</label>
+                <input id="meritDateInp" placeholder="e.g. 19 Nov 2026" />
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;">
+              <div class="field-group" style="flex:1;min-width:220px;">
+                <label class="field-label" for="meritUrlInp">Telegram PDF Post URL</label>
+                <input id="meritUrlInp" placeholder="https://t.me/yourchannel/123" />
+              </div>
+              <button class="btn btn-emerald" id="addMeritLinkBtn" style="height:42px;">+ Add &amp; Publish PDF Link</button>
+            </div>
+            ${meritMgrRows ? `<div>${meritMgrRows}</div>` : `<div style="font-size:12.5px;color:var(--slate-500);">No Telegram Merit PDF links added yet.</div>`}
+          </div>
           <div class="card stack">
             <div style="display:flex;justify-content:space-between;align-items:center;">
               <h3 style="margin:0;">Consolidated Student Directory (1 Read)</h3>
@@ -3460,6 +3778,7 @@
             const testId = `sched_${Date.now()}`;
             const testCode = "CG" + Math.random().toString(36).substring(2, 6).toUpperCase();
             const title = (document.getElementById("scTitle").value.trim() || parsed.title).slice(0, 160);
+            const scheduleCategory = document.getElementById("scCat").value || "DAILY";
             const durInput = parseInt(document.getElementById("scDur").value, 10);
             const durationMinutes = Math.min(600, Math.max(1, Number.isFinite(durInput) ? durInput : parsed.durationMinutes));
             const posInput = parseFloat(document.getElementById("scPos").value);
@@ -3472,7 +3791,7 @@
             try {
               await setDoc(doc(db, "scheduledTests", testId), {
                 adminUid: state.user.uid, testCode, title, instituteName: state.config.instituteName,
-                durationMinutes, marksCorrect, marksNegative, questionCount: limitedQuestions.length,
+                scheduleCategory, durationMinutes, marksCorrect, marksNegative, questionCount: limitedQuestions.length,
                 windowStartAt: startTs, windowEndAt: endTs, questions: limitedQuestions,
                 createdAt: serverTimestamp(), updatedAt: serverTimestamp()
               });
@@ -3488,20 +3807,44 @@
             }
             try {
               await upsertCatalog("scheduled", testId, {
-                testId, testCode, title, instituteName: state.config.instituteName,
+                testId, testCode, title, instituteName: state.config.instituteName, scheduleCategory,
                 durationMinutes, marksCorrect, marksNegative, questionCount: limitedQuestions.length,
-                windowStartAt: startTs, windowEndAt: endTs
+                windowStartAt: startTs, windowEndAt: endTs, questionsCleaned: false
               });
             } catch (e) {
               throw new Error(`[Step: Save portalData/testCatalog] ${e.message}`);
             }
-            showBanner(`Scheduled "${title}" • Code: ${testCode}`);
+            showBanner(`Scheduled "${title}" (${scheduleCategory}) • Code: ${testCode}`);
           } catch (err) {
             alert("Publish Failed: " + err.message);
           } finally {
             btn.disabled = false;
           }
         };
+        document.getElementById("cleanupEndedBtn").onclick = async () => {
+          const n = await cleanupEndedScheduledTests(true);
+          if (!n) showBanner("No pending ended test files to clean.");
+          renderAdminTab();
+        };
+        document.getElementById("addMeritLinkBtn").onclick = async () => {
+          const testTitle = document.getElementById("meritTitleInp").value.trim();
+          const category = document.getElementById("meritCatInp").value || "DAILY";
+          const examDate = document.getElementById("meritDateInp").value.trim();
+          const telegramUrl = document.getElementById("meritUrlInp").value.trim();
+          if (!testTitle || !telegramUrl) return alert("Enter Exam Name and Telegram PDF URL.");
+          state.config.meritListLinks = [
+            { id: `ml_${Date.now()}`, testTitle, category, examDate, telegramUrl, orderIndex: 0 },
+            ...(state.config.meritListLinks || [])
+          ].map((m, i) => ({ ...m, orderIndex: i }));
+          await saveConfigToFirestore();
+          renderAdminTab();
+        };
+        el.querySelectorAll("[data-del-merit-link]").forEach(b => b.onclick = async () => {
+          const idx = Number(b.getAttribute("data-del-merit-link"));
+          state.config.meritListLinks.splice(idx, 1);
+          await saveConfigToFirestore();
+          renderAdminTab();
+        });
         el.querySelectorAll("[data-adm-rank]").forEach(b => b.onclick = () => {
           const s = state.catalog.scheduled.find(x => x.testId === b.getAttribute("data-adm-rank"));
           if (s) openRankModal(s);
@@ -3524,6 +3867,7 @@
     async function saveConfigToFirestore() {
       state.config.blocks.forEach((b, i) => b.orderIndex = i);
       state.config.socialLinks.forEach((s, i) => s.orderIndex = i);
+      (state.config.meritListLinks || []).forEach((m, i) => m.orderIndex = i);
       await setDoc(doc(db, "portalData", "dashboardConfig"), {
         portalTitle: state.config.portalTitle,
         instituteName: state.config.instituteName,
@@ -3533,6 +3877,7 @@
         playStoreUrl: state.config.playStoreUrl || "",
         blocks: state.config.blocks,
         socialLinks: state.config.socialLinks,
+        meritListLinks: state.config.meritListLinks || [],
         updatedAt: serverTimestamp()
       });
       showBanner("Portal Branding & CMS saved live!");
