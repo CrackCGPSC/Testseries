@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Crack CGPSC — Free Test Series Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+window.MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']] }, svg: { fontCache: 'global' } };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+:root {
+  --navy-950: #07152E;
+  --navy-900: #0B2452;
+  --navy-800: #153878;
+  --navy-700: #1E4B9E;
+  --royal-600: #2563EB;
+  --royal-100: #DBEAFE;
+  --royal-50: #EFF6FF;
+  --gold-600: #D97706;
+  --gold-500: #F59E0B;
+  --gold-300: #FCD34D;
+  --gold-100: #FEF3C7;
+  --gold-50: #FFFBEB;
+  --emerald-600: #059669;
+  --emerald-500: #10B981;
+  --emerald-100: #D1FAE5;
+  --emerald-50: #ECFDF5;
+  --rose-600: #E11D48;
+  --rose-100: #FFE4E6;
+  --rose-50: #FFF1F2;
+  --purple-600: #7C3AED;
+  --purple-100: #EDE9FE;
+  --purple-50: #F5F3FF;
+  --teal-600: #0D9488;
+  --teal-50: #F0FDFA;
+  --canvas: #F4F7FB;
+  --card: #FFFFFF;
+  --subtle: #F1F5F9;
+  --border: #E2E8F0;
+  --text: #0F172A;
+  --text-sec: #334155;
+  --muted: #64748B;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--canvas);
+  color: var(--text);
+  line-height: 1.5;
+  padding-bottom: 84px;
+}
+.mono { font-family: 'JetBrains Mono', monospace; }
+.hidden { display: none !important; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, textarea, select { font-family: inherit; }
+
+/* Top Header */
+.topbar {
+  position: sticky; top: 0; z-index: 40;
+  background: var(--navy-950); color: #fff;
+  box-shadow: 0 4px 16px rgba(7,21,46,0.22);
+}
+.topbar-inner {
+  max-width: 960px; margin: 0 auto; padding: 12px 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.brand-logo {
+  width: 40px; height: 40px; border-radius: 999px;
+  background: var(--gold-500); color: var(--navy-950);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 16px; overflow: hidden; flex-shrink: 0;
+}
+.brand-logo img { width: 100%; height: 100%; object-fit: cover; }
+.brand-meta { flex: 1; min-width: 0; }
+.brand-title { font-weight: 800; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.brand-sub { font-size: 11px; color: var(--gold-300); font-family: 'JetBrains Mono', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.account-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: 999px; min-height: 40px;
+  font-weight: 700; font-size: 12px;
+  background: var(--gold-500); color: var(--navy-950);
+}
+.account-btn.signed { background: var(--navy-800); color: #fff; border: 1px solid rgba(252,211,77,0.45); }
+
+/* Main Container */
+.container { max-width: 920px; margin: 0 auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 14px; }
+
+/* Cards */
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 18px; padding: 16px;
+  box-shadow: 0 2px 8px rgba(15,23,42,0.03);
+}
+.section-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.section-title { font-size: 17px; font-weight: 800; color: var(--text); }
+.section-sub { font-size: 12px; color: var(--muted); }
+
+/* Pills & Chips */
+.pill-row { display: flex; gap: 8px; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 2px; }
+.pill {
+  display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
+  padding: 5px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 700;
+}
+.pill-gold { background: var(--gold-50); color: var(--gold-600); }
+.pill-emerald { background: var(--emerald-50); color: var(--emerald-600); }
+.pill-royal { background: var(--royal-50); color: var(--royal-600); }
+.pill-rose { background: var(--rose-50); color: var(--rose-600); }
+.pill-navy { background: var(--navy-900); color: #fff; }
+.chip {
+  padding: 7px 14px; border-radius: 10px; font-size: 12.5px; font-weight: 700;
+  background: var(--subtle); color: var(--text-sec); border: 1px solid var(--border); white-space: nowrap;
+}
+.chip.active { background: var(--navy-900); color: #fff; border-color: var(--navy-900); }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: 44px; padding: 10px 16px; border-radius: 12px;
+  font-weight: 700; font-size: 13.5px; transition: opacity 0.15s, transform 0.1s;
+}
+.btn:active { transform: scale(0.98); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-navy { background: var(--navy-900); color: #fff; }
+.btn-emerald { background: var(--emerald-600); color: #fff; }
+.btn-gold { background: var(--gold-500); color: var(--navy-950); }
+.btn-rose { background: var(--rose-600); color: #fff; }
+.btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--text); }
+.btn-outline-emerald { background: transparent; border: 1.5px solid var(--emerald-600); color: var(--emerald-600); }
+.btn-sm { min-height: 36px; padding: 6px 12px; font-size: 12px; border-radius: 9px; }
+.btn-full { width: 100%; }
+
+/* Live Battleground Hero */
+.hero-arena {
+  background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-900) 55%, #163A7D 100%);
+  color: #fff; border-radius: 20px; padding: 18px;
+  box-shadow: 0 10px 28px rgba(7,21,46,0.22);
+}
+.live-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 11px; border-radius: 999px; font-size: 11px; font-weight: 800;
+}
+.live-badge.live { background: var(--emerald-600); color: #fff; }
+.live-badge.upcoming { background: var(--gold-500); color: var(--navy-950); }
+.pulse-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: #fff;
+  animation: pulse 1.2s infinite ease-in-out;
+}
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+.countdown-box {
+  margin-top: 12px; padding: 12px 14px; border-radius: 12px;
+  background: rgba(0,0,0,0.32); border: 1px solid rgba(255,255,255,0.14);
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+}
+.countdown-digits { font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 700; color: var(--gold-300); }
+.code-join-row { display: flex; gap: 8px; margin-top: 12px; }
+.code-input {
+  flex: 1; min-height: 46px; padding: 10px 14px; border-radius: 12px;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.28);
+  color: #fff; font-size: 13.5px; text-transform: uppercase;
+}
+.code-input::placeholder { color: #94A3B8; text-transform: none; }
+
+/* Scheduled Exam Row Card */
+.sched-item {
+  border: 1px solid var(--border); background: #F8FAFC;
+  border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 6px;
+}
+.sched-item.is-live { background: rgba(236,253,245,0.55); border-color: var(--emerald-500); }
+
+/* Folder Explorer */
+.breadcrumbs {
+  display: flex; align-items: center; gap: 6px; overflow-x: auto;
+  background: var(--subtle); padding: 7px 10px; border-radius: 10px; margin-bottom: 12px;
+  font-size: 12.5px; font-weight: 700;
+}
+.folder-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; margin-bottom: 12px; }
+@media (min-width: 640px) { .folder-grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+.folder-card {
+  border-radius: 14px; padding: 12px; text-align: left;
+  border: 1px solid var(--royal-100); background: var(--royal-50);
+  display: flex; flex-direction: column; justify-content: space-between; min-height: 92px;
+}
+.folder-card.amber { background: var(--gold-50); border-color: var(--gold-300); }
+.folder-card.emerald { background: var(--emerald-50); border-color: var(--emerald-100); }
+.folder-card.purple { background: var(--purple-50); border-color: var(--purple-100); }
+.folder-card.rose { background: var(--rose-50); border-color: var(--rose-100); }
+.folder-card.teal { background: var(--teal-50); border-color: #99F6E4; }
+.practice-card {
+  border: 1px solid var(--border); background: #F8FAFC;
+  border-radius: 14px; padding: 14px; margin-bottom: 10px;
+}
+.practice-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+
+/* FIXED Responsive Video Player (16:9 Wide & Centered 9:16 Portrait Shorts with Matched Control Bar) */
+.video-shell {
+  width: 100%; border-radius: 14px; overflow: hidden; background: var(--navy-950);
+}
+.video-shell.vertical { max-width: 310px; margin: 0 auto; }
+.video-stage {
+  position: relative; width: 100%; background: #020617;
+  aspect-ratio: 16 / 9; overflow: hidden;
+}
+.video-shell.vertical .video-stage { aspect-ratio: 9 / 16; }
+.video-stage iframe, .video-stage video {
+  position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block;
+}
+.video-facade {
+  position: absolute; inset: 0; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--navy-950), var(--navy-800));
+}
+.video-facade img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.72; }
+.play-circle {
+  position: relative; z-index: 2; width: 62px; height: 62px; border-radius: 50%;
+  background: var(--gold-500); color: var(--navy-950);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; font-weight: 900; box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+}
+.video-tap-pill {
+  position: relative; z-index: 2; margin-top: 8px;
+  padding: 4px 12px; border-radius: 999px; background: rgba(0,0,0,0.75);
+  color: #fff; font-size: 11.5px; font-weight: 700;
+}
+.video-controls {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 8px 12px; background: var(--navy-950); color: #CBD5E1; font-size: 12px; font-weight: 700;
+}
+
+/* Inputs & Dropzone */
+.field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
+.field label { font-size: 12px; font-weight: 700; color: var(--text-sec); }
+.input {
+  width: 100%; padding: 10px 12px; border-radius: 10px;
+  border: 1.5px solid var(--border); background: #fff; color: var(--text); font-size: 13.5px;
+}
+.input:focus { outline: none; border-color: var(--royal-600); }
+.dropzone {
+  border: 2px dashed var(--royal-600); border-radius: 14px; padding: 16px;
+  text-align: center; background: var(--royal-50); cursor: pointer;
+}
+.dropzone.dragover { background: var(--emerald-50); border-color: var(--emerald-600); }
+
+/* Footer */
+.portal-footer {
+  background: var(--navy-950); color: #fff; border-radius: 20px; padding: 18px;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 45;
+  background: #fff; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-around; padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+}
+.nav-item {
+  flex: 1; max-width: 160px; display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 6px 8px; border-radius: 12px; font-size: 11.5px; font-weight: 700; color: var(--muted);
+}
+.nav-item.active { background: var(--gold-100); color: var(--navy-950); }
+
+/* Modals & Fullscreen CBT */
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 60; background: rgba(7,21,46,0.72);
+  display: flex; align-items: center; justify-content: center; padding: 16px;
+}
+.modal-box {
+  background: #fff; border-radius: 18px; width: 100%; max-width: 520px;
+  max-height: 90vh; overflow-y: auto; padding: 18px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+}
+.cbt-overlay {
+  position: fixed; inset: 0; z-index: 55; background: var(--canvas);
+  display: flex; flex-direction: column;
+}
+.cbt-body { flex: 1; overflow-y: auto; padding: 16px; max-width: 860px; width: 100%; margin: 0 auto; }
+.opt-btn {
+  width: 100%; text-align: left; padding: 13px 14px; border-radius: 13px;
+  border: 1.5px solid var(--border); background: #fff; margin-bottom: 10px;
+  display: flex; align-items: flex-start; gap: 12px; font-size: 14.5px;
+}
+.opt-btn.selected { background: var(--royal-50); border-color: var(--royal-600); }
+.opt-btn.correct { background: var(--emerald-50); border-color: var(--emerald-600); }
+.opt-btn.wrong { background: var(--rose-50); border-color: var(--rose-600); }
+.opt-badge {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  background: var(--subtle); color: var(--navy-950); font-weight: 800; font-size: 12.5px;
+  display: flex; align-items: center; justify-content: center;
+}
+.opt-btn.selected .opt-badge { background: var(--navy-900); color: #fff; }
+.opt-btn.correct .opt-badge { background: var(--emerald-600); color: #fff; }
+.opt-btn.wrong .opt-badge { background: var(--rose-600); color: #fff; }
+
+.toast {
+  position: fixed; bottom: 82px; left: 50%; transform: translateX(-50%); z-index: 80;
+  background: var(--navy-950); color: #fff; padding: 10px 16px; border-radius: 12px;
+  font-size: 13px; font-weight: 600; max-width: 92vw; box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-logo" id="brandLogo">CG</div>
+    <div class="brand-meta">
+      <div class="brand-title" id="brandTitle">Crack CGPSC Free Test Series</div>
+      <div class="brand-sub" id="brandSub">Crack CGPSC Academy</div>
+    </div>
+    <button class="account-btn" id="topAccountBtn">Sign In</button>
+  </div>
+</header>
+
+<main class="container" id="mainContainer"></main>
+
+<nav class="bottom-nav" id="bottomNav"></nav>
+
+<div id="cbtOverlay" class="cbt-overlay hidden"></div>
+<div id="modalRoot" class="modal-backdrop hidden"></div>
+<div id="toastRoot" class="toast hidden"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, collection, getDocs, query, limit, serverTimestamp, Timestamp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+
+/* ================= EXACT PROVISIONED FIREBASE CONFIG (SYNCED WITH ANDROID) ================= */
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyAGqwXMKJWcDK7_dIxObMU3wSXNt7i9XtU",
+  authDomain: "gen-lang-client-0875147730.firebaseapp.com",
+  projectId: "gen-lang-client-0875147730",
+  storageBucket: "gen-lang-client-0875147730.firebasestorage.app",
+  messagingSenderId: "1080560485391"
+};
+const FIRESTORE_DB_ID = "ai-studio-android-crackcgp-30f9ac21-d5c3-44e5-ba45-0249cc3fdd31";
+const ADMIN_EMAIL = "saketgiri73@gmail.com";
+const MERIT_SHARD_COUNT = 10;
+const CACHE_TTL_MS = 10 * 60 * 1000;
+
+const app = initializeApp(FIREBASE_CONFIG);
+const auth = getAuth(app);
+const db = getFirestore(app, FIRESTORE_DB_ID);
+
+/* ================= DETERMINISTIC 10-WAY SHARD HASH (IDENTICAL TO KOTLIN) ================= */
+function computeMeritShardIndex(uid) {
+  let hash = 0;
+  for (let i = 0; i < uid.length; i++) {
+    hash = ((hash * 31) + uid.charCodeAt(i)) & 0x7FFFFFFF;
+  }
+  return hash % MERIT_SHARD_COUNT;
+}
+
+/* ================= BUILT-IN DEFAULTS & STATE ================= */
+const SAMPLE_JSON = JSON.stringify({
+  title: "CGPSC Prelims Demo Bilingual Mock",
+  durationMinutes: 15,
+  positiveMarks: 2,
+  negativeMarks: 0.66,
+  questions: [
+    {
+      id: 1, subjectTag: "Chhattisgarh GK", pyqTag: "CGPSC Prelims",
+      question: { en: "Which waterfall in Bastar is popularly known as the 'Niagara of India'?", hi: "बस्तर के किस जलप्रपात को लोकप्रिय रूप से 'भारत का नियाग्रा' कहा जाता है?" },
+      options: { en: ["Tirathgarh", "Chitrakote", "Mandhara", "Amritdhara"], hi: ["तीरथगढ़", "चित्रकोट", "मंधारा", "अमृतधारा"] },
+      correctAnswer: 1,
+      explanation: { en: "Chitrakote Waterfall on the Indravati River is India's widest horseshoe-shaped waterfall.", hi: "इंद्रावती नदी पर स्थित चित्रकोट जलप्रपात भारत का सबसे चौड़ा घोड़े की नाल के आकार का जलप्रपात है।" }
+    },
+    {
+      id: 2, subjectTag: "Indian Polity", pyqTag: "CGPSC PYQ",
+      question: { en: "Which Article of the Indian Constitution abolishes Untouchability?", hi: "भारतीय संविधान के किस अनुच्छेद के अंतर्गत अस्पृश्यता का अंत किया गया है?" },
+      options: { en: ["Article 14", "Article 15", "Article 17", "Article 21"], hi: ["अनुच्छेद 14", "अनुच्छेद 15", "अनुच्छेद 17", "अनुच्छेद 21"] },
+      correctAnswer: 2,
+      explanation: { en: "Article 17 abolishes untouchability and forbids its practice in any form.", hi: "अनुच्छेद 17 अस्पृश्यता के उन्मूलन से संबंधित है।" }
+    },
+    {
+      id: 3, subjectTag: "General Science", pyqTag: "Vyapam Science",
+      question: { en: "What is the SI unit of Electric Potential Difference?", hi: "विद्युत विभवांतर का SI मात्रक क्या है?" },
+      options: { en: ["Ohm", "Ampere", "Volt", "Watt"], hi: ["ओम", "एम्पीयर", "वोल्ट", "वाट"] },
+      correctAnswer: 2,
+      explanation: { en: "Electric potential difference is measured in Volts (Joule per Coulomb).", hi: "विद्युत विभवांतर को वोल्ट (जूल प्रति कूलॉम) में मापा जाता है।" }
+    }
+  ]
+}, null, 2);
+
+const DEFAULT_CONFIG = {
+  portalTitle: "Crack CGPSC Free Test Series",
+  instituteName: "Crack CGPSC Academy",
+  logoDriveUrl: "", resolvedLogoUrl: "",
+  apkDownloadUrl: "", playStoreUrl: "",
+  githubCdnOwner: "", githubCdnRepo: "", githubCdnBranch: "main",
+  blocks: [
+    { id: "hero_welcome", type: "HERO_BANNER", badgeText: "OFFICIAL FREE PORTAL", title: "CGPSC Prelims & Vyapam 2026 Free Test Series", body: "Attempt daily all-state live exams, earn your official Roll Number, climb Merit Rank Lists, and drill bilingual subject folders — 100% free.", visible: true, orderIndex: 0 },
+    { id: "notice_rules", type: "TEXT_ARTICLE", badgeText: "EXAM GUIDELINES", title: "Daily Test Schedule & Merit PDF Rules", body: "1. Browse Dashboard & Folders freely with instant zero-lag loading.\n2. Scheduled Live Exams allow 1 verified attempt inside the active window.\n3. Official Merit Rank List PDF is published right below after the exam window closes.", visible: true, orderIndex: 1 }
+  ],
+  socialLinks: [
+    { id: "soc_yt", appName: "YouTube", url: "https://youtube.com", orderIndex: 0 },
+    { id: "soc_tg", appName: "Telegram", url: "https://t.me", orderIndex: 1 },
+    { id: "soc_ig", appName: "Instagram", url: "https://instagram.com", orderIndex: 2 }
+  ],
+  meritListLinks: []
+};
+
+const DEFAULT_CATALOG = {
+  scheduled: [],
+  practiceFolders: [
+    { id: "fld_topic_wise", name: "Topic Wise Tests", parentId: "", colorKey: "blue", orderIndex: 0 },
+    { id: "fld_pyq_papers", name: "Previous Year Papers", parentId: "", colorKey: "amber", orderIndex: 1 },
+    { id: "fld_cg_gk", name: "Chhattisgarh GK Special", parentId: "", colorKey: "emerald", orderIndex: 2 }
+  ],
+  practice: [
+    { testId: "demo_cgpsc_starter", title: "CGPSC Prelims Demo Bilingual Mock", subjectTag: "Chhattisgarh GK & GS", folderId: "fld_cg_gk", durationMinutes: 15, marksCorrect: 2, marksNegative: 0.66, questionCount: 3, storageProvider: "BUILTIN", jsonUrl: "" }
+  ]
+};
+
+const state = {
+  activeTab: "HOME",
+  adminSubTab: "LIBRARY",
+  config: structuredClone(DEFAULT_CONFIG),
+  catalog: structuredClone(DEFAULT_CATALOG),
+  github: loadLocal("cgpsc_gh", { owner: "", repo: "", branch: "main", token: "" }),
+  retention: loadLocal("cgpsc_retention", { streakDays: 1, testsCompleted: 0, lastDay: "" }),
+  localAttempts: loadLocal("cgpsc_local_attempts", []),
+  cloudAttempts: [],
+  user: null,
+  isAdmin: false,
+  profile: null,
+  schedFilter: "ALL",
+  homeFolderId: "",
+  testsFolderId: "",
+  adminFolderId: "",
+  searchQuery: "",
+  quotaLabel: "Built-in / Cache",
+  cdnActive: false,
+  adminDirectory: [],
+  activeExam: null,
+  examTimer: null,
+  inlinePlayingVideos: new Set()
+};
+
+function loadLocal(key, fallback) {
+  try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; } catch { return fallback; }
+}
+function saveLocal(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch {}
+}
+function toast(msg) {
+  const el = document.getElementById("toastRoot");
+  el.textContent = msg;
+  el.classList.remove("hidden");
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(() => el.classList.add("hidden"), 3400);
+}
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[c]));
+}
+
+/* ================= MEDIA URL & VIDEO PLAYER HELPERS ================= */
+function extractDriveId(url) {
+  const s = String(url || "").trim();
+  if (!s || (!s.includes("drive.google.com") && !s.includes("docs.google.com"))) return null;
+  for (const re of [/\/file\/d\/([a-zA-Z0-9_-]{10,})/, /\/d\/([a-zA-Z0-9_-]{10,})/, /[?&]id=([a-zA-Z0-9_-]{10,})/]) {
+    const m = s.match(re); if (m) return m[1];
+  }
+  return null;
+}
+function toDirectImageUrl(url) {
+  const s = String(url || "").trim();
+  if (!s) return "";
+  const id = extractDriveId(s);
+  return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w1200` : s;
+}
+function extractYouTubeId(url) {
+  const s = String(url || "").trim();
+  for (const re of [/youtu\.be\/([a-zA-Z0-9_-]{6,})/, /youtube\.com\/shorts\/([a-zA-Z0-9_-]{6,})/, /youtube\.com\/live\/([a-zA-Z0-9_-]{6,})/, /youtube(?:-nocookie)?\.com\/embed\/([a-zA-Z0-9_-]{6,})/, /[?&]v=([a-zA-Z0-9_-]{6,})/]) {
+    const m = s.match(re); if (m) return m[1];
+  }
+  return null;
+}
+function isVerticalVideo(url, format = "AUTO") {
+  if (format === "VERTICAL") return true;
+  if (format === "LANDSCAPE") return false;
+  const low = String(url || "").toLowerCase();
+  return low.includes("youtube.com/shorts/") || low.includes("instagram.com/reel") || low.includes("instagram.com/p/");
+}
+function isDirectVideoFile(url) { return /\.(mp4|webm|mov|m4v)(\?|$)/i.test(String(url || "").trim()); }
+function toEmbedVideoUrl(url) {
+  const s = String(url || "").trim();
+  const dId = extractDriveId(s);
+  if (dId) return `https://drive.google.com/file/d/${dId}/preview`;
+  const ytId = extractYouTubeId(s);
+  if (ytId) return `https://www.youtube.com/embed/${ytId}?controls=1&fs=1&playsinline=1&rel=0&modestbranding=1&autoplay=1`;
+  const ig = s.match(/instagram\.com\/(?:reel|reels|p)\/([a-zA-Z0-9_-]+)/i);
+  if (ig) return `https://www.instagram.com/p/${ig[1]}/embed/`;
+  return s;
+}
+function normalizeUrl(u) {
+  const s = String(u || "").trim();
+  if (!s) return "";
+  return /^https?:\/\//i.test(s) ? s : `https://${s}`;
+}
+
+/* ================= BULLETPROOF MULTI-FORMAT JSON / CSV TEST PARSER ================= */
+function sanitizeRaw(str) {
+  return String(str || "")
+    .replace(/^\uFEFF/, "").trim()
+    .replace(/[\u201C\u201D]/g, '"')
+    .replace(/[\u2018\u2019]/g, "'")
+    .replace(/,\s*([}\]])/g, "$1");
+}
+function parseAnsIdx(raw, maxOpts) {
+  let idx = 0;
+  if (typeof raw === "number") idx = Math.floor(raw);
+  else {
+    const up = String(raw || "0").trim().toUpperCase();
+    const map = { A: 0, "OPTION A": 0, "(A)": 0, B: 1, "OPTION B": 1, "(B)": 1, C: 2, "OPTION C": 2, "(C)": 2, D: 3, "OPTION D": 3, "(D)": 3, E: 4 };
+    idx = up in map ? map[up] : (parseInt(up, 10) || 0);
+  }
+  return Math.max(0, Math.min(idx, Math.max(0, maxOpts - 1)));
+}
+function parseLocalized(obj, key, enAlt, hiAlt) {
+  const v = obj?.[key];
+  if (typeof v === "string" && v.trim()) return { en: v, hi: v };
+  if (Array.isArray(v)) { const j = v.join("\n"); if (j.trim()) return { en: j, hi: j }; }
+  if (v && typeof v === "object") {
+    const en = Array.isArray(v.en || v.english) ? (v.en || v.english).join("\n") : String(v.en || v.english || "");
+    const hi = Array.isArray(v.hi || v.hindi) ? (v.hi || v.hindi).join("\n") : String(v.hi || v.hindi || "");
+    if (en.trim() || hi.trim()) return { en, hi };
+  }
+  const e = String(obj?.[enAlt] || ""), h = String(obj?.[hiAlt] || "");
+  return (e.trim() || h.trim()) ? { en: e, hi: h } : null;
+}
+function parseTestInput(rawText) {
+  const cleaned = sanitizeRaw(rawText);
+  if (!cleaned) return { ok: false, error: "Input is empty. Choose a .json/.csv/.txt file or paste JSON." };
+  if (!cleaned.startsWith("{") && !cleaned.startsWith("[")) {
+    const lines = cleaned.split(/\r?\n/).filter(l => l.trim());
+    if (lines.length < 2) return { ok: false, error: "Invalid JSON or CSV. CSV needs header: Question,OptA,OptB,OptC,OptD,Correct,Subject,Explanation" };
+    const qs = [];
+    for (let i = 1; i < Math.min(lines.length, 501); i++) {
+      const cols = []; let cur = "", inQ = false;
+      for (const ch of lines[i]) {
+        if (ch === '"') inQ = !inQ;
+        else if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ""; }
+        else cur += ch;
+      }
+      cols.push(cur.trim());
+      if (cols.length < 6) continue;
+      qs.push({
+        id: i, subjectTag: cols[6] || "General", pyqTag: "CSV Import",
+        question: { en: cols[0], hi: cols[0] },
+        optionsEn: [cols[1], cols[2], cols[3], cols[4]], optionsHi: [cols[1], cols[2], cols[3], cols[4]],
+        correctIndex: parseAnsIdx(cols[5], 4),
+        explanation: { en: cols[7] || "No explanation provided.", hi: cols[7] || "स्पष्टीकरण उपलब्ध नहीं है।" }
+      });
+    }
+    if (!qs.length) return { ok: false, error: "No valid CSV rows parsed (need 6+ columns)." };
+    return { ok: true, paper: { title: "Imported CSV Mock Test", durationMinutes: 30, marksCorrect: 2, marksNegative: 0.66, questions: qs }, warnings: [`Imported ${qs.length} questions from CSV.`] };
+  }
+  try {
+    const parsed = JSON.parse(cleaned);
+    const root = Array.isArray(parsed) ? null : parsed;
+    let arr = Array.isArray(parsed) ? parsed : (parsed.questions || parsed.qList || parsed.items || parsed.mcqs || parsed.data?.questions || parsed.test?.questions);
+    if (!Array.isArray(arr) || !arr.length) return { ok: false, error: "No questions array found (expected 'questions', 'qList', 'items', or [...])." };
+    const warnings = [];
+    if (arr.length > 500) { warnings.push(`Trimmed to 500 questions (from ${arr.length}).`); arr = arr.slice(0, 500); }
+    const questions = arr.map((q, idx) => {
+      let optsEn = [], optsHi = [], optImgs = [];
+      const ro = q.options || q.choices || q.answers;
+      if (Array.isArray(ro)) {
+        ro.forEach(o => {
+          if (o && typeof o === "object") {
+            optsEn.push(String(o.en || o.english || o.text || ""));
+            optsHi.push(String(o.hi || o.hindi || o.text || ""));
+            optImgs.push(o.image || o.img || "");
+          } else { optsEn.push(String(o ?? "")); optsHi.push(String(o ?? "")); }
+        });
+      } else if (ro && typeof ro === "object") {
+        optsEn = (ro.en || ro.english || []).map(String);
+        optsHi = (ro.hi || ro.hindi || []).map(String);
+      }
+      if (!optsEn.length && !optsHi.length) {
+        [["option_a","optionA","a","A"],["option_b","optionB","b","B"],["option_c","optionC","c","C"],["option_d","optionD","d","D"]].forEach(vs => {
+          const hit = vs.find(k => q[k]); if (hit) { optsEn.push(String(q[hit])); optsHi.push(String(q[hit])); }
+        });
+      }
+      if (Array.isArray(q.optionImages)) optImgs = q.optionImages;
+      if (!optsEn.length && !optsHi.length) { optsEn = ["Option A","Option B","Option C","Option D"]; optsHi = ["विकल्प A","विकल्प B","विकल्प C","विकल्प D"]; }
+      const rawAns = q.correctAnswer ?? q.correct ?? q.ans ?? q.correctIndex ?? q.answer ?? 0;
+      return {
+        id: q.id || (idx + 1), type: q.type || "standard",
+        subjectTag: q.subjectTag || q.subject || "General", pyqTag: q.pyqTag || "CGPSC",
+        imageUrl: q.image || q.img || "", optionImages: optImgs,
+        passage: parseLocalized(q, "passage"), passageImage: q.passageImage || q.passage?.image || "",
+        statementData: q.statementData ? { intro: parseLocalized(q.statementData,"intro"), list: parseLocalized(q.statementData,"list"), conclusion: parseLocalized(q.statementData,"conclusion") } : null,
+        assertion: parseLocalized(q, "assertion"), reason: parseLocalized(q, "reason"), direction: parseLocalized(q, "direction"),
+        question: parseLocalized(q, "question", "question_en", "question_hi") || parseLocalized(q, "text") || { en: `Question ${idx+1}`, hi: `प्रश्न ${idx+1}` },
+        optionsEn: optsEn, optionsHi: optsHi,
+        correctIndex: parseAnsIdx(rawAns, Math.max(optsEn.length, optsHi.length, 1)),
+        explanation: parseLocalized(q, "explanation", "explanation_en", "explanation_hi") || { en: "No explanation provided.", hi: "स्पष्टीकरण उपलब्ध नहीं है।" }
+      };
+    });
+    return {
+      ok: true, warnings,
+      paper: {
+        title: root?.title || root?.testName || root?.name || "Custom Mock Test",
+        durationMinutes: Number(root?.durationMinutes || root?.duration || 30) || 30,
+        marksCorrect: Number(root?.positiveMarks ?? root?.marksCorrect ?? 2) || 2,
+        marksNegative: Number(root?.negativeMarks ?? root?.marksNegative ?? 0.66) || 0,
+        questions
+      }
+    };
+  } catch (e) {
+    return { ok: false, error: `JSON Parse Error: ${e.message}` };
+  }
+}
+
+/* ================= GITHUB ZERO-READ CDN + WRITE API ================= */
+function cdnUrls(owner, repo, branch, path) {
+  const clean = path.replace(/^\/+/, "");
+  return [
+    `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${branch}/${clean}`,
+    `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${clean}`
+  ];
+}
+async function fetchCdnJson(owner, repo, branch, path) {
+  for (const url of cdnUrls(owner, repo, branch, path)) {
+    try {
+      const r = await fetch(url, { cache: "no-cache" });
+      if (r.ok) return await r.json();
+    } catch {}
+  }
+  return null;
+}
+async function uploadToGitHub(path, contentString, message) {
+  const { owner, repo, branch, token } = state.github;
+  if (!owner || !repo || !token) throw new Error("Configure GitHub Owner, Repo & PAT in Admin Studio first.");
+  const clean = path.replace(/^\/+/, "");
+  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${clean}`;
+  let sha = undefined;
+  const check = await fetch(`${apiUrl}?ref=${encodeURIComponent(branch || "main")}`, {
+    headers: { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" }
+  });
+  if (check.ok) { const j = await check.json(); sha = j.sha; }
+  const b64 = btoa(unescape(encodeURIComponent(contentString)));
+  const res = await fetch(apiUrl, {
+    method: "PUT",
+    headers: { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json", "Content-Type": "application/json" },
+    body: JSON.stringify({ message, content: b64, branch: branch || "main", ...(sha ? { sha } : {}) })
+  });
+  if (!res.ok) throw new Error(`GitHub upload HTTP ${res.status}`);
+  return cdnUrls(owner, repo, branch || "main", clean)[0];
+}
+
+/* ================= DATA LOADING (0-READ PRIORITY) ================= */
+async function loadPortalData(force = false) {
+  const cached = loadLocal("cgpsc_portal_cache", null);
+  const fresh = !force && cached && (Date.now() - cached.ts < CACHE_TTL_MS);
+  if (fresh && cached.config && cached.catalog) {
+    state.config = cached.config; state.catalog = cached.catalog;
+    state.cdnActive = Boolean(cached.config.githubCdnOwner || state.github.owner);
+    state.quotaLabel = state.cdnActive ? "0-Read CDN Cache (10m)" : "Local Cache (0 Reads)";
+    render(); return;
+  }
+  const owner = state.github.owner || cached?.config?.githubCdnOwner || "";
+  const repo = state.github.repo || cached?.config?.githubCdnRepo || "";
+  const branch = state.github.branch || cached?.config?.githubCdnBranch || "main";
+  if (owner && repo) {
+    const [cfg, cat] = await Promise.all([
+      fetchCdnJson(owner, repo, branch, "data/dashboard_config.json"),
+      fetchCdnJson(owner, repo, branch, "data/test_catalog.json")
+    ]);
+    if (cfg || cat) {
+      if (cfg) state.config = { ...DEFAULT_CONFIG, ...cfg };
+      if (cat) state.catalog = { ...DEFAULT_CATALOG, ...cat };
+      state.cdnActive = true; state.quotaLabel = "GitHub jsDelivr CDN (0 Reads)";
+      saveLocal("cgpsc_portal_cache", { ts: Date.now(), config: state.config, catalog: state.catalog });
+      render(); return;
+    }
+  }
+  if (state.user) {
+    try {
+      const [cfgSnap, catSnap] = await Promise.all([
+        getDoc(doc(db, "portalData", "dashboardConfig")),
+        getDoc(doc(db, "portalData", "testCatalog"))
+      ]);
+      if (cfgSnap.exists()) state.config = { ...DEFAULT_CONFIG, ...cfgSnap.data() };
+      if (catSnap.exists()) {
+        const d = catSnap.data();
+        const toArr = (v) => Array.isArray(v) ? v : (v && typeof v === "object" ? Object.values(v) : []);
+        state.catalog = {
+          scheduled: toArr(d.scheduled),
+          practice: toArr(d.practice),
+          practiceFolders: toArr(d.practiceFolders)
+        };
+      }
+      state.quotaLabel = "Firestore Fallback (Cached 10m)";
+      saveLocal("cgpsc_portal_cache", { ts: Date.now(), config: state.config, catalog: state.catalog });
+    } catch (e) { console.warn("Firestore portal fallback:", e.message); }
+  }
+  render();
+}
+
+/* ================= AUTH & PROFILE ================= */
+onAuthStateChanged(auth, async (user) => {
+  state.user = user;
+  state.isAdmin = Boolean(user && user.email?.toLowerCase() === ADMIN_EMAIL && user.emailVerified);
+  if (!state.isAdmin && state.activeTab === "ADMIN") state.activeTab = "HOME";
+  if (user) {
+    try {
+      const pSnap = await getDoc(doc(db, "users", user.uid));
+      state.profile = pSnap.exists() ? pSnap.data() : null;
+      const aSnap = await getDocs(query(collection(db, "users", user.uid, "attempts"), limit(50)));
+      state.cloudAttempts = aSnap.docs.map(d => ({ ...d.data(), syncedToCloud: true }));
+    } catch (e) { console.warn("Profile load:", e.message); }
+    await loadPortalData(false);
+  } else {
+    state.profile = null; state.cloudAttempts = [];
+  }
+  render();
+});
+
+async function handleGoogleSignIn() {
+  try {
+    await signInWithPopup(auth, new GoogleAuthProvider());
+    closeModal();
+    toast("Signed in with Google!");
+  } catch (e) {
+    toast("Sign-in error: " + e.message);
+  }
+}
+
+/* ================= FORMATTERS ================= */
+function fmtHms(ms) {
+  const s = Math.max(0, Math.floor(ms / 1000));
+  const d = Math.floor(s / 86400), h = Math.floor((s % 86400) / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+  const pad = n => String(n).padStart(2, "0");
+  return d > 0 ? `${d}d ${pad(h)}:${pad(m)}:${pad(sec)}` : `${pad(h)}:${pad(m)}:${pad(sec)}`;
+}
+function fmtDate(ms) {
+  if (!ms) return "TBA";
+  return new Date(ms).toLocaleString([], { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" });
+}
+function folderTrail(folderId) {
+  const byId = Object.fromEntries((state.catalog.practiceFolders || []).map(f => [f.id, f]));
+  const res = []; let cur = byId[folderId]; let g = 0;
+  while (cur && g++ < 12) { res.unshift(cur); cur = cur.parentId ? byId[cur.parentId] : null; }
+  return res;
+}
+function countFolderTests(fid) {
+  const flds = state.catalog.practiceFolders || [];
+  const tsts = state.catalog.practice || [];
+  let c = tsts.filter(t => t.folderId === fid).length;
+  flds.filter(f => f.parentId === fid).forEach(ch => { c += countFolderTests(ch.id); });
+  return c;
+}
+
+/* ================= RENDERERS ================= */
+function renderHeaderAndNav() {
+  const cfg = state.config;
+  document.getElementById("brandTitle").textContent = cfg.portalTitle || "Crack CGPSC Free Test Series";
+  document.getElementById("brandSub").textContent = (state.isAdmin ? "Admin Mode • " : "") + (cfg.instituteName || "Crack CGPSC Academy");
+  const logoUrl = cfg.resolvedLogoUrl || toDirectImageUrl(cfg.logoDriveUrl);
+  document.getElementById("brandLogo").innerHTML = logoUrl ? `<img src="${esc(logoUrl)}" alt="Logo">` : "CG";
+  const accBtn = document.getElementById("topAccountBtn");
+  accBtn.className = "account-btn" + (state.user ? " signed" : "");
+  accBtn.textContent = state.profile ? state.profile.rollNumber.slice(-8) : state.user ? "Admit Card" : "Sign In";
+  accBtn.onclick = openAccountFlow;
+
+  const tabs = [
+    { id: "HOME", icon: "🏠", label: "Home" },
+    { id: "TESTS", icon: "📁", label: "Tests" },
+    { id: "RESULTS", icon: "🏆", label: "Results" },
+    ...(state.isAdmin ? [{ id: "ADMIN", icon: "⚙️", label: "Admin" }] : [])
+  ];
+  document.getElementById("bottomNav").innerHTML = tabs.map(t =>
+    `<button class="nav-item ${state.activeTab === t.id ? "active" : ""}" data-tab="${t.id}"><span>${t.icon}</span><span>${t.label}</span></button>`
+  ).join("");
+  document.querySelectorAll("[data-tab]").forEach(b => b.onclick = () => { state.activeTab = b.dataset.tab; render(); });
+}
+
+function renderVideoBlock(blk) {
+  const raw = blk.driveUrl || blk.resolvedMediaUrl || "";
+  const vert = isVerticalVideo(raw, blk.videoFormat);
+  const ytId = extractYouTubeId(raw);
+  const thumb = ytId ? `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg` : "";
+  const playing = state.inlinePlayingVideos.has(blk.id);
+  const embed = toEmbedVideoUrl(raw);
+  const stageInner = playing
+    ? (isDirectVideoFile(raw)
+        ? `<video src="${esc(raw)}" controls autoplay playsinline></video>`
+        : `<iframe src="${esc(embed)}" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>`)
+    : `<div class="video-facade" data-play-inline="${esc(blk.id)}">
+         ${thumb ? `<img src="${esc(thumb)}" alt="${esc(blk.title)}">` : ""}
+         <div class="play-circle">▶</div>
+         <div class="video-tap-pill">Tap to Watch Here</div>
+       </div>`;
+  return `
+    <div class="card">
+      <div class="section-head" style="margin-bottom:8px;">
+        <span class="pill ${vert ? "pill-rose" : "pill-royal"}">${esc((blk.badgeText || (vert ? "SHORT LECTURE" : "VIDEO LECTURE")).toUpperCase())}</span>
+        <span class="mono" style="font-size:11px;color:var(--muted);">${vert ? "9:16 Portrait" : "16:9 HD"}</span>
+      </div>
+      ${blk.title ? `<div style="font-weight:800;font-size:15.5px;margin-bottom:10px;">${esc(blk.title)}</div>` : ""}
+      <div class="video-shell ${vert ? "vertical" : ""}">
+        <div class="video-stage">${stageInner}</div>
+        <div class="video-controls">
+          <span>${playing ? `<button style="color:var(--gold-300);font-weight:700;" data-stop-inline="${esc(blk.id)}">Stop</button>` : "● HD Ready"}</span>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <button class="btn btn-sm" style="background:var(--navy-800);color:#fff;" data-theater-url="${esc(raw)}" data-theater-title="${esc(blk.title || "Video")}" data-theater-vert="${vert ? "1" : "0"}">⛶ Theater</button>
+            <a href="${esc(normalizeUrl(raw))}" target="_blank" rel="noopener" style="color:var(--gold-300);text-decoration:none;font-size:12px;">↗</a>
+          </div>
+        </div>
+      </div>
+      ${blk.body ? `<p style="margin-top:10px;font-size:13.5px;color:var(--muted);">${esc(blk.body)}</p>` : ""}
+    </div>`;
+}
+
+function renderCmsBlock(blk) {
+  if (blk.type === "DRIVE_VIDEO") return renderVideoBlock(blk);
+  if (blk.type === "HERO_BANNER") {
+    return `<div style="background:linear-gradient(135deg,var(--navy-900),var(--navy-700));color:#fff;border-radius:18px;padding:18px;">
+      ${blk.badgeText ? `<span class="pill" style="background:var(--gold-500);color:var(--navy-950);margin-bottom:8px;">${esc(blk.badgeText)}</span>` : ""}
+      <h2 style="font-size:19px;font-weight:800;">${esc(blk.title)}</h2>
+      <p style="font-size:13.5px;color:#E2E8F0;margin-top:6px;">${esc(blk.body)}</p>
+      ${blk.actionUrl ? `<a class="btn btn-gold btn-sm" style="margin-top:12px;text-decoration:none;" href="${esc(normalizeUrl(blk.actionUrl))}" target="_blank">Explore Now ↗</a>` : ""}
+    </div>`;
+  }
+  if (blk.type === "DRIVE_IMAGE") {
+    const img = toDirectImageUrl(blk.resolvedMediaUrl || blk.driveUrl);
+    return `<div class="card">
+      <span class="pill pill-royal">${esc(blk.badgeText || "FEATURED VISUAL")}</span>
+      ${blk.title ? `<div style="font-weight:800;margin:8px 0;">${esc(blk.title)}</div>` : ""}
+      ${img ? `<img src="${esc(img)}" style="width:${blk.imageWidthPercent||100}%;max-height:${blk.imageMaxHeight||320}px;object-fit:${blk.imageFit==="COVER"?"cover":"contain"};display:block;margin:0 auto;border-radius:12px;">` : ""}
+      ${blk.body ? `<p style="margin-top:8px;font-size:13.5px;color:var(--muted);">${esc(blk.body)}</p>` : ""}
+    </div>`;
+  }
+  if (blk.type === "SPONSOR_AD") {
+    return `<div class="card" style="background:var(--gold-50);border-color:var(--gold-300);">
+      <span class="pill pill-gold">${esc(blk.badgeText || "SPONSORED")}</span>
+      <div style="font-weight:800;margin-top:6px;">${esc(blk.title)}</div>
+      <p style="font-size:13.5px;color:var(--text-sec);margin-top:4px;">${esc(blk.body)}</p>
+      ${blk.actionUrl ? `<a class="btn btn-navy btn-sm" style="margin-top:10px;text-decoration:none;" href="${esc(normalizeUrl(blk.actionUrl))}" target="_blank">Visit Partner ↗</a>` : ""}
+    </div>`;
+  }
+  return `<div class="card">
+    <span class="pill pill-emerald">${esc(blk.badgeText || "PORTAL NOTICE")}</span>
+    <div style="font-weight:800;margin-top:6px;">${esc(blk.title)}</div>
+    <p style="font-size:13.5px;color:var(--muted);margin-top:6px;white-space:pre-line;">${esc(blk.body)}</p>
+  </div>`;
+}
+
+function renderScheduledHub() {
+  const now = Date.now();
+  const cats = ["ALL","DAILY","WEEKLY","MONTHLY"];
+  const list = (state.catalog.scheduled || [])
+    .filter(s => state.schedFilter === "ALL" || (s.scheduleCategory||"").toUpperCase() === state.schedFilter)
+    .sort((a,b) => (a.windowStartMs||0) - (b.windowStartMs||0));
+  return `<div class="card">
+    <div class="section-head"><div><div class="section-title">🏆 Scheduled Live Exam Series</div><div class="section-sub">Single-attempt merit tests • All-State Rank PDF</div></div></div>
+    <div class="pill-row" style="margin-bottom:12px;">
+      ${cats.map(c => `<button class="chip ${state.schedFilter===c?"active":""}" data-sched-cat="${c}">${c[0]+c.slice(1).toLowerCase()}</button>`).join("")}
+    </div>
+    ${list.length ? list.map(ex => {
+      const isLive = now >= ex.windowStartMs && now <= ex.windowEndMs;
+      const isUp = now < ex.windowStartMs;
+      return `<div class="sched-item ${isLive?"is-live":""}" style="margin-bottom:10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+          <div><span class="pill ${isLive?"pill-emerald":isUp?"pill-gold":"pill-royal"}">${isLive?"LIVE NOW":isUp?"UPCOMING":"ENDED"}</span> <span class="pill pill-royal">${esc(ex.scheduleCategory||"DAILY")}</span></div>
+          <span class="mono" style="font-size:11.5px;font-weight:700;">Code: ${esc(ex.testCode)}</span>
+        </div>
+        <div style="font-weight:800;font-size:15px;">${esc(ex.title)}</div>
+        <div style="font-size:12px;color:var(--muted);">${ex.questionCount} Qs • ${ex.durationMinutes}m • +${ex.marksCorrect}/-${ex.marksNegative} • ${fmtDate(ex.windowStartMs)} → ${fmtDate(ex.windowEndMs)}</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px;">
+          <span class="mono" style="font-size:12px;color:${isLive?"var(--emerald-600)":"var(--gold-600)"};" data-cd-target="${isLive?ex.windowEndMs:ex.windowStartMs}" data-cd-mode="${isLive?"live":isUp?"up":"end"}">${isLive?"Ends in "+fmtHms(ex.windowEndMs-now):isUp?"Opens in "+fmtHms(ex.windowStartMs-now):"Merit PDF in Results"}</span>
+          <button class="btn btn-sm ${isLive?"btn-emerald":"btn-navy"}" ${isLive?"":"disabled"} data-join-sched="${esc(ex.testId)}">${isLive?"Start Live":isUp?"Locked":"Closed"}</button>
+        </div>
+      </div>`;
+    }).join("") : `<div style="padding:14px;background:var(--subtle);border-radius:12px;font-size:13px;color:var(--muted);">No scheduled exams in this filter yet. Drill practice folders below!</div>`}
+  </div>`;
+}
+
+function renderFolderExplorer(scopeKey, folderId) {
+  const flds = state.catalog.practiceFolders || [];
+  const tsts = state.catalog.practice || [];
+  const q = state.searchQuery.trim().toLowerCase();
+  const trail = folderTrail(folderId);
+  const visFolders = q ? flds.filter(f => f.name.toLowerCase().includes(q)) : flds.filter(f => (f.parentId||"") === folderId);
+  const visTests = q ? tsts.filter(t => t.title.toLowerCase().includes(q) || (t.subjectTag||"").toLowerCase().includes(q)) : tsts.filter(t => (t.folderId||"") === folderId);
+  const parentId = trail.length ? (trail[trail.length-1].parentId || "") : "";
+
+  return `<div class="card">
+    <div class="section-head">
+      <div><div class="section-title">📂 Free Practice Test Folders</div><div class="section-sub">Nested Bilingual Library • 0-Quota Instant Loading</div></div>
+    </div>
+    <input class="input" style="margin-bottom:10px;" placeholder="Search folders or practice tests..." value="${esc(state.searchQuery)}" data-folder-search="1">
+    <div class="breadcrumbs">
+      ${folderId ? `<button class="btn btn-navy btn-sm" style="min-height:28px;padding:4px 8px;" data-open-folder="${esc(parentId)}" data-fscope="${scopeKey}">← Back</button>` : ""}
+      <button style="font-weight:800;color:var(--navy-900);" data-open-folder="" data-fscope="${scopeKey}">All Folders</button>
+      ${trail.map(c => `<span>›</span><button style="font-weight:700;color:var(--royal-600);" data-open-folder="${esc(c.id)}" data-fscope="${scopeKey}">${esc(c.name)}</button>`).join("")}
+    </div>
+    ${visFolders.length ? `<div class="folder-grid">${visFolders.map(f => `
+      <button class="folder-card ${esc(f.colorKey||"blue")}" data-open-folder="${esc(f.id)}" data-fscope="${scopeKey}">
+        <div style="display:flex;justify-content:space-between;align-items:center;width:100%;">
+          <span style="font-size:24px;">📁</span>
+          <span class="mono" style="font-size:11px;background:#fff;padding:2px 7px;border-radius:999px;font-weight:700;">${countFolderTests(f.id)} Tests</span>
+        </div>
+        <div style="font-weight:800;font-size:13.5px;color:var(--navy-950);margin-top:8px;">${esc(f.name)}</div>
+      </button>`).join("")}</div>` : ""}
+    ${visTests.map(t => `
+      <div class="practice-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span class="pill pill-royal">${esc(t.subjectTag||"General Studies")}</span>
+          <span class="mono" style="font-size:11.5px;color:var(--muted);">${t.questionCount} Qs • ${t.durationMinutes}m</span>
+        </div>
+        <div style="font-weight:800;font-size:15px;margin-top:6px;">${esc(t.title)}</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:2px;">+${t.marksCorrect} / -${t.marksNegative} • Bilingual CBT</div>
+        <div class="practice-actions">
+          <button class="btn btn-navy btn-sm" data-play-practice="${esc(t.testId)}" data-mode="TEST">⏱ Test Mode</button>
+          <button class="btn btn-outline-emerald btn-sm" data-play-practice="${esc(t.testId)}" data-mode="QUIZ">⚡ Quiz Mode</button>
+        </div>
+      </div>`).join("")}
+    ${(!visFolders.length && !visTests.length) ? `<div style="padding:18px;text-align:center;color:var(--muted);font-size:13px;background:var(--subtle);border-radius:12px;">No folders or tests here yet.</div>` : ""}
+  </div>`;
+}
+
+function renderHome() {
+  const now = Date.now();
+  const sched = state.catalog.scheduled || [];
+  const live = sched.find(s => now >= s.windowStartMs && now <= s.windowEndMs);
+  const up = sched.filter(s => now < s.windowStartMs).sort((a,b) => a.windowStartMs - b.windowStartMs)[0];
+  const spot = live || up;
+  const isLive = Boolean(live);
+  const visBlocks = (state.config.blocks || []).filter(b => b.visible !== false).sort((a,b) => (a.orderIndex||0)-(b.orderIndex||0));
+  const topBlocks = visBlocks.filter(b => b.type === "HERO_BANNER" || b.type === "DRIVE_VIDEO");
+  const bottomBlocks = visBlocks.filter(b => b.type !== "HERO_BANNER" && b.type !== "DRIVE_VIDEO");
+
+  return `
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;">
+        <div>
+          <div style="font-weight:800;font-size:15.5px;">${state.profile ? `Namaste, ${esc(state.profile.studentName.split(" ")[0])}` : "Welcome, CGPSC Aspirant"}</div>
+          <div style="font-size:12px;color:var(--muted);">${state.profile ? `Roll No: ${esc(state.profile.rollNumber)} • Verified Candidate` : "Sign in for Official Roll Number & All-State Rank Lists"}</div>
+        </div>
+        <button class="btn btn-outline btn-sm" id="refreshPortalBtn">↻ Sync</button>
+      </div>
+      <div class="pill-row">
+        <span class="pill pill-gold">🔥 ${state.retention.streakDays}d Streak</span>
+        <span class="pill pill-emerald">✓ ${state.retention.testsCompleted} Tests Done</span>
+        <span class="pill pill-royal">☁ ${esc(state.quotaLabel)}</span>
+      </div>
+    </div>
+
+    <div class="hero-arena">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <span class="live-badge ${isLive?"live":"upcoming"}">${isLive?'<span class="pulse-dot"></span> LIVE EXAM BATTLEGROUND':spot?"NEXT SCHEDULED EXAM":"DAILY FREE EXAM ARENA"}</span>
+        ${spot ? `<span class="mono" style="font-size:11px;color:var(--gold-300);background:rgba(255,255,255,0.14);padding:3px 8px;border-radius:7px;">${esc(spot.scheduleCategory||"DAILY")}</span>` : ""}
+      </div>
+      ${spot ? `
+        <h1 style="font-size:20px;font-weight:800;margin-top:10px;">${esc(spot.title)}</h1>
+        <div style="font-size:12.5px;color:#CBD5E1;margin-top:4px;">${spot.questionCount} Qs • ${spot.durationMinutes} Mins • +${spot.marksCorrect}/-${spot.marksNegative} • Code: ${esc(spot.testCode)}</div>
+        <div class="countdown-box">
+          <div>
+            <div class="mono" style="font-size:11px;color:var(--gold-300);">${isLive?"WINDOW CLOSES IN":"STARTS IN"}</div>
+            <div style="font-size:12px;color:#94A3B8;">${isLive?fmtDate(spot.windowEndMs):fmtDate(spot.windowStartMs)}</div>
+          </div>
+          <div class="countdown-digits" data-cd-target="${isLive?spot.windowEndMs:spot.windowStartMs}" data-cd-mode="${isLive?"live":"up"}">${fmtHms((isLive?spot.windowEndMs:spot.windowStartMs)-now)}</div>
+        </div>
+        <button class="btn btn-full ${isLive?"btn-emerald":"btn-outline"}" style="margin-top:12px;${isLive?"":"color:#CBD5E1;border-color:rgba(255,255,255,0.25);"}" ${isLive?"":"disabled"} data-join-sched="${esc(spot.testId)}">${isLive?"▶ Start Live Exam Now":"⏳ Waiting for Exam Window"}</button>
+      ` : `
+        <h1 style="font-size:20px;font-weight:800;margin-top:10px;">Today's Live Slot Complete — Stay Sharp!</h1>
+        <p style="font-size:13.5px;color:#CBD5E1;margin-top:6px;">Next all-state scheduled exam unlocks here automatically. Keep your streak alive with bilingual folder practice below.</p>
+        <button class="btn btn-gold btn-full" style="margin-top:12px;" id="heroWarmupBtn">⚡ Launch Quick Practice Warmup</button>
+      `}
+      <div class="code-join-row">
+        <input class="code-input" id="examCodeInput" placeholder="Enter Exam Code (e.g. CG7X2A)">
+        <button class="btn btn-gold" id="examCodeJoinBtn">Join</button>
+      </div>
+    </div>
+
+    ${renderScheduledHub()}
+    ${renderFolderExplorer("home", state.homeFolderId)}
+    ${topBlocks.map(renderCmsBlock).join("")}
+
+    <div class="card">
+      <div class="section-title">🏅 Official Merit Rank List PDFs</div>
+      <div class="section-sub" style="margin-bottom:10px;">Published on Telegram after scheduled windows close</div>
+      ${(state.config.meritListLinks||[]).length ? state.config.meritListLinks.map(m => `
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--subtle);border-radius:12px;margin-bottom:8px;">
+          <div><span class="pill pill-gold">${esc(m.category)}</span> <small style="color:var(--muted);">${esc(m.examDate)}</small><div style="font-weight:700;font-size:13.5px;margin-top:3px;">${esc(m.testTitle)}</div></div>
+          <a class="btn btn-navy btn-sm" style="text-decoration:none;" href="${esc(normalizeUrl(m.telegramUrl))}" target="_blank">PDF ↗</a>
+        </div>`).join("") : `<div style="padding:12px;background:var(--subtle);border-radius:12px;font-size:13px;color:var(--muted);">Official Merit List PDFs appear here once published.</div>`}
+    </div>
+
+    ${bottomBlocks.map(renderCmsBlock).join("")}
+
+    <div class="portal-footer">
+      <div style="font-weight:800;font-size:17px;">${esc(state.config.instituteName || "Crack CGPSC Academy")}</div>
+      <div style="font-size:12px;color:#94A3B8;margin-top:4px;">100% Free Bilingual Government Exam CBT Series • Engineered for 20,000+ Daily Aspirants</div>
+      <div class="pill-row" style="margin-top:12px;">
+        ${(state.config.socialLinks||[]).map(s => `<a class="pill" style="background:var(--navy-800);color:#fff;text-decoration:none;" href="${esc(normalizeUrl(s.url))}" target="_blank">${esc(s.appName)} ↗</a>`).join("")}
+      </div>
+      ${(state.config.apkDownloadUrl || state.config.playStoreUrl) ? `<div style="display:flex;gap:10px;margin-top:12px;">
+        ${state.config.apkDownloadUrl ? `<a class="btn btn-gold btn-sm" style="text-decoration:none;" href="${esc(normalizeUrl(state.config.apkDownloadUrl))}" target="_blank">⬇ Download APK</a>` : ""}
+        ${state.config.playStoreUrl ? `<a class="btn btn-outline btn-sm" style="color:var(--gold-300);border-color:var(--gold-300);text-decoration:none;" href="${esc(normalizeUrl(state.config.playStoreUrl))}" target="_blank">Play Store</a>` : ""}
+      </div>` : ""}
+    </div>`;
+}
+
+function renderTests() {
+  return `
+    <div class="card" style="background:var(--royal-50);border-color:var(--royal-100);display:flex;align-items:center;justify-content:space-between;gap:10px;">
+      <div><div style="font-weight:800;font-size:14.5px;">Have a Local JSON / CSV Test File?</div><div style="font-size:12px;color:var(--text-sec);">Run any custom question set offline in CBT or Quiz Mode.</div></div>
+      <button class="btn btn-navy btn-sm" id="openLocalJsonBtn">Load File</button>
+    </div>
+    ${renderFolderExplorer("tests", state.testsFolderId)}
+    ${renderScheduledHub()}`;
+}
+
+function renderResults() {
+  const all = [...state.cloudAttempts, ...state.localAttempts].sort((a,b) => (b.submittedMs||0)-(a.submittedMs||0));
+  const avgAcc = all.length ? Math.round(all.reduce((s,a) => s + (a.accuracyPercent||0), 0) / all.length) : 0;
+  const best = all.length ? Math.max(...all.map(a => Number(a.totalScore||0))).toFixed(1) : "0.0";
+  return `
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+      <div class="card" style="background:var(--royal-50);"><div style="font-size:11.5px;font-weight:700;color:var(--royal-600);">Completed</div><div style="font-size:22px;font-weight:800;">${all.length}</div></div>
+      <div class="card" style="background:var(--emerald-50);"><div style="font-size:11.5px;font-weight:700;color:var(--emerald-600);">Avg Accuracy</div><div style="font-size:22px;font-weight:800;">${avgAcc}%</div></div>
+      <div class="card" style="background:var(--gold-50);"><div style="font-size:11.5px;font-weight:700;color:var(--gold-600);">Best Score</div><div style="font-size:22px;font-weight:800;">${best}</div></div>
+    </div>
+    <div class="card">
+      <div class="section-title" style="margin-bottom:8px;">My Attempt History</div>
+      ${all.length ? all.map(a => `
+        <div style="border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;"><span class="pill ${a.syncedToCloud?"pill-emerald":"pill-royal"}">${a.syncedToCloud?"CLOUD MERIT SYNCED":"LOCAL PRACTICE"}</span><small style="color:var(--muted);">${fmtDate(a.submittedMs)}</small></div>
+          <div style="font-weight:800;margin-top:6px;">${esc(a.testTitle)}</div>
+          <div style="font-size:13px;font-weight:700;color:var(--navy-900);margin-top:4px;">Score: ${Number(a.totalScore||0).toFixed(2)} / ${a.maxScore} • Acc: ${a.accuracyPercent}%</div>
+          <div style="font-size:12px;color:var(--muted);">✓ ${a.correctCount} Correct • ✕ ${a.wrongCount} Wrong • ○ ${a.unattemptedCount} Skipped</div>
+        </div>`).join("") : `<div style="color:var(--muted);font-size:13px;">Complete any Practice or Scheduled exam to track your score history here.</div>`}
+    </div>`;
+}
+
+function renderAdmin() {
+  if (!state.isAdmin) return `<div class="card"><h3>Admin Locked</h3><p>Only verified ${ADMIN_EMAIL} can access Admin Studio.</p></div>`;
+  const subTabs = [
+    ["BRANDING","GitHub & Brand"],["CMS","Dashboard CMS"],["LIBRARY","Folders & Tests"],["SCHEDULE","Schedule & Merit"]
+  ];
+  let body = "";
+  if (state.adminSubTab === "BRANDING") {
+    body = `
+      <div class="card" style="border-color:var(--royal-600);">
+        <div class="section-title">GitHub Zero-Read CDN Setup (20,000+ Users Spark Ready)</div>
+        <div class="section-sub" style="margin-bottom:10px;">Tests & catalogs publish to GitHub and load via jsDelivr CDN (0 Firestore reads). PAT stays strictly in this browser.</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div class="field"><label>Owner</label><input class="input" id="ghOwner" value="${esc(state.github.owner)}"></div>
+          <div class="field"><label>Repo</label><input class="input" id="ghRepo" value="${esc(state.github.repo)}"></div>
+        </div>
+        <div class="field"><label>Branch</label><input class="input" id="ghBranch" value="${esc(state.github.branch||"main")}"></div>
+        <div class="field"><label>GitHub PAT (contents:write)</label><input class="input" type="password" id="ghToken" value="${esc(state.github.token)}"></div>
+        <button class="btn btn-navy btn-full" id="saveGhBtn">Verify & Save GitHub Config</button>
+      </div>
+      <div class="card">
+        <div class="section-title" style="margin-bottom:8px;">Portal Branding & App Links</div>
+        <div class="field"><label>Portal Title</label><input class="input" id="cfgTitle" value="${esc(state.config.portalTitle)}"></div>
+        <div class="field"><label>Institute Name</label><input class="input" id="cfgInst" value="${esc(state.config.instituteName)}"></div>
+        <div class="field"><label>Logo URL (Drive or Direct)</label><input class="input" id="cfgLogo" value="${esc(state.config.logoDriveUrl)}"></div>
+        <div class="field"><label>APK Download URL</label><input class="input" id="cfgApk" value="${esc(state.config.apkDownloadUrl)}"></div>
+        <div class="field"><label>Play Store URL</label><input class="input" id="cfgPlay" value="${esc(state.config.playStoreUrl)}"></div>
+        <button class="btn btn-emerald btn-full" id="saveBrandBtn">Publish Branding Live</button>
+      </div>`;
+  } else if (state.adminSubTab === "CMS") {
+    body = `
+      <div class="card">
+        <div class="section-title" style="margin-bottom:8px;">Add Dashboard Block (Fixed Video / Banner / Notice)</div>
+        <div class="field"><label>Block Type</label><select class="input" id="cmsType"><option value="DRIVE_VIDEO">Video / YouTube Short</option><option value="HERO_BANNER">Hero Banner</option><option value="TEXT_ARTICLE">Notice / Article</option><option value="DRIVE_IMAGE">Image / Poster</option><option value="SPONSOR_AD">Sponsor Card</option></select></div>
+        <div class="field"><label>Badge</label><input class="input" id="cmsBadge" value="VIDEO LECTURE"></div>
+        <div class="field"><label>Title</label><input class="input" id="cmsTitle" placeholder="CGPSC 2026 Strategy Class"></div>
+        <div class="field"><label>Body / Description</label><textarea class="input" id="cmsBody" rows="2"></textarea></div>
+        <div class="field"><label>Video / Image URL (YouTube, Shorts, Drive, MP4)</label><input class="input" id="cmsUrl" placeholder="https://youtube.com/watch?v=... or /shorts/..."></div>
+        <div class="field"><label>Video Aspect Format</label><select class="input" id="cmsVidFmt"><option value="AUTO">Auto Detect (16:9 / 9:16)</option><option value="LANDSCAPE">16:9 Wide</option><option value="VERTICAL">9:16 Portrait Short</option></select></div>
+        <button class="btn btn-emerald btn-full" id="addCmsBtn">Publish Block to Dashboard</button>
+      </div>
+      <div class="card">
+        <div class="section-title" style="margin-bottom:8px;">Published Blocks (${(state.config.blocks||[]).length})</div>
+        ${(state.config.blocks||[]).map(b => `<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--subtle);border-radius:10px;margin-bottom:6px;">
+          <div><b>${esc(b.title||b.type)}</b> <small style="color:var(--muted);">(${b.type})</small></div>
+          <button class="btn btn-rose btn-sm" data-del-cms="${esc(b.id)}">Delete</button>
+        </div>`).join("")}
+      </div>`;
+  } else if (state.adminSubTab === "LIBRARY") {
+    const trail = folderTrail(state.adminFolderId);
+    const subF = (state.catalog.practiceFolders||[]).filter(f => (f.parentId||"") === state.adminFolderId);
+    const tsts = (state.catalog.practice||[]).filter(t => (t.folderId||"") === state.adminFolderId);
+    body = `
+      <div class="card">
+        <div class="section-head"><div class="section-title">📂 Nested Folder Manager</div><button class="btn btn-outline btn-sm" id="addPresetsBtn">+ Starter Folders</button></div>
+        <div class="breadcrumbs">
+          <button style="font-weight:800;" data-admin-folder="">Root</button>
+          ${trail.map(c => `<span>/</span><button style="font-weight:700;color:var(--royal-600);" data-admin-folder="${esc(c.id)}">${esc(c.name)}</button>`).join("")}
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:10px;">
+          <input class="input" id="newFolderName" placeholder="New folder name">
+          <select class="input" id="newFolderColor" style="width:120px;"><option value="blue">Blue</option><option value="amber">Gold</option><option value="emerald">Emerald</option><option value="purple">Purple</option><option value="rose">Rose</option><option value="teal">Teal</option></select>
+          <button class="btn btn-navy" id="createFolderBtn">Add</button>
+        </div>
+        ${subF.map(f => `<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--subtle);border-radius:10px;margin-bottom:6px;">
+          <button style="font-weight:700;flex:1;text-align:left;" data-admin-folder="${esc(f.id)}">📁 ${esc(f.name)}</button>
+          <button class="btn btn-rose btn-sm" data-del-folder="${esc(f.id)}">Delete</button>
+        </div>`).join("")}
+      </div>
+
+      <div class="card" style="border-color:var(--emerald-500);">
+        <div class="section-title">📤 Fixed Multi-Format Test Uploader (JSON / CSV / Builder)</div>
+        <div class="section-sub" style="margin-bottom:10px;">Uploading into: <b>${esc(trail.length?trail[trail.length-1].name:"Root Library")}</b></div>
+        <div class="dropzone" id="testDropzone">
+          <div style="font-weight:800;color:var(--navy-900);">Drop .json / .txt / .csv file here or Tap to Choose</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">Auto-fixes BOM, smart quotes, trailing commas & alternate keys</div>
+          <input type="file" id="adminTestFile" accept=".json,.txt,.csv,application/json,text/plain,*/*" class="hidden">
+        </div>
+        <div style="display:flex;gap:8px;margin:10px 0;">
+          <button class="btn btn-outline btn-sm" id="loadDemoBtn">Load Demo JSON</button>
+          <button class="btn btn-gold btn-sm" id="quickAddQBtn">+ Quick Add Question</button>
+        </div>
+        <div class="field"><label>Test Title</label><input class="input" id="upTestTitle" placeholder="CGPSC Prelims Mock #1"></div>
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:8px;">
+          <div class="field"><label>Subject</label><input class="input" id="upTestSubj" value="Chhattisgarh GK"></div>
+          <div class="field"><label>Mins</label><input class="input" id="upTestDur" value="30"></div>
+          <div class="field"><label>+Marks</label><input class="input" id="upTestPos" value="2"></div>
+          <div class="field"><label>-Marks</label><input class="input" id="upTestNeg" value="0.66"></div>
+        </div>
+        <div class="field"><label>JSON / CSV Content</label><textarea class="input mono" id="upTestRaw" rows="5" placeholder="Choose file above or paste JSON/CSV here..."></textarea></div>
+        <div id="upParseStatus" style="margin-bottom:10px;"></div>
+        <button class="btn btn-emerald btn-full" id="publishPracticeBtn">Publish Practice Test to CDN & Catalog</button>
+      </div>
+
+      <div class="card">
+        <div class="section-title" style="margin-bottom:8px;">Tests in Current Folder (${tsts.length})</div>
+        ${tsts.map(t => `<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px;background:var(--subtle);border-radius:10px;margin-bottom:6px;">
+          <div style="min-width:0;flex:1;"><div style="font-weight:700;">${esc(t.title)}</div><small style="color:var(--muted);">${t.questionCount} Qs • ${esc(t.subjectTag)}</small></div>
+          <select class="input" style="width:140px;padding:6px;" data-move-test="${esc(t.testId)}">
+            <option value="">Move to Root</option>
+            ${(state.catalog.practiceFolders||[]).map(f => `<option value="${esc(f.id)}" ${t.folderId===f.id?"selected":""}>${esc(f.name)}</option>`).join("")}
+          </select>
+          <button class="btn btn-rose btn-sm" data-del-test="${esc(t.testId)}">✕</button>
+        </div>`).join("") || `<div style="color:var(--muted);font-size:13px;">No tests directly inside this folder.</div>`}
+      </div>`;
+  } else {
+    body = `
+      <div class="card" style="border-color:var(--navy-900);">
+        <div class="section-title" style="margin-bottom:8px;">Schedule Fixed-Window Live Exam (10x Sharded Merit)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div class="field"><label>Category</label><select class="input" id="scCat"><option value="DAILY">DAILY</option><option value="WEEKLY">WEEKLY</option><option value="MONTHLY">MONTHLY</option></select></div>
+          <div class="field"><label>Duration (Mins)</label><input class="input" id="scDur" value="60"></div>
+        </div>
+        <div class="field"><label>Exam Title</label><input class="input" id="scTitle" placeholder="CGPSC Daily All-State Live Test"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div class="field"><label>Start Offset (Hours from now)</label><input class="input" id="scStartHrs" value="0"></div>
+          <div class="field"><label>Window Open (Hours)</label><input class="input" id="scOpenHrs" value="6"></div>
+        </div>
+        <input type="file" id="scFile" accept=".json,.txt,.csv,application/json,text/plain,*/*" style="margin-bottom:8px;">
+        <div class="field"><label>Exam JSON / CSV</label><textarea class="input mono" id="scRaw" rows="4"></textarea></div>
+        <button class="btn btn-emerald btn-full" id="publishSchedBtn">Publish Scheduled Exam & Init 10 Shards</button>
+      </div>
+      <div class="card">
+        <div class="section-title" style="margin-bottom:8px;">Scheduled Exams & 10-Shard Merit Lists</div>
+        ${(state.catalog.scheduled||[]).map(ex => `<div style="padding:10px;background:var(--subtle);border-radius:12px;margin-bottom:8px;">
+          <div style="font-weight:800;">${esc(ex.title)} (${esc(ex.testCode)})</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">${fmtDate(ex.windowStartMs)} → ${fmtDate(ex.windowEndMs)}</div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-navy btn-sm" data-view-merit="${esc(ex.testId)}" data-merit-title="${esc(ex.title)}">View 10-Shard Rank List</button>
+            <button class="btn btn-rose btn-sm" data-del-sched="${esc(ex.testId)}">Delete</button>
+          </div>
+        </div>`).join("") || `<div style="color:var(--muted);font-size:13px;">No scheduled exams yet.</div>`}
+      </div>`;
+  }
+  return `
+    <div class="card" style="background:var(--navy-950);color:#fff;">
+      <div style="font-weight:800;font-size:16px;">Admin Studio • Spark 20k+ Engine</div>
+      <div style="font-size:12px;color:var(--gold-300);">Verified Admin: ${ADMIN_EMAIL} • 10x Sharded Merit Sheets Active</div>
+    </div>
+    <div class="pill-row">${subTabs.map(([k,l]) => `<button class="chip ${state.adminSubTab===k?"active":""}" data-admin-sub="${k}">${l}</button>`).join("")}</div>
+    ${body}`;
+}
+
+function render() {
+  renderHeaderAndNav();
+  const main = document.getElementById("mainContainer");
+  if (state.activeTab === "HOME") main.innerHTML = renderHome();
+  else if (state.activeTab === "TESTS") main.innerHTML = renderTests();
+  else if (state.activeTab === "RESULTS") main.innerHTML = renderResults();
+  else main.innerHTML = renderAdmin();
+  bindEvents();
+}
+
+/* ================= EVENTS & WORKFLOWS ================= */
+function bindEvents() {
+  document.getElementById("refreshPortalBtn")?.addEventListener("click", () => loadPortalData(true));
+  document.getElementById("heroWarmupBtn")?.addEventListener("click", () => { state.activeTab = "TESTS"; render(); });
+  document.getElementById("examCodeJoinBtn")?.addEventListener("click", () => {
+    const code = (document.getElementById("examCodeInput")?.value || "").trim().toUpperCase();
+    const hit = (state.catalog.scheduled||[]).find(s => (s.testCode||"").toUpperCase() === code);
+    if (hit) launchScheduled(hit); else toast("No scheduled exam found for code: " + code);
+  });
+  document.getElementById("openLocalJsonBtn")?.addEventListener("click", openLocalJsonModal);
+
+  document.querySelectorAll("[data-sched-cat]").forEach(b => b.onclick = () => { state.schedFilter = b.dataset.schedCat; render(); });
+  document.querySelectorAll("[data-open-folder]").forEach(b => b.onclick = () => {
+    if (b.dataset.fscope === "tests") state.testsFolderId = b.dataset.openFolder; else state.homeFolderId = b.dataset.openFolder;
+    state.searchQuery = ""; render();
+  });
+  document.querySelectorAll("[data-folder-search]").forEach(inp => inp.oninput = (e) => { state.searchQuery = e.target.value; render(); });
+
+  document.querySelectorAll("[data-play-inline]").forEach(el => el.onclick = () => { state.inlinePlayingVideos.add(el.dataset.playInline); render(); });
+  document.querySelectorAll("[data-stop-inline]").forEach(el => el.onclick = () => { state.inlinePlayingVideos.delete(el.dataset.stopInline); render(); });
+  document.querySelectorAll("[data-theater-url]").forEach(el => el.onclick = () => openTheaterModal(el.dataset.theaterUrl, el.dataset.theaterTitle, el.dataset.theaterVert === "1"));
+
+  document.querySelectorAll("[data-play-practice]").forEach(b => b.onclick = () => {
+    const t = (state.catalog.practice||[]).find(x => x.testId === b.dataset.playPractice);
+    if (t) launchPractice(t, b.dataset.mode);
+  });
+  document.querySelectorAll("[data-join-sched]").forEach(b => b.onclick = () => {
+    const s = (state.catalog.scheduled||[]).find(x => x.testId === b.dataset.joinSched);
+    if (s) launchScheduled(s);
+  });
+
+  // Admin subtabs & actions
+  document.querySelectorAll("[data-admin-sub]").forEach(b => b.onclick = () => { state.adminSubTab = b.dataset.adminSub; render(); });
+  document.querySelectorAll("[data-admin-folder]").forEach(b => b.onclick = () => { state.adminFolderId = b.dataset.adminFolder; render(); });
+
+  document.getElementById("saveGhBtn")?.addEventListener("click", async () => {
+    const owner = document.getElementById("ghOwner").value.trim();
+    const repo = document.getElementById("ghRepo").value.trim();
+    const branch = document.getElementById("ghBranch").value.trim() || "main";
+    const token = document.getElementById("ghToken").value.trim();
+    const r = await fetch(`https://api.github.com/repos/${owner}/${repo}`, { headers: { Authorization: `Bearer ${token}` } });
+    if (!r.ok) { toast("GitHub verification failed: HTTP " + r.status); return; }
+    state.github = { owner, repo, branch, token };
+    saveLocal("cgpsc_gh", state.github);
+    toast("GitHub Verified! PAT stored locally only.");
+  });
+
+  document.getElementById("saveBrandBtn")?.addEventListener("click", async () => {
+    state.config = {
+      ...state.config,
+      portalTitle: document.getElementById("cfgTitle").value.trim() || "Crack CGPSC Free Test Series",
+      instituteName: document.getElementById("cfgInst").value.trim() || "Crack CGPSC Academy",
+      logoDriveUrl: document.getElementById("cfgLogo").value.trim(),
+      resolvedLogoUrl: toDirectImageUrl(document.getElementById("cfgLogo").value.trim()),
+      apkDownloadUrl: document.getElementById("cfgApk").value.trim(),
+      playStoreUrl: document.getElementById("cfgPlay").value.trim(),
+      githubCdnOwner: state.github.owner || state.config.githubCdnOwner,
+      githubCdnRepo: state.github.repo || state.config.githubCdnRepo,
+      githubCdnBranch: state.github.branch || "main"
+    };
+    await syncConfigEverywhere();
+  });
+
+  document.getElementById("addCmsBtn")?.addEventListener("click", async () => {
+    const type = document.getElementById("cmsType").value;
+    const url = document.getElementById("cmsUrl").value.trim();
+    state.config.blocks = [...(state.config.blocks||[]), {
+      id: "blk_" + Date.now(), type,
+      badgeText: document.getElementById("cmsBadge").value.trim(),
+      title: document.getElementById("cmsTitle").value.trim(),
+      body: document.getElementById("cmsBody").value.trim(),
+      driveUrl: url, resolvedMediaUrl: type === "DRIVE_IMAGE" ? toDirectImageUrl(url) : url,
+      videoFormat: document.getElementById("cmsVidFmt").value,
+      visible: true, orderIndex: (state.config.blocks||[]).length
+    }];
+    await syncConfigEverywhere();
+  });
+
+  document.querySelectorAll("[data-del-cms]").forEach(b => b.onclick = async () => {
+    state.config.blocks = (state.config.blocks||[]).filter(x => x.id !== b.dataset.delCms);
+    await syncConfigEverywhere();
+  });
+
+  document.getElementById("addPresetsBtn")?.addEventListener("click", async () => {
+    const existing = new Set((state.catalog.practiceFolders||[]).map(f => f.name.toLowerCase()));
+    DEFAULT_CATALOG.practiceFolders.forEach(p => { if (!existing.has(p.name.toLowerCase())) state.catalog.practiceFolders.push({ ...p }); });
+    await syncCatalogEverywhere();
+  });
+
+  document.getElementById("createFolderBtn")?.addEventListener("click", async () => {
+    const name = document.getElementById("newFolderName").value.trim();
+    if (!name) return toast("Enter folder name.");
+    state.catalog.practiceFolders.push({ id: "fld_" + Date.now(), name, parentId: state.adminFolderId, colorKey: document.getElementById("newFolderColor").value, orderIndex: state.catalog.practiceFolders.length });
+    await syncCatalogEverywhere();
+  });
+
+  document.querySelectorAll("[data-del-folder]").forEach(b => b.onclick = async () => {
+    const id = b.dataset.delFolder;
+    const target = state.catalog.practiceFolders.find(f => f.id === id);
+    const parent = target?.parentId || "";
+    state.catalog.practiceFolders = state.catalog.practiceFolders.filter(f => f.id !== id).map(f => f.parentId === id ? { ...f, parentId: parent } : f);
+    state.catalog.practice = state.catalog.practice.map(t => t.folderId === id ? { ...t, folderId: parent } : t);
+    await syncCatalogEverywhere();
+  });
+
+  // Fixed Test Uploader dropzone + live parse validator
+  const dz = document.getElementById("testDropzone");
+  const fileInp = document.getElementById("adminTestFile");
+  const rawTa = document.getElementById("upTestRaw");
+  const updateParseUi = () => {
+    const box = document.getElementById("upParseStatus");
+    if (!box || !rawTa) return;
+    if (!rawTa.value.trim()) { box.innerHTML = ""; return; }
+    const res = parseTestInput(rawTa.value);
+    box.innerHTML = res.ok
+      ? `<div style="padding:10px;border-radius:10px;background:var(--emerald-50);color:var(--emerald-600);font-weight:700;font-size:12.5px;">✓ READY: ${res.paper.questions.length} Questions Parsed Cleanly</div>`
+      : `<div style="padding:10px;border-radius:10px;background:var(--rose-50);color:var(--rose-600);font-weight:700;font-size:12.5px;">✕ ${esc(res.error)}</div>`;
+  };
+  const readFileIntoUploader = (file) => {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      rawTa.value = String(reader.result || "");
+      const res = parseTestInput(rawTa.value);
+      if (res.ok && !document.getElementById("upTestTitle").value.trim()) {
+        document.getElementById("upTestTitle").value = res.paper.title;
+      }
+      updateParseUi();
+      toast(res.ok ? `Loaded ${res.paper.questions.length} Qs from ${file.name}` : res.error);
+    };
+    reader.readAsText(file, "UTF-8");
+  };
+  if (dz && fileInp) {
+    dz.onclick = () => fileInp.click();
+    fileInp.onchange = () => readFileIntoUploader(fileInp.files?.[0]);
+    dz.ondragover = (e) => { e.preventDefault(); dz.classList.add("dragover"); };
+    dz.ondragleave = () => dz.classList.remove("dragover");
+    dz.ondrop = (e) => { e.preventDefault(); dz.classList.remove("dragover"); readFileIntoUploader(e.dataTransfer.files?.[0]); };
+  }
+  rawTa?.addEventListener("input", updateParseUi);
+  document.getElementById("loadDemoBtn")?.addEventListener("click", () => {
+    rawTa.value = SAMPLE_JSON;
+    if (!document.getElementById("upTestTitle").value.trim()) document.getElementById("upTestTitle").value = "CGPSC Prelims Demo Bilingual Mock";
+    updateParseUi();
+  });
+  document.getElementById("quickAddQBtn")?.addEventListener("click", () => openQuickQuestionModal(rawTa, updateParseUi));
+
+  document.getElementById("publishPracticeBtn")?.addEventListener("click", async () => {
+    const parsed = parseTestInput(rawTa.value);
+    if (!parsed.ok) return toast(parsed.error);
+    const title = document.getElementById("upTestTitle").value.trim() || parsed.paper.title;
+    const subj = document.getElementById("upTestSubj").value.trim() || "General Studies";
+    const dur = parseInt(document.getElementById("upTestDur").value, 10) || 30;
+    const pos = parseFloat(document.getElementById("upTestPos").value) || 2;
+    const neg = parseFloat(document.getElementById("upTestNeg").value) || 0;
+    const testId = "prac_" + Date.now();
+    const paper = { ...parsed.paper, title, durationMinutes: dur, marksCorrect: pos, marksNegative: neg };
+    let jsonUrl = "", provider = "FIRESTORE", ghPath = "";
+    if (state.github.owner && state.github.repo && state.github.token) {
+      ghPath = `tests/practice/${testId}.json`;
+      jsonUrl = await uploadToGitHub(ghPath, JSON.stringify(paper, null, 2), `Add practice test ${title}`);
+      provider = "GITHUB";
+    } else {
+      await setDoc(doc(db, "practiceTests", testId), {
+        adminUid: state.user.uid, title, subjectTag: subj, folderId: state.adminFolderId,
+        durationMinutes: dur, marksCorrect: pos, marksNegative: neg,
+        questionCount: paper.questions.length, questions: paper.questions,
+        createdAt: serverTimestamp(), updatedAt: serverTimestamp()
+      });
+    }
+    state.catalog.practice = [{ testId, title, subjectTag: subj, folderId: state.adminFolderId, durationMinutes: dur, marksCorrect: pos, marksNegative: neg, questionCount: paper.questions.length, storageProvider: provider, jsonUrl, githubPath: ghPath, updatedMs: Date.now() }, ...(state.catalog.practice||[])];
+    await syncCatalogEverywhere();
+    toast("Published \"" + title + "\" via " + provider + "!");
+  });
+
+  document.querySelectorAll("[data-move-test]").forEach(sel => sel.onchange = async () => {
+    const id = sel.dataset.moveTest;
+    state.catalog.practice = state.catalog.practice.map(t => t.testId === id ? { ...t, folderId: sel.value } : t);
+    await syncCatalogEverywhere();
+    toast("Moved test to folder!");
+  });
+  document.querySelectorAll("[data-del-test]").forEach(b => b.onclick = async () => {
+    state.catalog.practice = state.catalog.practice.filter(t => t.testId !== b.dataset.delTest);
+    await syncCatalogEverywhere();
+  });
+
+  // Schedule exam
+  document.getElementById("scFile")?.addEventListener("change", (e) => {
+    const f = e.target.files?.[0]; if (!f) return;
+    const r = new FileReader(); r.onload = () => { document.getElementById("scRaw").value = r.result; }; r.readAsText(f);
+  });
+  document.getElementById("publishSchedBtn")?.addEventListener("click", async () => {
+    const parsed = parseTestInput(document.getElementById("scRaw").value);
+    if (!parsed.ok) return toast(parsed.error);
+    const title = document.getElementById("scTitle").value.trim() || parsed.paper.title;
+    const cat = document.getElementById("scCat").value;
+    const dur = parseInt(document.getElementById("scDur").value, 10) || 60;
+    const startMs = Date.now() + (parseInt(document.getElementById("scStartHrs").value, 10) || 0) * 3600000;
+    const endMs = startMs + Math.max(1, parseInt(document.getElementById("scOpenHrs").value, 10) || 6) * 3600000;
+    const testId = "sched_" + Date.now();
+    const testCode = "CG" + Math.random().toString(36).slice(2,6).toUpperCase();
+    const paper = { ...parsed.paper, title, durationMinutes: dur };
+    let jsonUrl = "", provider = "FIRESTORE", ghPath = "";
+    if (state.github.owner && state.github.repo && state.github.token) {
+      ghPath = `tests/scheduled/${testId}.json`;
+      jsonUrl = await uploadToGitHub(ghPath, JSON.stringify(paper, null, 2), `Schedule exam ${title}`);
+      provider = "GITHUB";
+    } else {
+      await setDoc(doc(db, "scheduledTests", testId), {
+        adminUid: state.user.uid, testCode, title, instituteName: state.config.instituteName || "Crack CGPSC Academy",
+        scheduleCategory: cat, durationMinutes: dur, marksCorrect: paper.marksCorrect, marksNegative: paper.marksNegative,
+        questionCount: paper.questions.length, windowStartAt: Timestamp.fromMillis(startMs), windowEndAt: Timestamp.fromMillis(endMs),
+        questions: paper.questions, createdAt: serverTimestamp(), updatedAt: serverTimestamp()
+      });
+    }
+    // Pre-initialize 10 Sharded Merit Sheets for 20,000+ Spark scale
+    await Promise.all(Array.from({ length: MERIT_SHARD_COUNT }, (_, i) =>
+      setDoc(doc(db, "testMeritSheets", `${testId}_shard_${i}`), {
+        testId, shardIndex: i,
+        windowStartAt: Timestamp.fromMillis(startMs), windowEndAt: Timestamp.fromMillis(endMs),
+        entries: {}, updatedAt: serverTimestamp()
+      })
+    ));
+    state.catalog.scheduled = [{ testId, testCode, title, scheduleCategory: cat, durationMinutes: dur, marksCorrect: paper.marksCorrect, marksNegative: paper.marksNegative, questionCount: paper.questions.length, windowStartMs: startMs, windowEndMs: endMs, storageProvider: provider, jsonUrl, githubPath: ghPath }, ...(state.catalog.scheduled||[])];
+    await syncCatalogEverywhere();
+    toast(`Scheduled ${title} (Code: ${testCode}) with 10 Merit Shards!`);
+  });
+
+  document.querySelectorAll("[data-del-sched]").forEach(b => b.onclick = async () => {
+    state.catalog.scheduled = state.catalog.scheduled.filter(x => x.testId !== b.dataset.delSched);
+    await syncCatalogEverywhere();
+  });
+  document.querySelectorAll("[data-view-merit]").forEach(b => b.onclick = () => openAdminMeritModal(b.dataset.viewMerit, b.dataset.meritTitle));
+}
+
+async function syncConfigEverywhere() {
+  if (state.github.owner && state.github.repo && state.github.token) {
+    await uploadToGitHub("data/dashboard_config.json", JSON.stringify(state.config, null, 2), "Update dashboard_config.json");
+  }
+  await setDoc(doc(db, "portalData", "dashboardConfig"), { ...state.config, updatedAt: serverTimestamp() });
+  saveLocal("cgpsc_portal_cache", { ts: Date.now(), config: state.config, catalog: state.catalog });
+  toast("Portal config published live!");
+  render();
+}
+async function syncCatalogEverywhere() {
+  if (state.github.owner && state.github.repo && state.github.token) {
+    await uploadToGitHub("data/test_catalog.json", JSON.stringify(state.catalog, null, 2), "Update test_catalog.json");
+  }
+  const toMap = (arr, idKey) => Object.fromEntries((arr || []).map(item => [item[idKey], item]));
+  await setDoc(doc(db, "portalData", "testCatalog"), {
+    scheduled: toMap(state.catalog.scheduled, "testId"),
+    practice: toMap(state.catalog.practice, "testId"),
+    practiceFolders: toMap(state.catalog.practiceFolders, "id"),
+    updatedAt: serverTimestamp()
+  });
+  saveLocal("cgpsc_portal_cache", { ts: Date.now(), config: state.config, catalog: state.catalog });
+  render();
+}
+
+/* ================= CBT ENGINE ================= */
+async function launchPractice(summary, mode) {
+  let raw = "";
+  if (summary.storageProvider === "BUILTIN" || summary.testId === "demo_cgpsc_starter") raw = SAMPLE_JSON;
+  else if (summary.jsonUrl) { const r = await fetch(summary.jsonUrl); raw = await r.text(); }
+  else {
+    const snap = await getDoc(doc(db, "practiceTests", summary.testId));
+    raw = snap.exists() ? JSON.stringify(snap.data()) : "";
+  }
+  const parsed = parseTestInput(raw);
+  if (!parsed.ok) return toast(parsed.error);
+  startCbt(summary.testId, false, mode, parsed.paper);
+}
+
+async function launchScheduled(summary) {
+  if (!state.user) return openSignInModal();
+  if (!state.profile) return openProfileModal();
+  const now = Date.now();
+  if (now < summary.windowStartMs || now > summary.windowEndMs) return toast("Exam window is not currently open.");
+  let raw = "";
+  if (summary.jsonUrl) { const r = await fetch(summary.jsonUrl); raw = await r.text(); }
+  else { const snap = await getDoc(doc(db, "scheduledTests", summary.testId)); raw = snap.exists() ? JSON.stringify(snap.data()) : ""; }
+  const parsed = parseTestInput(raw);
+  if (!parsed.ok) return toast(parsed.error);
+  startCbt(summary.testId, true, "TEST", parsed.paper);
+}
+
+function startCbt(testId, isScheduled, mode, paper) {
+  state.activeExam = {
+    testId, isScheduled, mode, paper, idx: 0, lang: "EN",
+    remSec: (paper.durationMinutes || 30) * 60,
+    responses: paper.questions.map(() => ({ sel: null, marked: false })),
+    submitted: false, result: null
+  };
+  clearInterval(state.examTimer);
+  state.examTimer = setInterval(() => {
+    if (!state.activeExam || state.activeExam.submitted) return clearInterval(state.examTimer);
+    state.activeExam.remSec--;
+    const tEl = document.getElementById("cbtTimerEl");
+    if (tEl) tEl.textContent = fmtHms(state.activeExam.remSec * 1000).slice(-5);
+    if (state.activeExam.remSec <= 0) submitCbt();
+  }, 1000);
+  renderCbt();
+}
+
+function renderCbt() {
+  const ov = document.getElementById("cbtOverlay");
+  const ex = state.activeExam;
+  if (!ex) { ov.classList.add("hidden"); return; }
+  ov.classList.remove("hidden");
+  const q = ex.paper.questions[ex.idx];
+  const resp = ex.responses[ex.idx];
+  const opts = ex.lang === "HI" ? (q.optionsHi?.length ? q.optionsHi : q.optionsEn) : (q.optionsEn?.length ? q.optionsEn : q.optionsHi);
+  const showExp = ex.submitted || (ex.mode === "QUIZ" && resp.sel !== null);
+  const qText = ex.lang === "HI" ? (q.question.hi || q.question.en) : (q.question.en || q.question.hi);
+  const expText = ex.lang === "HI" ? (q.explanation.hi || q.explanation.en) : (q.explanation.en || q.explanation.hi);
+
+  ov.innerHTML = `
+    <div style="background:var(--navy-950);color:#fff;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
+      <button class="btn btn-sm" style="color:#fff;" id="cbtExitBtn">← Exit</button>
+      <div style="flex:1;min-width:0;"><div style="font-weight:800;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(ex.paper.title)}</div><div class="mono" style="font-size:11px;color:var(--gold-300);">Q ${ex.idx+1}/${ex.paper.questions.length} • ${ex.mode}</div></div>
+      <span class="mono" id="cbtTimerEl" style="background:var(--navy-800);padding:6px 10px;border-radius:8px;font-weight:700;">${ex.submitted?"DONE":fmtHms(ex.remSec*1000).slice(-5)}</span>
+    </div>
+    <div style="background:var(--navy-900);padding:6px 16px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="display:flex;gap:6px;">
+        <button class="pill ${ex.lang==="EN"?"pill-gold":""}" style="${ex.lang==="EN"?"":"background:rgba(255,255,255,0.14);color:#fff;"}" id="langEnBtn">English</button>
+        <button class="pill ${ex.lang==="HI"?"pill-gold":""}" style="${ex.lang==="HI"?"":"background:rgba(255,255,255,0.14);color:#fff;"}" id="langHiBtn">हिंदी</button>
+      </div>
+      ${ex.submitted ? `<button class="btn btn-gold btn-sm" onclick="window.print()">🖨 Print PDF</button>` : `<button class="btn btn-emerald btn-sm" id="cbtSubmitBtn">Submit Test</button>`}
+    </div>
+    <div class="cbt-body">
+      ${ex.submitted && ex.result ? `<div class="card" style="background:var(--emerald-50);border-color:var(--emerald-500);margin-bottom:12px;">
+        <div style="font-weight:800;color:var(--emerald-600);font-size:18px;">Score: ${ex.result.totalScore.toFixed(2)} / ${ex.result.maxScore} • Accuracy: ${ex.result.accuracyPercent}%</div>
+        <div style="font-size:12.5px;color:var(--text-sec);">✓ ${ex.result.correctCount} Correct • ✕ ${ex.result.wrongCount} Wrong • ○ ${ex.result.unattemptedCount} Unattempted</div>
+      </div>` : ""}
+      <div class="card" style="margin-bottom:12px;">
+        <div style="margin-bottom:8px;"><span class="pill pill-royal">${esc(q.subjectTag)}</span> <span class="pill pill-gold">${esc(q.pyqTag)}</span></div>
+        <div style="font-weight:700;font-size:15.5px;">Q${ex.idx+1}. ${esc(qText)}</div>
+        ${q.imageUrl ? `<img src="${esc(toDirectImageUrl(q.imageUrl))}" style="max-width:100%;max-height:240px;margin-top:10px;border-radius:10px;">` : ""}
+      </div>
+      ${opts.map((o, i) => {
+        let cls = "opt-btn";
+        if (showExp && i === q.correctIndex) cls += " correct";
+        else if (showExp && resp.sel === i && i !== q.correctIndex) cls += " wrong";
+        else if (resp.sel === i) cls += " selected";
+        return `<button class="${cls}" data-opt="${i}"><span class="opt-badge">${String.fromCharCode(65+i)}</span><span>${esc(o)}</span></button>`;
+      }).join("")}
+      ${showExp ? `<div class="card" style="background:var(--emerald-50);border-color:var(--emerald-500);margin-top:10px;">
+        <div style="font-weight:800;font-size:12px;color:var(--emerald-600);">EXPLANATION • Correct: Option ${String.fromCharCode(65+q.correctIndex)}</div>
+        <p style="font-size:13.5px;margin-top:6px;">${esc(expText)}</p>
+      </div>` : ""}
+    </div>
+    <div style="background:#fff;border-top:1px solid var(--border);padding:10px 14px;display:flex;gap:8px;justify-content:space-between;max-width:860px;width:100%;margin:0 auto;">
+      <button class="btn btn-outline btn-sm" id="cbtPrev" ${ex.idx===0?"disabled":""}>← Prev</button>
+      ${!ex.submitted ? `<button class="btn btn-outline btn-sm" id="cbtClear">Clear</button>` : ""}
+      <button class="btn btn-navy btn-sm" id="cbtNext">${ex.idx < ex.paper.questions.length-1 ? "Next →" : ex.submitted ? "Done" : "Finish"}</button>
+    </div>`;
+
+  if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise([ov]).catch(()=>{});
+  document.getElementById("cbtExitBtn").onclick = () => { clearInterval(state.examTimer); state.activeExam = null; renderCbt(); };
+  document.getElementById("langEnBtn").onclick = () => { ex.lang = "EN"; renderCbt(); };
+  document.getElementById("langHiBtn").onclick = () => { ex.lang = "HI"; renderCbt(); };
+  document.getElementById("cbtSubmitBtn")?.addEventListener("click", submitCbt);
+  document.getElementById("cbtPrev").onclick = () => { if (ex.idx > 0) { ex.idx--; renderCbt(); } };
+  document.getElementById("cbtClear")?.addEventListener("click", () => { ex.responses[ex.idx].sel = null; renderCbt(); });
+  document.getElementById("cbtNext").onclick = () => { if (ex.idx < ex.paper.questions.length-1) { ex.idx++; renderCbt(); } else if (!ex.submitted) submitCbt(); };
+  ov.querySelectorAll("[data-opt]").forEach(b => b.onclick = () => { if (!ex.submitted) { ex.responses[ex.idx].sel = parseInt(b.dataset.opt, 10); renderCbt(); } });
+}
+
+async function submitCbt() {
+  const ex = state.activeExam; if (!ex || ex.submitted) return;
+  clearInterval(state.examTimer);
+  let correct = 0, wrong = 0, unatt = 0;
+  ex.paper.questions.forEach((q, i) => {
+    const s = ex.responses[i].sel;
+    if (s === null) unatt++; else if (s === q.correctIndex) correct++; else wrong++;
+  });
+  const totalScore = Math.max(0, (correct * ex.paper.marksCorrect) - (wrong * ex.paper.marksNegative));
+  const maxScore = ex.paper.questions.length * ex.paper.marksCorrect;
+  const accuracyPercent = (correct + wrong) > 0 ? Math.round((correct * 100) / (correct + wrong)) : 0;
+  const selectedOptions = ex.responses.map(r => (r.sel === null ? -1 : r.sel));
+  const timeTakenSeconds = Math.max(0, ((ex.paper.durationMinutes || 30) * 60) - (ex.remSec || 0));
+  const attempt = {
+    userId: state.user?.uid || "local", testId: ex.testId, testTitle: ex.paper.title, mode: ex.mode,
+    rollNumber: state.profile?.rollNumber || "LOCAL", studentName: state.profile?.studentName || "Aspirant",
+    correctCount: correct, wrongCount: wrong, unattemptedCount: unatt, totalScore, maxScore, accuracyPercent,
+    timeTakenSeconds, appSwitchWarnings: 0, selectedOptions,
+    submittedMs: Date.now(), syncedToCloud: false
+  };
+  ex.submitted = true; ex.result = attempt;
+  state.localAttempts = [attempt, ...state.localAttempts].slice(0, 60);
+  saveLocal("cgpsc_local_attempts", state.localAttempts);
+  state.retention.testsCompleted = (state.retention.testsCompleted || 0) + 1;
+  saveLocal("cgpsc_retention", state.retention);
+
+  if (ex.isScheduled && state.user) {
+    try {
+      const shardIdx = computeMeritShardIndex(state.user.uid);
+      await updateDoc(doc(db, "testMeritSheets", `${ex.testId}_shard_${shardIdx}`), {
+        [`entries.${state.user.uid}`]: {
+          uid: state.user.uid, studentName: attempt.studentName, rollNumber: attempt.rollNumber,
+          totalScore, maxScore, correctCount: correct, wrongCount: wrong, unattemptedCount: unatt,
+          accuracyPercent, timeTakenSeconds, appSwitchWarnings: 0, submittedAt: serverTimestamp()
+        },
+        updatedAt: serverTimestamp()
+      });
+      await setDoc(doc(db, "users", state.user.uid, "attempts", ex.testId), {
+        userId: state.user.uid, testId: ex.testId, testTitle: ex.paper.title, mode: ex.mode,
+        rollNumber: attempt.rollNumber, studentName: attempt.studentName,
+        correctCount: correct, wrongCount: wrong, unattemptedCount: unatt,
+        totalScore, maxScore, accuracyPercent, timeTakenSeconds, appSwitchWarnings: 0,
+        selectedOptions, submittedAt: serverTimestamp()
+      });
+      attempt.syncedToCloud = true;
+      toast(`Submitted & synced to Merit Shard #${shardIdx}!`);
+    } catch (e) { toast("Saved locally; cloud merit sync note: " + e.message); }
+  } else {
+    toast("Score Card Ready! (Saved locally — 0 Firebase writes)");
+  }
+  renderCbt(); render();
+}
+
+/* ================= MODALS ================= */
+function openModal(html) {
+  const root = document.getElementById("modalRoot");
+  root.innerHTML = `<div class="modal-box">${html}</div>`;
+  root.classList.remove("hidden");
+  root.onclick = (e) => { if (e.target === root) closeModal(); };
+}
+function closeModal() { document.getElementById("modalRoot").classList.add("hidden"); }
+
+function openAccountFlow() {
+  if (!state.user) return openSignInModal();
+  if (!state.profile) return openProfileModal();
+  openModal(`
+    <h3 style="margin-bottom:10px;">Candidate Admit Card</h3>
+    <div style="background:var(--navy-950);color:#fff;padding:14px;border-radius:14px;margin-bottom:12px;">
+      <div class="mono" style="font-size:11px;color:var(--gold-300);">OFFICIAL ROLL NUMBER</div>
+      <div class="mono" style="font-size:20px;font-weight:800;">${esc(state.profile.rollNumber)}</div>
+      <div style="font-weight:700;margin-top:6px;">${esc(state.profile.studentName)}</div>
+      <div style="font-size:12px;color:#94A3B8;">${esc(state.profile.email)}</div>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;">
+      <button class="btn btn-outline btn-sm" id="modEditProf">Edit</button>
+      <button class="btn btn-rose btn-sm" id="modSignOut">Sign Out</button>
+      <button class="btn btn-navy btn-sm" id="modClose">Close</button>
+    </div>`);
+  document.getElementById("modEditProf").onclick = openProfileModal;
+  document.getElementById("modSignOut").onclick = async () => { await signOut(auth); closeModal(); toast("Signed out."); };
+  document.getElementById("modClose").onclick = closeModal;
+}
+
+function openSignInModal() {
+  openModal(`
+    <h3 style="margin-bottom:8px;">Sign in with Google</h3>
+    <p style="font-size:13.5px;color:var(--muted);margin-bottom:14px;">Get your Official Roll Number, join Scheduled Live Exams, and unlock Admin Studio (for authorized admin).</p>
+    <div style="display:flex;gap:8px;justify-content:flex-end;">
+      <button class="btn btn-outline btn-sm" id="modCancel">Later</button>
+      <button class="btn btn-navy" id="modGSignIn">Sign in with Google</button>
+    </div>`);
+  document.getElementById("modCancel").onclick = closeModal;
+  document.getElementById("modGSignIn").onclick = handleGoogleSignIn;
+}
+
+function openProfileModal() {
+  const p = state.profile || {};
+  openModal(`
+    <h3 style="margin-bottom:10px;">Generate Official Roll Number</h3>
+    <div class="field"><label>Full Name</label><input class="input" id="prName" value="${esc(p.studentName || state.user?.displayName || "")}"></div>
+    <div class="field"><label>Date of Birth (YYYY-MM-DD)</label><input class="input" id="prDob" value="${esc(p.dateOfBirth || "")}" placeholder="2000-08-15"></div>
+    <div class="field"><label>Mobile Number</label><input class="input" id="prMob" value="${esc(p.mobileNumber || "")}"></div>
+    <div class="field"><label>Email</label><input class="input" id="prEmail" value="${esc(p.email || state.user?.email || "")}"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;">
+      <button class="btn btn-outline btn-sm" id="prCancel">Cancel</button>
+      <button class="btn btn-emerald" id="prSave">Save Admit Card</button>
+    </div>`);
+  document.getElementById("prCancel").onclick = closeModal;
+  document.getElementById("prSave").onclick = async () => {
+    const rollNumber = p.rollNumber || ("CGPSC26" + Math.floor(100000 + Math.random()*900000));
+    const fields = {
+      studentName: document.getElementById("prName").value.trim(),
+      dateOfBirth: document.getElementById("prDob").value.trim() || "2000-01-01",
+      mobileNumber: document.getElementById("prMob").value.trim(),
+      email: document.getElementById("prEmail").value.trim()
+    };
+    if (state.profile) {
+      await updateDoc(doc(db, "users", state.user.uid), { ...fields, updatedAt: serverTimestamp() });
+      state.profile = { ...state.profile, ...fields };
+    } else {
+      const created = { uid: state.user.uid, ...fields, rollNumber, createdAt: serverTimestamp(), updatedAt: serverTimestamp() };
+      await setDoc(doc(db, "users", state.user.uid), created);
+      state.profile = { uid: state.user.uid, ...fields, rollNumber };
+    }
+    closeModal(); render(); toast("Admit Card Ready: " + rollNumber);
+  };
+}
+
+function openLocalJsonModal() {
+  openModal(`
+    <h3 style="margin-bottom:8px;">Run Local JSON / CSV Test</h3>
+    <input type="file" id="locFile" accept=".json,.txt,.csv,application/json,text/plain,*/*" style="margin-bottom:8px;">
+    <button class="btn btn-outline btn-sm" id="locDemo" style="margin-bottom:8px;">Load Demo</button>
+    <textarea class="input mono" id="locRaw" rows="5" placeholder="Paste JSON or CSV..."></textarea>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px;">
+      <button class="btn btn-outline btn-sm" id="locQuiz">Quiz Mode</button>
+      <button class="btn btn-emerald btn-sm" id="locTest">Start CBT</button>
+    </div>`);
+  document.getElementById("locFile").onchange = (e) => { const f = e.target.files?.[0]; if (!f) return; const r = new FileReader(); r.onload = () => { document.getElementById("locRaw").value = r.result; }; r.readAsText(f); };
+  document.getElementById("locDemo").onclick = () => { document.getElementById("locRaw").value = SAMPLE_JSON; };
+  const go = (m) => { const res = parseTestInput(document.getElementById("locRaw").value); if (!res.ok) return toast(res.error); closeModal(); startCbt("local_" + Date.now(), false, m, res.paper); };
+  document.getElementById("locQuiz").onclick = () => go("QUIZ");
+  document.getElementById("locTest").onclick = () => go("TEST");
+}
+
+function openQuickQuestionModal(targetTa, onUpdate) {
+  openModal(`
+    <h3 style="margin-bottom:8px;">Visual Quick-Add Question</h3>
+    <div class="field"><label>Question (English)</label><input class="input" id="qqEn"></div>
+    <div class="field"><label>Question (Hindi - optional)</label><input class="input" id="qqHi"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+      <input class="input" id="qqA" placeholder="Option A"><input class="input" id="qqB" placeholder="Option B">
+      <input class="input" id="qqC" placeholder="Option C"><input class="input" id="qqD" placeholder="Option D">
+    </div>
+    <div class="field" style="margin-top:8px;"><label>Correct Option</label><select class="input" id="qqAns"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select></div>
+    <div class="field"><label>Explanation</label><input class="input" id="qqExp" placeholder="Verified explanation"></div>
+    <button class="btn btn-emerald btn-full" id="qqAddBtn">Append Question to JSON</button>`);
+  document.getElementById("qqAddBtn").onclick = () => {
+    const existing = parseTestInput(targetTa.value);
+    const qs = existing.ok ? existing.paper.questions : [];
+    const qEn = document.getElementById("qqEn").value.trim(), qHi = document.getElementById("qqHi").value.trim();
+    const opts = [document.getElementById("qqA").value, document.getElementById("qqB").value, document.getElementById("qqC").value, document.getElementById("qqD").value];
+    qs.push({ id: qs.length+1, subjectTag: "General", pyqTag: "CGPSC", question: { en: qEn||qHi, hi: qHi||qEn }, options: { en: opts, hi: opts }, correctAnswer: parseInt(document.getElementById("qqAns").value, 10), explanation: { en: document.getElementById("qqExp").value || "Verified answer.", hi: document.getElementById("qqExp").value || "सत्यापित उत्तर।" } });
+    targetTa.value = JSON.stringify({ title: existing.ok ? existing.paper.title : "Custom Mock Test", durationMinutes: 30, positiveMarks: 2, negativeMarks: 0.66, questions: qs }, null, 2);
+    closeModal(); onUpdate(); toast("Question appended!");
+  };
+}
+
+function openTheaterModal(url, title, isVert) {
+  const embed = toEmbedVideoUrl(url);
+  openModal(`
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+      <b>${esc(title)}</b>
+      <button class="btn btn-outline btn-sm" id="thClose">✕</button>
+    </div>
+    <div class="video-shell ${isVert?"vertical":""}">
+      <div class="video-stage">${isDirectVideoFile(url) ? `<video src="${esc(url)}" controls autoplay playsinline></video>` : `<iframe src="${esc(embed)}" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>`}</div>
+    </div>`);
+  document.getElementById("thClose").onclick = closeModal;
+}
+
+async function openAdminMeritModal(testId, title) {
+  toast("Merging 10 Merit Shards...");
+  const all = [];
+  for (let i = 0; i < MERIT_SHARD_COUNT; i++) {
+    try {
+      const snap = await getDoc(doc(db, "testMeritSheets", `${testId}_shard_${i}`));
+      if (snap.exists()) {
+        const entries = snap.data().entries || {};
+        Object.entries(entries).forEach(([uid, v]) => all.push({ uid, ...v }));
+      }
+    } catch {}
+  }
+  all.sort((a,b) => (b.totalScore - a.totalScore) || (b.accuracyPercent - a.accuracyPercent));
+  openModal(`
+    <h3 style="margin-bottom:6px;">Merit Rank List • ${esc(title)}</h3>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:10px;">Merged from 10 Shards • ${all.length} Ranked Candidates</div>
+    ${all.length ? all.map((e, idx) => `<div style="display:flex;justify-content:space-between;padding:8px 10px;background:${idx<3?"var(--gold-50)":"var(--subtle)"};border-radius:8px;margin-bottom:6px;">
+      <span><b>#${idx+1}</b> ${esc(e.studentName)} <small>(${esc(e.rollNumber)})</small></span>
+      <span class="mono" style="font-weight:800;color:var(--emerald-600);">${Number(e.totalScore||0).toFixed(2)}</span>
+    </div>`).join("") : `<div style="color:var(--muted);">No submissions yet.</div>`}
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px;">
+      <button class="btn btn-navy btn-sm" onclick="window.print()">🖨 Print Merit PDF</button>
+      <button class="btn btn-outline btn-sm" id="mrClose">Close</button>
+    </div>`);
+  document.getElementById("mrClose").onclick = closeModal;
+}
+
+/* ================= LIVE 1-SECOND COUNTDOWN TICKER ================= */
+setInterval(() => {
+  const now = Date.now();
+  document.querySelectorAll("[data-cd-target]").forEach(el => {
+    const target = Number(el.dataset.cdTarget || 0);
+    const mode = el.dataset.cdMode;
+    if (mode === "live") el.textContent = (el.classList.contains("countdown-digits") ? "" : "Ends in ") + fmtHms(target - now);
+    else if (mode === "up") el.textContent = (el.classList.contains("countdown-digits") ? "" : "Opens in ") + fmtHms(target - now);
+  });
+}, 1000);
+
+loadPortalData(false);
+</script>
+</body>
+</html>
