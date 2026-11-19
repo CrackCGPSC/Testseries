@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crack CGPSC Free Test Series — Official Portal & CBT Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy-950: #0b2854;
+      --navy-900: #1e3a8a;
+      --navy-800: #1e40af;
+      --royal-600: #2563eb;
+      --royal-100: #dbeafe;
+      --royal-50: #eff6ff;
+      --amber-600: #d97706;
+      --amber-500: #f59e0b;
+      --amber-300: #fcd34d;
+      --amber-100: #fef3c7;
+      --emerald-600: #059669;
+      --emerald-500: #10b981;
+      --emerald-50: #ecfdf5;
+      --rose-600: #e11d48;
+      --rose-50: #fff1f2;
+      --purple-600: #7c3aed;
+      --purple-50: #f5f3ff;
+      --slate-900: #0f172a;
+      --slate-700: #334155;
+      --slate-500: #64748b;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--slate-50);
+      color: var(--slate-900);
+      line-height: 1.5;
+    }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    button { font-family: inherit; cursor: pointer; transition: all .15s ease; }
+    button:disabled { opacity: .55; cursor: not-allowed; }
+    input, textarea, select {
+      font-family: inherit;
+      border: 1px solid var(--slate-200);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 14px;
+      width: 100%;
+      background: #fff;
+      color: var(--slate-900);
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: 2px solid var(--royal-600);
+      border-color: var(--royal-600);
+    }
+
+    /* Header (Matches Android PortalTopHeaderBar: single clean row, no tab clutter) */
+    .topbar {
+      background: var(--navy-900);
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, .16);
+    }
+    .topbar-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: nowrap;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex: 1;
+    }
+    /* Borderless Drive Logo: zero background box, zero border */
+    .brand-logo-img {
+      height: 36px;
+      width: auto;
+      max-width: 84px;
+      object-fit: contain;
+      background: transparent;
+      border: none;
+      display: block;
+      flex-shrink: 0;
+    }
+    .brand-fallback-ico {
+      width: 32px;
+      height: 32px;
+      color: var(--amber-300);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .brand-text-col { min-width: 0; }
+    .brand-title {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .brand-sub {
+      font-size: 11px;
+      color: var(--amber-300);
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .account-pill {
+      background: var(--navy-800);
+      color: #fff;
+      border: 1px solid #3b82f6;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    /* Android-style App Shell (Bottom Nav on mobile, Left Nav Rail on tablet/desktop) */
+    .app-shell {
+      display: flex;
+      min-height: calc(100vh - 58px);
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .shell-rail {
+      display: none;
+      width: 92px;
+      flex-shrink: 0;
+      background: #fff;
+      border-right: 1px solid var(--slate-200);
+      padding: 16px 8px;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .shell-bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 45;
+      background: #fff;
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 6px 6px calc(6px + env(safe-area-inset-bottom));
+      box-shadow: 0 -2px 12px rgba(15, 23, 42, .06);
+    }
+    @media (min-width: 769px) {
+      .shell-rail { display: flex; }
+      .shell-bottom-nav { display: none; }
+    }
+    body.in-player .shell-rail,
+    body.in-player .shell-bottom-nav { display: none !important; }
+
+    .nav-item-btn {
+      background: transparent;
+      border: none;
+      color: var(--slate-500);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      min-width: 64px;
+    }
+    .nav-item-btn .nav-pill-ico {
+      width: 48px;
+      height: 28px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s ease;
+    }
+    .nav-item-btn.active {
+      color: var(--navy-900);
+    }
+    .nav-item-btn.active .nav-pill-ico {
+      background: var(--royal-100);
+      color: var(--navy-900);
+    }
+
+    .container {
+      flex: 1;
+      min-width: 0;
+      padding: 16px 14px 88px;
+    }
+    @media (min-width: 769px) {
+      .container { padding: 20px 22px 44px; }
+    }
+    .stack { display: flex; flex-direction: column; gap: 14px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, .03);
+    }
+    .hero-card {
+      background: linear-gradient(135deg, var(--navy-950), var(--navy-900), var(--royal-600));
+      color: #fff;
+      border-radius: 18px;
+      padding: 18px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .badge-amber { background: var(--amber-100); color: #92400e; }
+    .badge-green { background: var(--emerald-50); color: var(--emerald-600); border: 1px solid #a7f3d0; }
+    .badge-blue { background: var(--royal-100); color: var(--navy-900); }
+    .badge-rose { background: var(--rose-50); color: var(--rose-600); border: 1px solid #fecdd3; }
+    .badge-purple { background: var(--purple-50); color: var(--purple-600); border: 1px solid #ddd6fe; }
+
+    .btn {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-primary { background: var(--royal-600); color: #fff; }
+    .btn-navy { background: var(--navy-900); color: #fff; }
+    .btn-emerald { background: var(--emerald-600); color: #fff; }
+    .btn-purple { background: var(--purple-600); color: #fff; }
+    .btn-rose { background: var(--rose-600); color: #fff; }
+    .btn-outline { background: #fff; color: var(--slate-900); border: 1px solid var(--slate-200); }
+
+    /* Compact Stylish Social Media Footer with Official Brand Icons */
+    .footer-card {
+      background: var(--navy-950);
+      color: #fff;
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-top: 6px;
+    }
+    .social-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .social-chip {
+      background: #132d63;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 6px 11px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid rgba(147, 197, 253, .32);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      line-height: 1.2;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .social-chip:hover {
+      background: #1e40af;
+      transform: translateY(-1px);
+    }
+    .social-ico {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* CBT Player */
+    .player-layout {
+      display: grid;
+      grid-template-columns: 1fr 310px;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .player-layout { grid-template-columns: 1fr; }
+    }
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      background: #fff;
+      border: 1.5px solid var(--slate-200);
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--slate-900);
+    }
+    .option-btn.selected { border-color: var(--royal-600); background: var(--royal-50); font-weight: 600; }
+    .option-btn.correct { border-color: var(--emerald-600); background: var(--emerald-50); font-weight: 700; color: #065f46; }
+    .option-btn.wrong { border-color: var(--rose-600); background: var(--rose-50); font-weight: 700; color: #9f1239; }
+    .opt-circle {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--slate-100); color: var(--slate-700);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 12px; flex-shrink: 0;
+    }
+    .option-btn.selected .opt-circle { background: var(--royal-600); color: #fff; }
+    .option-btn.correct .opt-circle { background: var(--emerald-600); color: #fff; }
+    .option-btn.wrong .opt-circle { background: var(--rose-600); color: #fff; }
+
+    .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    .q-pill {
+      height: 40px; border-radius: 10px; font-weight: 800; font-size: 13px;
+      border: 1px solid var(--slate-200); background: var(--slate-100); color: var(--slate-700);
+    }
+    .q-pill.answered { background: var(--emerald-500); color: #fff; border-color: var(--emerald-600); }
+    .q-pill.not-answered { background: #f43f5e; color: #fff; border-color: var(--rose-600); }
+    .q-pill.marked { background: var(--purple-600); color: #fff; border-color: #6d28d9; }
+    .q-pill.current { outline: 3px solid var(--royal-600); }
+
+    /* Modal Backdrop */
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(15, 23, 42, .62);
+      z-index: 60; display: flex; align-items: center; justify-content: center; padding: 16px;
+    }
+    .modal-box {
+      background: #fff; border-radius: 18px; width: 100%; max-width: 620px;
+      max-height: 90vh; overflow-y: auto; padding: 22px;
+      box-shadow: 0 24px 48px rgba(15, 23, 42, .25);
+    }
+    .modal-wide { max-width: 920px; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { background: var(--navy-900); color: #fff; padding: 10px; text-align: left; }
+    td { border-bottom: 1px solid var(--slate-200); padding: 9px 10px; }
+    .podium-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 12px 0; }
+    .podium-card { background: var(--royal-50); border: 1px solid var(--royal-100); border-radius: 12px; padding: 12px; text-align: center; }
+
+    .hidden { display: none !important; }
+    .alert-bar {
+      background: var(--amber-100); color: #78350f; padding: 10px 14px;
+      border-radius: 10px; font-size: 13px; font-weight: 600; margin-bottom: 12px;
+    }
+    .video-frame { width: 100%; height: 280px; border: none; border-radius: 12px; background: #000; }
+    .cms-img { width: 100%; max-height: 340px; object-fit: contain; border-radius: 12px; display: block; }
+
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #fff; }
+      .print-only { display: block !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar no-print">
+    <div class="topbar-inner">
+      <div class="brand-wrap">
+        <img id="headerLogoImg" class="brand-logo-img hidden" alt="Portal Logo" />
+        <div id="headerFallbackLogo" class="brand-fallback-ico" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+        </div>
+        <div class="brand-text-col">
+          <h1 id="headerPortalTitle" class="brand-title">Crack CGPSC Free Test Series</h1>
+          <div id="headerInstituteSub" class="brand-sub">CGPSC &amp; Vyapam Mock Portal</div>
+        </div>
+      </div>
+
+      <button class="account-pill" id="accountBtn">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--amber-300)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm0 14c-2.03 0-4.43-.82-6.14-2.88C7.55 15.8 9.68 15 12 15s4.45.8 6.14 2.12C16.43 19.18 14.03 20 12 20z"/></svg>
+        <span id="accountBtnLabel">Account / Sign In</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <!-- Tablet / Desktop Left Navigation Rail (Matches Android NavRail) -->
+    <aside class="shell-rail no-print" id="navRail">
+      <button class="nav-item-btn active" data-tab="HOME"><span class="nav-pill-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></span><span>Home</span></button>
+      <button class="nav-item-btn" data-tab="TESTS"><span class="nav-pill-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-5.99 13H12v-2h2.01v2zm2.01-5.85c-.62.61-1.01 1.07-1.01 2.1h-2.01c0-1.52.66-2.29 1.4-3.02.63-.61 1.09-1.06 1.09-1.73 0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5h-2c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5c0 1.25-.67 2.02-1.47 2.65z"/></svg></span><span>Tests</span></button>
+      <button class="nav-item-btn" data-tab="RESULTS"><span class="nav-pill-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg></span><span>Results</span></button>
+      <button class="nav-item-btn hidden" id="adminRailBtn" data-tab="ADMIN"><span class="nav-pill-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17 11c.34 0 .67.04 1 .09V6.27L10.5 3 3 6.27v4.91c0 4.54 3.2 8.79 7.5 9.82.55-.13 1.08-.32 1.6-.55-.69-.98-1.1-2.17-1.1-3.45 0-3.31 2.69-6 6-6zm0 2c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6.5c-.46 0-.89-.15-1.24-.41l2.74-2.74c.26.35.41.78.41 1.24 0 1.06-.85 1.91-1.91 1.91z"/></svg></span><span>Admin</span></button>
+    </aside>
+
+    <main class="container no-print">
+      <div id="fileProtocolNotice" class="alert-bar hidden"></div>
+      <div id="portalBanner" class="alert-bar hidden"></div>
+
+      <!-- PUBLIC & PORTAL VIEWS -->
+      <section id="viewPortal">
+        <div id="tabHOME" class="stack"></div>
+        <div id="tabTESTS" class="stack hidden"></div>
+        <div id="tabRESULTS" class="stack hidden"></div>
+        <div id="tabADMIN" class="stack hidden"></div>
+      </section>
+
+      <!-- LOCKED CBT PLAYER VIEW (NO MID-TEST MODE SWITCHING) -->
+      <section id="viewPlayer" class="hidden"></section>
+    </main>
+  </div>
+
+  <!-- Mobile Bottom Navigation Bar (Matches Android NavigationBar) -->
+  <nav class="shell-bottom-nav no-print" id="bottomNavBar">
+    <button class="nav-item-btn active" data-tab="HOME"><span class="nav-pill-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></span><span>Home</span></button>
+    <button class="nav-item-btn" data-tab="TESTS"><span class="nav-pill-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-5.99 13H12v-2h2.01v2zm2.01-5.85c-.62.61-1.01 1.07-1.01 2.1h-2.01c0-1.52.66-2.29 1.4-3.02.63-.61 1.09-1.06 1.09-1.73 0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5h-2c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5c0 1.25-.67 2.02-1.47 2.65z"/></svg></span><span>Tests</span></button>
+    <button class="nav-item-btn" data-tab="RESULTS"><span class="nav-pill-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg></span><span>My Results</span></button>
+    <button class="nav-item-btn hidden" id="adminBottomBtn" data-tab="ADMIN"><span class="nav-pill-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17 11c.34 0 .67.04 1 .09V6.27L10.5 3 3 6.27v4.91c0 4.54 3.2 8.79 7.5 9.82.55-.13 1.08-.32 1.6-.55-.69-.98-1.1-2.17-1.1-3.45 0-3.31 2.69-6 6-6zm0 2c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6.5c-.46 0-.89-.15-1.24-.41l2.74-2.74c.26.35.41.78.41 1.24 0 1.06-.85 1.91-1.91 1.91z"/></svg></span><span>Admin</span></button>
+  </nav>
+
+  <!-- PRINTABLE PDF EXPORT AREA (Score Card or Merit Rank List) -->
+  <section id="printArea" class="print-only hidden" style="padding:20px;"></section>
+
+  <!-- MODAL CONTAINER -->
+  <div id="modalRoot" class="modal-backdrop hidden no-print">
+    <div id="modalContent" class="modal-box"></div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+    import {
+      getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult,
+      setPersistence, browserLocalPersistence, signOut, onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+    import {
+      getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, deleteField,
+      collection, query, where, limit, orderBy, onSnapshot, getDocs, serverTimestamp, Timestamp
+    } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+    const ADMIN_EMAIL = "saketgiri73@gmail.com";
+    const FIRESTORE_DB_ID = "ai-studio-android-cbtporta-8e11c8ec-1332-425e-8f0c-2ada67f19016";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCEOE5_qLIF-riU01oajP_3f5zNzhqTcNk",
+      authDomain: "gen-lang-client-0491048649.firebaseapp.com",
+      projectId: "gen-lang-client-0491048649",
+      storageBucket: "gen-lang-client-0491048649.firebasestorage.app",
+      messagingSenderId: "353857234421",
+      appId: "1:353857234421:web:crackcgpscweb"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app, FIRESTORE_DB_ID);
+
+    const isUnsupportedFileContext = !["http:", "https:"].includes(window.location.protocol);
+    if (isUnsupportedFileContext) {
+      const notice = document.getElementById("fileProtocolNotice");
+      notice.innerHTML = `
+        <strong>Local File Mode (${escUrlProto(window.location.protocol)}):</strong> You opened this file directly from File Manager.
+        Android/Chrome/Brave block Google Sign-In on <code>content://</code> &amp; <code>file://</code> links.
+        Host it in 30 seconds via <strong>Netlify Drop</strong>, <strong>GitHub Pages</strong>, <strong>Firebase Hosting</strong>, or <code>http://localhost</code> for Google Sign-In!
+      `;
+      notice.classList.remove("hidden");
+    } else {
+      getRedirectResult(auth).catch((err) => {
+        if (err && err.code !== "auth/no-current-user") {
+          console.warn("Redirect sign-in note:", err.message);
+        }
+      });
+    }
+    function escUrlProto(p) { return String(p || "file:").replace(/[<>]/g, ""); }
+
+    const DEFAULT_SAMPLE_JSON = {
+      title: "CGPSC Prelims Demo Bilingual Mock",
+      durationMinutes: 15,
+      positiveMarks: 2,
+      negativeMarks: 0.66,
+      questions: [
+        {
+          id: 1,
+          subjectTag: "Chhattisgarh GK",
+          pyqTag: "CGPSC Prelims",
+          question: {
+            en: "Which waterfall in Bastar is popularly known as the 'Niagara of India'?",
+            hi: "बस्तर के किस जलप्रपात को लोकप्रिय रूप से 'भारत का नियाग्रा' कहा जाता है?"
+          },
+          options: {
+            en: ["Tirathgarh", "Chitrakote", "Mandhara", "Amritdhara"],
+            hi: ["तीरथगढ़", "चित्रकोट", "मंधारा", "अमृतधारा"]
+          },
+          correctAnswer: 1,
+          explanation: {
+            en: "Chitrakote Waterfall on the Indravati River is India's widest horseshoe-shaped waterfall.",
+            hi: "इंद्रावती नदी पर स्थित चित्रकोट जलप्रपात भारत का सबसे चौड़ा घोड़े की नाल के आकार का जलप्रपात है।"
+          }
+        },
+        {
+          id: 2,
+          subjectTag: "Polity",
+          pyqTag: "Hindi Only Sample",
+          question: { en: "", hi: "भारतीय संविधान के किस अनुच्छेद के अंतर्गत अस्पृश्यता का अंत किया गया है?" },
+          options: { en: ["", "", "", ""], hi: ["अनुच्छेद 14", "अनुच्छेद 15", "अनुच्छेद 17", "अनुच्छेद 21"] },
+          correctAnswer: 2,
+          explanation: { hi: "अनुच्छेद 17 अस्पृश्यता के उन्मूलन से संबंधित है।" }
+        },
+        {
+          id: 3,
+          subjectTag: "General Science",
+          pyqTag: "English Only Sample",
+          question: { en: "What is the SI unit of Electric Potential Difference?" },
+          options: { en: ["Ohm", "Ampere", "Volt", "Watt"] },
+          correctAnswer: 2,
+          explanation: "Electric potential difference is measured in Volts (Joule/Coulomb)."
+        }
+      ]
+    };
+
+    // --- App State ---
+    const state = {
+      tab: "HOME",
+      adminSubTab: "BRANDING",
+      config: {
+        portalTitle: "Crack CGPSC Free Test Series",
+        instituteName: "Crack CGPSC Academy",
+        logoDriveUrl: "",
+        resolvedLogoUrl: "",
+        blocks: [
+          {
+            id: "hero_welcome",
+            type: "HERO_BANNER",
+            badgeText: "OFFICIAL PORTAL",
+            title: "CGPSC Prelims & Vyapam 2026 Free Test Series",
+            body: "Attempt scheduled all-state mock exams, earn your official Roll Number, track rank lists, and practice bilingual quizzes.",
+            driveUrl: "",
+            resolvedMediaUrl: "",
+            visible: true,
+            orderIndex: 0
+          },
+          {
+            id: "notice_rules",
+            type: "TEXT_ARTICLE",
+            badgeText: "IMPORTANT",
+            title: "Exam Rules & Rank List Schedule",
+            body: "1. Browse Dashboard freely. Sign in with Google + complete 1-time registration before attempting any test.\n2. Scheduled exams allow 1 attempt inside the fixed time window and log tab switches.\n3. Official Merit Rank List PDF unlocks automatically once the exam window closes.",
+            driveUrl: "",
+            resolvedMediaUrl: "",
+            visible: true,
+            orderIndex: 1
+          }
+        ],
+        socialLinks: [
+          { id: "soc_yt", appName: "YouTube", url: "https://youtube.com", orderIndex: 0 },
+          { id: "soc_tg", appName: "Telegram", url: "https://t.me", orderIndex: 1 },
+          { id: "soc_ig", appName: "Instagram", url: "https://instagram.com", orderIndex: 2 }
+        ]
+      },
+      catalog: { scheduled: [], practice: [] },
+      user: null,
+      profile: null,
+      attempts: [],
+      pendingAction: null,
+      adminUsers: [],
+      editingPracticeId: null,
+      editingPracticeCreatedAt: null,
+      editingBlockId: null,
+      player: null // active exam session
+    };
+
+    // --- Helpers ---
+    function esc(str) {
+      return String(str ?? "")
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    function extractDriveId(url) {
+      const s = String(url || "").trim();
+      if (!s || (!s.includes("drive.google.com") && !s.includes("docs.google.com"))) return null;
+      const patterns = [/\/file\/d\/([a-zA-Z0-9_-]{10,})/, /\/d\/([a-zA-Z0-9_-]{10,})/, /[?&]id=([a-zA-Z0-9_-]{10,})/];
+      for (const re of patterns) {
+        const m = s.match(re);
+        if (m) return m[1];
+      }
+      return null;
+    }
+
+    function toDriveImage(url) {
+      const id = extractDriveId(url);
+      return id ? `https://drive.google.com/uc?export=view&id=${id}` : String(url || "").trim();
+    }
+
+    function toDriveImageFallback(url) {
+      const id = extractDriveId(url);
+      return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w1000` : String(url || "").trim();
+    }
+
+    function toVideoPreview(url) {
+      const s = String(url || "").trim();
+      const id = extractDriveId(s);
+      if (id) return `https://drive.google.com/file/d/${id}/preview`;
+      const yt = s.match(/[?&]v=([a-zA-Z0-9_-]{6,})/) || s.match(/youtu\.be\/([a-zA-Z0-9_-]{6,})/);
+      if (yt) return `https://www.youtube.com/embed/${yt[1]}`;
+      return s;
+    }
+
+    function isAdmin() {
+      return Boolean(state.user && state.user.email && state.user.email.toLowerCase() === ADMIN_EMAIL && state.user.emailVerified);
+    }
+
+    function showBanner(msg) {
+      const el = document.getElementById("portalBanner");
+      el.textContent = msg;
+      el.classList.remove("hidden");
+      setTimeout(() => el.classList.add("hidden"), 5500);
+    }
+
+    function openModal(html, wide = false) {
+      const box = document.getElementById("modalContent");
+      box.className = wide ? "modal-box modal-wide" : "modal-box";
+      box.innerHTML = html;
+      document.getElementById("modalRoot").classList.remove("hidden");
+    }
+
+    function closeModal() {
+      document.getElementById("modalRoot").classList.add("hidden");
+      document.getElementById("modalContent").innerHTML = "";
+    }
+
+    document.getElementById("modalRoot").addEventListener("click", (e) => {
+      if (e.target.id === "modalRoot") closeModal();
+    });
+
+    // --- Single-Language Fallback Resolvers (Matches Android CbtModels.kt) ---
+    function resolveLocText(loc, lang) {
+      if (!loc) return { text: "", isFallback: false, actualLang: null };
+      if (typeof loc === "string") return { text: loc, isFallback: false, actualLang: lang };
+      const en = (loc.en || loc.english || "").trim();
+      const hi = (loc.hi || loc.hindi || "").trim();
+      if (lang === "en") {
+        if (en) return { text: en, isFallback: false, actualLang: "en" };
+        if (hi) return { text: hi, isFallback: true, actualLang: "hi" };
+      } else {
+        if (hi) return { text: hi, isFallback: false, actualLang: "hi" };
+        if (en) return { text: en, isFallback: true, actualLang: "en" };
+      }
+      return { text: "", isFallback: false, actualLang: null };
+    }
+
+    function resolveLocOptions(opts, lang) {
+      if (!opts) return { options: ["Option A", "Option B", "Option C", "Option D"], isFallback: false };
+      if (Array.isArray(opts)) return { options: opts, isFallback: false };
+      const en = Array.isArray(opts.en) ? opts.en : [];
+      const hi = Array.isArray(opts.hi) ? opts.hi : [];
+      const hasEn = en.some(x => String(x || "").trim().length > 0);
+      const hasHi = hi.some(x => String(x || "").trim().length > 0);
+      if (lang === "en") {
+        if (hasEn) return { options: en.map((v, i) => (String(v || "").trim() ? v : (hi[i] || ""))), isFallback: false };
+        if (hasHi) return { options: hi, isFallback: true };
+      } else {
+        if (hasHi) return { options: hi.map((v, i) => (String(v || "").trim() ? v : (en[i] || ""))), isFallback: false };
+        if (hasEn) return { options: en, isFallback: true };
+      }
+      return { options: [], isFallback: false };
+    }
+
+    function normalizeTestJson(rawInput) {
+      const data = typeof rawInput === "string" ? JSON.parse(rawInput) : rawInput;
+      const rawQs = Array.isArray(data) ? data : (data.questions || data.qList || data.items || data.data || []);
+      if (!Array.isArray(rawQs) || rawQs.length === 0) throw new Error("No valid questions array found.");
+
+      const questions = rawQs.map((q, idx) => {
+        const rawOpts = q.options || q.choices || q.answers || ["Option A", "Option B", "Option C", "Option D"];
+        let normOpts = { en: [], hi: [] };
+        if (Array.isArray(rawOpts)) {
+          if (rawOpts.length && typeof rawOpts[0] === "object" && rawOpts[0] !== null) {
+            normOpts.en = rawOpts.map(o => o.en || o.english || "");
+            normOpts.hi = rawOpts.map(o => o.hi || o.hindi || "");
+          } else {
+            normOpts.en = rawOpts.map(String);
+            normOpts.hi = rawOpts.map(String);
+          }
+        } else if (typeof rawOpts === "object") {
+          normOpts.en = Array.isArray(rawOpts.en) ? rawOpts.en.map(String) : [];
+          normOpts.hi = Array.isArray(rawOpts.hi) ? rawOpts.hi.map(String) : [];
+        }
+
+        const normLoc = (v) => {
+          if (!v) return null;
+          if (typeof v === "string") return { en: v, hi: v };
+          return { ...(v.en ? { en: v.en } : {}), ...(v.hi ? { hi: v.hi } : {}) };
+        };
+
+        let ans = q.correctAnswer ?? q.correct ?? q.ans ?? q.correctIndex ?? 0;
+        if (typeof ans === "string") {
+          const map = { A: 0, B: 1, C: 2, D: 3, E: 4 };
+          const up = ans.trim().toUpperCase();
+          ans = map[up] ?? (parseInt(up, 10) || 0);
+        }
+
+        return {
+          id: q.id || (idx + 1),
+          type: q.type || "standard",
+          subjectTag: q.subjectTag || q.subject || "General",
+          pyqTag: q.pyqTag || q.examTag || "CGPSC",
+          image: q.image || q.img || null,
+          passage: normLoc(q.passage),
+          direction: normLoc(q.direction),
+          assertion: normLoc(q.assertion),
+          reason: normLoc(q.reason),
+          question: normLoc(q.question || q.text || q.prompt) || { en: "", hi: "" },
+          options: normOpts,
+          correctIndex: Number(ans) || 0,
+          explanation: normLoc(q.explanation || q.solution) || { en: "No explanation provided.", hi: "स्पष्टीकरण उपलब्ध नहीं है।" }
+        };
+      });
+
+      return {
+        title: Array.isArray(data) ? "Custom Mock Test" : (data.title || data.testName || data.name || "Mock Test"),
+        durationMinutes: Math.max(1, parseInt(data.durationMinutes || data.duration || 30, 10) || 30),
+        marksCorrect: parseFloat(data.positiveMarks ?? data.marksCorrect ?? 2.0) || 2.0,
+        marksNegative: parseFloat(data.negativeMarks ?? data.marksNegative ?? 0.66) || 0.0,
+        questions
+      };
+    }
+
+    function toMillis(ts) {
+      if (!ts) return 0;
+      if (typeof ts.toMillis === "function") return ts.toMillis();
+      if (typeof ts.seconds === "number") return ts.seconds * 1000;
+      return Number(ts) || 0;
+    }
+
+    function fmtDate(ms) {
+      if (!ms) return "-";
+      return new Date(ms).toLocaleString("en-IN", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" });
+    }
+
+    function fmtCountdown(ms) {
+      const s = Math.max(0, Math.floor(ms / 1000));
+      const d = Math.floor(s / 86400);
+      const h = Math.floor((s % 86400) / 3600);
+      const m = Math.floor((s % 3600) / 60);
+      const sec = s % 60;
+      const pad = (n) => String(n).padStart(2, "0");
+      return d > 0 ? `${d}d ${h}h ${m}m ${sec}s` : `${pad(h)}h ${pad(m)}m ${pad(sec)}s`;
+    }
+
+    function fmtTimer(sec) {
+      const s = Math.max(0, sec);
+      const pad = (n) => String(n).padStart(2, "0");
+      return `${pad(Math.floor(s / 3600))}:${pad(Math.floor((s % 3600) / 60))}:${pad(s % 60)}`;
+    }
+
+    // --- Firestore Live Sync ---
+    onSnapshot(doc(db, "portalData", "dashboardConfig"), (snap) => {
+      if (snap.exists()) {
+        const d = snap.data();
+        state.config = {
+          portalTitle: d.portalTitle || "Crack CGPSC Free Test Series",
+          instituteName: d.instituteName || "Crack CGPSC Academy",
+          logoDriveUrl: d.logoDriveUrl || "",
+          resolvedLogoUrl: d.resolvedLogoUrl || toDriveImage(d.logoDriveUrl || ""),
+          blocks: (d.blocks || []).sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0)),
+          socialLinks: (d.socialLinks || []).sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0))
+        };
+      }
+      renderHeader();
+      renderPortalTabs();
+    }, (err) => console.warn("Config listener:", err));
+
+    onSnapshot(doc(db, "portalData", "testCatalog"), (snap) => {
+      if (snap.exists()) {
+        const d = snap.data();
+        const sched = Object.entries(d.scheduled || {}).map(([id, v]) => ({
+          ...v, testId: v.testId || id,
+          windowStartMs: toMillis(v.windowStartAt), windowEndMs: toMillis(v.windowEndAt)
+        })).sort((a, b) => b.windowStartMs - a.windowStartMs);
+        const prac = Object.entries(d.practice || {}).map(([id, v]) => ({
+          ...v, testId: v.testId || id, updatedMs: toMillis(v.updatedAt)
+        })).sort((a, b) => b.updatedMs - a.updatedMs);
+        state.catalog = { scheduled: sched, practice: prac };
+      }
+      renderPortalTabs();
+    }, (err) => console.warn("Catalog listener:", err));
+
+    let unsubProfile = null, unsubAttempts = null;
+    onAuthStateChanged(auth, (user) => {
+      state.user = user;
+      if (unsubProfile) { unsubProfile(); unsubProfile = null; }
+      if (unsubAttempts) { unsubAttempts(); unsubAttempts = null; }
+
+      if (user) {
+        unsubProfile = onSnapshot(doc(db, "users", user.uid), (snap) => {
+          state.profile = snap.exists() ? snap.data() : null;
+          renderHeader();
+          renderPortalTabs();
+          if (state.pendingAction && state.profile) {
+            const act = state.pendingAction;
+            state.pendingAction = null;
+            closeModal();
+            executeAction(act);
+          } else if (state.pendingAction && !state.profile) {
+            openRegistrationModal(false);
+          }
+        });
+        unsubAttempts = onSnapshot(query(collection(db, "users", user.uid, "attempts"), orderBy("submittedAt", "desc")), (qs) => {
+          state.attempts = qs.docs.map(d => d.data());
+          renderPortalTabs();
+        });
+      } else {
+        state.profile = null;
+        state.attempts = [];
+        if (state.tab === "ADMIN") state.tab = "HOME";
+      }
+      renderHeader();
+      renderPortalTabs();
+    });
+
+    // Live 1s countdown ticker
+    setInterval(() => {
+      if (!state.player && (state.tab === "HOME" || state.tab === "TESTS")) {
+        document.querySelectorAll("[data-countdown-target]").forEach(el => {
+          const target = Number(el.getAttribute("data-countdown-target"));
+          el.textContent = fmtCountdown(target - Date.now());
+        });
+      }
+    }, 1000);
+
+    // --- Header & Navigation ---
+    function renderHeader() {
+      document.getElementById("headerPortalTitle").textContent = state.config.portalTitle;
+      document.getElementById("headerInstituteSub").textContent = "CGPSC & Vyapam Mock Portal";
+      document.title = state.config.portalTitle;
+
+      const img = document.getElementById("headerLogoImg");
+      const fallbackIco = document.getElementById("headerFallbackLogo");
+      const logoSrc = state.config.resolvedLogoUrl || toDriveImage(state.config.logoDriveUrl);
+      if (logoSrc) {
+        img.src = logoSrc;
+        img.onerror = () => {
+          const fb = toDriveImageFallback(state.config.logoDriveUrl);
+          if (fb && img.src !== fb) {
+            img.src = fb;
+          } else {
+            img.classList.add("hidden");
+            fallbackIco.classList.remove("hidden");
+          }
+          img.onerror = null;
+        };
+        img.classList.remove("hidden");
+        fallbackIco.classList.add("hidden");
+      } else {
+        img.classList.add("hidden");
+        fallbackIco.classList.remove("hidden");
+      }
+
+      document.getElementById("adminRailBtn").classList.toggle("hidden", !isAdmin());
+      document.getElementById("adminBottomBtn").classList.toggle("hidden", !isAdmin());
+      document.querySelectorAll(".nav-item-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-tab") === state.tab);
+      });
+
+      const accLbl = document.getElementById("accountBtnLabel");
+      if (!state.user) accLbl.textContent = "Account / Sign In";
+      else if (state.profile) accLbl.textContent = state.profile.studentName.split(" ")[0];
+      else accLbl.textContent = "Register";
+    }
+
+    document.querySelectorAll(".nav-item-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const t = btn.getAttribute("data-tab");
+        if (t === "ADMIN" && !isAdmin()) return;
+        state.tab = t;
+        renderHeader();
+        renderPortalTabs();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    });
+
+    document.getElementById("accountBtn").addEventListener("click", () => {
+      if (!state.user) openSignInModal();
+      else if (!state.profile) openRegistrationModal(false);
+      else openAccountModal();
+    });
+
+    // --- Auth & Registration Modals ---
+    let isSigningIn = false;
+    function openSignInModal() {
+      const protocolWarnHtml = isUnsupportedFileContext ? `
+        <div style="background:var(--amber-100);color:#78350f;padding:12px;border-radius:12px;font-size:12.5px;margin:12px 0;line-height:1.5;">
+          <strong>Google Sign-In cannot run on <code>${esc(window.location.protocol)}</code> (File Explorer / Local HTML).</strong><br/>
+          Google OAuth requires an <code>https://</code> or <code>http://localhost</code> URL.<br/>
+          &bull; <strong>Easiest Mobile Fix (Zero Coding):</strong> Rename this file to <code>index.html</code> &amp; drag-drop it to <strong>Netlify Drop</strong> or <strong>Firebase Hosting</strong>, then add that URL under <em>Firebase Console &rarr; Authentication &rarr; Authorized domains</em>.<br/>
+          &bull; Or use the <strong>Play Local JSON File</strong> option inside Tests tab right now without logging in.
+        </div>
+      ` : "";
+      openModal(`
+        <h2 style="margin:0 0 8px;">Sign In to Attempt Test</h2>
+        <p style="color:var(--slate-500);font-size:14px;margin:0;">Browse the dashboard freely anytime. Sign in with Google once to get your official Roll Number, attempt tests, and appear on Merit Rank Lists.</p>
+        ${protocolWarnHtml}
+        <div id="authModalError" style="color:var(--rose-600);font-size:12.5px;font-weight:600;margin-top:8px;"></div>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px;">
+          <button class="btn btn-outline" id="mCancel">Cancel</button>
+          <button class="btn btn-navy" id="mGoogleSignIn">Continue with Google</button>
+        </div>
+      `);
+      document.getElementById("mCancel").onclick = closeModal;
+      document.getElementById("mGoogleSignIn").onclick = async () => {
+        const errBox = document.getElementById("authModalError");
+        if (isUnsupportedFileContext) {
+          errBox.textContent = "Cannot open Google Sign-In from content:// or file://. Open via https:// or http://localhost.";
+          return;
+        }
+        if (isSigningIn) return;
+        isSigningIn = true;
+        const btn = document.getElementById("mGoogleSignIn");
+        btn.disabled = true;
+        btn.textContent = "Connecting to Google...";
+        errBox.textContent = "";
+
+        const provider = new GoogleAuthProvider();
+        provider.setCustomParameters({ prompt: "select_account" });
+        try {
+          await setPersistence(auth, browserLocalPersistence);
+          await signInWithPopup(auth, provider);
+          isSigningIn = false;
+        } catch (err) {
+          if (
+            err.code === "auth/popup-blocked" ||
+            err.code === "auth/cancelled-popup-request" ||
+            err.code === "auth/operation-not-supported-in-this-environment"
+          ) {
+            try {
+              btn.textContent = "Redirecting to Google...";
+              await signInWithRedirect(auth, provider);
+              return;
+            } catch (rErr) {
+              errBox.textContent = "Redirect Sign-In Error: " + rErr.message;
+            }
+          } else if (err.code === "auth/unauthorized-domain") {
+            errBox.textContent = `Domain "${window.location.hostname}" is not authorized yet. Add it in Firebase Console -> Authentication -> Authorized domains.`;
+          } else if (err.code !== "auth/popup-closed-by-user") {
+            errBox.textContent = "Google Sign-In Error: " + err.message;
+          }
+          isSigningIn = false;
+          btn.disabled = false;
+          btn.textContent = "Continue with Google";
+        }
+      };
+    }
+
+    function openRegistrationModal(isEdit) {
+      const p = state.profile || {};
+      const u = state.user || {};
+      openModal(`
+        <h2 style="margin:0 0 6px;">${isEdit ? "Update Student Profile" : "One-Time Student Registration"}</h2>
+        <p style="color:var(--slate-500);font-size:13px;margin-bottom:14px;">Enter your details to generate your official Admit Card &amp; Roll Number.</p>
+        <div class="stack" style="gap:10px;">
+          <div><label style="font-size:12px;font-weight:700;">Full Name</label><input id="rName" value="${esc(p.studentName || u.displayName || "")}" /></div>
+          <div><label style="font-size:12px;font-weight:700;">Date of Birth (DD-MM-YYYY)</label><input id="rDob" placeholder="15-08-2000" value="${esc(p.dateOfBirth || "")}" /></div>
+          <div><label style="font-size:12px;font-weight:700;">Email ID</label><input id="rEmail" type="email" value="${esc(p.email || u.email || "")}" /></div>
+          <div><label style="font-size:12px;font-weight:700;">Mobile Number</label><input id="rMob" placeholder="9876543210" value="${esc(p.mobileNumber || "")}" /></div>
+          <div style="display:flex;gap:10px;margin-top:6px;">
+            <button class="btn btn-outline" style="flex:1;" id="rCancel">Cancel</button>
+            <button class="btn btn-primary" style="flex:1.6;" id="rSave">${isEdit ? "Save Changes" : "Save & Generate Roll No"}</button>
+          </div>
+        </div>
+      `);
+      document.getElementById("rCancel").onclick = closeModal;
+      document.getElementById("rSave").onclick = async () => {
+        const studentName = document.getElementById("rName").value.trim();
+        const dateOfBirth = document.getElementById("rDob").value.trim();
+        const email = document.getElementById("rEmail").value.trim();
+        const mobileNumber = document.getElementById("rMob").value.replace(/[^\d+]/g, "");
+        if (studentName.length < 2 || dateOfBirth.length < 4 || !email.includes("@") || mobileNumber.length < 8) {
+          return alert("Please fill valid Name, DOB, Email, and Mobile Number.");
+        }
+        const uid = state.user.uid;
+        const rollNumber = (state.profile && state.profile.rollNumber) || `CGPSC-2026-${uid.slice(-4).toUpperCase()}${Math.floor(10 + Math.random() * 89)}`;
+        try {
+          if (!state.profile) {
+            await setDoc(doc(db, "users", uid), {
+              uid, studentName, dateOfBirth, email, mobileNumber, rollNumber,
+              createdAt: serverTimestamp(), updatedAt: serverTimestamp()
+            });
+          } else {
+            await updateDoc(doc(db, "users", uid), {
+              studentName, dateOfBirth, email, mobileNumber, updatedAt: serverTimestamp()
+            });
+          }
+          const regEntry = {
+            uid, studentName, dateOfBirth, email, mobileNumber, rollNumber,
+            createdAt: state.profile?.createdAt || serverTimestamp(),
+            updatedAt: serverTimestamp()
+          };
+          try {
+            await updateDoc(doc(db, "portalData", "userRegistry"), {
+              [`users.${uid}`]: regEntry,
+              updatedAt: serverTimestamp()
+            });
+          } catch (e) {
+            if (e.code === "not-found") {
+              await setDoc(doc(db, "portalData", "userRegistry"), {
+                users: { [uid]: regEntry },
+                updatedAt: serverTimestamp()
+              });
+            } else throw e;
+          }
+          closeModal();
+          showBanner(`Admit Card Ready • Roll No: ${rollNumber}`);
+        } catch (err) {
+          alert("Registration failed: " + err.message);
+        }
+      };
+    }
+
+    function openAccountModal() {
+      const p = state.profile;
+      openModal(`
+        <h2 style="margin:0 0 12px;">Account Info &amp; Admit Card</h2>
+        <div style="background:var(--navy-950);color:#fff;border-radius:14px;padding:16px;margin-bottom:14px;">
+          <div style="font-size:11px;font-weight:800;color:var(--amber-500);">${esc(state.config.instituteName.toUpperCase())}</div>
+          <div style="font-size:20px;font-weight:800;margin:4px 0;">${esc(p.studentName)}</div>
+          <span class="badge mono" style="background:var(--navy-800);color:#fff;font-size:12px;">ROLL NO: ${esc(p.rollNumber)}</span>
+          ${isAdmin() ? `<span class="badge badge-green" style="margin-left:6px;">VERIFIED ADMIN</span>` : ""}
+        </div>
+        <div class="stack" style="gap:8px;font-size:13px;">
+          <div style="display:flex;justify-content:space-between;background:var(--slate-100);padding:8px 12px;border-radius:8px;"><span>Date of Birth</span><strong>${esc(p.dateOfBirth)}</strong></div>
+          <div style="display:flex;justify-content:space-between;background:var(--slate-100);padding:8px 12px;border-radius:8px;"><span>Email ID</span><strong>${esc(p.email)}</strong></div>
+          <div style="display:flex;justify-content:space-between;background:var(--slate-100);padding:8px 12px;border-radius:8px;"><span>Mobile Number</span><strong>${esc(p.mobileNumber)}</strong></div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:16px;">
+          <button class="btn btn-outline" style="flex:1;" id="accEdit">Edit Info</button>
+          <button class="btn btn-rose" style="flex:1;" id="accOut">Sign Out</button>
+        </div>
+      `);
+      document.getElementById("accEdit").onclick = () => openRegistrationModal(true);
+      document.getElementById("accOut").onclick = async () => { await signOut(auth); closeModal(); };
+    }
+
+    // --- Action Gate ---
+    function gateAction(action) {
+      if (!state.user) { state.pendingAction = action; openSignInModal(); return; }
+      if (!state.profile) { state.pendingAction = action; openRegistrationModal(false); return; }
+      executeAction(action);
+    }
+
+    async function executeAction(action) {
+      try {
+        if (action.type === "PRACTICE") {
+          const snap = await getDoc(doc(db, "practiceTests", action.testId));
+          if (!snap.exists()) return showBanner("Practice test not found.");
+          const d = snap.data();
+          startExamPlayer({
+            testId: action.testId, isScheduled: false, mode: action.mode,
+            title: d.title, durationMinutes: d.durationMinutes,
+            marksCorrect: d.marksCorrect, marksNegative: d.marksNegative,
+            questions: d.questions || []
+          });
+        } else if (action.type === "SCHEDULED") {
+          const s = action.summary;
+          const now = Date.now();
+          if (now < s.windowStartMs) return alert(`Exam opens on ${fmtDate(s.windowStartMs)}.`);
+          if (now > s.windowEndMs) return openRankModal(s);
+          const attemptSnap = await getDoc(doc(db, "users", state.user.uid, "attempts", s.testId));
+          if (attemptSnap.exists()) {
+            return alert(`Single Attempt Completed! Score: ${attemptSnap.data().totalScore}. Rank List unlocks at ${fmtDate(s.windowEndMs)}.`);
+          }
+          const testSnap = await getDoc(doc(db, "scheduledTests", s.testId));
+          if (!testSnap.exists()) return showBanner("Scheduled test payload missing.");
+          const d = testSnap.data();
+          startExamPlayer({
+            testId: s.testId, isScheduled: true, mode: "TEST",
+            title: d.title, durationMinutes: d.durationMinutes,
+            marksCorrect: d.marksCorrect, marksNegative: d.marksNegative,
+            questions: d.questions || []
+          });
+        } else if (action.type === "CODE") {
+          const q = query(collection(db, "scheduledTests"), where("testCode", "==", action.code), limit(1));
+          const qs = await getDocs(q);
+          if (qs.empty) return alert(`No scheduled test found for code "${action.code}".`);
+          const docSnap = qs.docs[0];
+          const v = docSnap.data();
+          executeAction({
+            type: "SCHEDULED",
+            summary: { ...v, testId: docSnap.id, windowStartMs: toMillis(v.windowStartAt), windowEndMs: toMillis(v.windowEndAt) }
+          });
+        }
+      } catch (err) {
+        alert("Unable to launch exam: " + err.message);
+      }
+    }
+
+    // --- Render Public Portal Tabs ---
+    function renderPortalTabs() {
+      ["HOME", "TESTS", "RESULTS", "ADMIN"].forEach(t => {
+        document.getElementById(`tab${t}`).classList.toggle("hidden", state.tab !== t);
+      });
+      if (state.tab === "HOME") renderHomeTab();
+      if (state.tab === "TESTS") renderTestsTab();
+      if (state.tab === "RESULTS") renderResultsTab();
+      if (state.tab === "ADMIN" && isAdmin()) renderAdminTab();
+    }
+
+    function renderCmsBlockHtml(b) {
+      if (b.type === "HERO_BANNER") {
+        const img = b.resolvedMediaUrl || toDriveImage(b.driveUrl);
+        return `
+          <div class="hero-card">
+            ${b.badgeText ? `<span class="badge" style="background:var(--amber-500);color:var(--navy-950);margin-bottom:8px;">${esc(b.badgeText)}</span>` : ""}
+            <h2 style="margin:4px 0 8px;font-size:22px;font-weight:800;">${esc(b.title)}</h2>
+            ${b.body ? `<p style="margin:0;color:#dbeafe;white-space:pre-line;">${esc(b.body)}</p>` : ""}
+            ${img ? `<img src="${esc(img)}" onerror="this.src='${esc(toDriveImageFallback(b.driveUrl))}';this.onerror=null;" class="cms-img" style="margin-top:12px;" />` : ""}
+          </div>
+        `;
+      }
+      if (b.type === "DRIVE_IMAGE") {
+        const img = b.resolvedMediaUrl || toDriveImage(b.driveUrl);
+        return `
+          <div class="card">
+            ${b.badgeText ? `<span class="badge badge-blue" style="margin-bottom:6px;">${esc(b.badgeText)}</span>` : ""}
+            ${b.title ? `<h3 style="margin:0 0 8px;">${esc(b.title)}</h3>` : ""}
+            ${img ? `<img src="${esc(img)}" onerror="this.src='${esc(toDriveImageFallback(b.driveUrl))}';this.onerror=null;" class="cms-img" />` : ""}
+            ${b.body ? `<p style="margin:8px 0 0;color:var(--slate-500);font-size:13px;">${esc(b.body)}</p>` : ""}
+          </div>
+        `;
+      }
+      if (b.type === "DRIVE_VIDEO") {
+        const vid = b.resolvedMediaUrl || toVideoPreview(b.driveUrl);
+        return `
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <h3 style="margin:0;">▶ ${esc(b.title || "Video Lecture")}</h3>
+              ${b.badgeText ? `<span class="badge badge-blue">${esc(b.badgeText)}</span>` : ""}
+            </div>
+            ${vid ? `<iframe class="video-frame" src="${esc(vid)}" allow="autoplay; fullscreen"></iframe>` : ""}
+            ${b.body ? `<p style="margin:8px 0 0;color:var(--slate-500);font-size:13px;">${esc(b.body)}</p>` : ""}
+          </div>
+        `;
+      }
+      return `
+        <div class="card">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--royal-600)" style="flex-shrink:0;"><path d="M18 11v2h4v-2h-4zm-2 6.61c.96.71 2.21 1.65 3.2 2.39.4-.53.8-1.07 1.2-1.6-.99-.74-2.24-1.68-3.2-2.4-.4.54-.8 1.08-1.2 1.61zM20.4 5.6c-.4-.53-.8-1.07-1.2-1.6-.99.74-2.24 1.68-3.2 2.4.4.53.8 1.07 1.2 1.6.96-.72 2.21-1.65 3.2-2.4zM4 9c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h1v4h2v-4h1l5 3V6L8 9H4zm11.5 3c0-1.33-.58-2.53-1.5-3.35v6.69c.92-.81 1.5-2.01 1.5-3.34z"/></svg>
+            ${b.badgeText ? `<span class="badge badge-blue">${esc(b.badgeText)}</span>` : ""}
+          </div>
+          ${b.title ? `<h3 style="margin:0 0 6px;font-size:16px;">${esc(b.title)}</h3>` : ""}
+          ${b.body ? `<p style="margin:0;color:var(--slate-700);white-space:pre-line;font-size:13.5px;">${esc(b.body)}</p>` : ""}
+        </div>
+      `;
+    }
+
+    function renderScheduledCardHtml(s) {
+      const now = Date.now();
+      const attempted = state.attempts.some(a => a.testId === s.testId);
+      let badge = `<span class="badge badge-amber">UPCOMING</span>`;
+      let actionHtml = `<div class="alert-bar" style="margin:0;display:flex;justify-content:space-between;"><span>Starts in</span><strong class="mono" data-countdown-target="${s.windowStartMs}">${fmtCountdown(s.windowStartMs - now)}</strong></div>`;
+      if (now >= s.windowStartMs && now <= s.windowEndMs) {
+        badge = `<span class="badge badge-green">LIVE NOW</span>`;
+        actionHtml = `
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+            <span style="font-size:12px;color:var(--slate-500);">${attempted ? "Attempt submitted • Rank after window" : `Closes in <strong class="mono" data-countdown-target="${s.windowEndMs}">${fmtCountdown(s.windowEndMs - now)}</strong>`}</span>
+            <button class="btn btn-emerald" ${attempted ? "disabled" : ""} data-join-sched="${esc(s.testId)}">${attempted ? "Submitted" : "Join Live Exam"}</button>
+          </div>
+        `;
+      } else if (now > s.windowEndMs) {
+        badge = `<span class="badge badge-blue">RANK READY</span>`;
+        actionHtml = `<button class="btn btn-navy" style="width:100%;" data-rank-sched="${esc(s.testId)}">View Official Rank List &amp; PDF</button>`;
+      }
+      return `
+        <div class="card stack" style="gap:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">${badge}<span class="mono" style="font-size:12px;font-weight:700;color:var(--royal-600);">CODE: ${esc(s.testCode)}</span></div>
+          <h3 style="margin:0;">${esc(s.title)}</h3>
+          <div style="font-size:12px;color:var(--slate-500);">${s.questionCount} Qs • ${s.durationMinutes} Mins • +${s.marksCorrect} / -${s.marksNegative}</div>
+          <div style="font-size:12px;color:var(--slate-500);">${fmtDate(s.windowStartMs)} &rarr; ${fmtDate(s.windowEndMs)}</div>
+          ${actionHtml}
+        </div>
+      `;
+    }
+
+    function renderPracticeCardHtml(p) {
+      return `
+        <div class="card stack" style="gap:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="badge badge-blue">${esc(p.subjectTag)}</span>
+            <span class="mono" style="font-size:12px;color:var(--slate-500);">${p.questionCount} Qs • ${p.durationMinutes}m</span>
+          </div>
+          <h3 style="margin:0;">${esc(p.title)}</h3>
+          <div style="font-size:12px;color:var(--slate-500);">Marking: +${p.marksCorrect} / -${p.marksNegative} • Select mode before start:</div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-primary" style="flex:1;" data-play-prac="${esc(p.testId)}" data-mode="TEST">Test Mode</button>
+            <button class="btn btn-purple" style="flex:1;" data-play-prac="${esc(p.testId)}" data-mode="QUIZ">Quiz Mode</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function getSocialBrandMeta(appName, url) {
+      const hay = `${String(appName || "").toLowerCase()} ${String(url || "").toLowerCase()}`;
+      if (hay.includes("youtube") || hay.includes("youtu.be")) {
+        return {
+          border: "rgba(255,0,0,0.45)",
+          svg: `<svg viewBox="0 0 24 24" width="16" height="16"><rect x="1" y="4" width="22" height="16" rx="4.5" fill="#FF0000"/><path d="M10 8.5v7l6-3.5-6-3.5z" fill="#fff"/></svg>`
+        };
+      }
+      if (hay.includes("telegram") || hay.includes("t.me")) {
+        return {
+          border: "rgba(38,165,228,0.5)",
+          svg: `<svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="11" fill="#26A5E4"/><path d="M17.5 7.2L5.3 11.9c-.8.3-.8.8-.1 1l3.1 1 7.2-4.5c.3-.2.6-.1.4.1l-5.8 5.2-.2 3.2c.3 0 .5-.1.7-.3l1.7-1.6 3.5 2.6c.6.4 1.1.2 1.3-.6l2.3-10.7c.2-.9-.3-1.3-.9-1.1z" fill="#fff"/></svg>`
+        };
+      }
+      if (hay.includes("instagram") || hay.includes("instagr.am")) {
+        return {
+          border: "rgba(225,48,108,0.5)",
+          svg: `<svg viewBox="0 0 24 24" width="16" height="16"><defs><linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#F58529"/><stop offset="50%" stop-color="#DD2A7B"/><stop offset="100%" stop-color="#515BD4"/></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="5.5" fill="url(#igGrad)"/><rect x="6" y="6" width="12" height="12" rx="3.5" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="16.2" cy="7.8" r="1.1" fill="#fff"/></svg>`
+        };
+      }
+      if (hay.includes("whatsapp") || hay.includes("wa.me")) {
+        return {
+          border: "rgba(37,211,102,0.5)",
+          svg: `<svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="11" fill="#25D366"/><path d="M16.9 14.3c-.3-.1-1.6-.8-1.8-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.8-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.6-1.5-.8-2.1-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.6-.7 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3z" fill="#fff"/></svg>`
+        };
+      }
+      if (hay.includes("facebook") || hay.includes("fb.com")) {
+        return {
+          border: "rgba(24,119,242,0.55)",
+          svg: `<svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="11" fill="#1877F2"/><path d="M13.6 20v-7.2h2.4l.4-2.8h-2.8V8.2c0-.8.2-1.4 1.4-1.4h1.5V4.3c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2H8.2v2.8h2.4V20h3z" fill="#fff"/></svg>`
+        };
+      }
+      if (hay.includes("twitter") || hay.includes("x.com") || String(appName || "").trim().toLowerCase() === "x") {
+        return {
+          border: "rgba(203,213,225,0.45)",
+          svg: `<svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="11" fill="#0F172A"/><path d="M16.9 6h2.1l-4.6 5.3L19.8 18h-4.2l-3.3-4.3L8.5 18H6.4l4.9-5.6L6.1 6h4.3l3 3.9L16.9 6zm-.7 10.7h1.2L10.3 7.2H9l7.2 9.5z" fill="#fff"/></svg>`
+        };
+      }
+      if (hay.includes("linkedin")) {
+        return {
+          border: "rgba(10,102,194,0.55)",
+          svg: `<svg viewBox="0 0 24 24" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="4" fill="#0A66C2"/><path d="M7.5 9.5v8H10v-8H7.5zm1.3-3.8c-.9 0-1.5.6-1.5 1.4 0 .8.6 1.4 1.4 1.4h.1c.9 0 1.5-.6 1.5-1.4 0-.8-.6-1.4-1.5-1.4zm9.2 7.1c0-2.2-1.2-3.3-2.9-3.3-1.3 0-2 .7-2.3 1.3v-1.2h-2.5c0 .7 0 8 0 8h2.5v-4.5c0-.2 0-.5.1-.7.2-.5.6-.9 1.3-.9.9 0 1.3.7 1.3 1.7v4.4H18v-4.8z" fill="#fff"/></svg>`
+        };
+      }
+      return {
+        border: "rgba(56,189,248,0.45)",
+        svg: `<svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="11" fill="#0284C7"/><path d="M12 4a8 8 0 100 16 8 8 0 000-16zm5.9 7h-2.7a12 12 0 00-1.1-4.5A6.5 6.5 0 0117.9 11zM12 5.6c.7 1 1.4 2.8 1.6 5.4h-3.2c.2-2.6.9-4.4 1.6-5.4zM6.1 13h2.7c.1 1.6.5 3.2 1.1 4.5A6.5 6.5 0 016.1 13zm2.7-2H6.1a6.5 6.5 0 013.8-4.5c-.6 1.3-1 2.9-1.1 4.5zm3.2 7.4c-.7-1-1.4-2.8-1.6-5.4h3.2c-.2 2.6-.9 4.4-1.6 5.4zm2.1-.9c.6-1.3 1-2.9 1.1-4.5h2.7a6.5 6.5 0 01-3.8 4.5z" fill="#fff"/></svg>`
+      };
+    }
+
+    function renderFooterHtml() {
+      const chips = state.config.socialLinks.map(s => {
+        const href = /^https?:\/\//i.test(s.url) ? s.url : `https://${s.url}`;
+        const brand = getSocialBrandMeta(s.appName, s.url);
+        return `<a class="social-chip" style="border-color:${brand.border};" href="${esc(href)}" target="_blank" rel="noopener noreferrer"><span class="social-ico">${brand.svg}</span><span>${esc(s.appName)}</span></a>`;
+      }).join("");
+      return `
+        <footer class="footer-card">
+          <div style="font-size:13.5px;font-weight:700;">Join Us On Other Social Media Handles</div>
+          <div class="social-row">${chips || `<span style="color:#93c5fd;font-size:12px;">Add social handles in Admin Studio.</span>`}</div>
+          <div style="margin-top:10px;font-size:11px;color:#93c5fd;">${esc(state.config.portalTitle)} &bull; ${esc(state.config.instituteName)}</div>
+        </footer>
+      `;
+    }
+
+    function wireTestCardButtons(rootEl) {
+      rootEl.querySelectorAll("[data-join-sched]").forEach(btn => {
+        btn.onclick = () => {
+          const s = state.catalog.scheduled.find(x => x.testId === btn.getAttribute("data-join-sched"));
+          if (s) gateAction({ type: "SCHEDULED", summary: s });
+        };
+      });
+      rootEl.querySelectorAll("[data-rank-sched]").forEach(btn => {
+        btn.onclick = () => {
+          const s = state.catalog.scheduled.find(x => x.testId === btn.getAttribute("data-rank-sched"));
+          if (s) openRankModal(s);
+        };
+      });
+      rootEl.querySelectorAll("[data-play-prac]").forEach(btn => {
+        btn.onclick = () => {
+          gateAction({ type: "PRACTICE", testId: btn.getAttribute("data-play-prac"), mode: btn.getAttribute("data-mode") });
+        };
+      });
+    }
+
+    function renderHomeTab() {
+      const el = document.getElementById("tabHOME");
+      const blocksHtml = state.config.blocks.filter(b => b.visible !== false).map(renderCmsBlockHtml).join("");
+      const schedHtml = state.catalog.scheduled.slice(0, 4).map(renderScheduledCardHtml).join("");
+      const pracHtml = state.catalog.practice.slice(0, 4).map(renderPracticeCardHtml).join("");
+
+      el.innerHTML = `
+        ${blocksHtml}
+        <div class="card">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--royal-600)"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+            <strong style="font-size:14px;">Join Scheduled Test via Code</strong>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <input id="homeCodeInput" placeholder="e.g. CG7X2A" style="text-transform:uppercase;flex:1;" />
+            <button class="btn btn-primary" id="homeCodeJoinBtn" style="white-space:nowrap;flex-shrink:0;">Join &rarr;</button>
+          </div>
+        </div>
+        ${schedHtml ? `<div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;"><h2 style="margin:0;font-size:17px;">Scheduled Live Exams</h2><button class="btn" style="background:transparent;color:var(--royal-600);padding:4px 8px;" data-jump-tab="TESTS">View All</button></div><div class="grid-2">${schedHtml}</div>` : ""}
+        ${pracHtml ? `<div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;"><h2 style="margin:0;font-size:17px;">Practice &amp; Quiz Library</h2><button class="btn" style="background:transparent;color:var(--royal-600);padding:4px 8px;" data-jump-tab="TESTS">All Tests</button></div><div class="grid-2">${pracHtml}</div>` : ""}
+        ${renderFooterHtml()}
+      `;
+      document.getElementById("homeCodeJoinBtn").onclick = () => {
+        const code = document.getElementById("homeCodeInput").value.trim().toUpperCase();
+        if (code) gateAction({ type: "CODE", code });
+      };
+      el.querySelectorAll("[data-jump-tab]").forEach(btn => btn.onclick = () => {
+        state.tab = btn.getAttribute("data-jump-tab");
+        renderHeader(); renderPortalTabs();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+      wireTestCardButtons(el);
+    }
+
+    function renderTestsTab() {
+      const el = document.getElementById("tabTESTS");
+      const schedHtml = state.catalog.scheduled.map(renderScheduledCardHtml).join("") || `<div class="card">No scheduled exams published yet.</div>`;
+      const pracHtml = state.catalog.practice.map(renderPracticeCardHtml).join("") || `<div class="card">No practice library tests uploaded yet.</div>`;
+      el.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+          <h2 style="margin:0;">All Scheduled &amp; Practice Tests</h2>
+          <button class="btn btn-outline" id="openLocalJsonBtn">Play Local JSON File</button>
+        </div>
+        <h3>Scheduled Fixed-Window Exams</h3>
+        <div class="grid-2">${schedHtml}</div>
+        <h3>Practice &amp; Quiz Library</h3>
+        <div class="grid-2">${pracHtml}</div>
+        ${renderFooterHtml()}
+      `;
+      wireTestCardButtons(el);
+      document.getElementById("openLocalJsonBtn").onclick = openLocalJsonModal;
+    }
+
+    function openLocalJsonModal() {
+      openModal(`
+        <h2 style="margin:0 0 10px;">Play Local JSON Test</h2>
+        <div class="stack" style="gap:10px;">
+          <div style="display:flex;gap:8px;align-items:center;">
+            <input type="file" id="localFilePick" accept=".json,.txt" />
+            <button class="btn btn-outline" id="loadSampleBtn" style="white-space:nowrap;">Load Demo</button>
+          </div>
+          <textarea id="localJsonText" rows="7" placeholder="Paste test JSON here...">${esc(JSON.stringify(DEFAULT_SAMPLE_JSON, null, 2))}</textarea>
+          <div style="display:flex;gap:10px;">
+            <button class="btn btn-primary" style="flex:1;" id="startLocalTest">Start Test Mode</button>
+            <button class="btn btn-purple" style="flex:1;" id="startLocalQuiz">Start Quiz Mode</button>
+          </div>
+        </div>
+      `);
+      document.getElementById("localFilePick").onchange = (e) => {
+        const f = e.target.files[0];
+        if (!f) return;
+        const r = new FileReader();
+        r.onload = () => { document.getElementById("localJsonText").value = r.result; };
+        r.readAsText(f);
+      };
+      document.getElementById("loadSampleBtn").onclick = () => {
+        document.getElementById("localJsonText").value = JSON.stringify(DEFAULT_SAMPLE_JSON, null, 2);
+      };
+      const launch = (mode) => {
+        try {
+          const parsed = normalizeTestJson(document.getElementById("localJsonText").value);
+          closeModal();
+          startExamPlayer({ testId: `local_${Date.now()}`, isScheduled: false, mode, ...parsed });
+        } catch (err) { alert("Invalid JSON: " + err.message); }
+      };
+      document.getElementById("startLocalTest").onclick = () => launch("TEST");
+      document.getElementById("startLocalQuiz").onclick = () => launch("QUIZ");
+    }
+
+    function renderResultsTab() {
+      const el = document.getElementById("tabRESULTS");
+      if (!state.user) {
+        el.innerHTML = `<div class="card"><h3>Sign In Required</h3><p>Sign in with Google to view your personal Score Cards and official Merit Rank Lists.</p><button class="btn btn-navy" id="resSignInBtn">Sign In with Google</button></div>`;
+        document.getElementById("resSignInBtn").onclick = openSignInModal;
+        return;
+      }
+      const ranksHtml = state.catalog.scheduled.map(s => {
+        const ended = Date.now() > s.windowEndMs;
+        return `
+          <div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+            <div><strong>${esc(s.title)}</strong><div style="font-size:12px;color:var(--slate-500);">Ends: ${fmtDate(s.windowEndMs)}</div></div>
+            <button class="btn btn-primary" ${ended ? "" : "disabled"} data-rank-id="${esc(s.testId)}">${ended ? "Rank List" : "Locked"}</button>
+          </div>
+        `;
+      }).join("") || `<div class="card">No scheduled exams available.</div>`;
+
+      const attemptsHtml = state.attempts.map(a => `
+        <div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+          <div>
+            <strong>${esc(a.testTitle)}</strong>
+            <div style="font-size:12px;color:var(--slate-500);">${esc(a.mode)} MODE • ✓ ${a.correctCount} • ✗ ${a.wrongCount} • Acc ${a.accuracyPercent}% ${a.appSwitchWarnings ? `• ⚠ ${a.appSwitchWarnings} switches` : ""}</div>
+          </div>
+          <div class="mono" style="font-weight:800;color:var(--royal-600);font-size:16px;">${Number(a.totalScore).toFixed(2)} / ${Number(a.maxScore).toFixed(0)}</div>
+        </div>
+      `).join("") || `<div class="card">No exam attempts recorded yet.</div>`;
+
+      el.innerHTML = `<h2>Official Rank Lists</h2><div class="stack">${ranksHtml}</div><h2 style="margin-top:16px;">My Attempt History</h2><div class="stack">${attemptsHtml}</div>`;
+      el.querySelectorAll("[data-rank-id]").forEach(b => {
+        b.onclick = () => {
+          const s = state.catalog.scheduled.find(x => x.testId === b.getAttribute("data-rank-id"));
+          if (s) openRankModal(s);
+        };
+      });
+    }
+
+    // --- Rank List & Printable PDF ---
+    async function openRankModal(summary) {
+      if (!state.user) return openSignInModal();
+      openModal(`<p>Loading Official Merit Sheet...</p>`, true);
+      try {
+        const snap = await getDoc(doc(db, "testMeritSheets", summary.testId));
+        const rawEntries = snap.exists() ? Object.values(snap.data().entries || {}) : [];
+        const sorted = rawEntries.sort((a, b) =>
+          (b.totalScore - a.totalScore) || (b.accuracyPercent - a.accuracyPercent) || (a.timeTakenSeconds - b.timeTakenSeconds)
+        ).map((e, i) => ({ ...e, rank: i + 1 }));
+
+        const podium = sorted.slice(0, 3).map(e => `
+          <div class="podium-card">
+            <span class="badge badge-amber">RANK #${e.rank}</span>
+            <div style="font-weight:800;margin-top:6px;">${esc(e.studentName)}</div>
+            <div class="mono" style="font-size:12px;color:var(--slate-500);">${esc(e.rollNumber)}</div>
+            <div style="color:var(--emerald-600);font-weight:700;margin-top:4px;">${Number(e.totalScore).toFixed(2)} Marks (${e.accuracyPercent}%)</div>
+          </div>
+        `).join("");
+
+        const rows = sorted.map(e => `
+          <tr>
+            <td class="mono"><strong>#${e.rank}</strong></td>
+            <td><strong>${esc(e.studentName)}</strong></td>
+            <td class="mono">${esc(e.rollNumber)}</td>
+            <td class="mono" style="color:var(--navy-900);font-weight:800;">${Number(e.totalScore).toFixed(2)} / ${Number(e.maxScore).toFixed(0)}</td>
+            <td>${e.accuracyPercent}%</td>
+            <td class="mono">${Math.floor(e.timeTakenSeconds / 60)}m ${e.timeTakenSeconds % 60}s</td>
+          </tr>
+        `).join("");
+
+        openModal(`
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+            <div>
+              <h2 style="margin:0;">${esc(summary.title)} — Merit Rank List</h2>
+              <div style="font-size:12px;color:var(--slate-500);">${esc(summary.instituteName || state.config.instituteName)} • Code: ${esc(summary.testCode)} • Candidates: ${sorted.length}</div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-primary" id="printRankPdfBtn">Download / Print Rank PDF</button>
+              <button class="btn btn-outline" id="closeRankBtn">Close</button>
+            </div>
+          </div>
+          ${sorted.length ? `<div class="podium-grid">${podium}</div><table><thead><tr><th>Rank</th><th>Student Name</th><th>Roll Number</th><th>Total Marks</th><th>Accuracy</th><th>Time</th></tr></thead><tbody>${rows}</tbody></table>` : `<p>No student submissions recorded yet.</p>`}
+        `, true);
+
+        document.getElementById("closeRankBtn").onclick = closeModal;
+        document.getElementById("printRankPdfBtn").onclick = () => {
+          const logo = state.config.resolvedLogoUrl || toDriveImage(state.config.logoDriveUrl);
+          document.getElementById("printArea").innerHTML = `
+            <div style="background:#0b2854;color:#fff;padding:18px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+              <div style="display:flex;align-items:center;gap:12px;">
+                ${logo ? `<img src="${esc(logo)}" style="height:44px;object-fit:contain;" />` : ""}
+                <div><h1 style="margin:0;font-size:20px;">${esc(summary.instituteName || state.config.instituteName)}</h1><div style="color:#fcd34d;font-size:12px;font-weight:700;">${esc(state.config.portalTitle)} • OFFICIAL MERIT RANK LIST</div></div>
+              </div>
+              <div style="text-align:right;font-size:11px;"><div>CODE: <strong>${esc(summary.testCode)}</strong></div><div>Candidates: ${sorted.length}</div></div>
+            </div>
+            <h2 style="margin:0 0 10px;">${esc(summary.title)}</h2>
+            <div class="podium-grid">${podium}</div>
+            <table><thead><tr><th>Rank</th><th>Student Name</th><th>Roll Number</th><th>Total Marks</th><th>Accuracy</th><th>Time</th></tr></thead><tbody>${rows}</tbody></table>
+          `;
+          window.print();
+        };
+      } catch (err) {
+        openModal(`<h3>Rank List Locked</h3><p style="color:var(--slate-500);">${esc(err.message)}</p><button class="btn btn-navy" id="errCloseBtn">OK</button>`);
+        document.getElementById("errCloseBtn").onclick = closeModal;
+      }
+    }
+
+    // --- Locked CBT Test Player (NO mid-test mode switcher) ---
+    let timerInterval = null;
+    function startExamPlayer(session) {
+      state.player = {
+        ...session,
+        idx: 0,
+        lang: "en",
+        remainingSec: session.durationMinutes * 60,
+        responses: session.questions.map((_, i) => ({ selected: null, status: i === 0 ? "NOT_ANSWERED" : "NOT_VISITED" })),
+        submitted: false,
+        warnings: 0,
+        result: null
+      };
+      document.body.classList.add("in-player");
+      document.getElementById("viewPortal").classList.add("hidden");
+      document.getElementById("viewPlayer").classList.remove("hidden");
+      renderPlayer();
+
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (!state.player || state.player.submitted) return;
+        state.player.remainingSec--;
+        const tEl = document.getElementById("playerTimerText");
+        if (tEl) tEl.textContent = fmtTimer(state.player.remainingSec);
+        if (state.player.remainingSec <= 0) {
+          clearInterval(timerInterval);
+          submitActiveExam();
+        }
+      }, 1000);
+    }
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && state.player && state.player.isScheduled && !state.player.submitted) {
+        state.player.warnings++;
+        renderPlayer();
+        alert(`App/Tab Switch Warning #${state.player.warnings}! Switching away from a live scheduled test is recorded.`);
+      }
+    });
+
+    function renderPlayer() {
+      const p = state.player;
+      if (!p) return;
+      const el = document.getElementById("viewPlayer");
+      const q = p.questions[p.idx];
+      const resp = p.responses[p.idx];
+      const rq = resolveLocText(q.question, p.lang);
+      const ro = resolveLocOptions(q.options, p.lang);
+      const rexp = resolveLocText(q.explanation, p.lang);
+      const rpass = resolveLocText(q.passage, p.lang);
+      const isFb = rq.isFallback || ro.isFallback;
+      const showFb = (p.mode === "QUIZ" && resp.selected !== null) || p.submitted;
+
+      const paletteHtml = p.questions.map((_, i) => {
+        const st = p.responses[i].status;
+        const cls = st === "ANSWERED" ? "answered" : st === "NOT_ANSWERED" ? "not-answered" : st === "MARKED" ? "marked" : "";
+        return `<button class="q-pill ${cls} ${i === p.idx ? "current" : ""}" data-qidx="${i}">${i + 1}</button>`;
+      }).join("");
+
+      const optsHtml = ro.options.map((optText, oIdx) => {
+        const isSel = resp.selected === oIdx;
+        const isCorr = oIdx === q.correctIndex;
+        let cls = "";
+        if (showFb && isCorr) cls = "correct";
+        else if (showFb && isSel && !isCorr) cls = "wrong";
+        else if (isSel) cls = "selected";
+        return `
+          <button class="option-btn ${cls}" ${p.submitted ? "disabled" : ""} data-opt="${oIdx}">
+            <span class="opt-circle">${String.fromCharCode(65 + oIdx)}</span>
+            <span>${optText}</span>
+          </button>
+        `;
+      }).join("");
+
+      el.innerHTML = `
+        <div class="card" style="margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;background:var(--navy-950);color:#fff;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <button class="btn btn-outline" id="exitPlayerBtn">&larr; Back</button>
+            <div>
+              <div style="font-weight:800;">${esc(p.title)}</div>
+              <div style="display:flex;gap:8px;align-items:center;margin-top:4px;">
+                <span class="badge ${p.mode === "TEST" ? "badge-blue" : "badge-purple"}">&#128274; ${p.mode} MODE</span>
+                ${p.isScheduled && p.warnings > 0 ? `<span class="badge badge-rose">Switches: ${p.warnings}</span>` : ""}
+                ${isFb ? `<span class="badge badge-amber">Single Language Fallback</span>` : ""}
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <button class="btn ${p.lang === "en" ? "btn-primary" : "btn-outline"}" id="langEnBtn">EN</button>
+            <button class="btn ${p.lang === "hi" ? "btn-primary" : "btn-outline"}" id="langHiBtn">हिंदी</button>
+          </div>
+        </div>
+
+        <div class="player-layout">
+          <div class="card stack" style="gap:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <strong class="mono">Q.${p.idx + 1} / ${p.questions.length}</strong>
+              <span class="badge badge-blue">${esc(q.subjectTag || "General")}</span>
+            </div>
+            ${rpass.text ? `<div style="background:var(--slate-100);padding:10px 12px;border-left:3px solid var(--royal-600);border-radius:8px;font-style:italic;">${rpass.text}</div>` : ""}
+            <div style="font-size:16px;font-weight:600;">${rq.text}</div>
+            ${q.image ? `<img src="${esc(q.image)}" style="max-height:220px;object-fit:contain;border-radius:10px;" />` : ""}
+            <div class="stack" style="gap:10px;">${optsHtml}</div>
+            ${showFb ? `<div style="background:var(--royal-50);border:1px solid var(--royal-100);border-radius:12px;padding:12px;color:var(--navy-900);"><strong>Explanation:</strong><div style="margin-top:4px;">${rexp.text}</div></div>` : ""}
+            <div style="display:flex;gap:8px;flex-wrap:wrap;padding-top:8px;border-top:1px solid var(--slate-200);">
+              <button class="btn btn-purple" ${p.submitted ? "disabled" : ""} id="markNextBtn">Mark &amp; Next</button>
+              <button class="btn btn-outline" ${p.submitted ? "disabled" : ""} id="clearOptBtn">Clear</button>
+              <button class="btn btn-outline" ${p.idx === 0 ? "disabled" : ""} id="prevQBtn">Prev</button>
+              <button class="btn btn-primary" style="margin-left:auto;" id="saveNextBtn">Save &amp; Next &rarr;</button>
+            </div>
+          </div>
+
+          <div class="card stack" style="gap:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;background:var(--navy-900);color:#fff;padding:10px 14px;border-radius:10px;">
+              <span style="font-size:12px;font-weight:700;">TIME LEFT</span>
+              <span id="playerTimerText" class="mono" style="font-weight:800;color:var(--amber-300);">${fmtTimer(p.remainingSec)}</span>
+            </div>
+            <div style="font-size:12px;color:var(--slate-500);">Candidate: <strong>${esc(state.profile?.studentName || "Guest")}</strong><br>Roll No: <span class="mono">${esc(state.profile?.rollNumber || "LOCAL")}</span></div>
+            <div class="palette-grid">${paletteHtml}</div>
+            ${!p.submitted ? `<button class="btn btn-emerald" id="submitExamBtn">Submit Test</button>` : `<button class="btn btn-navy" id="viewScoreBtn">View Score Card &amp; PDF</button>`}
+          </div>
+        </div>
+      `;
+
+      document.getElementById("exitPlayerBtn").onclick = () => {
+        if (!p.submitted && !confirm("Leave active exam? Unsubmitted answers will be lost.")) return;
+        clearInterval(timerInterval);
+        state.player = null;
+        document.body.classList.remove("in-player");
+        document.getElementById("viewPlayer").classList.add("hidden");
+        document.getElementById("viewPortal").classList.remove("hidden");
+        renderPortalTabs();
+      };
+      document.getElementById("langEnBtn").onclick = () => { p.lang = "en"; renderPlayer(); };
+      document.getElementById("langHiBtn").onclick = () => { p.lang = "hi"; renderPlayer(); };
+      el.querySelectorAll("[data-opt]").forEach(b => b.onclick = () => {
+        p.responses[p.idx] = { selected: Number(b.getAttribute("data-opt")), status: "ANSWERED" };
+        renderPlayer();
+      });
+      el.querySelectorAll("[data-qidx]").forEach(b => b.onclick = () => {
+        p.idx = Number(b.getAttribute("data-qidx"));
+        if (p.responses[p.idx].status === "NOT_VISITED") p.responses[p.idx].status = "NOT_ANSWERED";
+        renderPlayer();
+      });
+      document.getElementById("clearOptBtn").onclick = () => { p.responses[p.idx] = { selected: null, status: "NOT_ANSWERED" }; renderPlayer(); };
+      document.getElementById("prevQBtn").onclick = () => { if (p.idx > 0) { p.idx--; renderPlayer(); } };
+      document.getElementById("markNextBtn").onclick = () => {
+        p.responses[p.idx].status = "MARKED";
+        if (p.idx < p.questions.length - 1) p.idx++;
+        renderPlayer();
+      };
+      document.getElementById("saveNextBtn").onclick = () => {
+        if (p.idx < p.questions.length - 1) {
+          p.idx++;
+          if (p.responses[p.idx].status === "NOT_VISITED") p.responses[p.idx].status = "NOT_ANSWERED";
+          renderPlayer();
+        } else alert("Last question reached. Click Submit Test when ready.");
+      };
+      const subBtn = document.getElementById("submitExamBtn");
+      if (subBtn) subBtn.onclick = () => { if (confirm("Submit test now?")) submitActiveExam(); };
+      const resBtn = document.getElementById("viewScoreBtn");
+      if (resBtn) resBtn.onclick = showPlayerScoreModal;
+    }
+
+    async function submitActiveExam() {
+      const p = state.player;
+      if (!p || p.submitted) return;
+      clearInterval(timerInterval);
+      p.submitted = true;
+
+      let correctCount = 0, wrongCount = 0, unattemptedCount = 0;
+      const selectedOptions = p.questions.map((q, i) => {
+        const sel = p.responses[i].selected;
+        if (sel === null || sel === undefined) { unattemptedCount++; return -1; }
+        if (sel === q.correctIndex) correctCount++; else wrongCount++;
+        return sel;
+      });
+      const raw = correctCount * p.marksCorrect;
+      const neg = wrongCount * p.marksNegative;
+      const totalScore = Math.max(0, raw - neg);
+      const maxScore = p.questions.length * p.marksCorrect;
+      const attempted = correctCount + wrongCount;
+      const accuracyPercent = attempted > 0 ? Math.round((correctCount / attempted) * 100) : 0;
+      const timeTakenSeconds = Math.max(0, p.durationMinutes * 60 - p.remainingSec);
+
+      p.result = { correctCount, wrongCount, unattemptedCount, totalScore, maxScore, accuracyPercent, timeTakenSeconds, neg };
+      renderPlayer();
+      showPlayerScoreModal();
+
+      if (state.user && state.profile && !String(p.testId).startsWith("local_")) {
+        try {
+          if (p.isScheduled) {
+            await updateDoc(doc(db, "testMeritSheets", p.testId), {
+              [`entries.${state.user.uid}`]: {
+                uid: state.user.uid, studentName: state.profile.studentName, rollNumber: state.profile.rollNumber,
+                totalScore, maxScore, correctCount, wrongCount, unattemptedCount,
+                accuracyPercent, timeTakenSeconds, appSwitchWarnings: p.warnings, submittedAt: serverTimestamp()
+              },
+              updatedAt: serverTimestamp()
+            });
+          }
+          const attemptId = p.isScheduled ? p.testId : `${p.testId}_${Date.now()}`;
+          await setDoc(doc(db, "users", state.user.uid, "attempts", attemptId), {
+            userId: state.user.uid, testId: p.testId, testTitle: p.title, mode: p.mode,
+            rollNumber: state.profile.rollNumber, studentName: state.profile.studentName,
+            correctCount, wrongCount, unattemptedCount, totalScore, maxScore,
+            accuracyPercent, timeTakenSeconds, appSwitchWarnings: p.warnings,
+            selectedOptions, submittedAt: serverTimestamp()
+          });
+          showBanner(p.isScheduled ? "Score recorded in Official Merit Sheet!" : "Attempt saved to My Results!");
+        } catch (err) {
+          alert("Score sync warning: " + err.message);
+        }
+      }
+    }
+
+    function showPlayerScoreModal() {
+      const p = state.player, r = p.result;
+      openModal(`
+        <h2 style="margin:0 0 6px;">Official Score Card</h2>
+        <div style="font-size:13px;color:var(--slate-500);margin-bottom:14px;">${esc(p.title)} • ${esc(state.profile?.studentName || "Candidate")} (${esc(state.profile?.rollNumber || "LOCAL")})</div>
+        <div class="grid-3">
+          <div class="card"><div>Score</div><strong class="mono" style="font-size:20px;color:var(--royal-600);">${r.totalScore.toFixed(2)} / ${r.maxScore.toFixed(0)}</strong></div>
+          <div class="card"><div>Correct / Wrong</div><strong class="mono" style="font-size:20px;color:var(--emerald-600);">${r.correctCount} / <span style="color:var(--rose-600);">${r.wrongCount}</span></strong></div>
+          <div class="card"><div>Accuracy</div><strong class="mono" style="font-size:20px;">${r.accuracyPercent}%</strong></div>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px;">
+          <button class="btn btn-navy" id="printScoreBtn">Print / Save Score PDF</button>
+          <button class="btn btn-outline" id="closeScoreBtn">Review Answers</button>
+        </div>
+      `);
+      document.getElementById("closeScoreBtn").onclick = closeModal;
+      document.getElementById("printScoreBtn").onclick = () => {
+        document.getElementById("printArea").innerHTML = `
+          <h1>${esc(state.config.instituteName)} — Official Score Card</h1>
+          <p><strong>${esc(p.title)}</strong> (${p.mode} MODE)</p>
+          <p>Candidate: <strong>${esc(state.profile?.studentName || "Aspirant")}</strong> | Roll No: <strong>${esc(state.profile?.rollNumber || "LOCAL")}</strong></p>
+          <p>Score: <strong>${r.totalScore.toFixed(2)} / ${r.maxScore.toFixed(0)}</strong> | Correct: ${r.correctCount} | Wrong: ${r.wrongCount} | Accuracy: ${r.accuracyPercent}%</p>
+        `;
+        window.print();
+      };
+    }
+
+    // --- Admin-Only Studio (Hidden for non-admins, enforced in Firestore Rules) ---
+    function renderAdminTab() {
+      const el = document.getElementById("tabADMIN");
+      const subBtns = [
+        ["BRANDING", "Brand & Footer"],
+        ["CMS", "Dashboard CMS"],
+        ["LIBRARY", "Practice Tests"],
+        ["SCHEDULE", "Schedule & Users"]
+      ].map(([k, l]) => `<button class="btn ${state.adminSubTab === k ? "btn-navy" : "btn-outline"}" data-asub="${k}">${l}</button>`).join("");
+
+      let bodyHtml = "";
+      if (state.adminSubTab === "BRANDING") {
+        const socialsHtml = state.config.socialLinks.map((s, i) => `
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--slate-200);">
+            <div><strong>${esc(s.appName)}</strong> <span style="font-size:12px;color:var(--slate-500);">${esc(s.url)}</span></div>
+            <button class="btn btn-rose" style="padding:6px 10px;" data-del-soc="${i}">Remove</button>
+          </div>
+        `).join("");
+        bodyHtml = `
+          <div class="card stack">
+            <h3>Portal Branding &amp; Borderless Google Drive Logo</h3>
+            <label>Portal Header Title<input id="admTitle" value="${esc(state.config.portalTitle)}" /></label>
+            <label>Institute Name (Rank PDF &amp; Admit Cards)<input id="admInst" value="${esc(state.config.instituteName)}" /></label>
+            <label>Brand Logo Google Drive Link (Rendered without background box)<input id="admLogo" value="${esc(state.config.logoDriveUrl)}" placeholder="https://drive.google.com/file/d/.../view" /></label>
+            <h3>Footer Social Media Handles</h3>
+            ${socialsHtml}
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <input id="newSocApp" placeholder="App Name (e.g. Telegram)" style="flex:1;" />
+              <input id="newSocUrl" placeholder="https://t.me/..." style="flex:1.5;" />
+              <button class="btn btn-outline" id="addSocBtn">+ Add Handle</button>
+            </div>
+            <button class="btn btn-emerald" id="saveBrandBtn">Publish Branding &amp; Footer Live</button>
+          </div>
+        `;
+      } else if (state.adminSubTab === "CMS") {
+        const listHtml = state.config.blocks.map((b, i) => `
+          <div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+            <div><span class="badge badge-blue">${esc(b.type)}</span> <strong>${esc(b.title || "(Untitled)")}</strong> ${b.visible === false ? "(Hidden)" : ""}</div>
+            <div style="display:flex;gap:6px;">
+              <button class="btn btn-outline" data-blk-up="${i}">&uarr;</button>
+              <button class="btn btn-outline" data-blk-dn="${i}">&darr;</button>
+              <button class="btn btn-outline" data-blk-vis="${i}">${b.visible === false ? "Show" : "Hide"}</button>
+              <button class="btn btn-rose" data-blk-del="${i}">Delete</button>
+            </div>
+          </div>
+        `).join("");
+        bodyHtml = `
+          <div class="card stack">
+            <h3>Add Dashboard Article / Drive Image / Drive Video</h3>
+            <select id="blkType">
+              <option value="TEXT_ARTICLE">Text Article / Notice</option>
+              <option value="HERO_BANNER">Hero Announcement Banner</option>
+              <option value="DRIVE_IMAGE">Google Drive Image Card</option>
+              <option value="DRIVE_VIDEO">Google Drive Video Card</option>
+            </select>
+            <input id="blkBadge" placeholder="Badge (e.g. NOTICE / NEW)" />
+            <input id="blkTitle" placeholder="Headline / Title" />
+            <textarea id="blkBody" rows="3" placeholder="Article text or caption..."></textarea>
+            <input id="blkUrl" placeholder="Google Drive Image/Video Link (optional for articles)" />
+            <button class="btn btn-navy" id="addBlkBtn">+ Add &amp; Publish Block Live</button>
+          </div>
+          <div class="stack">${listHtml}</div>
+        `;
+      } else if (state.adminSubTab === "LIBRARY") {
+        const pracList = state.catalog.practice.map(p => `
+          <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+            <div><strong>${esc(p.title)}</strong> <div style="font-size:12px;color:var(--slate-500);">${esc(p.subjectTag)} • ${p.questionCount} Qs • ${p.durationMinutes}m</div></div>
+            <div style="display:flex;gap:6px;">
+              <button class="btn btn-outline" data-edit-prac="${esc(p.testId)}">Edit</button>
+              <button class="btn btn-rose" data-del-prac="${esc(p.testId)}">Delete</button>
+            </div>
+          </div>
+        `).join("");
+        bodyHtml = `
+          <div class="card stack">
+            <h3>${state.editingPracticeId ? "Edit Practice Test" : "Upload Practice / Quiz Test"}</h3>
+            <input id="pracTitle" placeholder="Test Title" />
+            <input id="pracSubj" value="CGPSC General Studies" placeholder="Subject Tag" />
+            <div style="display:flex;gap:8px;">
+              <input id="pracDur" value="30" placeholder="Minutes" />
+              <input id="pracPos" value="2.0" placeholder="+Marks" />
+              <input id="pracNeg" value="0.66" placeholder="-Marks" />
+            </div>
+            <input type="file" id="pracFilePick" accept=".json,.txt" />
+            <textarea id="pracJson" rows="5" placeholder="Paste test JSON..."></textarea>
+            <div style="display:flex;gap:8px;">
+              ${state.editingPracticeId ? `<button class="btn btn-outline" id="cancelPracEditBtn">Cancel Edit</button>` : ""}
+              <button class="btn btn-primary" style="flex:1;" id="savePracBtn">${state.editingPracticeId ? "Update Practice Test" : "Publish to Practice Library"}</button>
+            </div>
+          </div>
+          <div class="stack">${pracList}</div>
+        `;
+      } else {
+        const nowIso = (ms) => new Date(ms - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+        const schedRows = state.catalog.scheduled.map(s => `
+          <div class="card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+            <div><strong>${esc(s.title)}</strong> <span class="mono" style="color:var(--royal-600);">(${esc(s.testCode)})</span><div style="font-size:12px;color:var(--slate-500);">${fmtDate(s.windowStartMs)} &rarr; ${fmtDate(s.windowEndMs)}</div></div>
+            <div style="display:flex;gap:6px;">
+              <button class="btn btn-primary" data-adm-rank="${esc(s.testId)}">Rank List &amp; PDF</button>
+              <button class="btn btn-rose" data-adm-del-sched="${esc(s.testId)}">Delete</button>
+            </div>
+          </div>
+        `).join("");
+        const usersRows = state.adminUsers.map(u => `
+          <tr><td><strong>${esc(u.studentName)}</strong></td><td class="mono">${esc(u.rollNumber)}</td><td>${esc(u.dateOfBirth)}</td><td>${esc(u.mobileNumber)}</td><td>${esc(u.email)}</td></tr>
+        `).join("");
+        bodyHtml = `
+          <div class="card stack">
+            <h3>Schedule Fixed-Window Exam</h3>
+            <input id="scTitle" placeholder="Exam Title" />
+            <div style="display:flex;gap:8px;">
+              <input id="scDur" value="60" placeholder="Minutes" />
+              <input id="scPos" value="2.0" placeholder="+Marks" />
+              <input id="scNeg" value="0.66" placeholder="-Marks" />
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <label style="flex:1;font-size:12px;">Window Start<input type="datetime-local" id="scStart" value="${nowIso(Date.now())}" /></label>
+              <label style="flex:1;font-size:12px;">Window End<input type="datetime-local" id="scEnd" value="${nowIso(Date.now() + 3 * 3600000)}" /></label>
+            </div>
+            <input type="file" id="scFilePick" accept=".json,.txt" />
+            <textarea id="scJson" rows="4" placeholder="Paste scheduled exam JSON..."></textarea>
+            <button class="btn btn-navy" id="pubSchedBtn">Publish Scheduled Exam &amp; Merit Sheet</button>
+          </div>
+          <h3>Scheduled Exams</h3>
+          <div class="stack">${schedRows}</div>
+          <div class="card stack">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <h3 style="margin:0;">Consolidated Student Directory (1 Read)</h3>
+              <button class="btn btn-outline" id="syncUsersBtn">Load Directory</button>
+            </div>
+            ${state.adminUsers.length ? `<table><thead><tr><th>Name</th><th>Roll No</th><th>DOB</th><th>Mobile</th><th>Email</th></tr></thead><tbody>${usersRows}</tbody></table>` : `<p style="font-size:13px;color:var(--slate-500);">Click Load Directory to inspect all registered students in 1 Firestore read.</p>`}
+          </div>
+        `;
+      }
+
+      el.innerHTML = `<div style="display:flex;gap:8px;flex-wrap:wrap;">${subBtns}</div>${bodyHtml}`;
+      el.querySelectorAll("[data-asub]").forEach(b => b.onclick = () => { state.adminSubTab = b.getAttribute("data-asub"); renderAdminTab(); });
+
+      // Wire Admin events per active subTab
+      if (state.adminSubTab === "BRANDING") {
+        el.querySelectorAll("[data-del-soc]").forEach(b => b.onclick = () => {
+          state.config.socialLinks.splice(Number(b.getAttribute("data-del-soc")), 1);
+          renderAdminTab();
+        });
+        document.getElementById("addSocBtn").onclick = () => {
+          const appName = document.getElementById("newSocApp").value.trim();
+          const url = document.getElementById("newSocUrl").value.trim();
+          if (appName && url) {
+            state.config.socialLinks.push({ id: `soc_${Date.now()}`, appName, url, orderIndex: state.config.socialLinks.length });
+            renderAdminTab();
+          }
+        };
+        document.getElementById("saveBrandBtn").onclick = async () => {
+          state.config.portalTitle = document.getElementById("admTitle").value.trim() || "Crack CGPSC Free Test Series";
+          state.config.instituteName = document.getElementById("admInst").value.trim() || "Crack CGPSC Academy";
+          state.config.logoDriveUrl = document.getElementById("admLogo").value.trim();
+          state.config.resolvedLogoUrl = toDriveImage(state.config.logoDriveUrl);
+          await saveConfigToFirestore();
+        };
+      } else if (state.adminSubTab === "CMS") {
+        document.getElementById("addBlkBtn").onclick = async () => {
+          const type = document.getElementById("blkType").value;
+          const driveUrl = document.getElementById("blkUrl").value.trim();
+          state.config.blocks.push({
+            id: `blk_${Date.now()}`, type,
+            badgeText: document.getElementById("blkBadge").value.trim(),
+            title: document.getElementById("blkTitle").value.trim(),
+            body: document.getElementById("blkBody").value.trim(),
+            driveUrl,
+            resolvedMediaUrl: type === "DRIVE_VIDEO" ? toVideoPreview(driveUrl) : toDriveImage(driveUrl),
+            visible: true, orderIndex: state.config.blocks.length
+          });
+          await saveConfigToFirestore();
+          renderAdminTab();
+        };
+        el.querySelectorAll("[data-blk-up]").forEach(b => b.onclick = async () => {
+          const i = Number(b.getAttribute("data-blk-up"));
+          if (i > 0) { [state.config.blocks[i - 1], state.config.blocks[i]] = [state.config.blocks[i], state.config.blocks[i - 1]]; await saveConfigToFirestore(); renderAdminTab(); }
+        });
+        el.querySelectorAll("[data-blk-dn]").forEach(b => b.onclick = async () => {
+          const i = Number(b.getAttribute("data-blk-dn"));
+          if (i < state.config.blocks.length - 1) { [state.config.blocks[i + 1], state.config.blocks[i]] = [state.config.blocks[i], state.config.blocks[i + 1]]; await saveConfigToFirestore(); renderAdminTab(); }
+        });
+        el.querySelectorAll("[data-blk-vis]").forEach(b => b.onclick = async () => {
+          const i = Number(b.getAttribute("data-blk-vis"));
+          state.config.blocks[i].visible = state.config.blocks[i].visible === false;
+          await saveConfigToFirestore(); renderAdminTab();
+        });
+        el.querySelectorAll("[data-blk-del]").forEach(b => b.onclick = async () => {
+          state.config.blocks.splice(Number(b.getAttribute("data-blk-del")), 1);
+          await saveConfigToFirestore(); renderAdminTab();
+        });
+      } else if (state.adminSubTab === "LIBRARY") {
+        document.getElementById("pracFilePick").onchange = (e) => {
+          const f = e.target.files[0]; if (!f) return;
+          const r = new FileReader(); r.onload = () => { document.getElementById("pracJson").value = r.result; }; r.readAsText(f);
+        };
+        const cancelBtn = document.getElementById("cancelPracEditBtn");
+        if (cancelBtn) cancelBtn.onclick = () => {
+          state.editingPracticeId = null;
+          state.editingPracticeCreatedAt = null;
+          renderAdminTab();
+        };
+        document.getElementById("savePracBtn").onclick = async () => {
+          try {
+            const parsed = normalizeTestJson(document.getElementById("pracJson").value);
+            const isEdit = Boolean(state.editingPracticeId);
+            const testId = state.editingPracticeId || `prac_${Date.now()}`;
+            const title = document.getElementById("pracTitle").value.trim() || parsed.title;
+            const subjectTag = document.getElementById("pracSubj").value.trim() || "General Studies";
+            const durationMinutes = parseInt(document.getElementById("pracDur").value, 10) || parsed.durationMinutes;
+            const marksCorrect = parseFloat(document.getElementById("pracPos").value) || parsed.marksCorrect;
+            const marksNegative = parseFloat(document.getElementById("pracNeg").value) || 0;
+            const createdAtVal = (isEdit && state.editingPracticeCreatedAt) ? state.editingPracticeCreatedAt : serverTimestamp();
+            await setDoc(doc(db, "practiceTests", testId), {
+              adminUid: state.user.uid, title, subjectTag, durationMinutes, marksCorrect, marksNegative,
+              questionCount: parsed.questions.length, questions: parsed.questions,
+              createdAt: createdAtVal, updatedAt: serverTimestamp()
+            });
+            await upsertCatalog("practice", testId, {
+              testId, title, subjectTag, durationMinutes, marksCorrect, marksNegative,
+              questionCount: parsed.questions.length, updatedAt: serverTimestamp()
+            });
+            state.editingPracticeId = null;
+            state.editingPracticeCreatedAt = null;
+            showBanner(`${isEdit ? "Updated" : "Published"} practice test "${title}"!`);
+          } catch (err) { alert("Error: " + err.message); }
+        };
+        el.querySelectorAll("[data-edit-prac]").forEach(b => b.onclick = async () => {
+          const p = state.catalog.practice.find(x => x.testId === b.getAttribute("data-edit-prac"));
+          if (!p) return;
+          state.editingPracticeId = p.testId;
+          state.editingPracticeCreatedAt = null;
+          renderAdminTab();
+          document.getElementById("pracTitle").value = p.title;
+          document.getElementById("pracSubj").value = p.subjectTag;
+          document.getElementById("pracDur").value = p.durationMinutes;
+          document.getElementById("pracPos").value = p.marksCorrect;
+          document.getElementById("pracNeg").value = p.marksNegative;
+          try {
+            const snap = await getDoc(doc(db, "practiceTests", p.testId));
+            if (snap.exists()) {
+              const d = snap.data();
+              state.editingPracticeCreatedAt = d.createdAt || null;
+              document.getElementById("pracJson").value = JSON.stringify({
+                title: d.title,
+                durationMinutes: d.durationMinutes,
+                positiveMarks: d.marksCorrect,
+                negativeMarks: d.marksNegative,
+                questions: d.questions || []
+              }, null, 2);
+            }
+          } catch (err) {
+            alert("Loaded metadata; paste updated JSON if needed: " + err.message);
+          }
+        });
+        el.querySelectorAll("[data-del-prac]").forEach(b => b.onclick = async () => {
+          const id = b.getAttribute("data-del-prac");
+          if (!confirm("Delete this practice test?")) return;
+          await deleteDoc(doc(db, "practiceTests", id));
+          await updateDoc(doc(db, "portalData", "testCatalog"), { [`practice.${id}`]: deleteField(), updatedAt: serverTimestamp() });
+        });
+      } else {
+        document.getElementById("scFilePick").onchange = (e) => {
+          const f = e.target.files[0]; if (!f) return;
+          const r = new FileReader(); r.onload = () => { document.getElementById("scJson").value = r.result; }; r.readAsText(f);
+        };
+        document.getElementById("pubSchedBtn").onclick = async () => {
+          try {
+            const parsed = normalizeTestJson(document.getElementById("scJson").value);
+            const testId = `sched_${Date.now()}`;
+            const testCode = "CG" + Math.random().toString(36).substring(2, 6).toUpperCase();
+            const title = document.getElementById("scTitle").value.trim() || parsed.title;
+            const durationMinutes = parseInt(document.getElementById("scDur").value, 10) || parsed.durationMinutes;
+            const marksCorrect = parseFloat(document.getElementById("scPos").value) || parsed.marksCorrect;
+            const marksNegative = parseFloat(document.getElementById("scNeg").value) || 0;
+            const startTs = Timestamp.fromDate(new Date(document.getElementById("scStart").value));
+            const endTs = Timestamp.fromDate(new Date(document.getElementById("scEnd").value));
+            if (endTs.toMillis() <= startTs.toMillis()) return alert("End date/time must be after start.");
+            await setDoc(doc(db, "scheduledTests", testId), {
+              adminUid: state.user.uid, testCode, title, instituteName: state.config.instituteName,
+              durationMinutes, marksCorrect, marksNegative, questionCount: parsed.questions.length,
+              windowStartAt: startTs, windowEndAt: endTs, questions: parsed.questions,
+              createdAt: serverTimestamp(), updatedAt: serverTimestamp()
+            });
+            await setDoc(doc(db, "testMeritSheets", testId), {
+              testId, windowStartAt: startTs, windowEndAt: endTs, entries: {}, updatedAt: serverTimestamp()
+            });
+            await upsertCatalog("scheduled", testId, {
+              testId, testCode, title, instituteName: state.config.instituteName,
+              durationMinutes, marksCorrect, marksNegative, questionCount: parsed.questions.length,
+              windowStartAt: startTs, windowEndAt: endTs
+            });
+            showBanner(`Scheduled "${title}" • Code: ${testCode}`);
+          } catch (err) { alert("Error: " + err.message); }
+        };
+        el.querySelectorAll("[data-adm-rank]").forEach(b => b.onclick = () => {
+          const s = state.catalog.scheduled.find(x => x.testId === b.getAttribute("data-adm-rank"));
+          if (s) openRankModal(s);
+        });
+        el.querySelectorAll("[data-adm-del-sched]").forEach(b => b.onclick = async () => {
+          const id = b.getAttribute("data-adm-del-sched");
+          if (!confirm("Delete scheduled exam?")) return;
+          await deleteDoc(doc(db, "scheduledTests", id));
+          await deleteDoc(doc(db, "testMeritSheets", id));
+          await updateDoc(doc(db, "portalData", "testCatalog"), { [`scheduled.${id}`]: deleteField(), updatedAt: serverTimestamp() });
+        });
+        document.getElementById("syncUsersBtn").onclick = async () => {
+          const snap = await getDoc(doc(db, "portalData", "userRegistry"));
+          state.adminUsers = snap.exists() ? Object.values(snap.data().users || {}) : [];
+          renderAdminTab();
+        };
+      }
+    }
+
+    async function saveConfigToFirestore() {
+      state.config.blocks.forEach((b, i) => b.orderIndex = i);
+      state.config.socialLinks.forEach((s, i) => s.orderIndex = i);
+      await setDoc(doc(db, "portalData", "dashboardConfig"), {
+        portalTitle: state.config.portalTitle,
+        instituteName: state.config.instituteName,
+        logoDriveUrl: state.config.logoDriveUrl,
+        resolvedLogoUrl: state.config.resolvedLogoUrl,
+        blocks: state.config.blocks,
+        socialLinks: state.config.socialLinks,
+        updatedAt: serverTimestamp()
+      });
+      showBanner("Portal Branding & CMS saved live!");
+    }
+
+    async function upsertCatalog(bucket, testId, obj) {
+      try {
+        await updateDoc(doc(db, "portalData", "testCatalog"), {
+          [`${bucket}.${testId}`]: obj,
+          updatedAt: serverTimestamp()
+        });
+      } catch (e) {
+        if (e.code === "not-found") {
+          await setDoc(doc(db, "portalData", "testCatalog"), {
+            scheduled: bucket === "scheduled" ? { [testId]: obj } : {},
+            practice: bucket === "practice" ? { [testId]: obj } : {},
+            updatedAt: serverTimestamp()
+          });
+        } else throw e;
+      }
+    }
+
+    renderHeader();
+    renderPortalTabs();
+  </script>
+</body>
+</html>
