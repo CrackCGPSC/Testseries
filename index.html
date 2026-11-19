@@ -7,6 +7,25 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      startup: {
+        typeset: false,
+        pageReady: () => window.MathJax.startup.defaultPageReady().then(() => {
+          if (typeof window.__onMathJaxReady === "function") window.__onMathJaxReady();
+        })
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
   <style>
     :root {
       --navy-950: #0b2854;
@@ -219,6 +238,11 @@
     .stack { display: flex; flex-direction: column; gap: 14px; }
     .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; }
     .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+    .cms-grid { display: grid; grid-template-columns: 1fr; gap: 14px; align-items: start; }
+    @media (min-width: 680px) {
+      .cms-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .cms-full { grid-column: 1 / -1; }
+    }
 
     .card {
       background: #fff;
@@ -307,26 +331,200 @@
       justify-content: center;
     }
 
-    /* CBT Player */
-    .player-layout {
-      display: grid;
-      grid-template-columns: 1fr 310px;
-      gap: 16px;
-      align-items: start;
+    .app-dl-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(147, 197, 253, .18);
     }
-    @media (max-width: 860px) {
-      .player-layout { grid-template-columns: 1fr; }
+    .app-dl-chip {
+      background: linear-gradient(135deg, #132d63, #1e3a8a);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 10px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid rgba(147, 197, 253, .38);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: transform .15s ease, border-color .15s ease;
     }
+    .app-dl-chip:hover { transform: translateY(-1px); border-color: #60a5fa; }
+
+    /* Sponsor / Ad Card */
+    .sponsor-card {
+      background: linear-gradient(135deg, #fffbeb, #fef3c7);
+      border: 1px solid #fcd34d;
+      border-radius: 16px;
+      padding: 14px 16px;
+    }
+
+    /* Mobile-First CBT Player */
+    .player-shell {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .player-topbar {
+      background: linear-gradient(135deg, var(--navy-950), var(--navy-900));
+      color: #fff;
+      border-radius: 14px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, .16);
+    }
+    .player-back-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, .24);
+      background: rgba(255, 255, 255, .12);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      padding: 0;
+    }
+    .player-back-circle:hover { background: rgba(255, 255, 255, .22); }
+    .player-title-wrap { min-width: 0; flex: 1; }
+    .player-title-txt {
+      font-size: 13.5px;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .player-sub-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+      flex-wrap: wrap;
+    }
+    .player-timer-chip {
+      background: rgba(15, 23, 42, .72);
+      border: 1px solid rgba(252, 211, 77, .38);
+      color: var(--amber-300);
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 11.5px;
+      font-weight: 800;
+      white-space: nowrap;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-switch {
+      display: inline-flex;
+      background: rgba(15, 23, 42, .75);
+      border: 1px solid rgba(147, 197, 253, .38);
+      border-radius: 999px;
+      padding: 2px;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+    .lang-opt {
+      border: none;
+      background: transparent;
+      color: #cbd5e1;
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 11.5px;
+      font-weight: 800;
+      min-height: 28px;
+      transition: background .2s ease, color .2s ease, box-shadow .2s ease;
+    }
+    .lang-opt.active {
+      background: var(--royal-600);
+      color: #fff;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, .45);
+    }
+
+    /* Complex Question Sub-blocks */
+    .q-passage-box {
+      background: var(--slate-100);
+      border-left: 4px solid var(--royal-600);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 14px;
+      color: var(--slate-900);
+      line-height: 1.65;
+    }
+    .q-statement-box {
+      background: var(--royal-50);
+      border: 1px solid var(--royal-100);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 14.5px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .q-dir-box {
+      background: var(--amber-100);
+      border-left: 4px solid var(--amber-600);
+      color: #78350f;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .q-ar-box {
+      border: 1px solid var(--slate-200);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--slate-50);
+    }
+    .q-ar-row { padding: 10px 14px; font-size: 14px; }
+    .q-ar-row + .q-ar-row { border-top: 1px solid var(--slate-200); }
+    .q-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--slate-200);
+      border-radius: 12px;
+    }
+    .q-table th { background: var(--navy-900); color: #fff; font-size: 13px; padding: 9px 12px; }
+    .q-table td { font-size: 13.5px; padding: 9px 12px; border-bottom: 1px solid var(--slate-200); background: #fff; }
+    .q-opt-img {
+      max-height: 135px;
+      max-width: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      display: block;
+      margin-top: 4px;
+      background: #fff;
+    }
+    .q-exp-box {
+      background: var(--royal-50);
+      border: 1px solid var(--royal-100);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: var(--navy-900);
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+
     .option-btn {
       width: 100%;
       text-align: left;
       background: #fff;
       border: 1.5px solid var(--slate-200);
       border-radius: 12px;
-      padding: 12px 14px;
+      padding: 11px 13px;
+      min-height: 48px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 11px;
       font-size: 14px;
       color: var(--slate-900);
     }
@@ -343,7 +541,58 @@
     .option-btn.correct .opt-circle { background: var(--emerald-600); color: #fff; }
     .option-btn.wrong .opt-circle { background: var(--rose-600); color: #fff; }
 
+    .player-actions-bar {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid var(--slate-200);
+    }
+    @media (min-width: 620px) {
+      .player-actions-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .player-actions-bar .btn-next-main { margin-left: auto; }
+    }
+    .palette-toggle-btn {
+      width: 100%;
+      background: var(--royal-50);
+      color: var(--navy-900);
+      border: 1.5px solid var(--royal-100);
+      border-radius: 12px;
+      padding: 11px 14px;
+      font-size: 13px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .palette-drawer {
+      background: #fff;
+      border: 1.5px solid var(--royal-100);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, .06);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .palette-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--slate-700);
+    }
+    .leg-dot { width: 10px; height: 10px; border-radius: 3px; display: inline-block; margin-right: 4px; vertical-align: middle; }
     .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    @media (min-width: 600px) {
+      .palette-grid { grid-template-columns: repeat(8, 1fr); }
+    }
     .q-pill {
       height: 40px; border-radius: 10px; font-weight: 800; font-size: 13px;
       border: 1px solid var(--slate-200); background: var(--slate-100); color: var(--slate-700);
@@ -376,8 +625,46 @@
       background: var(--amber-100); color: #78350f; padding: 10px 14px;
       border-radius: 10px; font-size: 13px; font-weight: 600; margin-bottom: 12px;
     }
-    .video-frame { width: 100%; height: 280px; border: none; border-radius: 12px; background: #000; }
-    .cms-img { width: 100%; max-height: 340px; object-fit: contain; border-radius: 12px; display: block; }
+    .video-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #020617;
+    }
+    .video-box.vertical {
+      aspect-ratio: 9 / 16;
+      max-width: 340px;
+      margin: 0 auto;
+    }
+    .video-frame { width: 100%; height: 100%; border: none; display: block; background: #000; }
+    .video-poster {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+      border: none;
+      padding: 0;
+    }
+    .video-poster img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .88; }
+    .video-play-circle {
+      position: absolute;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: rgba(220, 38, 38, .92);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .45);
+    }
+    .cms-img { width: 100%; max-height: 340px; object-fit: contain; border-radius: 12px; display: block; margin: 0 auto; }
     .field-group { display: flex; flex-direction: column; gap: 5px; }
     .field-label { font-size: 12.5px; font-weight: 700; color: var(--slate-700); display: block; }
     .preview-shell {
@@ -486,7 +773,8 @@
       setPersistence, browserLocalPersistence, signOut, onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
     import {
-      getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, deleteField,
+      getFirestore, initializeFirestore, persistentLocalCache, persistentMultipleTabManager,
+      doc, getDoc, setDoc, updateDoc, deleteDoc, deleteField,
       collection, query, where, limit, orderBy, onSnapshot, getDocs, serverTimestamp, Timestamp
     } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
@@ -504,7 +792,12 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-    const db = getFirestore(app, FIRESTORE_DB_ID);
+    let db;
+    try {
+      db = initializeFirestore(app, { localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }) }, FIRESTORE_DB_ID);
+    } catch (_) {
+      db = getFirestore(app, FIRESTORE_DB_ID);
+    }
 
     const isUnsupportedFileContext = !["http:", "https:"].includes(window.location.protocol);
     if (isUnsupportedFileContext) {
@@ -578,6 +871,8 @@
         instituteName: "Crack CGPSC Academy",
         logoDriveUrl: "",
         resolvedLogoUrl: "",
+        apkDownloadUrl: "",
+        playStoreUrl: "",
         blocks: [
           {
             id: "hero_welcome",
@@ -587,6 +882,11 @@
             body: "Attempt scheduled all-state mock exams, earn your official Roll Number, track rank lists, and practice bilingual quizzes.",
             driveUrl: "",
             resolvedMediaUrl: "",
+            layoutWidth: "FULL",
+            imageWidthPercent: 100,
+            imageMaxHeight: 300,
+            imageFit: "CONTAIN",
+            videoFormat: "AUTO",
             visible: true,
             orderIndex: 0
           },
@@ -598,6 +898,11 @@
             body: "1. Browse Dashboard freely. Sign in with Google + complete 1-time registration before attempting any test.\n2. Scheduled exams allow 1 attempt inside the fixed time window and log tab switches.\n3. Official Merit Rank List PDF unlocks automatically once the exam window closes.",
             driveUrl: "",
             resolvedMediaUrl: "",
+            layoutWidth: "FULL",
+            imageWidthPercent: 100,
+            imageMaxHeight: 300,
+            imageFit: "CONTAIN",
+            videoFormat: "AUTO",
             visible: true,
             orderIndex: 1
           }
@@ -623,7 +928,12 @@
         badgeText: "",
         title: "",
         body: "",
-        driveUrl: ""
+        driveUrl: "",
+        layoutWidth: "FULL",
+        imageWidthPercent: 100,
+        imageMaxHeight: 300,
+        imageFit: "CONTAIN",
+        videoFormat: "AUTO"
       },
       ghStatusMsg: "",
       player: null // active exam session
@@ -792,12 +1102,52 @@
       return null;
     }
 
-    // --- Helpers ---
+    // --- Helpers & MathJax / Question Formatting ---
     function esc(str) {
       return String(str ?? "")
         .replace(/&/g, "&amp;").replace(/</g, "&lt;")
         .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
     }
+
+    function offlineTexFallback(s) {
+      return String(s || "")
+        .replace(/\\\[|\\\]|\\\(|\\\)|\$\$/g, "")
+        .replace(/\\d?frac\{([^{}]+)\}\{([^{}]+)\}/g, "($1/$2)")
+        .replace(/\\sqrt\[([^\]]+)\]\{([^{}]+)\}/g, "$1√($2)")
+        .replace(/\\sqrt\{([^{}]+)\}/g, "√($1)")
+        .replace(/\\(?:text|mathbf|textbf|mathrm|mathit)\{([^{}]+)\}/g, "$1")
+        .replace(/\\times/g, "×").replace(/\\div/g, "÷").replace(/\\pm/g, "±")
+        .replace(/\\leq?/g, "≤").replace(/\\geq?/g, "≥").replace(/\\neq/g, "≠")
+        .replace(/\\implies/g, "⟹").replace(/\\iff/g, "⟺")
+        .replace(/\\alpha/g, "α").replace(/\\beta/g, "β").replace(/\\gamma/g, "γ")
+        .replace(/\\theta/g, "θ").replace(/\\pi/g, "π").replace(/\\sigma/g, "σ")
+        .replace(/\\Delta/g, "Δ").replace(/\\sum/g, "∑").replace(/\\infty/g, "∞")
+        .replace(/\\circ/g, "°").replace(/\\ /g, " ");
+    }
+
+    function formatRichHtml(raw) {
+      const s = String(raw ?? "");
+      if (!s.trim()) return "";
+      const hasMathJax = Boolean(window.MathJax && typeof window.MathJax.typesetPromise === "function");
+      const processed = hasMathJax ? s : offlineTexFallback(s);
+      // Escape HTML while safely restoring simple inline tags (<b>, <i>, <u>, <sup>, <sub>, <br>)
+      let safe = processed.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      safe = safe.replace(/&lt;(\/?(?:b|strong|i|em|u|sup|sub))&gt;/gi, "<$1>");
+      safe = safe.replace(/&lt;br\s*\/?&gt;/gi, "<br/>");
+      return safe.replace(/\t/g, "&nbsp;&nbsp;").replace(/\n/g, "<br/>");
+    }
+
+    function typesetMath(targetEl) {
+      if (!targetEl) return;
+      if (window.MathJax && typeof window.MathJax.typesetPromise === "function") {
+        window.MathJax.typesetClear && window.MathJax.typesetClear([targetEl]);
+        window.MathJax.typesetPromise([targetEl]).catch((e) => console.warn("MathJax typeset:", e));
+      }
+    }
+
+    window.__onMathJaxReady = () => {
+      if (state.player) renderPlayer();
+    };
 
     function extractDriveId(url) {
       const s = String(url || "").trim();
@@ -811,21 +1161,57 @@
     }
 
     function toDriveImage(url) {
-      const id = extractDriveId(url);
-      return id ? `https://drive.google.com/uc?export=view&id=${id}` : String(url || "").trim();
+      const s = String(url || "").trim();
+      if (!s) return "";
+      if (s.startsWith("data:")) return s;
+      const id = extractDriveId(s);
+      return id ? `https://drive.google.com/uc?export=view&id=${id}` : s;
     }
 
     function toDriveImageFallback(url) {
-      const id = extractDriveId(url);
-      return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w1000` : String(url || "").trim();
+      const s = String(url || "").trim();
+      if (!s) return "";
+      if (s.startsWith("data:")) return s;
+      const id = extractDriveId(s);
+      return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w1200` : s;
+    }
+
+    function extractYouTubeId(url) {
+      const s = String(url || "").trim();
+      if (!s) return null;
+      const m = s.match(/youtu\.be\/([a-zA-Z0-9_-]{6,})/)
+        || s.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]{6,})/)
+        || s.match(/youtube\.com\/live\/([a-zA-Z0-9_-]{6,})/)
+        || s.match(/youtube(?:-nocookie)?\.com\/embed\/([a-zA-Z0-9_-]{6,})/)
+        || s.match(/[?&]v=([a-zA-Z0-9_-]{6,})/);
+      return m ? m[1] : null;
+    }
+
+    function toYouTubeThumbnail(url) {
+      const id = extractYouTubeId(url);
+      return id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : "";
+    }
+
+    function isVerticalVideo(url, format) {
+      if (format === "VERTICAL") return true;
+      if (format === "LANDSCAPE") return false;
+      const low = String(url || "").toLowerCase();
+      return low.includes("youtube.com/shorts/") || low.includes("instagram.com/reel") || low.includes("instagram.com/p/");
+    }
+
+    function isDirectVideoFile(url) {
+      return /\.(mp4|webm|mov|m4v)(\?|$)/i.test(String(url || "").trim());
     }
 
     function toVideoPreview(url) {
       const s = String(url || "").trim();
+      if (!s) return "";
       const id = extractDriveId(s);
       if (id) return `https://drive.google.com/file/d/${id}/preview`;
-      const yt = s.match(/[?&]v=([a-zA-Z0-9_-]{6,})/) || s.match(/youtu\.be\/([a-zA-Z0-9_-]{6,})/);
-      if (yt) return `https://www.youtube.com/embed/${yt[1]}`;
+      const ytId = extractYouTubeId(s);
+      if (ytId) return `https://www.youtube-nocookie.com/embed/${ytId}?playsinline=1&rel=0&modestbranding=1`;
+      const ig = s.match(/instagram\.com\/(?:reel|reels|p)\/([a-zA-Z0-9_-]+)/i);
+      if (ig) return `https://www.instagram.com/p/${ig[1]}/embed/`;
       return s;
     }
 
@@ -860,8 +1246,8 @@
     function resolveLocText(loc, lang) {
       if (!loc) return { text: "", isFallback: false, actualLang: null };
       if (typeof loc === "string") return { text: loc, isFallback: false, actualLang: lang };
-      const en = (loc.en || loc.english || "").trim();
-      const hi = (loc.hi || loc.hindi || "").trim();
+      const en = String(loc.en || loc.english || "").trim();
+      const hi = String(loc.hi || loc.hindi || "").trim();
       if (lang === "en") {
         if (en) return { text: en, isFallback: false, actualLang: "en" };
         if (hi) return { text: hi, isFallback: true, actualLang: "hi" };
@@ -872,9 +1258,11 @@
       return { text: "", isFallback: false, actualLang: null };
     }
 
-    function resolveLocOptions(opts, lang) {
-      if (!opts) return { options: ["Option A", "Option B", "Option C", "Option D"], isFallback: false };
-      if (Array.isArray(opts)) return { options: opts, isFallback: false };
+    function resolveLocOptions(opts, lang, imgCount = 0) {
+      const hasImgs = imgCount > 0;
+      const blankSlots = () => Array(imgCount).fill("");
+      if (!opts) return { options: hasImgs ? blankSlots() : ["Option A", "Option B", "Option C", "Option D"], isFallback: false };
+      if (Array.isArray(opts)) return { options: opts.length ? opts : (hasImgs ? blankSlots() : []), isFallback: false };
       const en = Array.isArray(opts.en) ? opts.en : [];
       const hi = Array.isArray(opts.hi) ? opts.hi : [];
       const hasEn = en.some(x => String(x || "").trim().length > 0);
@@ -886,7 +1274,29 @@
         if (hasHi) return { options: hi.map((v, i) => (String(v || "").trim() ? v : (en[i] || ""))), isFallback: false };
         if (hasEn) return { options: en, isFallback: true };
       }
+      if (hasImgs) return { options: blankSlots(), isFallback: false };
       return { options: [], isFallback: false };
+    }
+
+    function resolveLocTable(tableData, lang) {
+      if (!tableData) return { headers: [], rows: [], isFallback: false };
+      const enTbl = tableData.en || (tableData.tableObj && tableData.tableObj.en) || null;
+      const hiTbl = tableData.hi || (tableData.tableObj && tableData.tableObj.hi) || null;
+      const valid = (t) => t && ((Array.isArray(t.headers) && t.headers.length > 0) || (Array.isArray(t.rows) && t.rows.length > 0));
+      const enOk = valid(enTbl);
+      const hiOk = valid(hiTbl);
+      const enRowCount = enTbl && Array.isArray(enTbl.rows) ? enTbl.rows.length : 0;
+      const hiRowCount = hiTbl && Array.isArray(hiTbl.rows) ? hiTbl.rows.length : 0;
+      if (lang === "en") {
+        if (enOk) return { headers: enTbl.headers || [], rows: enTbl.rows || [], isFallback: false };
+        if (hiOk) return { headers: hiTbl.headers || [], rows: hiTbl.rows || [], isFallback: true };
+      } else {
+        const hiMatchesEn = !enOk || hiRowCount >= enRowCount;
+        if (hiOk && hiMatchesEn) return { headers: hiTbl.headers || [], rows: hiTbl.rows || [], isFallback: false };
+        if (enOk) return { headers: enTbl.headers || [], rows: enTbl.rows || [], isFallback: true };
+        if (hiOk) return { headers: hiTbl.headers || [], rows: hiTbl.rows || [], isFallback: false };
+      }
+      return { headers: [], rows: [], isFallback: false };
     }
 
     function normalizeTestJson(rawInput) {
@@ -894,27 +1304,45 @@
       const rawQs = Array.isArray(data) ? data : (data.questions || data.qList || data.items || data.data || []);
       if (!Array.isArray(rawQs) || rawQs.length === 0) throw new Error("No valid questions array found.");
 
+      const normLoc = (v) => {
+        if (!v) return null;
+        if (typeof v === "string") return { en: v, hi: v };
+        if (typeof v === "object") {
+          const out = {};
+          const en = Array.isArray(v.en) ? v.en.join("\n") : (v.en ?? v.english ?? "");
+          const hi = Array.isArray(v.hi) ? v.hi.join("\n") : (v.hi ?? v.hindi ?? "");
+          if (en) out.en = String(en);
+          if (hi) out.hi = String(hi);
+          return (out.en || out.hi) ? out : null;
+        }
+        return null;
+      };
+
+      const normTblGrid = (tbl) => {
+        if (!tbl || typeof tbl !== "object") return null;
+        const headers = Array.isArray(tbl.headers) ? tbl.headers.map(h => String(h ?? "")) : [];
+        const rows = Array.isArray(tbl.rows) ? tbl.rows.map(r => Array.isArray(r) ? r.map(c => String(c ?? "")) : [String(r ?? "")]) : [];
+        return (headers.length || rows.length) ? { headers, rows } : null;
+      };
+
       const questions = rawQs.map((q, idx) => {
         const rawOpts = q.options || q.choices || q.answers || ["Option A", "Option B", "Option C", "Option D"];
         let normOpts = { en: [], hi: [] };
         if (Array.isArray(rawOpts)) {
           if (rawOpts.length && typeof rawOpts[0] === "object" && rawOpts[0] !== null) {
-            normOpts.en = rawOpts.map(o => o.en || o.english || "");
-            normOpts.hi = rawOpts.map(o => o.hi || o.hindi || "");
+            normOpts.en = rawOpts.map(o => String(o.en || o.english || ""));
+            normOpts.hi = rawOpts.map(o => String(o.hi || o.hindi || ""));
           } else {
             normOpts.en = rawOpts.map(String);
             normOpts.hi = rawOpts.map(String);
           }
         } else if (typeof rawOpts === "object") {
-          normOpts.en = Array.isArray(rawOpts.en) ? rawOpts.en.map(String) : [];
-          normOpts.hi = Array.isArray(rawOpts.hi) ? rawOpts.hi.map(String) : [];
+          normOpts.en = Array.isArray(rawOpts.en) ? rawOpts.en.map(x => String(x ?? "")) : [];
+          normOpts.hi = Array.isArray(rawOpts.hi) ? rawOpts.hi.map(x => String(x ?? "")) : [];
         }
 
-        const normLoc = (v) => {
-          if (!v) return null;
-          if (typeof v === "string") return { en: v, hi: v };
-          return { ...(v.en ? { en: v.en } : {}), ...(v.hi ? { hi: v.hi } : {}) };
-        };
+        const optImgs = Array.isArray(q.optionImages) ? q.optionImages.map(x => (x ? String(x).trim() : null)) : [];
+        const maxOpts = Math.max(normOpts.en.length, normOpts.hi.length, optImgs.length, 1);
 
         let ans = q.correctAnswer ?? q.correct ?? q.ans ?? q.correctIndex ?? 0;
         if (typeof ans === "string") {
@@ -922,6 +1350,25 @@
           const up = ans.trim().toUpperCase();
           ans = map[up] ?? (parseInt(up, 10) || 0);
         }
+        const safeAns = Math.min(Math.max(0, Number(ans) || 0), maxOpts - 1);
+
+        const stRaw = q.statementData && typeof q.statementData === "object" ? q.statementData : null;
+        const statementData = stRaw ? {
+          intro: normLoc(stRaw.intro),
+          list: normLoc(stRaw.list),
+          conclusion: normLoc(stRaw.conclusion)
+        } : null;
+
+        const tbRaw = q.tableData && typeof q.tableData === "object" ? q.tableData : null;
+        const tbEn = tbRaw ? normTblGrid(tbRaw.en || (tbRaw.tableObj && tbRaw.tableObj.en)) : null;
+        const tbHi = tbRaw ? normTblGrid(tbRaw.hi || (tbRaw.tableObj && tbRaw.tableObj.hi)) : null;
+        const tableData = tbRaw ? {
+          intro: normLoc(tbRaw.intro),
+          en: tbEn,
+          hi: tbHi
+        } : null;
+
+        const passageImg = (q.passage && typeof q.passage === "object" ? q.passage.image : null) || q.passageImage || null;
 
         return {
           id: q.id || (idx + 1),
@@ -929,14 +1376,19 @@
           subjectTag: q.subjectTag || q.subject || "General",
           pyqTag: q.pyqTag || q.examTag || "CGPSC",
           image: q.image || q.img || null,
+          optionImages: optImgs,
           passage: normLoc(q.passage),
+          passageImage: passageImg,
+          statementData,
+          tableData,
           direction: normLoc(q.direction),
           assertion: normLoc(q.assertion),
           reason: normLoc(q.reason),
           question: normLoc(q.question || q.text || q.prompt) || { en: "", hi: "" },
           options: normOpts,
-          correctIndex: Number(ans) || 0,
-          explanation: normLoc(q.explanation || q.solution) || { en: "No explanation provided.", hi: "स्पष्टीकरण उपलब्ध नहीं है।" }
+          correctIndex: safeAns,
+          explanation: normLoc(q.explanation || q.solution) || { en: "No explanation provided.", hi: "स्पष्टीकरण उपलब्ध नहीं है।" },
+          explanationImage: q.explanationImage || q.solutionImage || null
         };
       });
 
@@ -986,6 +1438,8 @@
           instituteName: d.instituteName || "Crack CGPSC Academy",
           logoDriveUrl: d.logoDriveUrl || "",
           resolvedLogoUrl: d.resolvedLogoUrl || toDriveImage(d.logoDriveUrl || ""),
+          apkDownloadUrl: d.apkDownloadUrl || "",
+          playStoreUrl: d.playStoreUrl || "",
           blocks: (d.blocks || []).sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0)),
           socialLinks: (d.socialLinks || []).sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0))
         };
@@ -1295,11 +1749,12 @@
             const snap = await getDoc(doc(db, "practiceTests", action.testId));
             if (!snap.exists()) return showBanner("Practice test not found.");
             const d = snap.data();
+            const parsed = normalizeTestJson({ title: d.title, durationMinutes: d.durationMinutes, positiveMarks: d.marksCorrect, negativeMarks: d.marksNegative, questions: d.questions || [] });
             startExamPlayer({
               testId: action.testId, isScheduled: false, mode: action.mode,
-              title: d.title, durationMinutes: d.durationMinutes,
-              marksCorrect: d.marksCorrect, marksNegative: d.marksNegative,
-              questions: d.questions || []
+              title: d.title || parsed.title, durationMinutes: d.durationMinutes || parsed.durationMinutes,
+              marksCorrect: d.marksCorrect ?? parsed.marksCorrect, marksNegative: d.marksNegative ?? parsed.marksNegative,
+              questions: parsed.questions
             });
           }
         } else if (action.type === "SCHEDULED") {
@@ -1314,11 +1769,12 @@
           const testSnap = await getDoc(doc(db, "scheduledTests", s.testId));
           if (!testSnap.exists()) return showBanner("Scheduled test payload missing.");
           const d = testSnap.data();
+          const parsed = normalizeTestJson({ title: d.title, durationMinutes: d.durationMinutes, positiveMarks: d.marksCorrect, negativeMarks: d.marksNegative, questions: d.questions || [] });
           startExamPlayer({
             testId: s.testId, isScheduled: true, mode: "TEST",
-            title: d.title, durationMinutes: d.durationMinutes,
-            marksCorrect: d.marksCorrect, marksNegative: d.marksNegative,
-            questions: d.questions || []
+            title: d.title || parsed.title, durationMinutes: d.durationMinutes || parsed.durationMinutes,
+            marksCorrect: d.marksCorrect ?? parsed.marksCorrect, marksNegative: d.marksNegative ?? parsed.marksNegative,
+            questions: parsed.questions
           });
         } else if (action.type === "CODE") {
           const q = query(collection(db, "scheduledTests"), where("testCode", "==", action.code), limit(1));
@@ -1348,43 +1804,85 @@
     }
 
     function renderCmsBlockHtml(b) {
+      const colCls = b.layoutWidth === "HALF" ? "" : "cms-full";
+      const wPct = Math.min(100, Math.max(25, Number(b.imageWidthPercent || 100)));
+      const maxH = Math.min(560, Math.max(140, Number(b.imageMaxHeight || 300)));
+      const fit = b.imageFit === "COVER" ? "cover" : "contain";
+      const imgStyle = `width:${wPct}%;max-height:${maxH}px;object-fit:${fit};`;
+
       if (b.type === "HERO_BANNER") {
         const img = b.resolvedMediaUrl || toDriveImage(b.driveUrl);
         return `
-          <div class="hero-card">
+          <div class="hero-card ${colCls}">
             ${b.badgeText ? `<span class="badge" style="background:var(--amber-500);color:var(--navy-950);margin-bottom:8px;">${esc(b.badgeText)}</span>` : ""}
-            <h2 style="margin:4px 0 8px;font-size:22px;font-weight:800;">${esc(b.title)}</h2>
+            <h2 style="margin:4px 0 8px;font-size:21px;font-weight:800;">${esc(b.title)}</h2>
             ${b.body ? `<p style="margin:0;color:#dbeafe;white-space:pre-line;">${esc(b.body)}</p>` : ""}
-            ${img ? `<img src="${esc(img)}" onerror="this.src='${esc(toDriveImageFallback(b.driveUrl))}';this.onerror=null;" class="cms-img" style="margin-top:12px;" />` : ""}
+            ${img ? `<img src="${esc(img)}" onerror="this.src='${esc(toDriveImageFallback(b.driveUrl))}';this.onerror=null;" class="cms-img" style="margin-top:12px;${imgStyle}" />` : ""}
+          </div>
+        `;
+      }
+      if (b.type === "SPONSOR_AD") {
+        const img = b.resolvedMediaUrl || toDriveImage(b.driveUrl);
+        const link = b.actionUrl ? (/^https?:\/\//i.test(b.actionUrl) ? b.actionUrl : `https://${b.actionUrl}`) : "";
+        return `
+          <div class="sponsor-card ${colCls}">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;">
+              <span class="badge badge-amber">${esc(b.badgeText || "SPONSORED")}</span>
+              ${link ? `<a href="${esc(link)}" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:800;color:var(--navy-900);text-decoration:none;">Visit &rarr;</a>` : ""}
+            </div>
+            ${b.title ? `<h3 style="margin:0 0 6px;color:#78350f;font-size:15.5px;">${esc(b.title)}</h3>` : ""}
+            ${img ? `<img src="${esc(img)}" onerror="this.src='${esc(toDriveImageFallback(b.driveUrl))}';this.onerror=null;" class="cms-img" style="margin-bottom:6px;${imgStyle}" />` : ""}
+            ${b.body ? `<p style="margin:0;color:#78350f;font-size:13px;white-space:pre-line;">${esc(b.body)}</p>` : ""}
           </div>
         `;
       }
       if (b.type === "DRIVE_IMAGE") {
         const img = b.resolvedMediaUrl || toDriveImage(b.driveUrl);
         return `
-          <div class="card">
+          <div class="card ${colCls}">
             ${b.badgeText ? `<span class="badge badge-blue" style="margin-bottom:6px;">${esc(b.badgeText)}</span>` : ""}
             ${b.title ? `<h3 style="margin:0 0 8px;">${esc(b.title)}</h3>` : ""}
-            ${img ? `<img src="${esc(img)}" onerror="this.src='${esc(toDriveImageFallback(b.driveUrl))}';this.onerror=null;" class="cms-img" />` : ""}
-            ${b.body ? `<p style="margin:8px 0 0;color:var(--slate-500);font-size:13px;">${esc(b.body)}</p>` : ""}
+            ${img ? `<img src="${esc(img)}" onerror="this.src='${esc(toDriveImageFallback(b.driveUrl))}';this.onerror=null;" class="cms-img" style="${imgStyle}" />` : ""}
+            ${b.body ? `<p style="margin:8px 0 0;color:var(--slate-500);font-size:13px;white-space:pre-line;">${esc(b.body)}</p>` : ""}
           </div>
         `;
       }
       if (b.type === "DRIVE_VIDEO") {
-        const vid = b.resolvedMediaUrl || toVideoPreview(b.driveUrl);
+        const rawUrl = String(b.driveUrl || "").trim();
+        const vid = toVideoPreview(rawUrl) || b.resolvedMediaUrl || "";
+        const isVert = isVerticalVideo(rawUrl, b.videoFormat);
+        const isMp4 = isDirectVideoFile(rawUrl);
+        const thumb = toYouTubeThumbnail(rawUrl);
+        let playerMarkup = "";
+        if (isMp4) {
+          playerMarkup = `<video class="video-frame" controls playsinline preload="metadata" src="${esc(rawUrl)}"></video>`;
+        } else if (thumb) {
+          const autoSrc = vid + (vid.includes("?") ? "&" : "?") + "autoplay=1";
+          playerMarkup = `
+            <button type="button" class="video-poster" data-video-embed="${esc(autoSrc)}" aria-label="Play Video">
+              <img src="${esc(thumb)}" alt="Video thumbnail" loading="lazy" />
+              <span class="video-play-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+            </button>
+          `;
+        } else if (vid) {
+          playerMarkup = `<iframe class="video-frame" src="${esc(vid)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+        }
         return `
-          <div class="card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-              <h3 style="margin:0;">▶ ${esc(b.title || "Video Lecture")}</h3>
-              ${b.badgeText ? `<span class="badge badge-blue">${esc(b.badgeText)}</span>` : ""}
+          <div class="card ${colCls}">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px;">
+              <h3 style="margin:0;font-size:15.5px;">&#9654; ${esc(b.title || "Video Lecture")}</h3>
+              <div style="display:flex;gap:6px;align-items:center;">
+                ${isVert ? `<span class="badge badge-purple">9:16 SHORTS</span>` : ""}
+                ${b.badgeText ? `<span class="badge badge-blue">${esc(b.badgeText)}</span>` : ""}
+              </div>
             </div>
-            ${vid ? `<iframe class="video-frame" src="${esc(vid)}" allow="autoplay; fullscreen"></iframe>` : ""}
-            ${b.body ? `<p style="margin:8px 0 0;color:var(--slate-500);font-size:13px;">${esc(b.body)}</p>` : ""}
+            ${playerMarkup ? `<div class="video-box ${isVert ? "vertical" : ""}">${playerMarkup}</div>` : ""}
+            ${b.body ? `<p style="margin:8px 0 0;color:var(--slate-500);font-size:13px;white-space:pre-line;">${esc(b.body)}</p>` : ""}
           </div>
         `;
       }
       return `
-        <div class="card">
+        <div class="card ${colCls}">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--royal-600)" style="flex-shrink:0;"><path d="M18 11v2h4v-2h-4zm-2 6.61c.96.71 2.21 1.65 3.2 2.39.4-.53.8-1.07 1.2-1.6-.99-.74-2.24-1.68-3.2-2.4-.4.54-.8 1.08-1.2 1.61zM20.4 5.6c-.4-.53-.8-1.07-1.2-1.6-.99.74-2.24 1.68-3.2 2.4.4.53.8 1.07 1.2 1.6.96-.72 2.21-1.65 3.2-2.4zM4 9c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h1v4h2v-4h1l5 3V6L8 9H4zm11.5 3c0-1.33-.58-2.53-1.5-3.35v6.69c.92-.81 1.5-2.01 1.5-3.34z"/></svg>
             ${b.badgeText ? `<span class="badge badge-blue">${esc(b.badgeText)}</span>` : ""}
@@ -1393,6 +1891,17 @@
           ${b.body ? `<p style="margin:0;color:var(--slate-700);white-space:pre-line;font-size:13.5px;">${esc(b.body)}</p>` : ""}
         </div>
       `;
+    }
+
+    function bindVideoFacades(rootEl) {
+      if (!rootEl) return;
+      rootEl.querySelectorAll("[data-video-embed]").forEach(btn => {
+        btn.onclick = () => {
+          const src = btn.getAttribute("data-video-embed");
+          if (!src || !btn.parentElement) return;
+          btn.parentElement.innerHTML = `<iframe class="video-frame" src="${esc(src)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+        };
+      });
     }
 
     function renderScheduledCardHtml(s) {
@@ -1496,10 +2005,26 @@
         const brand = getSocialBrandMeta(s.appName, s.url);
         return `<a class="social-chip" style="border-color:${brand.border};" href="${esc(href)}" target="_blank" rel="noopener noreferrer"><span class="social-ico">${brand.svg}</span><span>${esc(s.appName)}</span></a>`;
       }).join("");
+      const apk = (state.config.apkDownloadUrl || "").trim();
+      const play = (state.config.playStoreUrl || "").trim();
+      const normUrl = (u) => /^https?:\/\//i.test(u) ? u : `https://${u}`;
+      const apkChip = apk ? `
+        <a class="app-dl-chip" href="${esc(normUrl(apk))}" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#3DDC84"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24a11.43 11.43 0 00-8.94 0L5.65 5.67c-.19-.28-.54-.37-.83-.22-.3.16-.42.54-.26.85l1.84 3.18C3.52 11.02 1.62 13.86 1.24 17.16h21.52c-.38-3.3-2.28-6.14-5.16-7.68zM7 14.5a1 1 0 110-2 1 1 0 010 2zm10 0a1 1 0 110-2 1 1 0 010 2z"/></svg>
+          <span>Download Android APK</span>
+        </a>
+      ` : "";
+      const playChip = play ? `
+        <a class="app-dl-chip" href="${esc(normUrl(play))}" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M3.6 2.3C3.2 2.7 3 3.3 3 4v16c0 .7.2 1.3.6 1.7l.1.1L12.9 12 3.7 2.2l-.1.1z"/><path fill="#34A853" d="M15.9 15.1L12.9 12l3-3.1.1.1 3.6 2c1 .6 1 1.5 0 2.1l-3.6 2-.1-.1z"/><path fill="#FBBC05" d="M16 15l-3.1-3L3.7 21.8c.4.4 1.1.5 1.8.1L16 15z"/><path fill="#EA4335" d="M16 9L5.5 2.1C4.8 1.7 4.1 1.8 3.7 2.2L12.9 12 16 9z"/></svg>
+          <span>Get it on Google Play</span>
+        </a>
+      ` : "";
       return `
         <footer class="footer-card">
           <div style="font-size:13.5px;font-weight:700;">Join Us On Other Social Media Handles</div>
           <div class="social-row">${chips || `<span style="color:#93c5fd;font-size:12px;">Add social handles in Admin Studio.</span>`}</div>
+          ${(apkChip || playChip) ? `<div class="app-dl-row">${apkChip}${playChip}</div>` : ""}
           <div style="margin-top:10px;font-size:11px;color:#93c5fd;">${esc(state.config.portalTitle)} &bull; ${esc(state.config.instituteName)}</div>
         </footer>
       `;
@@ -1532,7 +2057,7 @@
       const pracHtml = state.catalog.practice.slice(0, 4).map(renderPracticeCardHtml).join("");
 
       el.innerHTML = `
-        ${blocksHtml}
+        <div class="cms-grid">${blocksHtml}</div>
         <div class="card">
           <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--royal-600)"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
@@ -1557,6 +2082,7 @@
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
       wireTestCardButtons(el);
+      bindVideoFacades(el);
     }
 
     function renderTestsTab() {
@@ -1718,13 +2244,14 @@
       }
     }
 
-    // --- Locked CBT Test Player (NO mid-test mode switcher) ---
+    // --- Locked CBT Test Player (Mobile-First + Collapsible Bottom Palette + All 5 Question Types) ---
     let timerInterval = null;
     function startExamPlayer(session) {
       state.player = {
         ...session,
         idx: 0,
         lang: "en",
+        paletteOpen: false,
         remainingSec: session.durationMinutes * 60,
         responses: session.questions.map((_, i) => ({ selected: null, status: i === 0 ? "NOT_ANSWERED" : "NOT_VISITED" })),
         submitted: false,
@@ -1763,20 +2290,41 @@
       const el = document.getElementById("viewPlayer");
       const q = p.questions[p.idx];
       const resp = p.responses[p.idx];
+      const optImgs = Array.isArray(q.optionImages) ? q.optionImages : [];
+
       const rq = resolveLocText(q.question, p.lang);
-      const ro = resolveLocOptions(q.options, p.lang);
+      const ro = resolveLocOptions(q.options, p.lang, optImgs.length);
       const rexp = resolveLocText(q.explanation, p.lang);
       const rpass = resolveLocText(q.passage, p.lang);
-      const isFb = rq.isFallback || ro.isFallback;
-      const showFb = (p.mode === "QUIZ" && resp.selected !== null) || p.submitted;
+      const rdir = resolveLocText(q.direction, p.lang);
+      const rass = resolveLocText(q.assertion, p.lang);
+      const rrea = resolveLocText(q.reason, p.lang);
 
-      const paletteHtml = p.questions.map((_, i) => {
+      const stIntro = q.statementData ? resolveLocText(q.statementData.intro, p.lang) : { text: "", isFallback: false };
+      const stList = q.statementData ? resolveLocText(q.statementData.list, p.lang) : { text: "", isFallback: false };
+      const stConc = q.statementData ? resolveLocText(q.statementData.conclusion, p.lang) : { text: "", isFallback: false };
+
+      const tbIntro = q.tableData ? resolveLocText(q.tableData.intro, p.lang) : { text: "", isFallback: false };
+      const tbGrid = q.tableData ? resolveLocTable(q.tableData, p.lang) : { headers: [], rows: [], isFallback: false };
+
+      const isFb = rq.isFallback || ro.isFallback || rpass.isFallback || rdir.isFallback || rass.isFallback || rrea.isFallback || stIntro.isFallback || stList.isFallback || tbGrid.isFallback;
+      const showFb = (p.mode === "QUIZ" && resp.selected !== null) || p.submitted;
+      const ansCount = p.responses.filter(r => r.status === "ANSWERED").length;
+
+      const paletteHtml = p.questions.map((qq, i) => {
         const st = p.responses[i].status;
-        const cls = st === "ANSWERED" ? "answered" : st === "NOT_ANSWERED" ? "not-answered" : st === "MARKED" ? "marked" : "";
+        const sel = p.responses[i].selected;
+        let cls = st === "ANSWERED" ? "answered" : st === "NOT_ANSWERED" ? "not-answered" : st === "MARKED" ? "marked" : "";
+        if (p.submitted) {
+          cls = sel === null ? "" : (sel === qq.correctIndex ? "answered" : "not-answered");
+        }
         return `<button class="q-pill ${cls} ${i === p.idx ? "current" : ""}" data-qidx="${i}">${i + 1}</button>`;
       }).join("");
 
-      const optsHtml = ro.options.map((optText, oIdx) => {
+      const slotCount = Math.max(ro.options.length, optImgs.length);
+      const optsHtml = Array.from({ length: slotCount }).map((_, oIdx) => {
+        const optText = ro.options[oIdx] || "";
+        const optImg = optImgs[oIdx] ? toDriveImage(optImgs[oIdx]) : "";
         const isSel = resp.selected === oIdx;
         const isCorr = oIdx === q.correctIndex;
         let cls = "";
@@ -1786,58 +2334,138 @@
         return `
           <button class="option-btn ${cls}" ${p.submitted ? "disabled" : ""} data-opt="${oIdx}">
             <span class="opt-circle">${String.fromCharCode(65 + oIdx)}</span>
-            <span>${optText}</span>
+            <div style="flex:1;min-width:0;">
+              ${String(optText).trim() ? `<div>${formatRichHtml(optText)}</div>` : ""}
+              ${optImg ? `<img src="${esc(optImg)}" onerror="this.src='${esc(toDriveImageFallback(optImgs[oIdx]))}';this.onerror=null;" class="q-opt-img" alt="Option ${String.fromCharCode(65 + oIdx)}" />` : ""}
+            </div>
           </button>
         `;
       }).join("");
 
+      const hasStatement = Boolean(stIntro.text || stList.text || stConc.text);
+      const hasAssertion = Boolean(rass.text || rrea.text);
+      const hasTable = Boolean((tbGrid.headers && tbGrid.headers.length) || (tbGrid.rows && tbGrid.rows.length));
+      const tblHtml = hasTable ? `
+        ${tbIntro.text ? `<div style="font-size:14px;font-weight:700;color:var(--slate-900);">${formatRichHtml(tbIntro.text)}</div>` : ""}
+        <div class="q-table-wrap">
+          <table class="q-table">
+            ${tbGrid.headers.length ? `<thead><tr>${tbGrid.headers.map(h => `<th>${formatRichHtml(h)}</th>`).join("")}</tr></thead>` : ""}
+            <tbody>${tbGrid.rows.map(row => `<tr>${row.map(cell => `<td>${formatRichHtml(cell)}</td>`).join("")}</tr>`).join("")}</tbody>
+          </table>
+        </div>
+      ` : "";
+
       el.innerHTML = `
-        <div class="card" style="margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;background:var(--navy-950);color:#fff;">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <button class="btn btn-outline" id="exitPlayerBtn">&larr; Back</button>
-            <div>
-              <div style="font-weight:800;">${esc(p.title)}</div>
-              <div style="display:flex;gap:8px;align-items:center;margin-top:4px;">
-                <span class="badge ${p.mode === "TEST" ? "badge-blue" : "badge-purple"}">&#128274; ${p.mode} MODE</span>
-                ${p.isScheduled && p.warnings > 0 ? `<span class="badge badge-rose">Switches: ${p.warnings}</span>` : ""}
-                ${isFb ? `<span class="badge badge-amber">Single Language Fallback</span>` : ""}
+        <div class="player-shell">
+          <header class="player-topbar">
+            <button class="player-back-circle" id="exitPlayerBtn" aria-label="Exit Test" title="Exit Test">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            </button>
+            <div class="player-title-wrap">
+              <div class="player-title-txt">${esc(p.title)}</div>
+              <div class="player-sub-row">
+                <span class="badge ${p.mode === "TEST" ? "badge-blue" : "badge-purple"}" style="font-size:9.5px;padding:2px 7px;">&#128274; ${p.mode}</span>
+                ${p.isScheduled && p.warnings > 0 ? `<span class="badge badge-rose" style="font-size:9.5px;padding:2px 7px;">Switches: ${p.warnings}</span>` : ""}
+                ${isFb ? `<span class="badge badge-amber" style="font-size:9.5px;padding:2px 7px;">EN/HI Fallback</span>` : ""}
               </div>
             </div>
-          </div>
-          <div style="display:flex;gap:8px;align-items:center;">
-            <button class="btn ${p.lang === "en" ? "btn-primary" : "btn-outline"}" id="langEnBtn">EN</button>
-            <button class="btn ${p.lang === "hi" ? "btn-primary" : "btn-outline"}" id="langHiBtn">हिंदी</button>
-          </div>
-        </div>
-
-        <div class="player-layout">
-          <div class="card stack" style="gap:14px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <strong class="mono">Q.${p.idx + 1} / ${p.questions.length}</strong>
-              <span class="badge badge-blue">${esc(q.subjectTag || "General")}</span>
+            <div class="player-timer-chip">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+              <span id="playerTimerText" class="mono">${fmtTimer(p.remainingSec)}</span>
             </div>
-            ${rpass.text ? `<div style="background:var(--slate-100);padding:10px 12px;border-left:3px solid var(--royal-600);border-radius:8px;font-style:italic;">${rpass.text}</div>` : ""}
-            <div style="font-size:16px;font-weight:600;">${rq.text}</div>
-            ${q.image ? `<img src="${esc(q.image)}" style="max-height:220px;object-fit:contain;border-radius:10px;" />` : ""}
-            <div class="stack" style="gap:10px;">${optsHtml}</div>
-            ${showFb ? `<div style="background:var(--royal-50);border:1px solid var(--royal-100);border-radius:12px;padding:12px;color:var(--navy-900);"><strong>Explanation:</strong><div style="margin-top:4px;">${rexp.text}</div></div>` : ""}
-            <div style="display:flex;gap:8px;flex-wrap:wrap;padding-top:8px;border-top:1px solid var(--slate-200);">
-              <button class="btn btn-purple" ${p.submitted ? "disabled" : ""} id="markNextBtn">Mark &amp; Next</button>
-              <button class="btn btn-outline" ${p.submitted ? "disabled" : ""} id="clearOptBtn">Clear</button>
-              <button class="btn btn-outline" ${p.idx === 0 ? "disabled" : ""} id="prevQBtn">Prev</button>
-              <button class="btn btn-primary" style="margin-left:auto;" id="saveNextBtn">Save &amp; Next &rarr;</button>
+            <div class="lang-switch" role="group" aria-label="Question Language">
+              <button type="button" class="lang-opt ${p.lang === "en" ? "active" : ""}" id="langEnBtn">EN</button>
+              <button type="button" class="lang-opt ${p.lang === "hi" ? "active" : ""}" id="langHiBtn">हिंदी</button>
             </div>
-          </div>
+          </header>
 
           <div class="card stack" style="gap:12px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;background:var(--navy-900);color:#fff;padding:10px 14px;border-radius:10px;">
-              <span style="font-size:12px;font-weight:700;">TIME LEFT</span>
-              <span id="playerTimerText" class="mono" style="font-weight:800;color:var(--amber-300);">${fmtTimer(p.remainingSec)}</span>
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+              <strong class="mono" style="font-size:13.5px;color:var(--navy-900);">Q.${p.idx + 1} / ${p.questions.length}</strong>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <span class="badge badge-blue">${esc(q.subjectTag || "General")}</span>
+                ${q.pyqTag ? `<span class="badge badge-amber">${esc(q.pyqTag)}</span>` : ""}
+              </div>
             </div>
-            <div style="font-size:12px;color:var(--slate-500);">Candidate: <strong>${esc(state.profile?.studentName || "Guest")}</strong><br>Roll No: <span class="mono">${esc(state.profile?.rollNumber || "LOCAL")}</span></div>
-            <div class="palette-grid">${paletteHtml}</div>
-            ${!p.submitted ? `<button class="btn btn-emerald" id="submitExamBtn">Submit Test</button>` : `<button class="btn btn-navy" id="viewScoreBtn">View Score Card &amp; PDF</button>`}
+
+            ${(rpass.text || q.passageImage) ? `
+              <div class="q-passage-box">
+                <div style="font-size:11px;font-weight:800;color:var(--royal-600);margin-bottom:4px;">PASSAGE / COMPREHENSION</div>
+                ${rpass.text ? `<div>${formatRichHtml(rpass.text)}</div>` : ""}
+                ${q.passageImage ? `<img src="${esc(toDriveImage(q.passageImage))}" onerror="this.src='${esc(toDriveImageFallback(q.passageImage))}';this.onerror=null;" style="max-height:220px;max-width:100%;object-fit:contain;border-radius:10px;margin-top:8px;" />` : ""}
+              </div>
+            ` : ""}
+
+            ${hasStatement ? `
+              <div class="q-statement-box">
+                ${stIntro.text ? `<div style="font-weight:700;color:var(--navy-900);">${formatRichHtml(stIntro.text)}</div>` : ""}
+                ${stList.text ? `<div style="line-height:1.65;">${formatRichHtml(stList.text)}</div>` : ""}
+                ${stConc.text ? `<div style="font-weight:700;color:var(--navy-900);">${formatRichHtml(stConc.text)}</div>` : ""}
+              </div>
+            ` : ""}
+
+            ${rdir.text ? `<div class="q-dir-box">${formatRichHtml(rdir.text)}</div>` : ""}
+
+            ${hasAssertion ? `
+              <div class="q-ar-box">
+                ${rass.text ? `<div class="q-ar-row"><strong>Assertion (A):</strong> ${formatRichHtml(rass.text)}</div>` : ""}
+                ${rrea.text ? `<div class="q-ar-row"><strong>Reason (R):</strong> ${formatRichHtml(rrea.text)}</div>` : ""}
+              </div>
+            ` : ""}
+
+            ${tblHtml}
+
+            ${rq.text ? `<div style="font-size:15.5px;font-weight:600;line-height:1.6;">${formatRichHtml(rq.text)}</div>` : ""}
+
+            ${q.image ? `<img src="${esc(toDriveImage(q.image))}" onerror="this.src='${esc(toDriveImageFallback(q.image))}';this.onerror=null;" style="max-height:250px;max-width:100%;object-fit:contain;border-radius:10px;margin:0 auto;display:block;" alt="Question visual" />` : ""}
+
+            <div class="stack" style="gap:9px;">${optsHtml}</div>
+
+            ${showFb ? `
+              <div class="q-exp-box">
+                <strong>Explanation &amp; Solution:</strong>
+                <div style="margin-top:4px;">${formatRichHtml(rexp.text || (p.lang === "hi" ? "स्पष्टीकरण उपलब्ध नहीं है।" : "No explanation provided."))}</div>
+                ${q.explanationImage ? `<img src="${esc(toDriveImage(q.explanationImage))}" onerror="this.src='${esc(toDriveImageFallback(q.explanationImage))}';this.onerror=null;" style="max-height:220px;max-width:100%;object-fit:contain;border-radius:10px;margin-top:8px;" />` : ""}
+              </div>
+            ` : ""}
+
+            <div class="player-actions-bar">
+              <button class="btn btn-outline" ${p.submitted ? "disabled" : ""} id="clearOptBtn">Clear</button>
+              <button class="btn btn-purple" ${p.submitted ? "disabled" : ""} id="markNextBtn">Mark &amp; Next</button>
+              <button class="btn btn-outline" ${p.idx === 0 ? "disabled" : ""} id="prevQBtn">&larr; Prev</button>
+              <button class="btn btn-primary btn-next-main" id="saveNextBtn">Save &amp; Next &rarr;</button>
+            </div>
+
+            <button type="button" class="palette-toggle-btn" id="togglePaletteBtn">
+              <span>Question Palette (${ansCount}/${p.questions.length} Answered)</span>
+              <span>${p.paletteOpen ? "Hide &#9652;" : "Open &#9662;"}</span>
+            </button>
           </div>
+
+          ${p.paletteOpen ? `
+            <div class="palette-drawer">
+              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                <div style="font-size:12px;color:var(--slate-500);">Candidate: <strong>${esc(state.profile?.studentName || "Guest")}</strong> &bull; Roll No: <span class="mono">${esc(state.profile?.rollNumber || "LOCAL")}</span></div>
+                <span class="mono" style="font-size:12px;font-weight:700;color:var(--navy-900);">${p.questions.length} Questions</span>
+              </div>
+              <div class="palette-legend">
+                <span><i class="leg-dot" style="background:var(--emerald-500);"></i>${p.submitted ? "Correct" : "Answered"}</span>
+                <span><i class="leg-dot" style="background:#f43f5e;"></i>${p.submitted ? "Wrong" : "Not Answered"}</span>
+                ${!p.submitted ? `<span><i class="leg-dot" style="background:var(--purple-600);"></i>Marked</span>` : ""}
+                <span><i class="leg-dot" style="background:var(--slate-100);border:1px solid var(--slate-200);"></i>${p.submitted ? "Skipped" : "Not Visited"}</span>
+              </div>
+              <div class="palette-grid">${paletteHtml}</div>
+              ${!p.submitted
+                ? `<button class="btn btn-emerald" id="submitExamBtn">Submit Test &amp; View Result</button>`
+                : `<button class="btn btn-navy" id="viewScoreBtn">View Score Card &amp; PDF</button>`}
+            </div>
+          ` : `
+            <div style="display:flex;justify-content:flex-end;">
+              ${!p.submitted
+                ? `<button class="btn btn-emerald" id="submitExamBtn" style="width:100%;">Submit Test &amp; View Result</button>`
+                : `<button class="btn btn-navy" id="viewScoreBtn" style="width:100%;">View Score Card &amp; PDF</button>`}
+            </div>
+          `}
         </div>
       `;
 
@@ -1850,8 +2478,9 @@
         document.getElementById("viewPortal").classList.remove("hidden");
         renderPortalTabs();
       };
-      document.getElementById("langEnBtn").onclick = () => { p.lang = "en"; renderPlayer(); };
-      document.getElementById("langHiBtn").onclick = () => { p.lang = "hi"; renderPlayer(); };
+      document.getElementById("langEnBtn").onclick = () => { if (p.lang !== "en") { p.lang = "en"; renderPlayer(); } };
+      document.getElementById("langHiBtn").onclick = () => { if (p.lang !== "hi") { p.lang = "hi"; renderPlayer(); } };
+      document.getElementById("togglePaletteBtn").onclick = () => { p.paletteOpen = !p.paletteOpen; renderPlayer(); };
       el.querySelectorAll("[data-opt]").forEach(b => b.onclick = () => {
         p.responses[p.idx] = { selected: Number(b.getAttribute("data-opt")), status: "ANSWERED" };
         renderPlayer();
@@ -1860,6 +2489,7 @@
         p.idx = Number(b.getAttribute("data-qidx"));
         if (p.responses[p.idx].status === "NOT_VISITED") p.responses[p.idx].status = "NOT_ANSWERED";
         renderPlayer();
+        window.scrollTo({ top: 0, behavior: "smooth" });
       });
       document.getElementById("clearOptBtn").onclick = () => { p.responses[p.idx] = { selected: null, status: "NOT_ANSWERED" }; renderPlayer(); };
       document.getElementById("prevQBtn").onclick = () => { if (p.idx > 0) { p.idx--; renderPlayer(); } };
@@ -1873,12 +2503,16 @@
           p.idx++;
           if (p.responses[p.idx].status === "NOT_VISITED") p.responses[p.idx].status = "NOT_ANSWERED";
           renderPlayer();
-        } else alert("Last question reached. Click Submit Test when ready.");
+        } else {
+          p.paletteOpen = true;
+          renderPlayer();
+        }
       };
       const subBtn = document.getElementById("submitExamBtn");
       if (subBtn) subBtn.onclick = () => { if (confirm("Submit test now?")) submitActiveExam(); };
       const resBtn = document.getElementById("viewScoreBtn");
       if (resBtn) resBtn.onclick = showPlayerScoreModal;
+      typesetMath(el);
     }
 
     async function submitActiveExam() {
@@ -1969,7 +2603,8 @@
         HERO_BANNER: "Preview Hero Headline",
         TEXT_ARTICLE: "Preview Article Headline",
         DRIVE_IMAGE: "Preview Image Title",
-        DRIVE_VIDEO: "Preview Video Title"
+        DRIVE_VIDEO: "Preview Video Title",
+        SPONSOR_AD: "Sponsor Highlight Headline"
       };
       return {
         id: state.editingBlockId || "draft_preview",
@@ -1979,6 +2614,11 @@
         body: (d.body || "").trim() || "Live student preview updates as you type or upload media before publishing.",
         driveUrl: cleanUrl,
         resolvedMediaUrl: resolved,
+        layoutWidth: d.layoutWidth || "FULL",
+        imageWidthPercent: Number(d.imageWidthPercent || 100),
+        imageMaxHeight: Number(d.imageMaxHeight || 300),
+        imageFit: d.imageFit || "CONTAIN",
+        videoFormat: d.videoFormat || "AUTO",
         visible: true,
         orderIndex: state.config.blocks.length
       };
@@ -1990,7 +2630,7 @@
       const d = state.cmsDraft;
       const hasDraft = Boolean((d.title || "").trim() || (d.body || "").trim() || (d.driveUrl || "").trim());
       const draftHtml = hasDraft ? `
-        <div style="font-size:12px;font-weight:800;color:var(--royal-600);margin-top:4px;">UNPUBLISHED DRAFT BLOCK PREVIEW:</div>
+        <div class="cms-full" style="font-size:12px;font-weight:800;color:var(--royal-600);margin-top:4px;">UNPUBLISHED DRAFT BLOCK PREVIEW:</div>
         ${renderCmsBlockHtml(buildDraftCmsBlock())}
       ` : "";
       openModal(`
@@ -2005,9 +2645,11 @@
             <div style="font-size:11px;color:var(--amber-300);font-weight:600;">STUDENT HOME PREVIEW</div>
           </div>
         </div>
-        <div class="stack">${visibleBlocksHtml}${draftHtml}${renderFooterHtml()}</div>
+        <div class="cms-grid">${visibleBlocksHtml}${draftHtml}</div>
+        <div style="margin-top:12px;">${renderFooterHtml()}</div>
       `, true);
       document.getElementById("closeFullHomePrevBtn").onclick = closeModal;
+      bindVideoFacades(document.getElementById("modalContent"));
     }
 
     function renderAdminTab() {
@@ -2109,14 +2751,29 @@
               </div>
               <button class="btn btn-outline" id="addSocBtn" style="height:42px;">+ Add Handle</button>
             </div>
+            <div class="grid-2" style="margin-top:4px;">
+              <div class="field-group">
+                <label class="field-label" for="admApkUrl">Android APK Direct Download URL (Optional)</label>
+                <input id="admApkUrl" placeholder="https://github.com/.../CrackCGPSC.apk" value="${esc(state.config.apkDownloadUrl)}" />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="admPlayUrl">Google Play Store App URL (Optional)</label>
+                <input id="admPlayUrl" placeholder="https://play.google.com/store/apps/details?id=..." value="${esc(state.config.playStoreUrl)}" />
+              </div>
+            </div>
             <button class="btn btn-emerald" id="saveBrandBtn">Publish Branding &amp; Footer Live</button>
           </div>
         `;
       } else if (state.adminSubTab === "CMS") {
         const d = state.cmsDraft;
+        const isImgCapable = ["DRIVE_IMAGE", "HERO_BANNER", "SPONSOR_AD"].includes(d.type);
         const listHtml = state.config.blocks.map((b, i) => `
           <div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
-            <div><span class="badge badge-blue">${esc(b.type)}</span> <strong>${esc(b.title || "(Untitled)")}</strong> ${b.visible === false ? "(Hidden)" : ""}</div>
+            <div>
+              <span class="badge badge-blue">${esc(b.type)}</span>
+              <span class="badge badge-amber">${b.layoutWidth === "HALF" ? "2-Col" : "Full"}</span>
+              <strong>${esc(b.title || "(Untitled)")}</strong> ${b.visible === false ? "(Hidden)" : ""}
+            </div>
             <div style="display:flex;gap:6px;flex-wrap:wrap;">
               <button class="btn btn-outline" data-blk-edit="${i}">Edit</button>
               <button class="btn btn-outline" data-blk-up="${i}">&uarr;</button>
@@ -2129,17 +2786,27 @@
         bodyHtml = `
           <div class="card stack">
             <h3 style="margin:0;">${state.editingBlockId ? "Edit Dashboard Content Block" : "Add Dashboard Article / Image / Video Block"}</h3>
-            <div class="field-group">
-              <label class="field-label" for="blkType">Content Block Type</label>
-              <select id="blkType">
-                <option value="TEXT_ARTICLE" ${d.type === "TEXT_ARTICLE" ? "selected" : ""}>Text Article / Notice</option>
-                <option value="HERO_BANNER" ${d.type === "HERO_BANNER" ? "selected" : ""}>Hero Announcement Banner</option>
-                <option value="DRIVE_IMAGE" ${d.type === "DRIVE_IMAGE" ? "selected" : ""}>Image Card (GitHub or Google Drive)</option>
-                <option value="DRIVE_VIDEO" ${d.type === "DRIVE_VIDEO" ? "selected" : ""}>Video Card (Google Drive or YouTube)</option>
-              </select>
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label" for="blkType">Content Block Type</label>
+                <select id="blkType">
+                  <option value="TEXT_ARTICLE" ${d.type === "TEXT_ARTICLE" ? "selected" : ""}>Text Article / Notice</option>
+                  <option value="HERO_BANNER" ${d.type === "HERO_BANNER" ? "selected" : ""}>Hero Announcement Banner</option>
+                  <option value="DRIVE_IMAGE" ${d.type === "DRIVE_IMAGE" ? "selected" : ""}>Image Card (GitHub or Google Drive)</option>
+                  <option value="DRIVE_VIDEO" ${d.type === "DRIVE_VIDEO" ? "selected" : ""}>Video / Shorts Card (YouTube / Reels / Drive)</option>
+                  <option value="SPONSOR_AD" ${d.type === "SPONSOR_AD" ? "selected" : ""}>Ad / Sponsor Banner Card</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="blkLayoutWidth">Website Grid Layout Width</label>
+                <select id="blkLayoutWidth">
+                  <option value="FULL" ${d.layoutWidth !== "HALF" ? "selected" : ""}>Full Width (1 Column)</option>
+                  <option value="HALF" ${d.layoutWidth === "HALF" ? "selected" : ""}>Half Width (2 Columns Side-by-Side)</option>
+                </select>
+              </div>
             </div>
             <div class="field-group">
-              <label class="field-label" for="blkBadge">Badge Label (Optional — e.g. NOTICE, NEW, UPDATE)</label>
+              <label class="field-label" for="blkBadge">Badge Label (Optional — e.g. NOTICE, NEW, SPONSORED)</label>
               <input id="blkBadge" placeholder="NOTICE / NEW" value="${esc(d.badgeText)}" />
             </div>
             <div class="field-group">
@@ -2152,8 +2819,8 @@
             </div>
             <div id="blkMediaSection" class="stack ${d.type === "TEXT_ARTICLE" ? "hidden" : ""}" style="gap:10px;">
               <div class="field-group">
-                <label class="field-label" for="blkUrl" id="blkUrlLabel">${d.type === "DRIVE_VIDEO" ? "Video Share Link (Google Drive / YouTube)" : "Image URL (Uploaded GitHub Raw URL or Google Drive Link)"}</label>
-                <input id="blkUrl" placeholder="https://raw.githubusercontent.com/... or Google Drive link" value="${esc(d.driveUrl)}" />
+                <label class="field-label" for="blkUrl" id="blkUrlLabel">${d.type === "DRIVE_VIDEO" ? "Video / Shorts URL (YouTube, Shorts, Reels, MP4, Drive)" : "Image URL (GitHub Raw URL or Google Drive Link)"}</label>
+                <input id="blkUrl" placeholder="https://raw.githubusercontent.com/... or https://youtube.com/shorts/..." value="${esc(d.driveUrl)}" />
               </div>
               <div id="blkUploadWrap" class="field-group ${d.type === "DRIVE_VIDEO" ? "hidden" : ""}">
                 <label class="field-label" for="blkImgPick">Upload Image Directly to GitHub Repo (0 Firebase Reads)</label>
@@ -2162,6 +2829,42 @@
                   <button class="btn btn-outline" type="button" id="uploadBlkImgBtn">Upload Image to GitHub</button>
                 </div>
               </div>
+            </div>
+
+            <div id="blkImgSizeSection" class="grid-3 ${isImgCapable ? "" : "hidden"}">
+              <div class="field-group">
+                <label class="field-label" for="blkImgWidth">Image Width (%)</label>
+                <select id="blkImgWidth">
+                  <option value="100" ${Number(d.imageWidthPercent || 100) === 100 ? "selected" : ""}>100% (Full Card)</option>
+                  <option value="75" ${Number(d.imageWidthPercent) === 75 ? "selected" : ""}>75% (Centered)</option>
+                  <option value="50" ${Number(d.imageWidthPercent) === 50 ? "selected" : ""}>50% (Compact)</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="blkImgHeight">Max Height (px)</label>
+                <select id="blkImgHeight">
+                  <option value="180" ${Number(d.imageMaxHeight) === 180 ? "selected" : ""}>180px (Small)</option>
+                  <option value="300" ${Number(d.imageMaxHeight || 300) === 300 ? "selected" : ""}>300px (Medium)</option>
+                  <option value="420" ${Number(d.imageMaxHeight) === 420 ? "selected" : ""}>420px (Tall)</option>
+                  <option value="540" ${Number(d.imageMaxHeight) === 540 ? "selected" : ""}>540px (Poster)</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="blkImgFit">Image Crop / Fit</label>
+                <select id="blkImgFit">
+                  <option value="CONTAIN" ${d.imageFit !== "COVER" ? "selected" : ""}>Fit Inside (No Crop)</option>
+                  <option value="COVER" ${d.imageFit === "COVER" ? "selected" : ""}>Fill &amp; Crop (Cover)</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="blkVidFmtSection" class="field-group ${d.type === "DRIVE_VIDEO" ? "" : "hidden"}">
+              <label class="field-label" for="blkVideoFormat">Video Aspect Ratio</label>
+              <select id="blkVideoFormat">
+                <option value="AUTO" ${d.videoFormat !== "LANDSCAPE" && d.videoFormat !== "VERTICAL" ? "selected" : ""}>Auto Detect (9:16 for Shorts/Reels, 16:9 otherwise)</option>
+                <option value="LANDSCAPE" ${d.videoFormat === "LANDSCAPE" ? "selected" : ""}>Landscape (16:9 Wide)</option>
+                <option value="VERTICAL" ${d.videoFormat === "VERTICAL" ? "selected" : ""}>Vertical Shorts (9:16 Portrait)</option>
+              </select>
             </div>
 
             <div class="preview-shell">
@@ -2404,36 +3107,55 @@
             state.config.instituteName = document.getElementById("admInst").value.trim() || "Crack CGPSC Academy";
             state.config.logoDriveUrl = document.getElementById("admLogo").value.trim();
             state.config.resolvedLogoUrl = toDriveImage(state.config.logoDriveUrl);
+            state.config.apkDownloadUrl = document.getElementById("admApkUrl").value.trim();
+            state.config.playStoreUrl = document.getElementById("admPlayUrl").value.trim();
             await saveConfigToFirestore();
           } catch (err) {
             alert("Save Branding failed [Step: portalData/dashboardConfig]: " + err.message);
           }
         };
       } else if (state.adminSubTab === "CMS") {
+        const resetCmsDraft = () => {
+          state.cmsDraft = { type: "TEXT_ARTICLE", badgeText: "", title: "", body: "", driveUrl: "", layoutWidth: "FULL", imageWidthPercent: 100, imageMaxHeight: 300, imageFit: "CONTAIN", videoFormat: "AUTO" };
+        };
         const refreshDraftPreview = () => {
           state.cmsDraft.type = document.getElementById("blkType").value;
           state.cmsDraft.badgeText = document.getElementById("blkBadge").value;
           state.cmsDraft.title = document.getElementById("blkTitle").value;
           state.cmsDraft.body = document.getElementById("blkBody").value;
           state.cmsDraft.driveUrl = document.getElementById("blkUrl").value;
+          state.cmsDraft.layoutWidth = document.getElementById("blkLayoutWidth").value;
+          state.cmsDraft.imageWidthPercent = Number(document.getElementById("blkImgWidth").value || 100);
+          state.cmsDraft.imageMaxHeight = Number(document.getElementById("blkImgHeight").value || 300);
+          state.cmsDraft.imageFit = document.getElementById("blkImgFit").value || "CONTAIN";
+          state.cmsDraft.videoFormat = document.getElementById("blkVideoFormat").value || "AUTO";
 
           const mediaSec = document.getElementById("blkMediaSection");
           const uploadWrap = document.getElementById("blkUploadWrap");
+          const imgSizeSec = document.getElementById("blkImgSizeSection");
+          const vidFmtSec = document.getElementById("blkVidFmtSection");
           const urlLbl = document.getElementById("blkUrlLabel");
           mediaSec.classList.toggle("hidden", state.cmsDraft.type === "TEXT_ARTICLE");
           uploadWrap.classList.toggle("hidden", state.cmsDraft.type === "DRIVE_VIDEO");
+          imgSizeSec.classList.toggle("hidden", !["DRIVE_IMAGE", "HERO_BANNER", "SPONSOR_AD"].includes(state.cmsDraft.type));
+          vidFmtSec.classList.toggle("hidden", state.cmsDraft.type !== "DRIVE_VIDEO");
           urlLbl.textContent = state.cmsDraft.type === "DRIVE_VIDEO"
-            ? "Video Share Link (Google Drive / YouTube)"
-            : "Image URL (Uploaded GitHub Raw URL or Google Drive Link)";
+            ? "Video / Shorts URL (YouTube, Shorts, Reels, MP4, Drive)"
+            : "Image URL (GitHub Raw URL or Google Drive Link)";
 
-          document.getElementById("cmsLivePreviewBox").innerHTML = renderCmsBlockHtml(buildDraftCmsBlock());
+          const prevBox = document.getElementById("cmsLivePreviewBox");
+          prevBox.innerHTML = renderCmsBlockHtml(buildDraftCmsBlock());
+          bindVideoFacades(prevBox);
         };
 
-        ["blkType", "blkBadge", "blkTitle", "blkBody", "blkUrl"].forEach(id => {
+        ["blkType", "blkBadge", "blkTitle", "blkBody", "blkUrl", "blkLayoutWidth", "blkImgWidth", "blkImgHeight", "blkImgFit", "blkVideoFormat"].forEach(id => {
           const inp = document.getElementById(id);
-          inp.addEventListener("input", refreshDraftPreview);
-          inp.addEventListener("change", refreshDraftPreview);
+          if (inp) {
+            inp.addEventListener("input", refreshDraftPreview);
+            inp.addEventListener("change", refreshDraftPreview);
+          }
         });
+        bindVideoFacades(document.getElementById("cmsLivePreviewBox"));
 
         const handleCmsImgUpload = async (file) => {
           const cfg = ghGetConfig();
@@ -2470,7 +3192,7 @@
         const cancelBlkBtn = document.getElementById("cancelBlkEditBtn");
         if (cancelBlkBtn) cancelBlkBtn.onclick = () => {
           state.editingBlockId = null;
-          state.cmsDraft = { type: "TEXT_ARTICLE", badgeText: "", title: "", body: "", driveUrl: "" };
+          resetCmsDraft();
           renderAdminTab();
         };
 
@@ -2486,6 +3208,11 @@
               body: document.getElementById("blkBody").value.trim(),
               driveUrl,
               resolvedMediaUrl: type === "DRIVE_VIDEO" ? toVideoPreview(driveUrl) : (type === "TEXT_ARTICLE" ? "" : toDriveImage(driveUrl)),
+              layoutWidth: document.getElementById("blkLayoutWidth").value || "FULL",
+              imageWidthPercent: Number(document.getElementById("blkImgWidth").value || 100),
+              imageMaxHeight: Number(document.getElementById("blkImgHeight").value || 300),
+              imageFit: document.getElementById("blkImgFit").value || "CONTAIN",
+              videoFormat: document.getElementById("blkVideoFormat").value || "AUTO",
               visible: true,
               orderIndex: state.config.blocks.length
             };
@@ -2498,7 +3225,7 @@
               state.config.blocks.push(blkObj);
             }
             state.editingBlockId = null;
-            state.cmsDraft = { type: "TEXT_ARTICLE", badgeText: "", title: "", body: "", driveUrl: "" };
+            resetCmsDraft();
             await saveConfigToFirestore();
             renderAdminTab();
           } catch (err) {
@@ -2515,7 +3242,12 @@
             badgeText: blk.badgeText || "",
             title: blk.title || "",
             body: blk.body || "",
-            driveUrl: blk.driveUrl || ""
+            driveUrl: blk.driveUrl || "",
+            layoutWidth: blk.layoutWidth || "FULL",
+            imageWidthPercent: Number(blk.imageWidthPercent || 100),
+            imageMaxHeight: Number(blk.imageMaxHeight || 300),
+            imageFit: blk.imageFit || "CONTAIN",
+            videoFormat: blk.videoFormat || "AUTO"
           };
           renderAdminTab();
           window.scrollTo({ top: 0, behavior: "smooth" });
@@ -2797,6 +3529,8 @@
         instituteName: state.config.instituteName,
         logoDriveUrl: state.config.logoDriveUrl,
         resolvedLogoUrl: state.config.resolvedLogoUrl,
+        apkDownloadUrl: state.config.apkDownloadUrl || "",
+        playStoreUrl: state.config.playStoreUrl || "",
         blocks: state.config.blocks,
         socialLinks: state.config.socialLinks,
         updatedAt: serverTimestamp()
