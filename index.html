@@ -970,6 +970,39 @@
       color: var(--slate-700);
       line-height: 1.55;
     }
+    .sync-icon-btn {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 999px;
+      width: 36px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .sync-icon-btn:hover { background: rgba(255, 255, 255, 0.22); }
+    .instr-hero {
+      background: linear-gradient(135deg, var(--navy-950), var(--navy-900));
+      color: #fff;
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+    }
+    .instr-rule {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 9px 11px;
+      border-radius: 10px;
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      font-size: 12.5px;
+      color: var(--slate-700);
+    }
+    .btn-wa { background: #16a34a; color: #fff; border: none; }
+    .btn-wa:hover { background: #15803d; }
 
     @media print {
       .no-print { display: none !important; }
@@ -982,7 +1015,7 @@
   <header class="topbar no-print">
     <div class="topbar-inner">
       <div class="brand-wrap">
-        <img id="headerLogoImg" class="brand-logo-img hidden" alt="Portal Logo" />
+        <img id="headerLogoImg" class="brand-logo-img hidden" alt="" />
         <div id="headerFallbackLogo" class="brand-fallback-ico" aria-hidden="true">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
         </div>
@@ -992,10 +1025,15 @@
         </div>
       </div>
 
-      <button class="account-pill" id="accountBtn">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--amber-300)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm0 14c-2.03 0-4.43-.82-6.14-2.88C7.55 15.8 9.68 15 12 15s4.45.8 6.14 2.12C16.43 19.18 14.03 20 12 20z"/></svg>
-        <span id="accountBtnLabel">Account / Sign In</span>
-      </button>
+      <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+        <button type="button" class="sync-icon-btn" id="syncPortalBtn" title="Sync Latest Tests & Updates (0 Firebase Reads)" aria-label="Sync Latest Tests">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+        </button>
+        <button class="account-pill" id="accountBtn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--amber-300)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm0 14c-2.03 0-4.43-.82-6.14-2.88C7.55 15.8 9.68 15 12 15s4.45.8 6.14 2.12C16.43 19.18 14.03 20 12 20z"/></svg>
+          <span id="accountBtnLabel">Account / Sign In</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -1050,7 +1088,7 @@
     import {
       getFirestore, initializeFirestore, persistentLocalCache, persistentMultipleTabManager,
       doc, getDoc, setDoc, updateDoc, deleteDoc, deleteField,
-      collection, query, where, limit, orderBy, onSnapshot, getDocs, serverTimestamp, Timestamp
+      collection, query, where, limit, orderBy, startAfter, getDocs, serverTimestamp, Timestamp
     } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
     const ADMIN_EMAIL = "saketgiri73@gmail.com";
@@ -1146,6 +1184,7 @@
         instituteName: "Crack CGPSC Academy",
         logoDriveUrl: "",
         resolvedLogoUrl: "",
+        githubRawBase: "",
         apkDownloadUrl: "",
         playStoreUrl: "",
         blocks: [
@@ -1170,7 +1209,7 @@
             type: "TEXT_ARTICLE",
             badgeText: "IMPORTANT",
             title: "Exam Rules & Rank List Schedule",
-            body: "1. Browse Dashboard freely. Sign in with Google + complete 1-time registration before attempting any test.\n2. Scheduled exams allow 1 attempt inside the fixed time window and log tab switches.\n3. Official Merit Rank List PDF unlocks automatically once the exam window closes.",
+            body: "1. Browse Dashboard freely. Sign in with Google + complete 1-time registration before attempting any test.\n2. Scheduled exams allow 1 attempt inside the fixed time window and log tab switches.\n3. Official Merit Rank List PDF is posted after the exam closes on Telegram & Results tab.",
             driveUrl: "",
             resolvedMediaUrl: "",
             layoutWidth: "FULL",
@@ -1200,7 +1239,12 @@
       profile: null,
       attempts: [],
       pendingAction: null,
+      pendingDeepLink: null,
+      deepLinkHandled: false,
       adminUsers: [],
+      adminUsersLastDoc: null,
+      adminUsersHasMore: false,
+      adminUserSearch: "",
       editingPracticeId: null,
       editingPracticePath: "",
       editingPracticeCreatedAt: null,
@@ -1218,11 +1262,56 @@
         videoFormat: "AUTO"
       },
       ghStatusMsg: "",
+      portalSourceLabel: "Loading...",
       player: null // active exam session
     };
 
-    // --- GitHub Direct Storage Helpers (Token stored in browser localStorage ONLY) ---
+    // --- Local Cache & Zero-Read GitHub Direct Storage ---
     const GH_STORAGE_KEY = "crack_cgpsc_github_cfg_v1";
+    const PORTAL_CACHE_KEY = "crack_cgpsc_portal_cache_v2";
+    const LOCAL_ATTEMPTS_KEY = "crack_cgpsc_local_attempts_v1";
+    const PROFILE_CACHE_PREFIX = "crack_cgpsc_profile_v1_";
+    const PORTAL_CACHE_TTL_MS = 5 * 60 * 1000;
+
+    function loadLocalAttempts() {
+      try {
+        const raw = localStorage.getItem(LOCAL_ATTEMPTS_KEY);
+        const arr = raw ? JSON.parse(raw) : [];
+        return Array.isArray(arr) ? arr : [];
+      } catch (_) {
+        return [];
+      }
+    }
+
+    function saveLocalAttempt(entry) {
+      const list = loadLocalAttempts().filter(x => !(entry.isScheduled && x.testId === entry.testId));
+      list.unshift(entry);
+      const trimmed = list.slice(0, 100);
+      try {
+        localStorage.setItem(LOCAL_ATTEMPTS_KEY, JSON.stringify(trimmed));
+      } catch (_) {}
+      state.attempts = trimmed;
+    }
+
+    function clearLocalAttempts() {
+      localStorage.removeItem(LOCAL_ATTEMPTS_KEY);
+      state.attempts = [];
+    }
+
+    function readCachedProfile(uid) {
+      try {
+        const raw = localStorage.getItem(PROFILE_CACHE_PREFIX + uid);
+        return raw ? JSON.parse(raw) : null;
+      } catch (_) { return null; }
+    }
+
+    function writeCachedProfile(uid, profile) {
+      try {
+        if (profile) localStorage.setItem(PROFILE_CACHE_PREFIX + uid, JSON.stringify(profile));
+      } catch (_) {}
+    }
+
+    state.attempts = loadLocalAttempts();
 
     function ghGetConfig() {
       try {
@@ -1447,7 +1536,7 @@
       if (!s) return "";
       if (s.startsWith("data:")) return s;
       const id = extractDriveId(s);
-      return id ? `https://drive.google.com/uc?export=view&id=${id}` : s;
+      return id ? `https://lh3.googleusercontent.com/d/${id}` : s;
     }
 
     function toDriveImageFallback(url) {
@@ -1455,8 +1544,30 @@
       if (!s) return "";
       if (s.startsWith("data:")) return s;
       const id = extractDriveId(s);
-      return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w1200` : s;
+      return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w1000` : s;
     }
+
+    window.__onPortalImgErr = (imgEl, rawUrl, fallbackDomId = "") => {
+      if (!imgEl) return;
+      const id = extractDriveId(rawUrl || imgEl.src);
+      const step = Number(imgEl.dataset.fbStep || "0");
+      if (id && step === 0) {
+        imgEl.dataset.fbStep = "1";
+        imgEl.src = `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
+        return;
+      }
+      if (id && step === 1) {
+        imgEl.dataset.fbStep = "2";
+        imgEl.src = `https://drive.google.com/uc?export=view&id=${id}`;
+        return;
+      }
+      imgEl.onerror = null;
+      imgEl.classList.add("hidden");
+      if (fallbackDomId) {
+        const fbEl = document.getElementById(fallbackDomId);
+        if (fbEl) fbEl.classList.remove("hidden");
+      }
+    };
 
     function extractYouTubeId(url) {
       const s = String(url || "").trim();
@@ -1560,23 +1671,62 @@
       return { options: [], isFallback: false };
     }
 
+    function unpackTableRows(rawRows) {
+      if (Array.isArray(rawRows)) {
+        return rawRows.map(r => Array.isArray(r) ? r.map(c => String(c ?? "")) : [String(r ?? "")]);
+      }
+      if (rawRows && typeof rawRows === "object") {
+        return Object.keys(rawRows)
+          .sort((a, b) => (Number(a) || 0) - (Number(b) || 0))
+          .map(k => {
+            const r = rawRows[k];
+            return Array.isArray(r) ? r.map(c => String(c ?? "")) : [String(r ?? "")];
+          });
+      }
+      return [];
+    }
+
+    function sanitizeForFirestore(val) {
+      if (val === undefined) return null;
+      if (val === null || typeof val !== "object") return val;
+      if (val instanceof Date || typeof val.toMillis === "function" || typeof val._methodName === "string") return val;
+      if (Array.isArray(val)) {
+        const hasNestedArray = val.some(item => Array.isArray(item));
+        if (hasNestedArray) {
+          const obj = {};
+          val.forEach((item, idx) => {
+            obj[String(idx)] = sanitizeForFirestore(item);
+          });
+          return obj;
+        }
+        return val.map(item => sanitizeForFirestore(item));
+      }
+      const out = {};
+      for (const [k, v] of Object.entries(val)) {
+        if (v !== undefined) out[k] = sanitizeForFirestore(v);
+      }
+      return out;
+    }
+    const flattenForFirestore = sanitizeForFirestore;
+
     function resolveLocTable(tableData, lang) {
       if (!tableData) return { headers: [], rows: [], isFallback: false };
       const enTbl = tableData.en || (tableData.tableObj && tableData.tableObj.en) || null;
       const hiTbl = tableData.hi || (tableData.tableObj && tableData.tableObj.hi) || null;
-      const valid = (t) => t && ((Array.isArray(t.headers) && t.headers.length > 0) || (Array.isArray(t.rows) && t.rows.length > 0));
+      const rowsOf = (t) => t ? unpackTableRows(t.rows) : [];
+      const valid = (t) => t && ((Array.isArray(t.headers) && t.headers.length > 0) || rowsOf(t).length > 0);
       const enOk = valid(enTbl);
       const hiOk = valid(hiTbl);
-      const enRowCount = enTbl && Array.isArray(enTbl.rows) ? enTbl.rows.length : 0;
-      const hiRowCount = hiTbl && Array.isArray(hiTbl.rows) ? hiTbl.rows.length : 0;
+      const enRows = rowsOf(enTbl);
+      const hiRows = rowsOf(hiTbl);
       if (lang === "en") {
-        if (enOk) return { headers: enTbl.headers || [], rows: enTbl.rows || [], isFallback: false };
-        if (hiOk) return { headers: hiTbl.headers || [], rows: hiTbl.rows || [], isFallback: true };
+        if (enOk) return { headers: enTbl.headers || [], rows: enRows, isFallback: false };
+        if (hiOk) return { headers: hiTbl.headers || [], rows: hiRows, isFallback: true };
       } else {
-        const hiMatchesEn = !enOk || hiRowCount >= enRowCount;
-        if (hiOk && hiMatchesEn) return { headers: hiTbl.headers || [], rows: hiTbl.rows || [], isFallback: false };
-        if (enOk) return { headers: enTbl.headers || [], rows: enTbl.rows || [], isFallback: true };
-        if (hiOk) return { headers: hiTbl.headers || [], rows: hiTbl.rows || [], isFallback: false };
+        const hiMatchesEn = !enOk || hiRows.length >= enRows.length;
+        if (hiOk && hiMatchesEn) return { headers: hiTbl.headers || [], rows: hiRows, isFallback: false };
+        if (enOk) return { headers: enTbl.headers || [], rows: enRows, isFallback: true };
+        if (hiOk) return { headers: hiTbl.headers || [], rows: hiRows, isFallback: false };
       }
       return { headers: [], rows: [], isFallback: false };
     }
@@ -1603,7 +1753,7 @@
       const normTblGrid = (tbl) => {
         if (!tbl || typeof tbl !== "object") return null;
         const headers = Array.isArray(tbl.headers) ? tbl.headers.map(h => String(h ?? "")) : [];
-        const rows = Array.isArray(tbl.rows) ? tbl.rows.map(r => Array.isArray(r) ? r.map(c => String(c ?? "")) : [String(r ?? "")]) : [];
+        const rows = unpackTableRows(tbl.rows);
         return (headers.length || rows.length) ? { headers, rows } : null;
       };
 
@@ -1726,25 +1876,134 @@
       return `${pad(Math.floor(s / 3600))}:${pad(Math.floor((s % 3600) / 60))}:${pad(s % 60)}`;
     }
 
-    // --- Firestore Live Sync ---
-    onSnapshot(doc(db, "portalData", "dashboardConfig"), (snap) => {
-      if (snap.exists()) {
-        const d = snap.data();
-        state.config = {
-          portalTitle: d.portalTitle || "Crack CGPSC Free Test Series",
-          instituteName: d.instituteName || "Crack CGPSC Academy",
-          logoDriveUrl: d.logoDriveUrl || "",
-          resolvedLogoUrl: d.resolvedLogoUrl || toDriveImage(d.logoDriveUrl || ""),
-          apkDownloadUrl: d.apkDownloadUrl || "",
-          playStoreUrl: d.playStoreUrl || "",
-          blocks: (d.blocks || []).sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0)),
-          socialLinks: (d.socialLinks || []).sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0)),
-          meritListLinks: (d.meritListLinks || []).sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0))
-        };
+    // --- Zero-Read GitHub JSON Sync + Cached Firestore Fallback ---
+    function deriveGithubRawBase() {
+      const cfg = ghGetConfig();
+      if (cfg.owner && cfg.repo) {
+        return `https://raw.githubusercontent.com/${cfg.owner}/${cfg.repo}/${cfg.branch || "main"}`;
       }
-      renderHeader();
-      renderPortalTabs();
-    }, (err) => console.warn("Config listener:", err));
+      if (state.config.githubRawBase) {
+        return String(state.config.githubRawBase).replace(/\/+$/, "");
+      }
+      const host = (window.location.hostname || "").toLowerCase();
+      if (host.endsWith(".github.io")) {
+        const owner = host.split(".")[0];
+        const seg = (window.location.pathname || "/").split("/").filter(Boolean)[0];
+        const repo = seg || host;
+        return `https://raw.githubusercontent.com/${owner}/${repo}/main`;
+      }
+      return "";
+    }
+
+    function applyConfigData(d) {
+      if (!d || typeof d !== "object") return;
+      state.config = {
+        portalTitle: d.portalTitle || "Crack CGPSC Free Test Series",
+        instituteName: d.instituteName || "Crack CGPSC Academy",
+        logoDriveUrl: d.logoDriveUrl || "",
+        resolvedLogoUrl: d.resolvedLogoUrl || toDriveImage(d.logoDriveUrl || ""),
+        githubRawBase: d.githubRawBase || state.config.githubRawBase || "",
+        apkDownloadUrl: d.apkDownloadUrl || "",
+        playStoreUrl: d.playStoreUrl || "",
+        blocks: (d.blocks || []).slice().sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0)),
+        socialLinks: (d.socialLinks || []).slice().sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0)),
+        meritListLinks: (d.meritListLinks || []).slice().sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0))
+      };
+    }
+
+    function applyCatalogData(d) {
+      if (!d || typeof d !== "object") return;
+      const schedRaw = Array.isArray(d.scheduled) ? d.scheduled : Object.entries(d.scheduled || {}).map(([id, v]) => ({ ...v, testId: v.testId || id }));
+      const pracRaw = Array.isArray(d.practice) ? d.practice : Object.entries(d.practice || {}).map(([id, v]) => ({ ...v, testId: v.testId || id }));
+      const fldRaw = Array.isArray(d.practiceFolders) ? d.practiceFolders : Object.entries(d.practiceFolders || {}).map(([id, v]) => ({ ...v, id: v.id || id }));
+
+      const sched = schedRaw.map(v => ({
+        ...v,
+        scheduleCategory: String(v.scheduleCategory || "DAILY").toUpperCase(),
+        questionsCleaned: Boolean(v.questionsCleaned),
+        windowStartMs: Number(v.windowStartMs || toMillis(v.windowStartAt)),
+        windowEndMs: Number(v.windowEndMs || toMillis(v.windowEndAt))
+      })).sort((a, b) => b.windowStartMs - a.windowStartMs);
+
+      const prac = pracRaw.map(v => ({
+        ...v,
+        folderId: String(v.folderId || ""),
+        updatedMs: Number(v.updatedMs || toMillis(v.updatedAt))
+      })).sort((a, b) => b.updatedMs - a.updatedMs);
+
+      const folders = fldRaw.map(v => ({
+        id: v.id,
+        name: String(v.name || "Untitled Folder"),
+        parentId: String(v.parentId || ""),
+        colorKey: String(v.colorKey || "blue"),
+        orderIndex: Number(v.orderIndex ?? 0),
+        updatedMs: Number(v.updatedMs || toMillis(v.updatedAt))
+      })).sort((a, b) => (a.orderIndex - b.orderIndex) || a.name.localeCompare(b.name));
+
+      state.catalog = { scheduled: sched, practice: prac, practiceFolders: folders };
+    }
+
+    function readPortalCache() {
+      try {
+        const raw = localStorage.getItem(PORTAL_CACHE_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch (_) { return null; }
+    }
+
+    function writePortalCache() {
+      try {
+        localStorage.setItem(PORTAL_CACHE_KEY, JSON.stringify({
+          config: state.config,
+          catalog: state.catalog,
+          cachedAt: Date.now()
+        }));
+      } catch (_) {}
+    }
+
+    function serializeCatalogForGithub() {
+      return {
+        scheduled: state.catalog.scheduled.map(s => ({
+          testId: s.testId, testCode: s.testCode, title: s.title, instituteName: s.instituteName,
+          scheduleCategory: s.scheduleCategory, durationMinutes: s.durationMinutes,
+          marksCorrect: s.marksCorrect, marksNegative: s.marksNegative, questionCount: s.questionCount,
+          windowStartMs: s.windowStartMs, windowEndMs: s.windowEndMs,
+          questionsCleaned: Boolean(s.questionsCleaned), jsonUrl: s.jsonUrl || "", githubPath: s.githubPath || ""
+        })),
+        practice: state.catalog.practice.map(p => ({
+          testId: p.testId, title: p.title, subjectTag: p.subjectTag, folderId: p.folderId || "",
+          durationMinutes: p.durationMinutes, marksCorrect: p.marksCorrect, marksNegative: p.marksNegative,
+          questionCount: p.questionCount, storageProvider: p.storageProvider || (p.jsonUrl ? "GITHUB" : "FIRESTORE"),
+          githubPath: p.githubPath || "", jsonUrl: p.jsonUrl || "", updatedMs: p.updatedMs || Date.now()
+        })),
+        practiceFolders: (state.catalog.practiceFolders || []).map(f => ({
+          id: f.id, name: f.name, parentId: f.parentId || "", colorKey: f.colorKey || "blue",
+          orderIndex: Number(f.orderIndex ?? 0), updatedMs: f.updatedMs || Date.now()
+        })),
+        updatedAtMs: Date.now()
+      };
+    }
+
+    async function ghSyncPortalSnapshot(kind = "both") {
+      const cfg = ghGetConfig();
+      if (!ghIsConfigured(cfg)) return false;
+      const rawBase = `https://raw.githubusercontent.com/${cfg.owner}/${cfg.repo}/${cfg.branch || "main"}`;
+      state.config.githubRawBase = rawBase;
+      try {
+        if (kind === "config" || kind === "both") {
+          const cfgPayload = JSON.stringify({ ...state.config, githubRawBase: rawBase, updatedAtMs: Date.now() }, null, 2);
+          await ghUploadContent(cfg, "portal/dashboard_config.json", utf8ToBase64(cfgPayload), "Sync dashboard CMS & merit links (0 Firebase reads)");
+        }
+        if (kind === "catalog" || kind === "both") {
+          const catPayload = JSON.stringify(serializeCatalogForGithub(), null, 2);
+          await ghUploadContent(cfg, "portal/test_catalog.json", utf8ToBase64(catPayload), "Sync test catalog & folders (0 Firebase reads)");
+        }
+        writePortalCache();
+        return true;
+      } catch (e) {
+        console.warn("GitHub JSON snapshot sync note:", e);
+        return false;
+      }
+    }
 
     const cleanedSchedSession = new Set();
     async function cleanupEndedScheduledTests(manual = false) {
@@ -1763,75 +2022,114 @@
             [`scheduled.${s.testId}.questionsCleaned`]: true,
             updatedAt: serverTimestamp()
           });
+          s.questionsCleaned = true;
           removedCount++;
         } catch (err) {
           console.warn("Cleanup scheduled payload:", s.testId, err);
         }
       }
       if (removedCount > 0) {
+        await ghSyncPortalSnapshot("catalog");
         showBanner(`Auto-cleaned ${removedCount} ended scheduled test file(s) from Firebase (Merit records preserved for Admin).`);
       }
       return removedCount;
     }
 
-    onSnapshot(doc(db, "portalData", "testCatalog"), (snap) => {
-      if (snap.exists()) {
-        const d = snap.data();
-        const sched = Object.entries(d.scheduled || {}).map(([id, v]) => ({
-          ...v, testId: v.testId || id,
-          scheduleCategory: String(v.scheduleCategory || "DAILY").toUpperCase(),
-          questionsCleaned: Boolean(v.questionsCleaned),
-          windowStartMs: toMillis(v.windowStartAt), windowEndMs: toMillis(v.windowEndAt)
-        })).sort((a, b) => b.windowStartMs - a.windowStartMs);
-        const prac = Object.entries(d.practice || {}).map(([id, v]) => ({
-          ...v, testId: v.testId || id, folderId: String(v.folderId || ""), updatedMs: toMillis(v.updatedAt)
-        })).sort((a, b) => b.updatedMs - a.updatedMs);
-        const folders = Object.entries(d.practiceFolders || {}).map(([id, v]) => ({
-          id: v.id || id,
-          name: String(v.name || "Untitled Folder"),
-          parentId: String(v.parentId || ""),
-          colorKey: String(v.colorKey || "blue"),
-          orderIndex: Number(v.orderIndex ?? 0),
-          updatedMs: toMillis(v.updatedAt)
-        })).sort((a, b) => (a.orderIndex - b.orderIndex) || a.name.localeCompare(b.name));
-        state.catalog = { scheduled: sched, practice: prac, practiceFolders: folders };
-        if (isAdmin()) cleanupEndedScheduledTests(false);
-      }
-      renderPortalTabs();
-    }, (err) => console.warn("Catalog listener:", err));
-
-    let unsubProfile = null, unsubAttempts = null;
-    onAuthStateChanged(auth, (user) => {
-      state.user = user;
-      if (unsubProfile) { unsubProfile(); unsubProfile = null; }
-      if (unsubAttempts) { unsubAttempts(); unsubAttempts = null; }
-
-      if (user) {
-        if (isAdmin() && state.catalog.scheduled.length) cleanupEndedScheduledTests(false);
-        unsubProfile = onSnapshot(doc(db, "users", user.uid), (snap) => {
-          state.profile = snap.exists() ? snap.data() : null;
-          renderHeader();
-          renderPortalTabs();
-          if (state.pendingAction && state.profile) {
-            const act = state.pendingAction;
-            state.pendingAction = null;
-            closeModal();
-            executeAction(act);
-          } else if (state.pendingAction && !state.profile) {
-            openRegistrationModal(false);
-          }
-        });
-        unsubAttempts = onSnapshot(query(collection(db, "users", user.uid, "attempts"), orderBy("submittedAt", "desc"), limit(15)), (qs) => {
-          state.attempts = qs.docs.map(d => d.data());
-          renderPortalTabs();
-        });
-      } else {
-        state.profile = null;
-        state.attempts = [];
-        if (state.tab === "ADMIN") state.tab = "HOME";
-      }
+    async function loadPortalPublicData(forceNetwork = false) {
+      const cache = readPortalCache();
+      if (cache && cache.config) applyConfigData(cache.config);
+      if (cache && cache.catalog) applyCatalogData(cache.catalog);
       renderHeader();
       renderPortalTabs();
+
+      const isFresh = cache && cache.cachedAt && (Date.now() - cache.cachedAt) < PORTAL_CACHE_TTL_MS;
+      if (!forceNetwork && isFresh && (state.catalog.scheduled.length || state.catalog.practice.length)) {
+        state.portalSourceLabel = "Cached (0 Reads)";
+        processPendingDeepLink();
+        return;
+      }
+
+      const rawBase = deriveGithubRawBase();
+      let loadedFromGh = false;
+      if (rawBase && ["http:", "https:"].includes(window.location.protocol)) {
+        try {
+          const bust = `?v=${Date.now()}`;
+          const [cfgRes, catRes] = await Promise.all([
+            fetch(`${rawBase}/portal/dashboard_config.json${bust}`, { cache: "no-store" }),
+            fetch(`${rawBase}/portal/test_catalog.json${bust}`, { cache: "no-store" })
+          ]);
+          if (cfgRes.ok) {
+            applyConfigData(await cfgRes.json());
+            loadedFromGh = true;
+          }
+          if (catRes.ok) {
+            applyCatalogData(await catRes.json());
+            loadedFromGh = true;
+          }
+          if (loadedFromGh) {
+            state.portalSourceLabel = "GitHub CDN (0 Reads)";
+            writePortalCache();
+          }
+        } catch (e) {
+          console.warn("GitHub JSON fetch skipped, falling back once to Firestore:", e);
+        }
+      }
+
+      if (!loadedFromGh || forceNetwork) {
+        try {
+          if (!loadedFromGh) {
+            const [cfgSnap, catSnap] = await Promise.all([
+              getDoc(doc(db, "portalData", "dashboardConfig")),
+              getDoc(doc(db, "portalData", "testCatalog"))
+            ]);
+            if (cfgSnap.exists()) applyConfigData(cfgSnap.data());
+            if (catSnap.exists()) applyCatalogData(catSnap.data());
+            state.portalSourceLabel = "Firestore Cached (1-Time Sync)";
+            writePortalCache();
+          }
+        } catch (err) {
+          console.warn("Firestore 1-time catalog sync:", err);
+        }
+      }
+
+      if (isAdmin()) cleanupEndedScheduledTests(false);
+      renderHeader();
+      renderPortalTabs();
+      processPendingDeepLink();
+      if (forceNetwork) showBanner("Synced latest tests & updates!");
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+      state.user = user;
+      if (user) {
+        let cached = readCachedProfile(user.uid);
+        if (!cached) {
+          try {
+            const snap = await getDoc(doc(db, "users", user.uid));
+            cached = snap.exists() ? snap.data() : null;
+            if (cached) writeCachedProfile(user.uid, cached);
+          } catch (e) {
+            console.warn("Profile load:", e);
+          }
+        }
+        state.profile = cached;
+        if (isAdmin() && state.catalog.scheduled.length) cleanupEndedScheduledTests(false);
+        renderHeader();
+        renderPortalTabs();
+        if (state.pendingAction && state.profile) {
+          const act = state.pendingAction;
+          state.pendingAction = null;
+          closeModal();
+          executeAction(act);
+        } else if (state.pendingAction && !state.profile) {
+          openRegistrationModal(false);
+        }
+      } else {
+        state.profile = null;
+        if (state.tab === "ADMIN") state.tab = "HOME";
+        renderHeader();
+        renderPortalTabs();
+      }
     });
 
     // Live 1s countdown ticker
@@ -1852,22 +2150,16 @@
 
       const img = document.getElementById("headerLogoImg");
       const fallbackIco = document.getElementById("headerFallbackLogo");
-      const logoSrc = state.config.resolvedLogoUrl || toDriveImage(state.config.logoDriveUrl);
+      const rawLogo = state.config.logoDriveUrl || state.config.resolvedLogoUrl || "";
+      const logoSrc = rawLogo ? toDriveImage(rawLogo) : "";
       if (logoSrc) {
+        img.dataset.fbStep = "0";
+        img.onerror = () => window.__onPortalImgErr(img, rawLogo, "headerFallbackLogo");
         img.src = logoSrc;
-        img.onerror = () => {
-          const fb = toDriveImageFallback(state.config.logoDriveUrl);
-          if (fb && img.src !== fb) {
-            img.src = fb;
-          } else {
-            img.classList.add("hidden");
-            fallbackIco.classList.remove("hidden");
-          }
-          img.onerror = null;
-        };
         img.classList.remove("hidden");
         fallbackIco.classList.add("hidden");
       } else {
+        img.onerror = null;
         img.classList.add("hidden");
         fallbackIco.classList.remove("hidden");
       }
@@ -1883,6 +2175,8 @@
       else if (state.profile) accLbl.textContent = state.profile.studentName.split(" ")[0];
       else accLbl.textContent = "Register";
     }
+
+    document.getElementById("syncPortalBtn").addEventListener("click", () => loadPortalPublicData(true));
 
     document.querySelectorAll(".nav-item-btn").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -2006,26 +2300,22 @@
               studentName, dateOfBirth, email, mobileNumber, updatedAt: serverTimestamp()
             });
           }
-          const regEntry = {
+          const updatedProfile = {
             uid, studentName, dateOfBirth, email, mobileNumber, rollNumber,
-            createdAt: state.profile?.createdAt || serverTimestamp(),
-            updatedAt: serverTimestamp()
+            createdAtMs: state.profile?.createdAtMs || Date.now(),
+            updatedAtMs: Date.now()
           };
-          try {
-            await updateDoc(doc(db, "portalData", "userRegistry"), {
-              [`users.${uid}`]: regEntry,
-              updatedAt: serverTimestamp()
-            });
-          } catch (e) {
-            if (e.code === "not-found" || e.code === "permission-denied") {
-              await setDoc(doc(db, "portalData", "userRegistry"), {
-                users: { [uid]: regEntry },
-                updatedAt: serverTimestamp()
-              });
-            } else throw e;
-          }
+          state.profile = updatedProfile;
+          writeCachedProfile(uid, updatedProfile);
           closeModal();
+          renderHeader();
+          renderPortalTabs();
           showBanner(`Admit Card Ready • Roll No: ${rollNumber}`);
+          if (state.pendingAction) {
+            const act = state.pendingAction;
+            state.pendingAction = null;
+            executeAction(act);
+          }
         } catch (err) {
           alert("Registration failed: " + err.message);
         }
@@ -2054,6 +2344,144 @@
       `);
       document.getElementById("accEdit").onclick = () => openRegistrationModal(true);
       document.getElementById("accOut").onclick = async () => { await signOut(auth); closeModal(); };
+    }
+
+    // --- Deep Link & Pre-Exam Official Instructions Gate ---
+    function buildShareableTestUrl({ testId = "", testCode = "", practiceId = "", mode = "TEST" }) {
+      const base = ["http:", "https:"].includes(window.location.protocol)
+        ? `${window.location.origin}${window.location.pathname}`
+        : "https://crackcgpsc.github.io/T/";
+      const params = new URLSearchParams();
+      if (testId) params.set("test", testId);
+      if (testCode) params.set("code", testCode);
+      if (practiceId) {
+        params.set("practice", practiceId);
+        params.set("mode", mode || "TEST");
+      }
+      return `${base}?${params.toString()}`;
+    }
+
+    async function copyTextSafe(text, label = "Link copied!") {
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          document.body.removeChild(ta);
+        }
+        showBanner(label);
+      } catch (_) {
+        prompt("Copy link manually:", text);
+      }
+    }
+
+    function parseDeepLinkFromUrl() {
+      try {
+        const sp = new URLSearchParams(window.location.search || "");
+        const test = (sp.get("test") || "").trim();
+        const code = (sp.get("code") || "").trim().toUpperCase();
+        const practice = (sp.get("practice") || "").trim();
+        const mode = (sp.get("mode") || "TEST").trim().toUpperCase() === "QUIZ" ? "QUIZ" : "TEST";
+        if (!test && !code && !practice) return null;
+        return { test, code, practice, mode };
+      } catch (_) { return null; }
+    }
+
+    state.pendingDeepLink = parseDeepLinkFromUrl();
+
+    function processPendingDeepLink() {
+      if (state.deepLinkHandled || !state.pendingDeepLink) return;
+      const dl = state.pendingDeepLink;
+      state.deepLinkHandled = true;
+      try {
+        const cleanUrl = window.location.pathname + (window.location.hash || "");
+        window.history.replaceState({}, document.title, cleanUrl);
+      } catch (_) {}
+
+      if (dl.practice) {
+        const ps = state.catalog.practice.find(x => x.testId === dl.practice);
+        if (ps) openPreExamInstructionsModal({ type: "PRACTICE", summary: ps, mode: dl.mode });
+        else showBanner("Shared practice test was not found in the library.");
+        return;
+      }
+      if (dl.test || dl.code) {
+        const match = state.catalog.scheduled.find(x => (dl.test && x.testId === dl.test) || (dl.code && String(x.testCode || "").toUpperCase() === dl.code));
+        if (match) openPreExamInstructionsModal({ type: "SCHEDULED", summary: match });
+        else if (dl.code) openPreExamInstructionsModal({ type: "CODE", code: dl.code });
+        else openPreExamInstructionsModal({ type: "SCHEDULED_ID", testId: dl.test });
+      }
+    }
+
+    function openPreExamInstructionsModal(target) {
+      const s = target.summary || null;
+      const isSched = target.type !== "PRACTICE";
+      const now = Date.now();
+      const title = s ? s.title : (target.code ? `Scheduled Exam (Code: ${target.code})` : "Scheduled Mock Exam");
+      const meta = s
+        ? `${s.questionCount || "?"} Qs • ${s.durationMinutes} Mins • +${s.marksCorrect} / -${s.marksNegative}`
+        : "Timed All-State Scheduled Exam";
+      const windowNote = (s && s.windowStartMs && s.windowEndMs)
+        ? `${fmtDate(s.windowStartMs)} &rarr; ${fmtDate(s.windowEndMs)}`
+        : "";
+      const isUpcoming = s && s.windowStartMs && now < s.windowStartMs;
+      const isEnded = s && s.windowEndMs && now > s.windowEndMs;
+
+      const ctaLabel = !state.user
+        ? "Sign In with Google &amp; Start"
+        : (!state.profile ? "Complete 1-Time Registration &amp; Start" : "I Agree &amp; Start Exam Now");
+
+      const schedRulesHtml = isSched ? `
+        <div class="stack" style="gap:8px;margin-bottom:14px;">
+          <div class="instr-rule"><span>1&#8419;</span><div><strong>Single-Attempt Policy:</strong> A registered student gets <strong>only 1 attempt</strong> for each Scheduled Exam. Once submitted, re-attempting is locked.</div></div>
+          <div class="instr-rule"><span>&#127942;</span><div><strong>Merit List Result:</strong> Your instant scorecard saves on your device immediately. The <strong>Official All-State Merit List PDF</strong> is published after the exam window ends on our Telegram channel &amp; Results tab.</div></div>
+          <div class="instr-rule"><span>&#128274;</span><div><strong>Proctoring &amp; Registration:</strong> Complete 1-time registration (Name, DOB, Mobile) to receive your official Roll Number before starting.</div></div>
+        </div>
+      ` : `
+        <div class="stack" style="gap:8px;margin-bottom:14px;">
+          <div class="instr-rule"><span>&#9989;</span><div><strong>Unlimited Practice (${esc(target.mode)} Mode):</strong> Practice freely! Scorecards are saved locally in your browser's <strong>My Results</strong> tab without consuming server quota.</div></div>
+        </div>
+      `;
+
+      let statusBanner = "";
+      if (isUpcoming) {
+        statusBanner = `<div class="alert-bar" style="margin-bottom:12px;">Exam has not started yet. Opens on <strong>${fmtDate(s.windowStartMs)}</strong>.</div>`;
+      } else if (isEnded) {
+        statusBanner = `<div class="alert-bar" style="margin-bottom:12px;background:var(--rose-50);border-color:#fda4af;color:var(--rose-600);">This Scheduled Exam window has ended. Official Merit List PDF is posted on Telegram &amp; Results tab.</div>`;
+      }
+
+      openModal(`
+        <div class="instr-hero">
+          <div style="font-size:11px;font-weight:800;color:var(--amber-300);letter-spacing:.04em;">${isSched ? "OFFICIAL SCHEDULED CBT INSTRUCTIONS" : "PRACTICE TEST BRIEFING"}</div>
+          <h2 style="margin:4px 0 4px;font-size:18px;color:#fff;">${esc(title)}</h2>
+          <div style="font-size:12.5px;color:#dbeafe;">${meta}${windowNote ? ` • ${windowNote}` : ""}</div>
+        </div>
+        ${statusBanner}
+        ${schedRulesHtml}
+        <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;">
+          <button type="button" class="btn btn-outline" id="instrCancelBtn">Cancel</button>
+          ${!isUpcoming && !isEnded ? `<button type="button" class="btn btn-emerald" id="instrProceedBtn">${ctaLabel}</button>` : ""}
+        </div>
+      `);
+      document.getElementById("instrCancelBtn").onclick = closeModal;
+      const procBtn = document.getElementById("instrProceedBtn");
+      if (procBtn) {
+        procBtn.onclick = () => {
+          closeModal();
+          if (target.type === "PRACTICE") {
+            gateAction({ type: "PRACTICE", testId: target.summary.testId, mode: target.mode || "TEST" });
+          } else if (target.type === "SCHEDULED") {
+            gateAction({ type: "SCHEDULED", summary: target.summary });
+          } else if (target.type === "CODE") {
+            gateAction({ type: "CODE", code: target.code });
+          } else if (target.type === "SCHEDULED_ID") {
+            gateAction({ type: "SCHEDULED_ID", testId: target.testId });
+          }
+        };
+      }
     }
 
     // --- Action Gate ---
@@ -2101,23 +2529,60 @@
           if (now < s.windowStartMs) return alert(`Exam opens on ${fmtDate(s.windowStartMs)}.`);
           if (now > s.windowEndMs) {
             if (isAdmin()) return openRankModal(s);
-            return alert("Test Ended. Official Merit List PDF will be posted in the Dashboard Merit Lists section.");
+            return alert("Test Ended. Official Merit List PDF will be posted on Telegram & Results tab.");
+          }
+          const localAttempt = state.attempts.find(a => a.testId === s.testId && a.isScheduled);
+          if (localAttempt) {
+            return alert(`Single Attempt Completed! Score: ${Number(localAttempt.totalScore).toFixed(2)}. Official Merit List PDF will be shared after exam ends.`);
           }
           const attemptSnap = await getDoc(doc(db, "users", state.user.uid, "attempts", s.testId));
           if (attemptSnap.exists()) {
-            return alert(`Single Attempt Completed! Score: ${attemptSnap.data().totalScore}. Official Merit List PDF will be shared after exam ends.`);
+            const ad = attemptSnap.data();
+            saveLocalAttempt({ ...ad, isScheduled: true, submittedAtMs: toMillis(ad.submittedAt) || Date.now() });
+            return alert(`Single Attempt Completed! Score: ${ad.totalScore}. Official Merit List PDF will be shared after exam ends.`);
           }
-          const testSnap = await getDoc(doc(db, "scheduledTests", s.testId));
-          if (!testSnap.exists()) return showBanner("Scheduled test ended and its question file has been cleaned.");
-          const d = testSnap.data();
-          const parsed = normalizeTestJson({ title: d.title, durationMinutes: d.durationMinutes, positiveMarks: d.marksCorrect, negativeMarks: d.marksNegative, questions: d.questions || [] });
+
+          let payloadData = null;
+          if (s.jsonUrl) {
+            const sep = s.jsonUrl.includes("?") ? "&" : "?";
+            const resp = await fetch(`${s.jsonUrl}${sep}t=${Date.now()}`);
+            if (resp.ok) {
+              const rawText = await resp.text();
+              payloadData = normalizeTestJson(rawText);
+            }
+          }
+          if (!payloadData) {
+            const testSnap = await getDoc(doc(db, "scheduledTests", s.testId));
+            if (!testSnap.exists()) return showBanner("Scheduled test ended and its question file has been cleaned.");
+            const d = testSnap.data();
+            if (d.jsonUrl) {
+              const sep = d.jsonUrl.includes("?") ? "&" : "?";
+              const resp = await fetch(`${d.jsonUrl}${sep}t=${Date.now()}`);
+              if (!resp.ok) throw new Error("Failed to fetch scheduled test JSON from GitHub.");
+              payloadData = normalizeTestJson(await resp.text());
+            } else {
+              payloadData = normalizeTestJson({ title: d.title, durationMinutes: d.durationMinutes, positiveMarks: d.marksCorrect, negativeMarks: d.marksNegative, questions: d.questions || [] });
+            }
+          }
           startExamPlayer({
             testId: s.testId, isScheduled: true, mode: "TEST",
-            title: d.title || parsed.title, durationMinutes: d.durationMinutes || parsed.durationMinutes,
-            marksCorrect: d.marksCorrect ?? parsed.marksCorrect, marksNegative: d.marksNegative ?? parsed.marksNegative,
-            questions: parsed.questions
+            title: s.title || payloadData.title, durationMinutes: s.durationMinutes || payloadData.durationMinutes,
+            marksCorrect: s.marksCorrect ?? payloadData.marksCorrect, marksNegative: s.marksNegative ?? payloadData.marksNegative,
+            questions: payloadData.questions
+          });
+        } else if (action.type === "SCHEDULED_ID") {
+          const testSnap = await getDoc(doc(db, "scheduledTests", action.testId));
+          if (!testSnap.exists()) return alert("Scheduled test not found or already cleaned after expiry.");
+          const v = testSnap.data();
+          executeAction({
+            type: "SCHEDULED",
+            summary: { ...v, testId: testSnap.id, windowStartMs: toMillis(v.windowStartAt), windowEndMs: toMillis(v.windowEndAt) }
           });
         } else if (action.type === "CODE") {
+          const localCat = state.catalog.scheduled.find(x => String(x.testCode || "").toUpperCase() === action.code);
+          if (localCat) {
+            return executeAction({ type: "SCHEDULED", summary: localCat });
+          }
           const q = query(collection(db, "scheduledTests"), where("testCode", "==", action.code), limit(1));
           const qs = await getDocs(q);
           if (qs.empty) return alert(`No scheduled test found for code "${action.code}".`);
@@ -2158,7 +2623,7 @@
             ${b.badgeText ? `<span class="badge" style="background:var(--amber-500);color:var(--navy-950);margin-bottom:8px;">${esc(b.badgeText)}</span>` : ""}
             <h2 style="margin:4px 0 8px;font-size:21px;font-weight:800;">${esc(b.title)}</h2>
             ${b.body ? `<p style="margin:0;color:#dbeafe;white-space:pre-line;">${esc(b.body)}</p>` : ""}
-            ${img ? `<img src="${esc(img)}" onerror="this.src='${esc(toDriveImageFallback(b.driveUrl))}';this.onerror=null;" class="cms-img" style="margin-top:12px;${imgStyle}" />` : ""}
+            ${img ? `<img src="${esc(img)}" onerror="window.__onPortalImgErr(this,'${esc(b.driveUrl)}')" class="cms-img" style="margin-top:12px;${imgStyle}" />` : ""}
           </div>
         `;
       }
@@ -2172,7 +2637,7 @@
               ${link ? `<a href="${esc(link)}" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:800;color:var(--navy-900);text-decoration:none;">Visit &rarr;</a>` : ""}
             </div>
             ${b.title ? `<h3 style="margin:0 0 6px;color:#78350f;font-size:15.5px;">${esc(b.title)}</h3>` : ""}
-            ${img ? `<img src="${esc(img)}" onerror="this.src='${esc(toDriveImageFallback(b.driveUrl))}';this.onerror=null;" class="cms-img" style="margin-bottom:6px;${imgStyle}" />` : ""}
+            ${img ? `<img src="${esc(img)}" onerror="window.__onPortalImgErr(this,'${esc(b.driveUrl)}')" class="cms-img" style="margin-bottom:6px;${imgStyle}" />` : ""}
             ${b.body ? `<p style="margin:0;color:#78350f;font-size:13px;white-space:pre-line;">${esc(b.body)}</p>` : ""}
           </div>
         `;
@@ -2183,7 +2648,7 @@
           <div class="card ${colCls}">
             ${b.badgeText ? `<span class="badge badge-blue" style="margin-bottom:6px;">${esc(b.badgeText)}</span>` : ""}
             ${b.title ? `<h3 style="margin:0 0 8px;">${esc(b.title)}</h3>` : ""}
-            ${img ? `<img src="${esc(img)}" onerror="this.src='${esc(toDriveImageFallback(b.driveUrl))}';this.onerror=null;" class="cms-img" style="${imgStyle}" />` : ""}
+            ${img ? `<img src="${esc(img)}" onerror="window.__onPortalImgErr(this,'${esc(b.driveUrl)}')" class="cms-img" style="${imgStyle}" />` : ""}
             ${b.body ? `<p style="margin:8px 0 0;color:var(--slate-500);font-size:13px;white-space:pre-line;">${esc(b.body)}</p>` : ""}
           </div>
         `;
@@ -2674,7 +3139,7 @@
       rootEl.querySelectorAll("[data-join-sched]").forEach(btn => {
         btn.onclick = () => {
           const s = state.catalog.scheduled.find(x => x.testId === btn.getAttribute("data-join-sched"));
-          if (s) gateAction({ type: "SCHEDULED", summary: s });
+          if (s) openPreExamInstructionsModal({ type: "SCHEDULED", summary: s });
         };
       });
       rootEl.querySelectorAll("[data-play-prac]").forEach(btn => {
@@ -2709,10 +3174,17 @@
         ${hasPracOrFolders ? `<div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;"><h2 style="margin:0;font-size:17px;">Practice &amp; Quiz Library</h2><button class="btn" style="background:transparent;color:var(--royal-600);padding:4px 8px;" data-jump-tab="TESTS">All Folders</button></div>${pracFmHtml}` : ""}
         ${renderFooterHtml()}
       `;
-      document.getElementById("homeCodeJoinBtn").onclick = () => {
+      const triggerHomeCodeJoin = () => {
         const code = document.getElementById("homeCodeInput").value.trim().toUpperCase();
-        if (code) gateAction({ type: "CODE", code });
+        if (!code) return showBanner("Enter a Scheduled Test Code first.");
+        const match = state.catalog.scheduled.find(x => String(x.testCode || "").toUpperCase() === code);
+        if (match) openPreExamInstructionsModal({ type: "SCHEDULED", summary: match });
+        else openPreExamInstructionsModal({ type: "CODE", code });
       };
+      document.getElementById("homeCodeJoinBtn").onclick = triggerHomeCodeJoin;
+      document.getElementById("homeCodeInput").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") { e.preventDefault(); triggerHomeCodeJoin(); }
+      });
       el.querySelectorAll("[data-jump-tab]").forEach(btn => btn.onclick = () => {
         state.tab = btn.getAttribute("data-jump-tab");
         renderHeader(); renderPortalTabs();
@@ -2781,23 +3253,54 @@
     function renderResultsTab() {
       const el = document.getElementById("tabRESULTS");
       const meritTable = renderMeritLinksTableHtml(true);
-      if (!state.user) {
-        el.innerHTML = `${meritTable}<div class="card"><h3>Sign In for Personal Score Cards</h3><p>Sign in with Google to track all your personal exam attempts and scores.</p><button class="btn btn-navy" id="resSignInBtn">Sign In with Google</button></div>${renderFooterHtml()}`;
-        document.getElementById("resSignInBtn").onclick = openSignInModal;
-        return;
-      }
+      const signInHint = !state.user ? `
+        <div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:var(--royal-50);border-color:#bfdbfe;">
+          <div>
+            <strong>Sign In for Official Scheduled Exams &amp; Admit Card</strong>
+            <div style="font-size:12.5px;color:var(--slate-500);">Practice scores are stored locally on this device (0 server reads). Sign in once for Scheduled Merit tests.</div>
+          </div>
+          <button class="btn btn-navy" id="resSignInBtn">Sign In with Google</button>
+        </div>
+      ` : "";
 
       const attemptsHtml = state.attempts.map(a => `
         <div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
           <div>
-            <strong>${esc(a.testTitle)}</strong>
-            <div style="font-size:12px;color:var(--slate-500);">${esc(a.mode)} MODE • ✓ ${a.correctCount} • ✗ ${a.wrongCount} • Acc ${a.accuracyPercent}% ${a.appSwitchWarnings ? `• ⚠ ${a.appSwitchWarnings} switches` : ""}</div>
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:2px;">
+              <strong>${esc(a.testTitle)}</strong>
+              ${a.isScheduled ? `<span class="badge badge-amber">SCHEDULED</span>` : `<span class="badge badge-blue">LOCAL CACHE</span>`}
+            </div>
+            <div style="font-size:12px;color:var(--slate-500);">${esc(a.mode)} MODE &bull; &#10003; ${a.correctCount} &bull; &#10007; ${a.wrongCount} &bull; Acc ${a.accuracyPercent}% ${a.submittedAtMs ? `&bull; ${fmtDate(a.submittedAtMs)}` : ""} ${a.appSwitchWarnings ? `&bull; &#9888; ${a.appSwitchWarnings} switches` : ""}</div>
           </div>
           <div class="mono" style="font-weight:800;color:var(--royal-600);font-size:16px;">${Number(a.totalScore).toFixed(2)} / ${Number(a.maxScore).toFixed(0)}</div>
         </div>
-      `).join("") || `<div class="card">No exam attempts recorded yet.</div>`;
+      `).join("") || `<div class="card" style="font-size:13px;color:var(--slate-500);">No local exam attempts recorded on this device yet. Attempt a Practice or Scheduled test to save scorecards here instantly (0 Firebase reads).</div>`;
 
-      el.innerHTML = `${meritTable}<h2 style="margin-top:8px;">My Attempt History</h2><div class="stack">${attemptsHtml}</div>${renderFooterHtml()}`;
+      el.innerHTML = `
+        ${meritTable}
+        ${signInHint}
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:6px;">
+          <div>
+            <h2 style="margin:0;font-size:17px;">My Local Attempt History (${state.attempts.length})</h2>
+            <div style="font-size:12px;color:var(--slate-500);">Saved securely in browser localStorage (0 Firebase Read/Write quota used)</div>
+          </div>
+          ${state.attempts.length ? `<button class="btn btn-outline" id="clearLocalAttemptsBtn" style="color:var(--rose-600);padding:7px 11px;font-size:12px;">Clear Local History</button>` : ""}
+        </div>
+        <div class="stack">${attemptsHtml}</div>
+        ${renderFooterHtml()}
+      `;
+      const resSignInBtn = document.getElementById("resSignInBtn");
+      if (resSignInBtn) resSignInBtn.onclick = openSignInModal;
+      const clrBtn = document.getElementById("clearLocalAttemptsBtn");
+      if (clrBtn) {
+        clrBtn.onclick = () => {
+          if (confirm("Clear local practice & cached scorecards from this browser?\n(Server-locked Scheduled exam records remain safe.)")) {
+            clearLocalAttempts();
+            renderResultsTab();
+            showBanner("Cleared local attempt history.");
+          }
+        };
+      }
     }
 
     // --- Admin-Only Merit Rank List & Printable PDF ---
@@ -2839,7 +3342,8 @@
               <h2 style="margin:0;">${esc(summary.title)} — Merit Rank List</h2>
               <div style="font-size:12px;color:var(--slate-500);">${esc(summary.instituteName || state.config.instituteName)} • Code: ${esc(summary.testCode)} • Candidates: ${sorted.length}</div>
             </div>
-            <div style="display:flex;gap:8px;">
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button class="btn btn-outline" id="downloadRankCsvBtn">Export CSV</button>
               <button class="btn btn-primary" id="printRankPdfBtn">Download / Print Rank PDF</button>
               <button class="btn btn-outline" id="closeRankBtn">Close</button>
             </div>
@@ -2848,6 +3352,23 @@
         `, true);
 
         document.getElementById("closeRankBtn").onclick = closeModal;
+        document.getElementById("downloadRankCsvBtn").onclick = () => {
+          const escCsv = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+          const header = ["Rank", "Student Name", "Roll Number", "Total Score", "Max Score", "Correct", "Wrong", "Accuracy %", "Time (sec)"];
+          const csvRows = [header.map(escCsv).join(","), ...sorted.map(e => [
+            e.rank, e.studentName, e.rollNumber, Number(e.totalScore).toFixed(2), Number(e.maxScore).toFixed(0),
+            e.correctCount, e.wrongCount, e.accuracyPercent, e.timeTakenSeconds
+          ].map(escCsv).join(","))];
+          const blob = new Blob([csvRows.join("\n")], { type: "text/csv;charset=utf-8;" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `${(summary.testCode || summary.testId || "merit_list").replace(/[^a-zA-Z0-9_-]/g, "_")}_merit.csv`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        };
         document.getElementById("printRankPdfBtn").onclick = () => {
           const logo = state.config.resolvedLogoUrl || toDriveImage(state.config.logoDriveUrl);
           document.getElementById("printArea").innerHTML = `
@@ -2968,7 +3489,7 @@
             <span class="opt-circle">${String.fromCharCode(65 + oIdx)}</span>
             <div style="flex:1;min-width:0;">
               ${String(optText).trim() ? `<div>${formatRichHtml(optText)}</div>` : ""}
-              ${optImg ? `<img src="${esc(optImg)}" onerror="this.src='${esc(toDriveImageFallback(optImgs[oIdx]))}';this.onerror=null;" class="q-opt-img" alt="Option ${String.fromCharCode(65 + oIdx)}" />` : ""}
+              ${optImg ? `<img src="${esc(optImg)}" onerror="window.__onPortalImgErr(this,'${esc(optImgs[oIdx])}')" class="q-opt-img" alt="Option ${String.fromCharCode(65 + oIdx)}" />` : ""}
             </div>
           </button>
         `;
@@ -3021,7 +3542,7 @@
                 <div class="q-passage-box">
                   <div style="font-size:11px;font-weight:800;color:var(--royal-600);margin-bottom:4px;">PASSAGE / COMPREHENSION</div>
                   ${rpass.text ? `<div>${formatRichHtml(rpass.text)}</div>` : ""}
-                  ${q.passageImage ? `<img src="${esc(toDriveImage(q.passageImage))}" onerror="this.src='${esc(toDriveImageFallback(q.passageImage))}';this.onerror=null;" style="max-height:220px;max-width:100%;object-fit:contain;border-radius:10px;margin-top:8px;" />` : ""}
+                  ${q.passageImage ? `<img src="${esc(toDriveImage(q.passageImage))}" onerror="window.__onPortalImgErr(this,'${esc(q.passageImage)}')" style="max-height:220px;max-width:100%;object-fit:contain;border-radius:10px;margin-top:8px;" />` : ""}
                 </div>
               ` : ""}
 
@@ -3046,7 +3567,7 @@
 
               ${rq.text ? `<div style="font-size:15.5px;font-weight:600;line-height:1.6;">${formatRichHtml(rq.text)}</div>` : ""}
 
-              ${q.image ? `<img src="${esc(toDriveImage(q.image))}" onerror="this.src='${esc(toDriveImageFallback(q.image))}';this.onerror=null;" style="max-height:250px;max-width:100%;object-fit:contain;border-radius:10px;margin:0 auto;display:block;" alt="Question visual" />` : ""}
+              ${q.image ? `<img src="${esc(toDriveImage(q.image))}" onerror="window.__onPortalImgErr(this,'${esc(q.image)}')" style="max-height:250px;max-width:100%;object-fit:contain;border-radius:10px;margin:0 auto;display:block;" alt="Question visual" />` : ""}
 
               <div class="stack" style="gap:9px;">${optsHtml}</div>
 
@@ -3054,7 +3575,7 @@
                 <div class="q-exp-box">
                   <strong>Explanation &amp; Solution:</strong>
                   <div style="margin-top:4px;">${formatRichHtml(rexp.text || (p.lang === "hi" ? "स्पष्टीकरण उपलब्ध नहीं है।" : "No explanation provided."))}</div>
-                  ${q.explanationImage ? `<img src="${esc(toDriveImage(q.explanationImage))}" onerror="this.src='${esc(toDriveImageFallback(q.explanationImage))}';this.onerror=null;" style="max-height:220px;max-width:100%;object-fit:contain;border-radius:10px;margin-top:8px;" />` : ""}
+                  ${q.explanationImage ? `<img src="${esc(toDriveImage(q.explanationImage))}" onerror="window.__onPortalImgErr(this,'${esc(q.explanationImage)}')" style="max-height:220px;max-width:100%;object-fit:contain;border-radius:10px;margin-top:8px;" />` : ""}
                 </div>
               ` : ""}
 
@@ -3172,33 +3693,47 @@
       const timeTakenSeconds = Math.max(0, p.durationMinutes * 60 - p.remainingSec);
 
       p.result = { correctCount, wrongCount, unattemptedCount, totalScore, maxScore, accuracyPercent, timeTakenSeconds, neg };
+      saveLocalAttempt({
+        testId: p.testId,
+        testTitle: p.title,
+        mode: p.mode,
+        isScheduled: Boolean(p.isScheduled),
+        correctCount,
+        wrongCount,
+        unattemptedCount,
+        totalScore,
+        maxScore,
+        accuracyPercent,
+        timeTakenSeconds,
+        appSwitchWarnings: p.warnings,
+        submittedAtMs: Date.now()
+      });
       renderPlayer();
       showPlayerScoreModal();
 
-      if (state.user && state.profile && !String(p.testId).startsWith("local_")) {
+      if (p.isScheduled && state.user && state.profile && !String(p.testId).startsWith("local_")) {
         try {
-          if (p.isScheduled) {
-            await updateDoc(doc(db, "testMeritSheets", p.testId), {
-              [`entries.${state.user.uid}`]: {
-                uid: state.user.uid, studentName: state.profile.studentName, rollNumber: state.profile.rollNumber,
-                totalScore, maxScore, correctCount, wrongCount, unattemptedCount,
-                accuracyPercent, timeTakenSeconds, appSwitchWarnings: p.warnings, submittedAt: serverTimestamp()
-              },
-              updatedAt: serverTimestamp()
-            });
-          }
-          const attemptId = p.isScheduled ? p.testId : `${p.testId}_${Date.now()}`;
-          await setDoc(doc(db, "users", state.user.uid, "attempts", attemptId), {
+          await updateDoc(doc(db, "testMeritSheets", p.testId), {
+            [`entries.${state.user.uid}`]: {
+              uid: state.user.uid, studentName: state.profile.studentName, rollNumber: state.profile.rollNumber,
+              totalScore, maxScore, correctCount, wrongCount, unattemptedCount,
+              accuracyPercent, timeTakenSeconds, appSwitchWarnings: p.warnings, submittedAt: serverTimestamp()
+            },
+            updatedAt: serverTimestamp()
+          });
+          await setDoc(doc(db, "users", state.user.uid, "attempts", p.testId), {
             userId: state.user.uid, testId: p.testId, testTitle: p.title, mode: p.mode,
             rollNumber: state.profile.rollNumber, studentName: state.profile.studentName,
             correctCount, wrongCount, unattemptedCount, totalScore, maxScore,
             accuracyPercent, timeTakenSeconds, appSwitchWarnings: p.warnings,
             selectedOptions, submittedAt: serverTimestamp()
           });
-          showBanner(p.isScheduled ? "Score recorded in Official Merit Sheet!" : "Attempt saved to My Results!");
+          showBanner("Scheduled attempt synced to Official Merit Sheet & cached locally!");
         } catch (err) {
-          alert("Score sync warning: " + err.message);
+          alert("Merit sync warning: " + err.message);
         }
+      } else {
+        showBanner("Scorecard saved to local cache (0 Firebase quota used)!");
       }
     }
 
@@ -3396,7 +3931,13 @@
                 <input id="admPlayUrl" placeholder="https://play.google.com/store/apps/details?id=..." value="${esc(state.config.playStoreUrl)}" />
               </div>
             </div>
-            <button class="btn btn-emerald" id="saveBrandBtn">Publish Branding &amp; Footer Live</button>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button class="btn btn-emerald" style="flex:1;" id="saveBrandBtn">Publish Branding &amp; Footer Live</button>
+              <button class="btn btn-outline" id="pushAllGhBtn" ${ghReady ? "" : "disabled"}>Push CMS &amp; Catalog to GitHub (0-Read)</button>
+            </div>
+            <div class="storage-pill gh" style="margin-top:4px;">
+              Quota Mode: GitHub CDN (0 Firebase Reads) &bull; Practice Results: localStorage (0 Reads) &bull; Students: Paginated 50/Page
+            </div>
           </div>
         `;
       } else if (state.adminSubTab === "CMS") {
@@ -3564,7 +4105,8 @@
               <strong>${esc(p.title)}</strong>
               <div style="font-size:12px;color:var(--slate-500);">${esc(p.subjectTag)} • ${p.questionCount} Qs • ${p.durationMinutes}m • <strong style="color:${p.jsonUrl ? "var(--emerald-600)" : "var(--amber-600)"};">${p.jsonUrl ? `GitHub (${esc(p.githubPath || "0-Read")})` : "Firestore"}</strong></div>
             </div>
-            <div style="display:flex;gap:6px;">
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+              <button class="btn btn-outline" data-copy-prac-link="${esc(p.testId)}">Copy Link</button>
               <button class="btn btn-outline" data-edit-prac="${esc(p.testId)}">Edit</button>
               <button class="btn btn-rose" data-del-prac="${esc(p.testId)}">Delete</button>
             </div>
@@ -3676,10 +4218,13 @@
             <div>
               <span class="badge badge-blue">${esc(s.scheduleCategory || "DAILY")}</span>
               <strong>${esc(s.title)}</strong> <span class="mono" style="color:var(--royal-600);">(${esc(s.testCode)})</span>
+              ${s.jsonUrl ? `<span class="badge badge-green">GitHub 0-Read</span>` : ""}
               ${s.questionsCleaned ? `<span class="badge badge-amber">Questions Cleaned</span>` : ""}
               <div style="font-size:12px;color:var(--slate-500);">${fmtDate(s.windowStartMs)} &rarr; ${fmtDate(s.windowEndMs)}</div>
             </div>
-            <div style="display:flex;gap:6px;">
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+              <button class="btn btn-outline" data-copy-sched-link="${esc(s.testId)}">Copy Link</button>
+              <button class="btn btn-wa" data-wa-sched-link="${esc(s.testId)}">WhatsApp</button>
               <button class="btn btn-primary" data-adm-rank="${esc(s.testId)}">Rank List &amp; PDF</button>
               <button class="btn btn-rose" data-adm-del-sched="${esc(s.testId)}">Delete</button>
             </div>
@@ -3789,11 +4334,20 @@
             ${meritMgrRows ? `<div>${meritMgrRows}</div>` : `<div style="font-size:12.5px;color:var(--slate-500);">No Telegram Merit PDF links added yet.</div>`}
           </div>
           <div class="card stack">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <h3 style="margin:0;">Consolidated Student Directory (1 Read)</h3>
-              <button class="btn btn-outline" id="syncUsersBtn">Load Directory</button>
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+              <div>
+                <h3 style="margin:0;">Student Directory (Paginated 50/Page &bull; No 1MB Crash)</h3>
+                <div style="font-size:12px;color:var(--slate-500);">Scales to 100k+ students using per-user docs &amp; cursors (${state.adminUsers.length} loaded)</div>
+              </div>
+              <button class="btn btn-outline" id="syncUsersBtn">Load First 50</button>
             </div>
-            ${state.adminUsers.length ? `<table><thead><tr><th>Name</th><th>Roll No</th><th>DOB</th><th>Mobile</th><th>Email</th></tr></thead><tbody>${usersRows}</tbody></table>` : `<p style="font-size:13px;color:var(--slate-500);">Click Load Directory to inspect all registered students in 1 Firestore read.</p>`}
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+              <input id="admUserSearchInp" placeholder="Exact Roll No (CGPSC-2026-...) or Email" value="${esc(state.adminUserSearch || "")}" style="flex:1;min-width:200px;" />
+              <button class="btn btn-navy" id="admUserSearchBtn">Find Student</button>
+              ${state.adminUserSearch ? `<button class="btn btn-outline" id="admUserResetBtn">Reset</button>` : ""}
+            </div>
+            ${state.adminUsers.length ? `<div class="merit-table-wrap"><table><thead><tr><th>Name</th><th>Roll No</th><th>DOB</th><th>Mobile</th><th>Email</th></tr></thead><tbody>${usersRows}</tbody></table></div>` : `<p style="font-size:13px;color:var(--slate-500);margin:0;">Click Load First 50 or search by exact Roll No / Email.</p>`}
+            ${state.adminUsersHasMore ? `<button class="btn btn-outline" id="loadMoreUsersBtn">Load Next 50 Students &darr;</button>` : ""}
           </div>
         `;
       }
@@ -3895,6 +4449,20 @@
             alert("Save Branding failed [Step: portalData/dashboardConfig]: " + err.message);
           }
         };
+        const pushAllGhBtn = document.getElementById("pushAllGhBtn");
+        if (pushAllGhBtn) {
+          pushAllGhBtn.onclick = async () => {
+            pushAllGhBtn.disabled = true;
+            pushAllGhBtn.textContent = "Pushing...";
+            try {
+              const ok = await ghSyncPortalSnapshot("both");
+              showBanner(ok ? "Pushed CMS & Catalog JSON to GitHub! Students now use 0 Firebase reads." : "GitHub push failed — verify repo & token.");
+            } finally {
+              pushAllGhBtn.disabled = false;
+              pushAllGhBtn.textContent = "Push CMS & Catalog to GitHub (0-Read)";
+            }
+          };
+        }
       } else if (state.adminSubTab === "CMS") {
         const resetCmsDraft = () => {
           state.cmsDraft = { type: "TEXT_ARTICLE", badgeText: "", title: "", body: "", driveUrl: "", layoutWidth: "FULL", imageWidthPercent: 100, imageMaxHeight: 300, imageFit: "CONTAIN", videoFormat: "AUTO" };
@@ -4103,8 +4671,16 @@
               orderIndex,
               updatedAt: serverTimestamp()
             });
+            const localF = { id: folderId, name, parentId, colorKey, orderIndex, updatedMs: Date.now() };
+            const foldersCopy = (state.catalog.practiceFolders || []).slice();
+            const fIdx = foldersCopy.findIndex(f => f.id === folderId);
+            if (fIdx >= 0) foldersCopy[fIdx] = localF; else foldersCopy.push(localF);
+            state.catalog.practiceFolders = foldersCopy.sort((a, b) => (a.orderIndex - b.orderIndex) || a.name.localeCompare(b.name));
+            writePortalCache();
+            await ghSyncPortalSnapshot("catalog");
             state.editingFolderId = null;
             showBanner(existing ? `Renamed folder to "${name}"!` : `Created folder "${name}"!`);
+            renderAdminTab();
           } catch (err) {
             alert("Folder save failed: " + err.message);
           }
@@ -4117,12 +4693,18 @@
           ].filter(p => !existingNames.has(p.name.toLowerCase()));
           if (!presets.length) return showBanner("Topic Wise Tests & Previous Year Papers folders already exist.");
           try {
+            const foldersCopy = (state.catalog.practiceFolders || []).slice();
             for (const p of presets) {
               await upsertCatalog("practiceFolders", p.id, {
                 id: p.id, name: p.name, parentId: "", colorKey: p.colorKey, orderIndex: p.orderIndex, updatedAt: serverTimestamp()
               });
+              foldersCopy.push({ id: p.id, name: p.name, parentId: "", colorKey: p.colorKey, orderIndex: p.orderIndex, updatedMs: Date.now() });
             }
+            state.catalog.practiceFolders = foldersCopy.sort((a, b) => (a.orderIndex - b.orderIndex) || a.name.localeCompare(b.name));
+            writePortalCache();
+            await ghSyncPortalSnapshot("catalog");
             showBanner("Added Topic Wise Tests & Previous Year Papers folders!");
+            renderAdminTab();
           } catch (err) {
             alert("Preset folders failed: " + err.message);
           }
@@ -4138,13 +4720,19 @@
               const updates = { [`practiceFolders.${fid}`]: deleteField(), updatedAt: serverTimestamp() };
               (state.catalog.practiceFolders || []).filter(f => (f.parentId || "") === fid).forEach(cf => {
                 updates[`practiceFolders.${cf.id}.parentId`] = targetParent;
+                cf.parentId = targetParent;
               });
               state.catalog.practice.filter(t => (t.folderId || "") === fid).forEach(pt => {
                 updates[`practice.${pt.testId}.folderId`] = targetParent;
+                pt.folderId = targetParent;
               });
               await updateDoc(doc(db, "portalData", "testCatalog"), updates);
+              state.catalog.practiceFolders = (state.catalog.practiceFolders || []).filter(f => f.id !== fid);
               if (state.adminFolderId === fid) state.adminFolderId = targetParent;
+              writePortalCache();
+              await ghSyncPortalSnapshot("catalog");
               showBanner(`Folder "${folderObj.name}" removed.`);
+              renderAdminTab();
             } catch (err) {
               alert("Delete folder failed: " + err.message);
             }
@@ -4219,6 +4807,16 @@
               } catch (e) {
                 throw new Error(`[Step: Save portalData/testCatalog] ${e.message}`);
               }
+              const localPrac = {
+                testId, title, subjectTag, folderId, durationMinutes, marksCorrect, marksNegative,
+                questionCount: limitedQuestions.length, storageProvider: "GITHUB",
+                githubPath: ghRes.githubPath, jsonUrl: ghRes.rawUrl, updatedMs: Date.now()
+              };
+              const nextPrac = state.catalog.practice.filter(x => x.testId !== testId);
+              nextPrac.unshift(localPrac);
+              state.catalog.practice = nextPrac;
+              writePortalCache();
+              await ghSyncPortalSnapshot("catalog");
               state.editingPracticeId = null;
               state.editingPracticePath = "";
               state.editingPracticeCreatedAt = null;
@@ -4227,9 +4825,10 @@
             } else {
               const createdAtVal = (isEdit && state.editingPracticeCreatedAt) ? state.editingPracticeCreatedAt : serverTimestamp();
               try {
+                const firestoreQuestions = limitedQuestions.map(q => sanitizeForFirestore(q));
                 await setDoc(doc(db, "practiceTests", testId), {
                   adminUid: state.user.uid, title, subjectTag, durationMinutes, marksCorrect, marksNegative,
-                  questionCount: limitedQuestions.length, questions: limitedQuestions,
+                  questionCount: firestoreQuestions.length, questions: firestoreQuestions,
                   createdAt: createdAtVal, updatedAt: serverTimestamp()
                 });
               } catch (e) {
@@ -4245,6 +4844,14 @@
               } catch (e) {
                 throw new Error(`[Step: Save portalData/testCatalog] ${e.message}`);
               }
+              const localPrac = {
+                testId, title, subjectTag, folderId, durationMinutes, marksCorrect, marksNegative,
+                questionCount: limitedQuestions.length, storageProvider: "FIRESTORE", updatedMs: Date.now()
+              };
+              const nextPrac = state.catalog.practice.filter(x => x.testId !== testId);
+              nextPrac.unshift(localPrac);
+              state.catalog.practice = nextPrac;
+              writePortalCache();
               state.editingPracticeId = null;
               state.editingPracticePath = "";
               state.editingPracticeCreatedAt = null;
@@ -4257,6 +4864,12 @@
             btn.disabled = false;
           }
         };
+        el.querySelectorAll("[data-copy-prac-link]").forEach(b => b.onclick = () => {
+          const p = state.catalog.practice.find(x => x.testId === b.getAttribute("data-copy-prac-link"));
+          if (!p) return;
+          const url = buildShareableTestUrl({ practiceId: p.testId, mode: "TEST" });
+          copyTextSafe(url, `Copied link for "${p.title}"!`);
+        });
         el.querySelectorAll("[data-edit-prac]").forEach(b => b.onclick = async () => {
           const p = state.catalog.practice.find(x => x.testId === b.getAttribute("data-edit-prac"));
           if (!p) return;
@@ -4306,7 +4919,11 @@
             }
             await deleteDoc(doc(db, "practiceTests", id)).catch(() => {});
             await updateDoc(doc(db, "portalData", "testCatalog"), { [`practice.${id}`]: deleteField(), updatedAt: serverTimestamp() });
+            state.catalog.practice = state.catalog.practice.filter(x => x.testId !== id);
+            writePortalCache();
+            await ghSyncPortalSnapshot("catalog");
             showBanner("Practice test deleted.");
+            renderAdminTab();
           } catch (err) {
             alert("Delete Failed: " + err.message);
           }
@@ -4343,13 +4960,40 @@
             const startTs = Timestamp.fromDate(new Date(document.getElementById("scStart").value));
             const endTs = Timestamp.fromDate(new Date(document.getElementById("scEnd").value));
             if (endTs.toMillis() <= startTs.toMillis()) throw new Error("[Step: Validate Schedule] End date/time must be after start.");
+
+            const cfg = ghGetConfig();
+            let schedJsonUrl = "";
+            let schedGhPath = "";
+            if (ghIsConfigured(cfg)) {
+              const ghRes = await ghUploadContent(
+                cfg,
+                `tests/scheduled/${testId}.json`,
+                utf8ToBase64(JSON.stringify({
+                  title,
+                  durationMinutes,
+                  positiveMarks: marksCorrect,
+                  negativeMarks: marksNegative,
+                  questions: limitedQuestions
+                }, null, 2)),
+                `Publish scheduled exam ${title} (${testCode})`
+              );
+              schedJsonUrl = ghRes.rawUrl;
+              schedGhPath = ghRes.githubPath;
+            }
+
             try {
-              await setDoc(doc(db, "scheduledTests", testId), {
+              const firestoreQuestions = schedJsonUrl ? [] : limitedQuestions.map(q => sanitizeForFirestore(q));
+              const schedDocPayload = {
                 adminUid: state.user.uid, testCode, title, instituteName: state.config.instituteName,
                 scheduleCategory, durationMinutes, marksCorrect, marksNegative, questionCount: limitedQuestions.length,
-                windowStartAt: startTs, windowEndAt: endTs, questions: limitedQuestions,
+                windowStartAt: startTs, windowEndAt: endTs, questions: firestoreQuestions,
                 createdAt: serverTimestamp(), updatedAt: serverTimestamp()
-              });
+              };
+              if (schedJsonUrl) {
+                schedDocPayload.jsonUrl = schedJsonUrl;
+                schedDocPayload.githubPath = schedGhPath;
+              }
+              await setDoc(doc(db, "scheduledTests", testId), schedDocPayload);
             } catch (e) {
               throw new Error(`[Step: Save scheduledTests/${testId}] ${e.message}`);
             }
@@ -4360,16 +5004,29 @@
             } catch (e) {
               throw new Error(`[Step: Save testMeritSheets/${testId}] ${e.message}`);
             }
+            const catalogObj = {
+              testId, testCode, title, instituteName: state.config.instituteName, scheduleCategory,
+              durationMinutes, marksCorrect, marksNegative, questionCount: limitedQuestions.length,
+              windowStartAt: startTs, windowEndAt: endTs, questionsCleaned: false
+            };
+            if (schedJsonUrl) {
+              catalogObj.jsonUrl = schedJsonUrl;
+              catalogObj.githubPath = schedGhPath;
+            }
             try {
-              await upsertCatalog("scheduled", testId, {
-                testId, testCode, title, instituteName: state.config.instituteName, scheduleCategory,
-                durationMinutes, marksCorrect, marksNegative, questionCount: limitedQuestions.length,
-                windowStartAt: startTs, windowEndAt: endTs, questionsCleaned: false
-              });
+              await upsertCatalog("scheduled", testId, catalogObj);
             } catch (e) {
               throw new Error(`[Step: Save portalData/testCatalog] ${e.message}`);
             }
+            state.catalog.scheduled.unshift({
+              ...catalogObj,
+              windowStartMs: startTs.toMillis(),
+              windowEndMs: endTs.toMillis()
+            });
+            writePortalCache();
+            await ghSyncPortalSnapshot("catalog");
             showBanner(`Scheduled "${title}" (${scheduleCategory}) • Code: ${testCode}`);
+            renderAdminTab();
           } catch (err) {
             alert("Publish Failed: " + err.message);
           } finally {
@@ -4400,22 +5057,86 @@
           await saveConfigToFirestore();
           renderAdminTab();
         });
+        el.querySelectorAll("[data-copy-sched-link]").forEach(b => b.onclick = () => {
+          const s = state.catalog.scheduled.find(x => x.testId === b.getAttribute("data-copy-sched-link"));
+          if (!s) return;
+          const url = buildShareableTestUrl({ testId: s.testId, testCode: s.testCode });
+          copyTextSafe(url, `Copied direct test link (Code: ${s.testCode})!`);
+        });
+        el.querySelectorAll("[data-wa-sched-link]").forEach(b => b.onclick = () => {
+          const s = state.catalog.scheduled.find(x => x.testId === b.getAttribute("data-wa-sched-link"));
+          if (!s) return;
+          const url = buildShareableTestUrl({ testId: s.testId, testCode: s.testCode });
+          const msg = `${state.config.portalTitle}\nLive Test: ${s.title}\nTest Code: ${s.testCode}\nDirect Link: ${url}`;
+          window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank", "noopener,noreferrer");
+        });
         el.querySelectorAll("[data-adm-rank]").forEach(b => b.onclick = () => {
           const s = state.catalog.scheduled.find(x => x.testId === b.getAttribute("data-adm-rank"));
           if (s) openRankModal(s);
         });
         el.querySelectorAll("[data-adm-del-sched]").forEach(b => b.onclick = async () => {
           const id = b.getAttribute("data-adm-del-sched");
+          const item = state.catalog.scheduled.find(x => x.testId === id);
           if (!confirm("Delete scheduled exam?")) return;
+          const cfg = ghGetConfig();
+          if (item?.githubPath && ghIsConfigured(cfg)) {
+            await ghDeleteFile(cfg, item.githubPath, `Delete scheduled test ${item.title}`).catch(() => {});
+          }
           await deleteDoc(doc(db, "scheduledTests", id)).catch(() => {});
           await deleteDoc(doc(db, "testMeritSheets", id)).catch(() => {});
           await updateDoc(doc(db, "portalData", "testCatalog"), { [`scheduled.${id}`]: deleteField(), updatedAt: serverTimestamp() });
-        });
-        document.getElementById("syncUsersBtn").onclick = async () => {
-          const snap = await getDoc(doc(db, "portalData", "userRegistry"));
-          state.adminUsers = snap.exists() ? Object.values(snap.data().users || {}) : [];
+          state.catalog.scheduled = state.catalog.scheduled.filter(x => x.testId !== id);
+          writePortalCache();
+          await ghSyncPortalSnapshot("catalog");
           renderAdminTab();
+        });
+
+        const loadUsersPage = async (reset = false) => {
+          const btn = document.getElementById(reset ? "syncUsersBtn" : "loadMoreUsersBtn");
+          if (btn) btn.disabled = true;
+          try {
+            if (reset) {
+              state.adminUsers = [];
+              state.adminUsersLastDoc = null;
+              state.adminUsersHasMore = false;
+              state.adminUserSearch = "";
+            }
+            const q = state.adminUsersLastDoc && !reset
+              ? query(collection(db, "users"), orderBy("createdAt", "desc"), startAfter(state.adminUsersLastDoc), limit(50))
+              : query(collection(db, "users"), orderBy("createdAt", "desc"), limit(50));
+            const qs = await getDocs(q);
+            const batch = qs.docs.map(d => d.data());
+            state.adminUsers = reset ? batch : [...state.adminUsers, ...batch];
+            state.adminUsersLastDoc = qs.docs.length ? qs.docs[qs.docs.length - 1] : null;
+            state.adminUsersHasMore = qs.docs.length === 50;
+            renderAdminTab();
+          } catch (err) {
+            alert("Load students failed: " + err.message);
+          } finally {
+            if (btn) btn.disabled = false;
+          }
         };
+        document.getElementById("syncUsersBtn").onclick = () => loadUsersPage(true);
+        const moreBtn = document.getElementById("loadMoreUsersBtn");
+        if (moreBtn) moreBtn.onclick = () => loadUsersPage(false);
+        document.getElementById("admUserSearchBtn").onclick = async () => {
+          const raw = (document.getElementById("admUserSearchInp")?.value || "").trim();
+          state.adminUserSearch = raw;
+          if (!raw) return loadUsersPage(true);
+          try {
+            const field = raw.includes("@") ? "email" : "rollNumber";
+            const val = raw.includes("@") ? raw.toLowerCase() : raw.toUpperCase();
+            const qs = await getDocs(query(collection(db, "users"), where(field, "==", val), limit(20)));
+            state.adminUsers = qs.docs.map(d => d.data());
+            state.adminUsersLastDoc = null;
+            state.adminUsersHasMore = false;
+            renderAdminTab();
+          } catch (err) {
+            alert("Search failed: " + err.message);
+          }
+        };
+        const resetUserBtn = document.getElementById("admUserResetBtn");
+        if (resetUserBtn) resetUserBtn.onclick = () => loadUsersPage(true);
       }
     }
 
@@ -4423,11 +5144,14 @@
       state.config.blocks.forEach((b, i) => b.orderIndex = i);
       state.config.socialLinks.forEach((s, i) => s.orderIndex = i);
       (state.config.meritListLinks || []).forEach((m, i) => m.orderIndex = i);
+      const rawBase = deriveGithubRawBase();
+      if (rawBase) state.config.githubRawBase = rawBase;
       await setDoc(doc(db, "portalData", "dashboardConfig"), {
         portalTitle: state.config.portalTitle,
         instituteName: state.config.instituteName,
         logoDriveUrl: state.config.logoDriveUrl,
         resolvedLogoUrl: state.config.resolvedLogoUrl,
+        githubRawBase: state.config.githubRawBase || "",
         apkDownloadUrl: state.config.apkDownloadUrl || "",
         playStoreUrl: state.config.playStoreUrl || "",
         blocks: state.config.blocks,
@@ -4435,6 +5159,8 @@
         meritListLinks: state.config.meritListLinks || [],
         updatedAt: serverTimestamp()
       });
+      writePortalCache();
+      await ghSyncPortalSnapshot("config");
       showBanner("Portal Branding & CMS saved live!");
     }
 
@@ -4458,6 +5184,7 @@
 
     renderHeader();
     renderPortalTabs();
+    loadPortalPublicData(false);
   </script>
 </body>
 </html>
