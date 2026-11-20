@@ -1,0 +1,351 @@
+{
+  "scheduled": [
+    {
+      "testId": "sched_1795216464112",
+      "testCode": "CGQN19",
+      "title": "CG Teacher SST  Mock Test",
+      "instituteName": "Crack CGPSC",
+      "scheduleCategory": "DAILY",
+      "durationMinutes": 120,
+      "marksCorrect": 1,
+      "marksNegative": 0.25,
+      "questionCount": 100,
+      "windowStartMs": 1795216320000,
+      "windowEndMs": 1795317120000,
+      "questionsCleaned": false,
+      "jsonUrl": "https://raw.githubusercontent.com/crackcgpsc/Testseries-/main/tests/scheduled/sched_1795216464112.json",
+      "githubPath": "tests/scheduled/sched_1795216464112.json"
+    }
+  ],
+  "practice": [
+    {
+      "testId": "prac_1795196699899",
+      "title": "Question Type Demo Test",
+      "subjectTag": "CGPSC General Studies",
+      "folderId": "fld_1795153852915",
+      "durationMinutes": 30,
+      "marksCorrect": 1,
+      "marksNegative": 0.66,
+      "questionCount": 12,
+      "storageProvider": "GITHUB",
+      "githubPath": "tests/practice/topic-wise-tests/other-subjects/prac_1795196699899.json",
+      "jsonUrl": "https://raw.githubusercontent.com/crackcgpsc/Testseries-/main/tests/practice/topic-wise-tests/other-subjects/prac_1795196699899.json",
+      "updatedMs": 1795196707349
+    }
+  ],
+  "practiceFolders": [
+    {
+      "id": "fld_topic_wise",
+      "name": "Topic Wise Tests",
+      "parentId": "",
+      "colorKey": "blue",
+      "orderIndex": 0,
+      "updatedMs": 1795087812280
+    },
+    {
+      "id": "fld_pyq_papers",
+      "name": "Previous Year Papers",
+      "parentId": "",
+      "colorKey": "amber",
+      "orderIndex": 1,
+      "updatedMs": 1795087812499
+    },
+    {
+      "id": "fld_1795153612560",
+      "name": "Indian GS",
+      "parentId": "fld_topic_wise",
+      "colorKey": "amber",
+      "orderIndex": 2,
+      "updatedMs": 1795153613214
+    },
+    {
+      "id": "fld_1795153623250",
+      "name": "Chhattisgarh GS",
+      "parentId": "fld_topic_wise",
+      "colorKey": "amber",
+      "orderIndex": 3,
+      "updatedMs": 1795153623912
+    },
+    {
+      "id": "fld_1795153671228",
+      "name": "CGPSC",
+      "parentId": "fld_pyq_papers",
+      "colorKey": "blue",
+      "orderIndex": 4,
+      "updatedMs": 1795153671868
+    },
+    {
+      "id": "fld_1795153698210",
+      "name": "CGVYAPAM",
+      "parentId": "fld_pyq_papers",
+      "colorKey": "blue",
+      "orderIndex": 5,
+      "updatedMs": 1795153698850
+    },
+    {
+      "id": "fld_1795153793443",
+      "name": "Syllabus Point Test",
+      "parentId": "",
+      "colorKey": "purple",
+      "orderIndex": 6,
+      "updatedMs": 1795153794454
+    },
+    {
+      "id": "fld_1795153852915",
+      "name": "Other Subjects",
+      "parentId": "fld_topic_wise",
+      "colorKey": "amber",
+      "orderIndex": 7,
+      "updatedMs": 1795153853630
+    },
+    {
+      "id": "fld_1795153883270",
+      "name": "English",
+      "parentId": "fld_1795153852915",
+      "colorKey": "emerald",
+      "orderIndex": 8,
+      "updatedMs": 1795153883926
+    },
+    {
+      "id": "fld_1795153895249",
+      "name": "Hindi",
+      "parentId": "fld_1795153852915",
+      "colorKey": "emerald",
+      "orderIndex": 9,
+      "updatedMs": 1795153896120
+    },
+    {
+      "id": "fld_1795153934030",
+      "name": "Computer",
+      "parentId": "fld_1795153852915",
+      "colorKey": "emerald",
+      "orderIndex": 10,
+      "updatedMs": 1795153934670
+    },
+    {
+      "id": "fld_1795153992161",
+      "name": "General Mental Ability",
+      "parentId": "fld_1795153852915",
+      "colorKey": "emerald",
+      "orderIndex": 12,
+      "updatedMs": 1795153992834
+    },
+    {
+      "id": "fld_1795154007794",
+      "name": "Maths",
+      "parentId": "fld_1795153852915",
+      "colorKey": "emerald",
+      "orderIndex": 12,
+      "updatedMs": 1795154008499
+    },
+    {
+      "id": "fld_1795154030268",
+      "name": "CDP",
+      "parentId": "fld_1795153852915",
+      "colorKey": "emerald",
+      "orderIndex": 13,
+      "updatedMs": 1795154030964
+    },
+    {
+      "id": "fld_1795154114757",
+      "name": "History",
+      "parentId": "fld_1795153612560",
+      "colorKey": "blue",
+      "orderIndex": 14,
+      "updatedMs": 1795154307796
+    },
+    {
+      "id": "fld_1795154129610",
+      "name": "Geography",
+      "parentId": "fld_1795153612560",
+      "colorKey": "blue",
+      "orderIndex": 15,
+      "updatedMs": 1795154130315
+    },
+    {
+      "id": "fld_1795154135977",
+      "name": "Polity",
+      "parentId": "fld_1795153612560",
+      "colorKey": "blue",
+      "orderIndex": 16,
+      "updatedMs": 1795154136663
+    },
+    {
+      "id": "fld_1795154146486",
+      "name": "Economics",
+      "parentId": "fld_1795153612560",
+      "colorKey": "blue",
+      "orderIndex": 17,
+      "updatedMs": 1795154147387
+    },
+    {
+      "id": "fld_1795154179375",
+      "name": "Indian History",
+      "parentId": "fld_1795154114757",
+      "colorKey": "emerald",
+      "orderIndex": 18,
+      "updatedMs": 1795154328839
+    },
+    {
+      "id": "fld_1795154187249",
+      "name": "World History",
+      "parentId": "fld_1795154114757",
+      "colorKey": "emerald",
+      "orderIndex": 19,
+      "updatedMs": 1795154343002
+    },
+    {
+      "id": "fld_1795154369544",
+      "name": "Ancient History",
+      "parentId": "fld_1795154179375",
+      "colorKey": "purple",
+      "orderIndex": 20,
+      "updatedMs": 1795154370313
+    },
+    {
+      "id": "fld_1795154380178",
+      "name": "Medieval History",
+      "parentId": "fld_1795154179375",
+      "colorKey": "purple",
+      "orderIndex": 21,
+      "updatedMs": 1795154380838
+    },
+    {
+      "id": "fld_1795154389896",
+      "name": "Modern History",
+      "parentId": "fld_1795154179375",
+      "colorKey": "purple",
+      "orderIndex": 22,
+      "updatedMs": 1795154390551
+    },
+    {
+      "id": "fld_1795154493616",
+      "name": "CGSSB Syllabus Points",
+      "parentId": "fld_1795153793443",
+      "colorKey": "blue",
+      "orderIndex": 23,
+      "updatedMs": 1795154494906
+    },
+    {
+      "id": "fld_1795154509644",
+      "name": "CGPSC Syllabus Points",
+      "parentId": "fld_1795153793443",
+      "colorKey": "blue",
+      "orderIndex": 24,
+      "updatedMs": 1795154510309
+    },
+    {
+      "id": "fld_1795154914602",
+      "name": "Current Affairs",
+      "parentId": "",
+      "colorKey": "teal",
+      "orderIndex": 25,
+      "updatedMs": 1795154915641
+    },
+    {
+      "id": "fld_1795154960675",
+      "name": "National Current Affairs",
+      "parentId": "fld_1795154914602",
+      "colorKey": "purple",
+      "orderIndex": 26,
+      "updatedMs": 1795154974252
+    },
+    {
+      "id": "fld_1795154992205",
+      "name": "Chhattisgarh Current Affairs",
+      "parentId": "fld_1795154914602",
+      "colorKey": "purple",
+      "orderIndex": 27,
+      "updatedMs": 1795155000933
+    },
+    {
+      "id": "fld_1795155243050",
+      "name": "CG History",
+      "parentId": "fld_1795153623250",
+      "colorKey": "blue",
+      "orderIndex": 28,
+      "updatedMs": 1795155244380
+    },
+    {
+      "id": "fld_1795155252479",
+      "name": "CG Geography",
+      "parentId": "fld_1795153623250",
+      "colorKey": "blue",
+      "orderIndex": 29,
+      "updatedMs": 1795155253165
+    },
+    {
+      "id": "fld_1795155308532",
+      "name": "CG Art & Culture",
+      "parentId": "fld_1795153623250",
+      "colorKey": "blue",
+      "orderIndex": 30,
+      "updatedMs": 1795155309190
+    },
+    {
+      "id": "fld_1795155325559",
+      "name": "CG Tribes",
+      "parentId": "fld_1795153623250",
+      "colorKey": "blue",
+      "orderIndex": 31,
+      "updatedMs": 1795155326247
+    },
+    {
+      "id": "fld_1795155333149",
+      "name": "CG Economy",
+      "parentId": "fld_1795153623250",
+      "colorKey": "blue",
+      "orderIndex": 32,
+      "updatedMs": 1795155333816
+    },
+    {
+      "id": "fld_1795155339027",
+      "name": "CG Administration",
+      "parentId": "fld_1795153623250",
+      "colorKey": "blue",
+      "orderIndex": 33,
+      "updatedMs": 1795155339709
+    },
+    {
+      "id": "fld_1795155349630",
+      "name": "CG Language",
+      "parentId": "fld_1795153623250",
+      "colorKey": "blue",
+      "orderIndex": 34,
+      "updatedMs": 1795155350300
+    },
+    {
+      "id": "fld_1795155435905",
+      "name": "Ancient CG History",
+      "parentId": "fld_1795155243050",
+      "colorKey": "emerald",
+      "orderIndex": 35,
+      "updatedMs": 1795155437035
+    },
+    {
+      "id": "fld_1795155451324",
+      "name": "Medieval CG History",
+      "parentId": "fld_1795155243050",
+      "colorKey": "emerald",
+      "orderIndex": 36,
+      "updatedMs": 1795155451975
+    },
+    {
+      "id": "fld_1795155462233",
+      "name": "Modern CG History",
+      "parentId": "fld_1795155243050",
+      "colorKey": "emerald",
+      "orderIndex": 37,
+      "updatedMs": 1795155462887
+    },
+    {
+      "id": "fld_1795155544481",
+      "name": "General knowledge",
+      "parentId": "fld_1795153852915",
+      "colorKey": "emerald",
+      "orderIndex": 38,
+      "updatedMs": 1795164676619
+    }
+  ],
+  "updatedAtMs": 1795216475360
+}
