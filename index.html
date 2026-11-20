@@ -1709,6 +1709,29 @@
     }
     const flattenForFirestore = sanitizeForFirestore;
 
+    function compactQuestionForFirestore(q) {
+      const sanitized = sanitizeForFirestore(q);
+      if (sanitized && sanitized.tableData && sanitized.tableData.tableObj && (sanitized.tableData.en || sanitized.tableData.hi)) {
+        delete sanitized.tableData.tableObj;
+      }
+      return sanitized;
+    }
+
+    function hasDirectNestedArray(val) {
+      if (!val || typeof val !== "object") return false;
+      if (val instanceof Date || typeof val.toMillis === "function" || typeof val._methodName === "string") return false;
+      if (Array.isArray(val)) {
+        for (const item of val) {
+          if (Array.isArray(item) || hasDirectNestedArray(item)) return true;
+        }
+        return false;
+      }
+      for (const v of Object.values(val)) {
+        if (hasDirectNestedArray(v)) return true;
+      }
+      return false;
+    }
+
     function resolveLocTable(tableData, lang) {
       if (!tableData) return { headers: [], rows: [], isFallback: false };
       const enTbl = tableData.en || (tableData.tableObj && tableData.tableObj.en) || null;
@@ -4106,7 +4129,9 @@
               <div style="font-size:12px;color:var(--slate-500);">${esc(p.subjectTag)} • ${p.questionCount} Qs • ${p.durationMinutes}m • <strong style="color:${p.jsonUrl ? "var(--emerald-600)" : "var(--amber-600)"};">${p.jsonUrl ? `GitHub (${esc(p.githubPath || "0-Read")})` : "Firestore"}</strong></div>
             </div>
             <div style="display:flex;gap:6px;flex-wrap:wrap;">
-              <button class="btn btn-outline" data-copy-prac-link="${esc(p.testId)}">Copy Link</button>
+              <button class="btn btn-outline" data-copy-prac-test="${esc(p.testId)}">Test Link</button>
+              <button class="btn btn-outline" data-copy-prac-quiz="${esc(p.testId)}">Quiz Link</button>
+              <button class="btn btn-wa" data-wa-prac-link="${esc(p.testId)}">WhatsApp</button>
               <button class="btn btn-outline" data-edit-prac="${esc(p.testId)}">Edit</button>
               <button class="btn btn-rose" data-del-prac="${esc(p.testId)}">Delete</button>
             </div>
@@ -4246,7 +4271,10 @@
         `).join("");
         bodyHtml = `
           <div class="card stack">
-            <h3 style="margin:0;">Schedule Fixed-Window Exam (Firebase Secured • Up to 500 Questions)</h3>
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+              <h3 style="margin:0;">Schedule Fixed-Window Exam (Firebase Secured • Up to 500 Questions)</h3>
+              <span class="badge badge-green" style="font-size:10.5px;">Portal v3.2 • Nested-Array Safe • 0-Read GitHub</span>
+            </div>
             <div class="grid-2">
               <div class="field-group">
                 <label class="field-label" for="scTitle">Scheduled Exam Title</label>
@@ -4825,12 +4853,16 @@
             } else {
               const createdAtVal = (isEdit && state.editingPracticeCreatedAt) ? state.editingPracticeCreatedAt : serverTimestamp();
               try {
-                const firestoreQuestions = limitedQuestions.map(q => sanitizeForFirestore(q));
-                await setDoc(doc(db, "practiceTests", testId), {
+                const firestoreQuestions = limitedQuestions.map(q => compactQuestionForFirestore(q));
+                if (hasDirectNestedArray(firestoreQuestions)) {
+                  throw new Error("Sanitizer check detected remaining nested array in questions.");
+                }
+                const pracPayload = {
                   adminUid: state.user.uid, title, subjectTag, durationMinutes, marksCorrect, marksNegative,
                   questionCount: firestoreQuestions.length, questions: firestoreQuestions,
                   createdAt: createdAtVal, updatedAt: serverTimestamp()
-                });
+                };
+                await setDoc(doc(db, "practiceTests", testId), pracPayload);
               } catch (e) {
                 throw new Error(`[Step: Save practiceTests/${testId}] ${e.message}`);
               }
@@ -4864,11 +4896,31 @@
             btn.disabled = false;
           }
         };
-        el.querySelectorAll("[data-copy-prac-link]").forEach(b => b.onclick = () => {
-          const p = state.catalog.practice.find(x => x.testId === b.getAttribute("data-copy-prac-link"));
+        el.querySelectorAll("[data-copy-prac-test]").forEach(b => b.onclick = () => {
+          const p = state.catalog.practice.find(x => x.testId === b.getAttribute("data-copy-prac-test"));
           if (!p) return;
           const url = buildShareableTestUrl({ practiceId: p.testId, mode: "TEST" });
-          copyTextSafe(url, `Copied link for "${p.title}"!`);
+          copyTextSafe(url, `Copied Test Mode link for "${p.title}"!`);
+        });
+        el.querySelectorAll("[data-copy-prac-quiz]").forEach(b => b.onclick = () => {
+          const p = state.catalog.practice.find(x => x.testId === b.getAttribute("data-copy-prac-quiz"));
+          if (!p) return;
+          const url = buildShareableTestUrl({ practiceId: p.testId, mode: "QUIZ" });
+          copyTextSafe(url, `Copied Quiz Mode link for "${p.title}"!`);
+        });
+        el.querySelectorAll("[data-wa-prac-link]").forEach(b => b.onclick = () => {
+          const p = state.catalog.practice.find(x => x.testId === b.getAttribute("data-wa-prac-link"));
+          if (!p) return;
+          const testUrl = buildShareableTestUrl({ practiceId: p.testId, mode: "TEST" });
+          const quizUrl = buildShareableTestUrl({ practiceId: p.testId, mode: "QUIZ" });
+          const msg = `Practice Mock: ${p.title} (${p.subjectTag} • ${p.questionCount} Qs)\n\nTest Mode (Timer): ${testUrl}\nQuiz Mode (Instant Answer): ${quizUrl}`;
+          if (navigator.share) {
+            navigator.share({ title: p.title, text: msg, url: testUrl }).catch(() => {
+              window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
+            });
+          } else {
+            window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
+          }
         });
         el.querySelectorAll("[data-edit-prac]").forEach(b => b.onclick = async () => {
           const p = state.catalog.practice.find(x => x.testId === b.getAttribute("data-edit-prac"));
@@ -4957,8 +5009,15 @@
             const marksCorrect = Number.isFinite(posInput) ? Math.max(0.1, posInput) : parsed.marksCorrect;
             const negInput = parseFloat(document.getElementById("scNeg").value);
             const marksNegative = Number.isFinite(negInput) ? Math.max(0, negInput) : 0;
-            const startTs = Timestamp.fromDate(new Date(document.getElementById("scStart").value));
-            const endTs = Timestamp.fromDate(new Date(document.getElementById("scEnd").value));
+            const rawStart = document.getElementById("scStart").value;
+            const rawEnd = document.getElementById("scEnd").value;
+            const startDate = new Date(rawStart);
+            const endDate = new Date(rawEnd);
+            if (!rawStart || !rawEnd || Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) {
+              throw new Error("[Step: Validate Schedule] Enter valid Start and End date/time.");
+            }
+            const startTs = Timestamp.fromDate(startDate);
+            const endTs = Timestamp.fromDate(endDate);
             if (endTs.toMillis() <= startTs.toMillis()) throw new Error("[Step: Validate Schedule] End date/time must be after start.");
 
             const cfg = ghGetConfig();
@@ -4982,7 +5041,10 @@
             }
 
             try {
-              const firestoreQuestions = schedJsonUrl ? [] : limitedQuestions.map(q => sanitizeForFirestore(q));
+              const firestoreQuestions = schedJsonUrl ? [] : limitedQuestions.map(q => compactQuestionForFirestore(q));
+              if (hasDirectNestedArray(firestoreQuestions)) {
+                throw new Error("Sanitizer check detected remaining nested array.");
+              }
               const schedDocPayload = {
                 adminUid: state.user.uid, testCode, title, instituteName: state.config.instituteName,
                 scheduleCategory, durationMinutes, marksCorrect, marksNegative, questionCount: limitedQuestions.length,
