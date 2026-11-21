@@ -1,0 +1,74 @@
+{
+  "portalTitle": "Crack CGPSC",
+  "instituteName": "Crack CGPSC",
+  "logoDriveUrl": "https://drive.google.com/file/d/1Ym9WyZmI0joxvgmw_5UCMUybX4DBMdqn/view?usp=drivesdk",
+  "resolvedLogoUrl": "https://drive.google.com/uc?export=view&id=1Ym9WyZmI0joxvgmw_5UCMUybX4DBMdqn",
+  "githubRawBase": "https://raw.githubusercontent.com/crackcgpsc/Testseries-/main",
+  "apkDownloadUrl": "",
+  "playStoreUrl": "",
+  "blocks": [
+    {
+      "id": "hero_welcome",
+      "visible": true,
+      "orderIndex": 0,
+      "layoutWidth": "FULL",
+      "imageWidthPercent": 100,
+      "videoFormat": "AUTO",
+      "badgeText": "OFFICIAL PORTAL",
+      "driveUrl": "https://youtube.com/shorts/0rlIAS-VCnE?si=fvFnzoMCc6pMWDH0",
+      "resolvedMediaUrl": "https://www.youtube-nocookie.com/embed/0rlIAS-VCnE?controls=1&fs=1&playsinline=1&rel=0&modestbranding=1",
+      "imageFit": "CONTAIN",
+      "imageMaxHeight": 300,
+      "title": "CGPSC Prelims & Vyapam 2026 Free Test Series",
+      "body": "Attempt timed All-State mock exams, track your official Rank List, and practice topic-wise quizzes in English & हिंदी.",
+      "type": "DRIVE_VIDEO"
+    },
+    {
+      "orderIndex": 1,
+      "body": "1. Register once with your Name, Date of Birth, Email & Mobile to receive your permanent Roll Number.\n\n2. Scheduled tests allow 1 attempt inside the active time window and track app switches.\n\n3. Final Rank List PDF unlocks automatically once the exam window closes.",
+      "type": "TEXT_ARTICLE",
+      "badgeText": "IMPORTANT",
+      "imageWidthPercent": 100,
+      "videoFormat": "AUTO",
+      "resolvedMediaUrl": "",
+      "imageFit": "CONTAIN",
+      "layoutWidth": "FULL",
+      "driveUrl": "",
+      "imageMaxHeight": 300,
+      "visible": true,
+      "id": "notice_instructions",
+      "title": "Exam Guidelines & Merit Rank Rules"
+    }
+  ],
+  "socialLinks": [
+    {
+      "orderIndex": 0,
+      "url": "https://t.me",
+      "id": "soc_tg",
+      "appName": "Telegram"
+    },
+    {
+      "id": "soc_ig",
+      "orderIndex": 1,
+      "url": "https://instagram.com",
+      "appName": "Instagram"
+    },
+    {
+      "id": "soc_1795075254899",
+      "orderIndex": 2,
+      "appName": "Youtube",
+      "url": "https://www.youtube.com/@CrackCGPSC"
+    }
+  ],
+  "meritListLinks": [
+    {
+      "id": "ml_1795226091967",
+      "testTitle": "Demo",
+      "category": "DAILY",
+      "examDate": "20/11/2026",
+      "telegramUrl": "https://drive.google.com/file/d/1Ym9WyZmI0joxvgmw_5UCMUybX4DBMdqn/view?usp=drivesdk",
+      "orderIndex": 0
+    }
+  ],
+  "updatedAtMs": 1795226092993
+}
