@@ -9,19 +9,19 @@
   "blocks": [
     {
       "id": "hero_welcome",
-      "visible": true,
-      "orderIndex": 0,
-      "layoutWidth": "FULL",
-      "imageWidthPercent": 100,
-      "videoFormat": "AUTO",
+      "type": "DRIVE_VIDEO",
       "badgeText": "OFFICIAL PORTAL",
-      "driveUrl": "https://youtube.com/shorts/0rlIAS-VCnE?si=fvFnzoMCc6pMWDH0",
-      "resolvedMediaUrl": "https://www.youtube-nocookie.com/embed/0rlIAS-VCnE?controls=1&fs=1&playsinline=1&rel=0&modestbranding=1",
-      "imageFit": "CONTAIN",
-      "imageMaxHeight": 300,
       "title": "CGPSC Prelims & Vyapam 2026 Free Test Series",
       "body": "Attempt timed All-State mock exams, track your official Rank List, and practice topic-wise quizzes in English & हिंदी.",
-      "type": "DRIVE_VIDEO"
+      "driveUrl": "https://youtu.be/jyBQSi9jSjk?si=QZqo0FVy2xtUp8Ft",
+      "resolvedMediaUrl": "https://www.youtube-nocookie.com/embed/jyBQSi9jSjk?controls=1&fs=1&playsinline=1&rel=0&modestbranding=1",
+      "layoutWidth": "FULL",
+      "imageWidthPercent": 100,
+      "imageMaxHeight": 300,
+      "imageFit": "CONTAIN",
+      "videoFormat": "AUTO",
+      "visible": true,
+      "orderIndex": 0
     },
     {
       "orderIndex": 1,
@@ -70,5 +70,5 @@
       "orderIndex": 0
     }
   ],
-  "updatedAtMs": 1795226092993
+  "updatedAtMs": 1795227557007
 }
