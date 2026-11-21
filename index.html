@@ -6,7 +6,7 @@
   <title>Crack CGPSC Free Test Series — Official Portal & CBT Engine</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script>
     window.MathJax = {
       tex: {
@@ -59,11 +59,16 @@
       background: var(--slate-50);
       color: var(--slate-900);
       line-height: 1.5;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
+    img { -webkit-user-drag: none; user-drag: none; }
     .mono { font-family: 'JetBrains Mono', monospace; }
     button { font-family: inherit; cursor: pointer; transition: all .15s ease; }
     button:disabled { opacity: .55; cursor: not-allowed; }
-    input, textarea, select {
+    input, textarea, select, [contenteditable="true"] {
       font-family: inherit;
       border: 1px solid var(--slate-200);
       border-radius: 10px;
@@ -72,6 +77,10 @@
       width: 100%;
       background: #fff;
       color: var(--slate-900);
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      user-select: text;
+      -webkit-touch-callout: default;
     }
     input:focus, textarea:focus, select:focus {
       outline: 2px solid var(--royal-600);
@@ -261,6 +270,88 @@
       color: #fff;
       border-radius: 18px;
       padding: 18px;
+    }
+    /* Vibrant Website Section Headings */
+    .sec-head-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 0 4px;
+      margin-top: 2px;
+      flex-wrap: wrap;
+    }
+    .sec-head-left {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+    }
+    .sec-head-accent {
+      width: 5px;
+      height: 24px;
+      border-radius: 999px;
+      flex-shrink: 0;
+      background: linear-gradient(180deg, var(--royal-600), var(--purple-600));
+    }
+    .sec-head-accent.live { background: linear-gradient(180deg, #f59e0b, #e11d48); }
+    .sec-head-accent.merit { background: linear-gradient(180deg, #f59e0b, #059669); }
+    .sec-head-accent.lib { background: linear-gradient(180deg, #2563eb, #0d9488); }
+    .sec-head-ico {
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: var(--royal-100);
+      color: var(--navy-900);
+    }
+    .sec-head-ico.live { background: #fff1f2; color: #e11d48; }
+    .sec-head-ico.merit { background: #fef3c7; color: #b45309; }
+    .sec-head-ico.lib { background: #eff6ff; color: #1d4ed8; }
+    .sec-head-title {
+      margin: 0;
+      font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -.015em;
+      background: linear-gradient(90deg, #0b2854 0%, #1d4ed8 65%, #7c3aed 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .sec-head-link {
+      background: var(--royal-50);
+      color: var(--royal-600);
+      border: 1px solid var(--royal-100);
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .sec-head-link:hover { background: var(--royal-100); }
+    /* Player Diagonal Candidate Watermark & Anti-Capture Blur */
+    .player-shell { position: relative; }
+    .player-shell.privacy-blur { filter: blur(16px); transition: filter .08s linear; }
+    .player-watermark {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 25;
+      overflow: hidden;
+      opacity: .055;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      justify-content: space-around;
+      gap: 44px;
+      transform: rotate(-24deg) scale(1.2);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 800;
+      color: #0b2854;
     }
     .badge {
       display: inline-block;
@@ -510,11 +601,41 @@
     .q-ar-row + .q-ar-row { border-top: 1px solid var(--slate-200); }
     .q-table-wrap {
       overflow-x: auto;
-      border: 1px solid var(--slate-200);
+      border: 1.5px solid #94a3b8;
       border-radius: 12px;
+      background: #fff;
     }
-    .q-table th { background: var(--navy-900); color: #fff; font-size: 13px; padding: 9px 12px; }
-    .q-table td { font-size: 13.5px; padding: 9px 12px; border-bottom: 1px solid var(--slate-200); background: #fff; }
+    .q-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-style: hidden;
+    }
+    .q-table th {
+      background: var(--navy-900);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, .28);
+      vertical-align: middle;
+    }
+    .q-table td {
+      font-size: 13.5px;
+      padding: 9px 12px;
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      color: var(--slate-900);
+      vertical-align: top;
+    }
+    .q-table tbody tr:nth-child(even) td { background: #f8fafc; }
+    .q-table th.q-col-sn,
+    .q-table td.q-col-sn {
+      width: 58px;
+      min-width: 48px;
+      text-align: center;
+      font-weight: 800;
+    }
+    .q-table td.q-col-sn { color: var(--navy-900); background: #eff6ff; }
     .q-opt-img {
       max-height: 135px;
       max-width: 100%;
@@ -715,46 +836,45 @@
       }
     }
 
+    /* Borderless Auto-Aspect Media Blocks */
+    .cms-media-clean {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .cms-media-title {
+      margin: 0;
+      font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--navy-950);
+    }
+    .cms-media-cap {
+      margin: 0;
+      color: var(--slate-500);
+      font-size: 13px;
+      white-space: pre-line;
+    }
     .video-box {
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 9;
-      max-height: 68vh;
-      border-radius: 12px 12px 0 0;
+      max-height: 75vh;
+      border-radius: 14px;
       overflow: hidden;
       background: #020617;
+      border: none;
     }
     .video-box.vertical {
       aspect-ratio: 9 / 16;
-      max-width: min(290px, 100%);
-      max-height: 70vh;
+      max-width: min(350px, 100%);
+      max-height: 78vh;
       margin: 0 auto;
     }
-    .video-ctrl-bar {
-      background: #0f172a;
-      color: #e2e8f0;
-      border-radius: 0 0 12px 12px;
-      padding: 7px 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-    }
-    .video-ctrl-btn {
-      background: rgba(255, 255, 255, .12);
-      color: #fff;
-      border: 1px solid rgba(148, 163, 184, .3);
-      border-radius: 8px;
-      padding: 5px 10px;
-      font-size: 11.5px;
-      font-weight: 700;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .video-ctrl-btn:hover { background: rgba(255, 255, 255, .2); }
     .video-frame {
       position: absolute;
       inset: 0;
@@ -763,7 +883,7 @@
       border: none;
       display: block;
       background: #000;
-      object-fit: contain;
+      object-fit: cover;
     }
     .video-poster {
       position: absolute;
@@ -778,7 +898,7 @@
       border: none;
       padding: 0;
     }
-    .video-poster img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .88; }
+    .video-poster img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .92; }
     .video-play-circle {
       position: absolute;
       width: 58px;
@@ -791,7 +911,14 @@
       justify-content: center;
       box-shadow: 0 8px 24px rgba(0, 0, 0, .45);
     }
-    .cms-img { width: 100%; max-height: 340px; object-fit: contain; border-radius: 12px; display: block; margin: 0 auto; }
+    .cms-img {
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      display: block;
+      margin: 0 auto;
+      border: none;
+    }
 
     /* Android Mobile File Manager Practice Library */
     .fm-shell {
@@ -1003,6 +1130,23 @@
     }
     .btn-wa { background: #16a34a; color: #fff; border: none; }
     .btn-wa:hover { background: #15803d; }
+    .portal-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 78px;
+      transform: translateX(-50%);
+      z-index: 95;
+      background: #0b2854;
+      color: #fff;
+      border: 1px solid #38bdf8;
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, .32);
+      max-width: min(92vw, 520px);
+      text-align: center;
+    }
 
     @media print {
       .no-print { display: none !important; }
@@ -1074,7 +1218,8 @@
   <!-- PRINTABLE PDF EXPORT AREA (Score Card or Merit Rank List) -->
   <section id="printArea" class="print-only hidden" style="padding:20px;"></section>
 
-  <!-- MODAL CONTAINER -->
+  <!-- MODAL CONTAINER & FLOATING TOAST -->
+  <div id="portalToast" class="portal-toast hidden no-print"></div>
   <div id="modalRoot" class="modal-backdrop hidden no-print">
     <div id="modalContent" class="modal-box"></div>
   </div>
@@ -1236,6 +1381,7 @@
       adminFolderId: "",
       editingFolderId: null,
       user: null,
+      authResolved: false,
       profile: null,
       attempts: [],
       pendingAction: null,
@@ -1271,7 +1417,55 @@
     const PORTAL_CACHE_KEY = "crack_cgpsc_portal_cache_v2";
     const LOCAL_ATTEMPTS_KEY = "crack_cgpsc_local_attempts_v1";
     const PROFILE_CACHE_PREFIX = "crack_cgpsc_profile_v1_";
+    const GUEST_PRACTICE_KEY = "crack_cgpsc_guest_practice_used_v1";
     const PORTAL_CACHE_TTL_MS = 5 * 60 * 1000;
+
+    function hasUsedGuestPractice() {
+      try { return localStorage.getItem(GUEST_PRACTICE_KEY) === "1"; } catch (_) { return false; }
+    }
+    function markGuestPracticeUsed() {
+      try { localStorage.setItem(GUEST_PRACTICE_KEY, "1"); } catch (_) {}
+    }
+
+    function isEditableTarget(target) {
+      if (!target || !(target instanceof Element)) return false;
+      return Boolean(target.closest('input, textarea, select, [contenteditable="true"]'));
+    }
+
+    // Global Anti-Copy / Right-Click / PrintScreen Deterrence (Admin inputs stay editable)
+    ["copy", "cut", "selectstart", "dragstart", "contextmenu"].forEach(evtName => {
+      document.addEventListener(evtName, (e) => {
+        if (!isEditableTarget(e.target)) {
+          e.preventDefault();
+        }
+      }, true);
+    });
+    document.addEventListener("keydown", (e) => {
+      const k = String(e.key || "").toLowerCase();
+      const ctrlOrMeta = e.ctrlKey || e.metaKey;
+      if (e.key === "PrintScreen") {
+        e.preventDefault();
+        try { navigator.clipboard?.writeText(""); } catch (_) {}
+        const shell = document.querySelector(".player-shell");
+        if (shell) {
+          shell.classList.add("privacy-blur");
+          setTimeout(() => shell.classList.remove("privacy-blur"), 1400);
+        }
+        if (state.player && state.player.isScheduled && !state.player.submitted) {
+          triggerProctorSwitch("Screenshot attempt");
+        } else {
+          showBanner("Screenshots and screen capture are restricted.");
+        }
+        return;
+      }
+      if (e.key === "F12" || (ctrlOrMeta && e.shiftKey && ["i", "j", "c"].includes(k)) || (ctrlOrMeta && ["u", "s", "p"].includes(k))) {
+        e.preventDefault();
+        return;
+      }
+      if (ctrlOrMeta && ["c", "x", "a"].includes(k) && !isEditableTarget(e.target)) {
+        e.preventDefault();
+      }
+    }, true);
 
     function loadLocalAttempts() {
       try {
@@ -1612,14 +1806,28 @@
       return Boolean(state.user && state.user.email && state.user.email.toLowerCase() === ADMIN_EMAIL && state.user.emailVerified);
     }
 
+    let bannerTimer = null;
     function showBanner(msg) {
       const el = document.getElementById("portalBanner");
-      el.textContent = msg;
-      el.classList.remove("hidden");
-      setTimeout(() => el.classList.add("hidden"), 5500);
+      if (el) {
+        el.textContent = msg;
+        el.classList.remove("hidden");
+      }
+      const toast = document.getElementById("portalToast");
+      if (toast) {
+        toast.textContent = msg;
+        toast.classList.remove("hidden");
+      }
+      clearTimeout(bannerTimer);
+      bannerTimer = setTimeout(() => {
+        if (el) el.classList.add("hidden");
+        if (toast) toast.classList.add("hidden");
+      }, 5000);
     }
 
-    function openModal(html, wide = false) {
+    let modalLockBackdrop = false;
+    function openModal(html, wide = false, lockBackdrop = false) {
+      modalLockBackdrop = Boolean(lockBackdrop);
       const box = document.getElementById("modalContent");
       box.className = wide ? "modal-box modal-wide" : "modal-box";
       box.innerHTML = html;
@@ -1627,12 +1835,31 @@
     }
 
     function closeModal() {
+      modalLockBackdrop = false;
+      if (state.player) {
+        state.player.proctorModalOpen = false;
+        state.player.ignoreBlurUntilMs = Date.now() + 500;
+      }
       document.getElementById("modalRoot").classList.add("hidden");
       document.getElementById("modalContent").innerHTML = "";
     }
 
+    function showUploadSuccessDialog(title, detailsHtml) {
+      openModal(`
+        <div style="text-align:center;padding:6px 4px;">
+          <div style="width:52px;height:52px;margin:0 auto 10px;border-radius:50%;background:var(--emerald-50);color:var(--emerald-600);display:flex;align-items:center;justify-content:center;border:1.5px solid #6ee7b7;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          </div>
+          <h2 style="margin:0 0 6px;color:var(--navy-950);">${esc(title)}</h2>
+          <div style="font-size:13px;color:var(--slate-700);line-height:1.6;">${detailsHtml}</div>
+          <button type="button" class="btn btn-emerald" id="ghOkConfirmBtn" style="margin-top:16px;min-width:130px;">OK, Got It</button>
+        </div>
+      `);
+      document.getElementById("ghOkConfirmBtn").onclick = closeModal;
+    }
+
     document.getElementById("modalRoot").addEventListener("click", (e) => {
-      if (e.target.id === "modalRoot") closeModal();
+      if (e.target.id === "modalRoot" && !modalLockBackdrop) closeModal();
     });
 
     // --- Single-Language Fallback Resolvers (Matches Android CbtModels.kt) ---
@@ -2136,9 +2363,11 @@
           }
         }
         state.profile = cached;
+        state.authResolved = true;
         if (isAdmin() && state.catalog.scheduled.length) cleanupEndedScheduledTests(false);
         renderHeader();
         renderPortalTabs();
+        processPendingDeepLink();
         if (state.pendingAction && state.profile) {
           const act = state.pendingAction;
           state.pendingAction = null;
@@ -2149,9 +2378,11 @@
         }
       } else {
         state.profile = null;
+        state.authResolved = true;
         if (state.tab === "ADMIN") state.tab = "HOME";
         renderHeader();
         renderPortalTabs();
+        processPendingDeepLink();
       }
     });
 
@@ -2417,8 +2648,9 @@
     state.pendingDeepLink = parseDeepLinkFromUrl();
 
     function processPendingDeepLink() {
-      if (state.deepLinkHandled || !state.pendingDeepLink) return;
+      if (state.deepLinkHandled || !state.pendingDeepLink || !state.authResolved) return;
       const dl = state.pendingDeepLink;
+      if (dl.practice && !state.catalog.practice.length) return;
       state.deepLinkHandled = true;
       try {
         const cleanUrl = window.location.pathname + (window.location.hash || "");
@@ -2452,20 +2684,30 @@
         : "";
       const isUpcoming = s && s.windowStartMs && now < s.windowStartMs;
       const isEnded = s && s.windowEndMs && now > s.windowEndMs;
+      const canFreeGuestPractice = !isSched && !(state.user && state.profile) && !hasUsedGuestPractice();
 
-      const ctaLabel = !state.user
-        ? "Sign In with Google &amp; Start"
-        : (!state.profile ? "Complete 1-Time Registration &amp; Start" : "I Agree &amp; Start Exam Now");
+      const ctaLabel = !isSched
+        ? ((state.user && state.profile)
+            ? "Start Practice Now"
+            : (canFreeGuestPractice
+                ? "Start 1st Free Practice Now"
+                : (!state.user ? "Sign In with Google &amp; Start" : "Complete 1-Time Registration &amp; Start")))
+        : (!state.user
+            ? "Sign In with Google &amp; Start"
+            : (!state.profile ? "Complete 1-Time Registration &amp; Start" : "I Agree &amp; Start Exam Now"));
 
       const schedRulesHtml = isSched ? `
         <div class="stack" style="gap:8px;margin-bottom:14px;">
           <div class="instr-rule"><span>1&#8419;</span><div><strong>Single-Attempt Policy:</strong> A registered student gets <strong>only 1 attempt</strong> for each Scheduled Exam. Once submitted, re-attempting is locked.</div></div>
+          <div class="instr-rule"><span>&#9888;&#65039;</span><div><strong>2-Strike Strict Proctoring:</strong> Leaving or switching the test tab/app gives <strong>1 Warning</strong>; on the <strong>2nd switch</strong>, the exam automatically cancels &amp; resets from Q1.</div></div>
           <div class="instr-rule"><span>&#127942;</span><div><strong>Merit List Result:</strong> Your instant scorecard saves on your device immediately. The <strong>Official All-State Merit List PDF</strong> is published after the exam window ends on our Telegram channel &amp; Results tab.</div></div>
-          <div class="instr-rule"><span>&#128274;</span><div><strong>Proctoring &amp; Registration:</strong> Complete 1-time registration (Name, DOB, Mobile) to receive your official Roll Number before starting.</div></div>
+          <div class="instr-rule"><span>&#128274;</span><div><strong>Registration:</strong> 1-time registration (Name, DOB, Mobile) provides your Roll Number before starting.</div></div>
         </div>
       ` : `
         <div class="stack" style="gap:8px;margin-bottom:14px;">
-          <div class="instr-rule"><span>&#9989;</span><div><strong>Unlimited Practice (${esc(target.mode)} Mode):</strong> Practice freely! Scorecards are saved locally in your browser's <strong>My Results</strong> tab without consuming server quota.</div></div>
+          ${canFreeGuestPractice
+            ? `<div class="instr-rule" style="background:var(--emerald-50);border-color:#a7f3d0;color:#065f46;"><span>&#127873;</span><div><strong>1st Practice Free Without Login:</strong> Try this Practice ${esc(target.mode)} right away! Next practice tests require free Google Sign-In &amp; 1-time registration.</div></div>`
+            : `<div class="instr-rule"><span>&#9989;</span><div><strong>Unlimited Practice (${esc(target.mode)} Mode):</strong> Practice freely! Scorecards save locally in your browser's <strong>My Results</strong> tab (0 Firebase reads).</div></div>`}
         </div>
       `;
 
@@ -2507,9 +2749,20 @@
       }
     }
 
-    // --- Action Gate ---
+    // --- Action Gate (1 Free Practice Trial for Guests, Login Required from 2nd Practice & All Scheduled) ---
     function gateAction(action) {
-      if (!state.user) { state.pendingAction = action; openSignInModal(); return; }
+      if (action.type === "PRACTICE" && !(state.user && state.profile) && !hasUsedGuestPractice()) {
+        executeAction({ ...action, isGuestTrial: true });
+        return;
+      }
+      if (!state.user) {
+        state.pendingAction = action;
+        openSignInModal();
+        if (action.type === "PRACTICE" && hasUsedGuestPractice()) {
+          showBanner("Your 1st free guest practice quiz is used! Sign in with Google for unlimited practice.");
+        }
+        return;
+      }
       if (!state.profile) { state.pendingAction = action; openRegistrationModal(false); return; }
       executeAction(action);
     }
@@ -2524,6 +2777,7 @@
             if (!resp.ok) throw new Error(`Failed to fetch practice test JSON from GitHub (HTTP ${resp.status}).`);
             const rawText = await resp.text();
             const parsed = normalizeTestJson(rawText);
+            if (action.isGuestTrial) markGuestPracticeUsed();
             startExamPlayer({
               testId: action.testId,
               isScheduled: false,
@@ -2539,6 +2793,7 @@
             if (!snap.exists()) return showBanner("Practice test not found.");
             const d = snap.data();
             const parsed = normalizeTestJson({ title: d.title, durationMinutes: d.durationMinutes, positiveMarks: d.marksCorrect, negativeMarks: d.marksNegative, questions: d.questions || [] });
+            if (action.isGuestTrial) markGuestPracticeUsed();
             startExamPlayer({
               testId: action.testId, isScheduled: false, mode: action.mode,
               title: d.title || parsed.title, durationMinutes: d.durationMinutes || parsed.durationMinutes,
@@ -2635,9 +2890,8 @@
     function renderCmsBlockHtml(b) {
       const colCls = b.layoutWidth === "HALF" ? "" : "cms-full";
       const wPct = Math.min(100, Math.max(25, Number(b.imageWidthPercent || 100)));
-      const maxH = Math.min(560, Math.max(140, Number(b.imageMaxHeight || 300)));
       const fit = b.imageFit === "COVER" ? "cover" : "contain";
-      const imgStyle = `width:${wPct}%;max-height:${maxH}px;object-fit:${fit};`;
+      const cleanImgStyle = `width:${wPct}%;height:auto;object-fit:${fit};`;
 
       if (b.type === "HERO_BANNER") {
         const img = b.resolvedMediaUrl || toDriveImage(b.driveUrl);
@@ -2646,7 +2900,7 @@
             ${b.badgeText ? `<span class="badge" style="background:var(--amber-500);color:var(--navy-950);margin-bottom:8px;">${esc(b.badgeText)}</span>` : ""}
             <h2 style="margin:4px 0 8px;font-size:21px;font-weight:800;">${esc(b.title)}</h2>
             ${b.body ? `<p style="margin:0;color:#dbeafe;white-space:pre-line;">${esc(b.body)}</p>` : ""}
-            ${img ? `<img src="${esc(img)}" onerror="window.__onPortalImgErr(this,'${esc(b.driveUrl)}')" class="cms-img" style="margin-top:12px;${imgStyle}" />` : ""}
+            ${img ? `<img src="${esc(img)}" onerror="window.__onPortalImgErr(this,'${esc(b.driveUrl)}')" class="cms-img" style="margin-top:12px;${cleanImgStyle}" />` : ""}
           </div>
         `;
       }
@@ -2660,7 +2914,7 @@
               ${link ? `<a href="${esc(link)}" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:800;color:var(--navy-900);text-decoration:none;">Visit &rarr;</a>` : ""}
             </div>
             ${b.title ? `<h3 style="margin:0 0 6px;color:#78350f;font-size:15.5px;">${esc(b.title)}</h3>` : ""}
-            ${img ? `<img src="${esc(img)}" onerror="window.__onPortalImgErr(this,'${esc(b.driveUrl)}')" class="cms-img" style="margin-bottom:6px;${imgStyle}" />` : ""}
+            ${img ? `<img src="${esc(img)}" onerror="window.__onPortalImgErr(this,'${esc(b.driveUrl)}')" class="cms-img" style="margin-bottom:6px;${cleanImgStyle}" />` : ""}
             ${b.body ? `<p style="margin:0;color:#78350f;font-size:13px;white-space:pre-line;">${esc(b.body)}</p>` : ""}
           </div>
         `;
@@ -2668,11 +2922,10 @@
       if (b.type === "DRIVE_IMAGE") {
         const img = b.resolvedMediaUrl || toDriveImage(b.driveUrl);
         return `
-          <div class="card ${colCls}">
-            ${b.badgeText ? `<span class="badge badge-blue" style="margin-bottom:6px;">${esc(b.badgeText)}</span>` : ""}
-            ${b.title ? `<h3 style="margin:0 0 8px;">${esc(b.title)}</h3>` : ""}
-            ${img ? `<img src="${esc(img)}" onerror="window.__onPortalImgErr(this,'${esc(b.driveUrl)}')" class="cms-img" style="${imgStyle}" />` : ""}
-            ${b.body ? `<p style="margin:8px 0 0;color:var(--slate-500);font-size:13px;white-space:pre-line;">${esc(b.body)}</p>` : ""}
+          <div class="cms-media-clean ${colCls}">
+            ${b.title ? `<h3 class="cms-media-title">${esc(b.title)}</h3>` : ""}
+            ${img ? `<img src="${esc(img)}" onerror="window.__onPortalImgErr(this,'${esc(b.driveUrl)}')" class="cms-img" style="${cleanImgStyle}" />` : ""}
+            ${b.body ? `<p class="cms-media-cap">${esc(b.body)}</p>` : ""}
           </div>
         `;
       }
@@ -2684,7 +2937,7 @@
         const thumb = toYouTubeThumbnail(rawUrl);
         let playerMarkup = "";
         if (isMp4) {
-          playerMarkup = `<video class="video-frame" controls playsinline preload="metadata" src="${esc(rawUrl)}"></video>`;
+          playerMarkup = `<video class="video-frame" controls playsinline preload="metadata" onloadedmetadata="if(this.videoWidth&&this.videoHeight&&this.parentElement){this.parentElement.style.aspectRatio=this.videoWidth+'/'+this.videoHeight;}" src="${esc(rawUrl)}"></video>`;
         } else if (thumb) {
           const autoSrc = vid + (vid.includes("?") ? "&" : "?") + "autoplay=1";
           playerMarkup = `
@@ -2696,26 +2949,11 @@
         } else if (vid) {
           playerMarkup = `<iframe class="video-frame" src="${esc(vid)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
         }
-        const safeExtUrl = /^https?:\/\//i.test(rawUrl) ? rawUrl : (vid || "");
-        const ctrlBar = playerMarkup ? `
-          <div class="video-ctrl-bar">
-            <button type="button" class="video-ctrl-btn" data-video-theater="${esc(rawUrl)}" data-video-title="${esc(b.title || "Video Lecture")}" data-video-vert="${isVert ? "1" : "0"}">
-              &#x26F6; Theater / Fullscreen
-            </button>
-            ${safeExtUrl ? `<a class="video-ctrl-btn" href="${esc(safeExtUrl)}" target="_blank" rel="noopener noreferrer">Open Video &#8599;</a>` : ""}
-          </div>
-        ` : "";
         return `
-          <div class="card ${colCls}">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px;">
-              <h3 style="margin:0;font-size:15.5px;">&#9654; ${esc(b.title || "Video Lecture")}</h3>
-              <div style="display:flex;gap:6px;align-items:center;">
-                ${isVert ? `<span class="badge badge-purple">9:16 SHORTS</span>` : ""}
-                ${b.badgeText ? `<span class="badge badge-blue">${esc(b.badgeText)}</span>` : ""}
-              </div>
-            </div>
-            ${playerMarkup ? `<div class="video-box ${isVert ? "vertical" : ""}">${playerMarkup}</div>${ctrlBar}` : ""}
-            ${b.body ? `<p style="margin:8px 0 0;color:var(--slate-500);font-size:13px;white-space:pre-line;">${esc(b.body)}</p>` : ""}
+          <div class="cms-media-clean ${colCls}">
+            ${b.title ? `<h3 class="cms-media-title">${esc(b.title)}</h3>` : ""}
+            ${playerMarkup ? `<div class="video-box ${isVert ? "vertical" : ""}">${playerMarkup}</div>` : ""}
+            ${b.body ? `<p class="cms-media-cap">${esc(b.body)}</p>` : ""}
           </div>
         `;
       }
@@ -3041,9 +3279,13 @@
       return `
         <div class="card stack" style="gap:10px;">
           <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
-            <div>
-              <h3 style="margin:0;font-size:16px;">&#127942; Official Scheduled Test Merit Lists (PDF)</h3>
-              <div style="font-size:12px;color:var(--slate-500);">Download complete rank list PDFs directly from our official Telegram channel</div>
+            <div class="sec-head-left">
+              <span class="sec-head-accent merit"></span>
+              <span class="sec-head-ico merit"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg></span>
+              <div>
+                <h3 class="sec-head-title" style="font-size:16.5px;">Official Scheduled Test Merit Lists (PDF)</h3>
+                <div style="font-size:12px;color:var(--slate-500);">Download complete rank list PDFs directly from our official Telegram channel</div>
+              </div>
             </div>
             <span class="badge badge-amber">${links.length} Published</span>
           </div>
@@ -3144,7 +3386,10 @@
       ` : "";
       return `
         <footer class="footer-card">
-          <div style="font-size:13.5px;font-weight:700;">Join Us On Other Social Media Handles</div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="width:4px;height:18px;border-radius:999px;background:linear-gradient(180deg,#fcd34d,#38bdf8);display:inline-block;"></span>
+            <div style="font-family:'Outfit','Plus Jakarta Sans',sans-serif;font-size:15.5px;font-weight:800;color:#fcd34d;">Join Us On Other Social Media Handles</div>
+          </div>
           <div class="social-row">${chips || `<span style="color:#93c5fd;font-size:12px;">Add social handles in Admin Studio.</span>`}</div>
           ${(apkChip || playChip) ? `<div class="app-dl-row">${apkChip}${playChip}</div>` : ""}
           <div style="margin-top:10px;font-size:11px;color:#93c5fd;">${esc(state.config.portalTitle)} &bull; ${esc(state.config.instituteName)}</div>
@@ -3192,9 +3437,9 @@
             <button class="btn btn-primary" id="homeCodeJoinBtn" style="white-space:nowrap;flex-shrink:0;">Join &rarr;</button>
           </div>
         </div>
-        ${schedList.length ? `<div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;"><h2 style="margin:0;font-size:17px;">Scheduled Live Exams</h2><button class="btn" style="background:transparent;color:var(--royal-600);padding:4px 8px;" data-jump-tab="TESTS">View All</button></div>${renderScheduledSectionHtml(schedList)}` : ""}
+        ${schedList.length ? `<div class="sec-head-bar"><div class="sec-head-left"><span class="sec-head-accent live"></span><span class="sec-head-ico live"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z"/></svg></span><h2 class="sec-head-title">Scheduled Live Exams</h2></div><button class="sec-head-link" data-jump-tab="TESTS">View All &rarr;</button></div>${renderScheduledSectionHtml(schedList)}` : ""}
         ${meritTableHtml}
-        ${hasPracOrFolders ? `<div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;"><h2 style="margin:0;font-size:17px;">Practice &amp; Quiz Library</h2><button class="btn" style="background:transparent;color:var(--royal-600);padding:4px 8px;" data-jump-tab="TESTS">All Folders</button></div>${pracFmHtml}` : ""}
+        ${hasPracOrFolders ? `<div class="sec-head-bar"><div class="sec-head-left"><span class="sec-head-accent lib"></span><span class="sec-head-ico lib"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg></span><h2 class="sec-head-title">Practice &amp; Quiz Library</h2></div><button class="sec-head-link" data-jump-tab="TESTS">All Folders &rarr;</button></div>${pracFmHtml}` : ""}
         ${renderFooterHtml()}
       `;
       const triggerHomeCodeJoin = () => {
@@ -3222,13 +3467,16 @@
       const el = document.getElementById("tabTESTS");
       const pracFmHtml = renderFileManagerLibraryHtml("studentTestsFolderId", state.studentFolderSearch);
       el.innerHTML = `
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-          <h2 style="margin:0;">All Scheduled &amp; Practice Tests</h2>
+        <div class="sec-head-bar">
+          <div class="sec-head-left">
+            <span class="sec-head-accent"></span>
+            <h2 class="sec-head-title" style="font-size:20px;">All Scheduled &amp; Practice Tests</h2>
+          </div>
           <button class="btn btn-outline" id="openLocalJsonBtn">Play Local JSON File</button>
         </div>
-        <h3 style="margin:4px 0 0;">Scheduled Fixed-Window Exams</h3>
+        <div class="sec-head-bar"><div class="sec-head-left"><span class="sec-head-accent live"></span><h3 class="sec-head-title" style="font-size:17px;">Scheduled Fixed-Window Exams</h3></div></div>
         ${renderScheduledSectionHtml(state.catalog.scheduled, "No scheduled exams published yet.")}
-        <h3>Practice &amp; Quiz Library</h3>
+        <div class="sec-head-bar"><div class="sec-head-left"><span class="sec-head-accent lib"></span><h3 class="sec-head-title" style="font-size:17px;">Practice &amp; Quiz Library</h3></div></div>
         ${pracFmHtml}
         ${renderFooterHtml()}
       `;
@@ -3414,8 +3662,69 @@
       }
     }
 
-    // --- Locked CBT Test Player (Mobile-First + Collapsible Bottom Palette + All 5 Question Types) ---
+    // --- Locked CBT Test Player (Mobile-First + Collapsible Bottom Palette + 2-Strike Auto-Cancel) ---
     let timerInterval = null;
+    function exitPlayerToPortal() {
+      clearInterval(timerInterval);
+      if (document.fullscreenElement) {
+        document.exitFullscreen?.().catch(() => {});
+      }
+      state.player = null;
+      document.body.classList.remove("in-player");
+      document.getElementById("viewPlayer").classList.add("hidden");
+      document.getElementById("viewPlayer").innerHTML = "";
+      document.getElementById("viewPortal").classList.remove("hidden");
+      renderPortalTabs();
+    }
+
+    function triggerProctorSwitch(reason = "Switched window/tab") {
+      const p = state.player;
+      if (!p || !p.isScheduled || p.submitted || p.cancelled) return;
+      const now = Date.now();
+      if (now < (p.ignoreBlurUntilMs || 0) || p.proctorModalOpen) return;
+      if (now - (p.lastBlurAtMs || 0) < 950) return;
+      p.lastBlurAtMs = now;
+      p.warnings = (p.warnings || 0) + 1;
+
+      if (p.warnings === 1) {
+        p.proctorModalOpen = true;
+        renderPlayer();
+        openModal(`
+          <div style="text-align:center;padding:6px 4px;">
+            <div style="width:52px;height:52px;margin:0 auto 10px;border-radius:50%;background:var(--amber-100);color:var(--amber-600);display:flex;align-items:center;justify-content:center;font-size:24px;">&#9888;&#65039;</div>
+            <h2 style="margin:0 0 8px;color:var(--rose-600);">Proctoring Warning #1 of 2</h2>
+            <p style="font-size:13.5px;color:var(--slate-700);line-height:1.6;margin:0 0 12px;">
+              You switched away from the active exam (${esc(reason)}). This activity is logged (<strong>Switches: 1 / 2</strong>).<br/><br/>
+              <strong style="color:var(--rose-600);">Final Warning:</strong> If you leave, switch tabs/apps, or trigger an overlay <strong>1 MORE time</strong>, this test will <strong>automatically cancel &amp; exit</strong> and you must restart from Question 1!
+            </p>
+            <button type="button" class="btn btn-navy" id="proctorAckBtn" style="width:100%;">I Understand — Return to Exam</button>
+          </div>
+        `, false, true);
+        document.getElementById("proctorAckBtn").onclick = () => {
+          closeModal();
+          if (state.player && state.player.isScheduled) {
+            document.documentElement.requestFullscreen?.().catch(() => {});
+          }
+        };
+      } else {
+        p.cancelled = true;
+        closeModal();
+        exitPlayerToPortal();
+        openModal(`
+          <div style="text-align:center;padding:6px 4px;">
+            <div style="width:52px;height:52px;margin:0 auto 10px;border-radius:50%;background:var(--rose-50);color:var(--rose-600);display:flex;align-items:center;justify-content:center;font-size:24px;">&#128683;</div>
+            <h2 style="margin:0 0 8px;color:var(--rose-600);">Test Automatically Cancelled</h2>
+            <p style="font-size:13.5px;color:var(--slate-700);line-height:1.6;margin:0 0 14px;">
+              A <strong>2nd tab/app switch</strong> was detected during your scheduled test. As warned, the exam session has been <strong>automatically cancelled</strong> and unsaved responses were cleared.<br/><br/>
+              You will need to <strong>restart the test from Question 1</strong>.
+            </p>
+            <button type="button" class="btn btn-rose" id="proctorCancelledOkBtn" style="min-width:140px;">Back to Portal</button>
+          </div>
+        `);
+        document.getElementById("proctorCancelledOkBtn").onclick = closeModal;
+      }
+    }
+
     function startExamPlayer(session) {
       state.player = {
         ...session,
@@ -3425,17 +3734,24 @@
         remainingSec: session.durationMinutes * 60,
         responses: session.questions.map((_, i) => ({ selected: null, status: i === 0 ? "NOT_ANSWERED" : "NOT_VISITED" })),
         submitted: false,
+        cancelled: false,
         warnings: 0,
+        lastBlurAtMs: 0,
+        ignoreBlurUntilMs: Date.now() + 900,
+        proctorModalOpen: false,
         result: null
       };
       document.body.classList.add("in-player");
       document.getElementById("viewPortal").classList.add("hidden");
       document.getElementById("viewPlayer").classList.remove("hidden");
+      if (session.isScheduled) {
+        document.documentElement.requestFullscreen?.().catch(() => {});
+      }
       renderPlayer();
 
       clearInterval(timerInterval);
       timerInterval = setInterval(() => {
-        if (!state.player || state.player.submitted) return;
+        if (!state.player || state.player.submitted || state.player.cancelled) return;
         state.player.remainingSec--;
         const tEl = document.getElementById("playerTimerText");
         if (tEl) tEl.textContent = fmtTimer(state.player.remainingSec);
@@ -3448,9 +3764,12 @@
 
     document.addEventListener("visibilitychange", () => {
       if (document.hidden && state.player && state.player.isScheduled && !state.player.submitted) {
-        state.player.warnings++;
-        renderPlayer();
-        alert(`App/Tab Switch Warning #${state.player.warnings}! Switching away from a live scheduled test is recorded.`);
+        triggerProctorSwitch("Tab/App switched");
+      }
+    });
+    window.addEventListener("blur", () => {
+      if (state.player && state.player.isScheduled && !state.player.submitted) {
+        triggerProctorSwitch("Window focus lost / overlay");
       }
     });
 
@@ -3521,25 +3840,36 @@
       const hasStatement = Boolean(stIntro.text || stList.text || stConc.text);
       const hasAssertion = Boolean(rass.text || rrea.text);
       const hasTable = Boolean((tbGrid.headers && tbGrid.headers.length) || (tbGrid.rows && tbGrid.rows.length));
+      const tblColCount = hasTable ? Math.max(tbGrid.headers.length, ...tbGrid.rows.map(r => r.length), 0) : 0;
+      const firstHdrLow = String(tbGrid.headers[0] || "").trim().toLowerCase();
+      const firstColIsSn = Boolean(
+        hasTable && tblColCount > 1 && (
+          /^(s\.?\s*no|sr\.?|sl\.?|no\.?|#|क्र\.?|क्रमांक)/i.test(firstHdrLow) ||
+          tbGrid.rows.every(r => /^\d{1,3}[\.\)]?$/.test(String(r[0] || "").trim()))
+        )
+      );
       const tblHtml = hasTable ? `
         ${tbIntro.text ? `<div style="font-size:14px;font-weight:700;color:var(--slate-900);">${formatRichHtml(tbIntro.text)}</div>` : ""}
         <div class="q-table-wrap">
           <table class="q-table">
-            ${tbGrid.headers.length ? `<thead><tr>${tbGrid.headers.map(h => `<th>${formatRichHtml(h)}</th>`).join("")}</tr></thead>` : ""}
-            <tbody>${tbGrid.rows.map(row => `<tr>${row.map(cell => `<td>${formatRichHtml(cell)}</td>`).join("")}</tr>`).join("")}</tbody>
+            ${tbGrid.headers.length ? `<thead><tr>${Array.from({ length: tblColCount }).map((_, ci) => `<th class="${firstColIsSn && ci === 0 ? "q-col-sn" : ""}">${formatRichHtml(tbGrid.headers[ci] || "")}</th>`).join("")}</tr></thead>` : ""}
+            <tbody>${tbGrid.rows.map(row => `<tr>${Array.from({ length: tblColCount }).map((_, ci) => `<td class="${firstColIsSn && ci === 0 ? "q-col-sn" : ""}">${formatRichHtml(row[ci] ?? "")}</td>`).join("")}</tr>`).join("")}</tbody>
           </table>
         </div>
       ` : "";
+      const wmTag = `${esc(state.profile?.studentName || "GUEST")} • ${esc(state.profile?.rollNumber || "TRIAL")}`;
+      const wmHtml = `<div class="player-watermark" aria-hidden="true">${Array(12).fill(`<span>${wmTag}</span>`).join("")}</div>`;
 
       el.innerHTML = `
         <div class="player-shell">
+          ${wmHtml}
           <header class="player-topbar">
             <button class="player-back-circle" id="exitPlayerBtn" aria-label="Exit Test" title="Exit Test">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
             </button>
             <div class="player-title-wrap">
               <div class="player-title-txt">${esc(p.title)}</div>
-              ${p.isScheduled && p.warnings > 0 ? `<div class="player-sub-row"><span class="badge badge-rose" style="font-size:9.5px;padding:2px 7px;">Switches: ${p.warnings}</span></div>` : ""}
+              ${p.isScheduled && p.warnings > 0 ? `<div class="player-sub-row"><span class="badge badge-rose" style="font-size:9.5px;padding:2px 7px;">Switches: ${p.warnings}/2</span></div>` : ""}
             </div>
             <div class="player-timer-chip">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
@@ -3647,12 +3977,7 @@
 
       document.getElementById("exitPlayerBtn").onclick = () => {
         if (!p.submitted && !confirm("Leave active exam? Unsubmitted answers will be lost.")) return;
-        clearInterval(timerInterval);
-        state.player = null;
-        document.body.classList.remove("in-player");
-        document.getElementById("viewPlayer").classList.add("hidden");
-        document.getElementById("viewPortal").classList.remove("hidden");
-        renderPortalTabs();
+        exitPlayerToPortal();
       };
       document.getElementById("langEnBtn").onclick = () => { if (p.lang !== "en") { p.lang = "en"; renderPlayer(); } };
       document.getElementById("langHiBtn").onclick = () => { if (p.lang !== "hi") { p.lang = "hi"; renderPlayer(); } };
@@ -4432,9 +4757,11 @@
           try {
             const b64 = await fileToBase64(file);
             const ext = (file.name.split(".").pop() || "png").toLowerCase().replace(/[^a-z0-9]/g, "") || "png";
-            const res = await ghUploadContent(cfg, `assets/images/logo_${Date.now()}.${ext}`, b64, "Upload brand logo via Admin Studio");
+            const ghPath = `assets/images/logo_${Date.now()}.${ext}`;
+            const res = await ghUploadContent(cfg, ghPath, b64, "Upload brand logo via Admin Studio");
             document.getElementById("admLogo").value = res.rawUrl;
             showBanner("Logo uploaded to GitHub! Click 'Publish Branding & Footer Live' to apply.");
+            showUploadSuccessDialog("Logo Uploaded to GitHub!", `Saved to <code>${esc(ghPath)}</code> in repo <strong>${esc(cfg.owner)}/${esc(cfg.repo)}</strong>.<br/><br/>Now click <strong>Publish Branding &amp; Footer Live</strong> to save on portal.`);
           } catch (err) {
             alert("Logo upload failed: " + err.message);
           } finally {
@@ -4484,7 +4811,12 @@
             pushAllGhBtn.textContent = "Pushing...";
             try {
               const ok = await ghSyncPortalSnapshot("both");
-              showBanner(ok ? "Pushed CMS & Catalog JSON to GitHub! Students now use 0 Firebase reads." : "GitHub push failed — verify repo & token.");
+              if (ok) {
+                showBanner("Pushed CMS & Catalog JSON to GitHub! Students now use 0 Firebase reads.");
+                showUploadSuccessDialog("GitHub CMS & Catalog Synced!", "Updated <code>portal/dashboard_config.json</code> &amp; <code>portal/test_catalog.json</code> directly on GitHub.<br/>Students will load updates with <strong>0 Firebase reads</strong>.");
+              } else {
+                alert("GitHub push failed — verify repo & token.");
+              }
             } finally {
               pushAllGhBtn.disabled = false;
               pushAllGhBtn.textContent = "Push CMS & Catalog to GitHub (0-Read)";
@@ -4543,10 +4875,12 @@
           try {
             const b64 = await fileToBase64(file);
             const ext = (file.name.split(".").pop() || "png").toLowerCase().replace(/[^a-z0-9]/g, "") || "png";
-            const res = await ghUploadContent(cfg, `assets/images/cms_${Date.now()}.${ext}`, b64, "Upload dashboard CMS image via Admin Studio");
+            const ghImgPath = `assets/images/cms_${Date.now()}.${ext}`;
+            const res = await ghUploadContent(cfg, ghImgPath, b64, "Upload dashboard CMS image via Admin Studio");
             document.getElementById("blkUrl").value = res.rawUrl;
             refreshDraftPreview();
-            showBanner("Image uploaded to GitHub! Preview updated — click Add & Publish when ready.");
+            showBanner("Image uploaded to GitHub! Click Add & Publish Block Live to display.");
+            showUploadSuccessDialog("Image Uploaded to GitHub!", `Saved to <code>${esc(ghImgPath)}</code>.<br/>Click <strong>Add &amp; Publish Block Live</strong> below to publish it to the Dashboard.`);
           } catch (err) {
             alert("Image upload failed: " + err.message);
           } finally {
@@ -4850,6 +5184,10 @@
               state.editingPracticeCreatedAt = null;
               showBanner(`${isEdit ? "Updated" : "Published"} "${title}" to GitHub (${targetPath})!`);
               renderAdminTab();
+              showUploadSuccessDialog(
+                `Practice Test ${isEdit ? "Updated" : "Uploaded"} to GitHub!`,
+                `<strong>${esc(title)}</strong> (${limitedQuestions.length} Qs) saved to:<br/><code>${esc(targetPath)}</code><br/>Catalog synced for <strong>0 Firebase reads</strong>.`
+              );
             } else {
               const createdAtVal = (isEdit && state.editingPracticeCreatedAt) ? state.editingPracticeCreatedAt : serverTimestamp();
               try {
@@ -5089,6 +5427,17 @@
             await ghSyncPortalSnapshot("catalog");
             showBanner(`Scheduled "${title}" (${scheduleCategory}) • Code: ${testCode}`);
             renderAdminTab();
+            if (schedGhPath) {
+              showUploadSuccessDialog(
+                "Scheduled Exam Published to GitHub!",
+                `<strong>${esc(title)}</strong> (${esc(scheduleCategory)} &bull; Code: <strong class="mono">${esc(testCode)}</strong>)<br/>Questions uploaded to <code>${esc(schedGhPath)}</code> &amp; Merit Sheet ready!`
+              );
+            } else {
+              showUploadSuccessDialog(
+                "Scheduled Exam Published!",
+                `<strong>${esc(title)}</strong> (${esc(scheduleCategory)} &bull; Code: <strong class="mono">${esc(testCode)}</strong>) is live!`
+              );
+            }
           } catch (err) {
             alert("Publish Failed: " + err.message);
           } finally {
