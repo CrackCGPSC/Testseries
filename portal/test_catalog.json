@@ -1,22 +1,5 @@
 {
-  "scheduled": [
-    {
-      "testId": "sched_1795216464112",
-      "testCode": "CGQN19",
-      "title": "CG Teacher SST  Mock Test",
-      "instituteName": "Crack CGPSC",
-      "scheduleCategory": "DAILY",
-      "durationMinutes": 120,
-      "marksCorrect": 1,
-      "marksNegative": 0.25,
-      "questionCount": 100,
-      "windowStartMs": 1795216320000,
-      "windowEndMs": 1795317120000,
-      "questionsCleaned": true,
-      "jsonUrl": "https://raw.githubusercontent.com/crackcgpsc/Testseries-/main/tests/scheduled/sched_1795216464112.json",
-      "githubPath": "tests/scheduled/sched_1795216464112.json"
-    }
-  ],
+  "scheduled": [],
   "practice": [
     {
       "testId": "prac_1795196699899",
@@ -347,22 +330,6 @@
       "updatedMs": 1795164676619
     },
     {
-      "id": "fld_1795331344212",
-      "name": "SSC",
-      "parentId": "fld_pyq_papers",
-      "colorKey": "blue",
-      "orderIndex": 39,
-      "updatedMs": 1795331345227
-    },
-    {
-      "id": "fld_1795331359961",
-      "name": "UPSC",
-      "parentId": "fld_pyq_papers",
-      "colorKey": "blue",
-      "orderIndex": 40,
-      "updatedMs": 1795331360470
-    },
-    {
       "id": "fld_1795331427743",
       "name": "Other CG Exams",
       "parentId": "fld_pyq_papers",
@@ -371,5 +338,5 @@
       "updatedMs": 1795331428859
     }
   ],
-  "updatedAtMs": 1795331428860
+  "updatedAtMs": 1795331565624
 }
