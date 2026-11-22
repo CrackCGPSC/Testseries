@@ -12,7 +12,7 @@
       "questionCount": 100,
       "windowStartMs": 1795216320000,
       "windowEndMs": 1795317120000,
-      "questionsCleaned": false,
+      "questionsCleaned": true,
       "jsonUrl": "https://raw.githubusercontent.com/crackcgpsc/Testseries-/main/tests/scheduled/sched_1795216464112.json",
       "githubPath": "tests/scheduled/sched_1795216464112.json"
     }
@@ -347,5 +347,5 @@
       "updatedMs": 1795164676619
     }
   ],
-  "updatedAtMs": 1795216475360
+  "updatedAtMs": 1795331271327
 }
