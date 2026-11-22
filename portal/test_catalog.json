@@ -330,13 +330,29 @@
       "updatedMs": 1795164676619
     },
     {
+      "id": "fld_1795331586111",
+      "name": "UPSC",
+      "parentId": "fld_pyq_papers",
+      "colorKey": "blue",
+      "orderIndex": 40,
+      "updatedMs": 1795331586811
+    },
+    {
       "id": "fld_1795331427743",
       "name": "Other CG Exams",
       "parentId": "fld_pyq_papers",
       "colorKey": "blue",
       "orderIndex": 41,
       "updatedMs": 1795331428859
+    },
+    {
+      "id": "fld_1795331628153",
+      "name": "SSC",
+      "parentId": "fld_pyq_papers",
+      "colorKey": "blue",
+      "orderIndex": 41,
+      "updatedMs": 1795331629159
     }
   ],
-  "updatedAtMs": 1795331565624
+  "updatedAtMs": 1795331629160
 }
