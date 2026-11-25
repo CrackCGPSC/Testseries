@@ -48,16 +48,16 @@
       "appName": "Telegram"
     },
     {
-      "id": "soc_ig",
-      "orderIndex": 1,
-      "url": "https://instagram.com",
-      "appName": "Instagram"
-    },
-    {
       "id": "soc_1795075254899",
       "orderIndex": 2,
       "appName": "Youtube",
       "url": "https://www.youtube.com/@CrackCGPSC"
+    },
+    {
+      "id": "soc_1795598801420",
+      "appName": "Instagram",
+      "url": "https://instagram.com/crackcgpsc.in",
+      "orderIndex": 2
     }
   ],
   "meritListLinks": [
@@ -70,5 +70,5 @@
       "orderIndex": 0
     }
   ],
-  "updatedAtMs": 1795229189904
+  "updatedAtMs": 1795598825748
 }
